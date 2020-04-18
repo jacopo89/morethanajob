@@ -23,6 +23,7 @@ import Dashboard from "./MainApp/Dashboard";
 import * as Routes from './routes';
 import './i18n';
 import ChangePassword from "./Login/Components/ChangePassword";
+import Loading from "./Layout/Loading";
 
 function App(){
     const {authenticated} = useSelector(state=>state);
@@ -31,6 +32,9 @@ function App(){
     const recoverPage = <Layout page={<RecoverPasswordForm/>}/>;
     const dashboardPage = <Layout page={<Dashboard/>}/>;
     const loginPage = <Layout page={<Login/>}/>;
+    const {isLoading} = useSelector(state=>state);
+
+    const loading = <Loading/>;
 
 
 
@@ -57,8 +61,7 @@ function App(){
 
 
     const render = (authenticated) ? mainApp : authRequired ;
-    console.log("render", render);
-    return <>{render}</>;
+    return <>{render}{isLoading && loading}</>;
 }
 
 const composeEnhancers = window.__REDUX_DEVTOOLS_EXTENSION_COMPOSE__ || compose;

@@ -3,7 +3,7 @@ import useCookies from "../Backend/useCookies";
 import * as ActionTypes from "./actions";
 const [accessToken, authenticated] = useCookies();
 
-const initialState = {authenticated:authenticated, user:null};
+const initialState = {authenticated:authenticated, user:null, isLoading:false};
 
 const reducer = (state = initialState, action) => {
 
@@ -11,10 +11,14 @@ const reducer = (state = initialState, action) => {
 
         switch(action.type){
             case ActionTypes.SWITCH_AUTHENTICATION_STATUS: {
-                console.log("Switching state of authenticated");
                 return {...state,
                     authenticated: !state.authenticated
                 };
+            }
+            case ActionTypes.SWITCH_LOADING_STATUS:{
+                return {
+                    ...state, isLoading: action.isLoading
+                }
             }
             default: return state;
         }

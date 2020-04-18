@@ -1,4 +1,7 @@
-import {useState} from "react";
+import {useEffect, useState} from "react";
+import {useDispatch} from "react-redux";
+import * as Actions from "./../Redux/actions";
+import {SWITCH_LOADING_STATUS} from "../Redux/actions";
 
 export function useCreateHook(Client, url, method, defaultDataValue){
 
@@ -10,6 +13,7 @@ export function useCreateHook(Client, url, method, defaultDataValue){
     const defaultSuccessCallback = () => {/*console.log(successMessage);*/};
     const defaultErrorCallback = (e) => {/*console.error(errorMessage, e);*/};
     let requestHandler;
+    const dispatch = useDispatch();
 
     const defaultCallbacks = {
         successCallback: defaultSuccessCallback,
@@ -79,7 +83,7 @@ export function useCreateHook(Client, url, method, defaultDataValue){
         case "post":
         {
             requestHandler = (formData, callbacks = defaultCallbacks) => {
-
+                dispatch({type:SWITCH_LOADING_STATUS, isLoading:true});
                 Client.post(url, formData)
                     .then(response => {
                         console.log("Response", response);
@@ -105,7 +109,8 @@ export function useCreateHook(Client, url, method, defaultDataValue){
                         setStatus(response.status);
 
                     })
-                    .catch((e)=>{
+                    .catch((e)=>
+                    {
                         //ErrorCallback
                         if(callbacks.errorCallback!==undefined){
                             callbacks.errorCallback();
@@ -113,7 +118,9 @@ export function useCreateHook(Client, url, method, defaultDataValue){
                             defaultCallbacks.errorCallback(e);
                         }
                         setStatus(e.response.status);
-                    })
+                    }).finally(()=>{
+                    dispatch({type:SWITCH_LOADING_STATUS, isLoading:false});
+                })
             };
             return [data,requestHandler, loaded, statusResponse];
         }
