@@ -2,7 +2,7 @@ import {Button, ButtonToolbar, ControlLabel, Form, FormControl, FormGroup} from 
 import React, {useState} from "react";
 import {Schema} from 'rsuite';
 import TextField from "./TextField";
-import {RegistrationBox} from "../../styledComponents/CustomComponents";
+import {MainButton, RegistrationBox} from "../../styledComponents/CustomComponents";
 import {useChangePassword} from "../../Backend/useBackend";
 import {useHistory} from "react-router-dom";
 import * as Routes from '../../routes';
@@ -46,7 +46,7 @@ export default function ChangePassword(){
         <TextField name="password" label="New Password" type="password" />
         <TextField name="verifyPassword" label="Type new Password again" type="password" />
         <ButtonToolbar>
-            <Button appearance="primary" type="submit" >Save</Button>
+            <MainButton appearance="primary" type="submit" >Save</MainButton>
             <Button appearance="default" onClick={()=> history.push(Routes.login)}>Login</Button>
         </ButtonToolbar>
     </Form>);

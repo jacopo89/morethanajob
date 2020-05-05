@@ -5,7 +5,7 @@ import {RegistrationBox} from "../../styledComponents/CustomComponents";
 import TextField from "./TextField";
 import {usePasswordRecovery} from "../../Backend/useBackend";
 import {useHistory} from "react-router-dom";
-
+import * as Routes from '../../routes';
 
 
 export default function RecoverPasswordForm(){
@@ -35,7 +35,7 @@ export default function RecoverPasswordForm(){
         <TextField name="recoveryKey" label="Your email or MoreThanAJob username" />
         <ButtonToolbar>
             <Button appearance="primary" type="submit" >Submit</Button>
-            <Button appearance="default" onClick={()=> history.push("/login")}>Login</Button>
+            <Button appearance="default" onClick={()=> history.push(Routes.login)}>Login</Button>
         </ButtonToolbar>
     </Form>);
 

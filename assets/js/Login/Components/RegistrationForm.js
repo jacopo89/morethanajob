@@ -1,40 +1,60 @@
 import {useState} from "react";
-import {Button, ButtonToolbar, ControlLabel, Form, FormControl, FormGroup, HelpBlock} from "rsuite";
+import {
+    Button,
+    SelectPicker,
+    ButtonToolbar,
+    ControlLabel,
+    Form,
+    FormControl,
+    FormGroup,
+    HelpBlock,
+    Schema
+} from "rsuite";
 import React from "react";
+import {MainButton, RegistrationBox, SecondaryButton} from "../../styledComponents/CustomComponents";
+import TextField from "./TextField";
 
 export default function RegistrationForm({registrationProps}){
-    const [email, setEmail] = useState();
-    const [password, setPassword] = useState();
+    const pickerData = [
+        {
+            "label": "Italiano",
+            "value": "it-IT",
+        },
+        {
+            "label": "English",
+            "value": "en-US",
+        }
+        ]
+    const { StringType } = Schema.Types;
 
-    const formData = {
-        email: email,
-        password: password
-    };
 
-    return ( <Form layout="horizontal">
-        <FormGroup>
-            <ControlLabel>Username</ControlLabel>
-            <FormControl name="name"  />
-            <HelpBlock>Required</HelpBlock>
-        </FormGroup>
-        <FormGroup>
-            <ControlLabel>Email</ControlLabel>
-            <FormControl name="email" type="email" onChange={(value) => setEmail(value)} />
-            <HelpBlock>Required</HelpBlock>
-        </FormGroup>
-        <FormGroup>
-            <ControlLabel>Password</ControlLabel>
-            <FormControl name="password" type="password" onChange={(value) => setPassword(value)} />
-        </FormGroup>
-        <FormGroup>
-            <ControlLabel>Textarea</ControlLabel>
-            <FormControl rows={5} name="textarea" componentClass="textarea" />
-        </FormGroup>
-        <FormGroup>
-            <ButtonToolbar>
-                <Button appearance="primary" onClick={()=>registrationProps.registrationHandler(formData)}>Submit</Button>
-                <Button appearance="default">Cancel</Button>
-            </ButtonToolbar>
-        </FormGroup>
-    </Form>);
+    const model = Schema.Model({
+        email: StringType().isRequired('This field is required.'),
+        password: StringType().isRequired('This field is required.'),
+    });
+    const [formValue, setFormValue] = useState();
+    const submitHandler = (formValue) =>
+    {
+
+        registrationProps.registrationHandler();
+    }
+
+
+    return (
+        <RegistrationBox>
+            <Form
+                model={model}
+                formValue={formValue}
+                onChange={setFormValue}
+                onSubmit={()=>submitHandler(formValue)}>
+                <TextField name="email" label="Email"  />
+                <TextField name="password" label="Password" type="password" />
+                <TextField name="language" label="Select Language" accepter={SelectPicker} data={pickerData}/>
+
+                <ButtonToolbar>
+                    <MainButton appearance="primary" onClick={()=>registrationProps.registrationHandler(formData)}>Submit</MainButton>
+                    <SecondaryButton appearance="default">Cancel</SecondaryButton>
+                </ButtonToolbar>
+    </Form>
+        </RegistrationBox>);
 }

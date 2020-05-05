@@ -22,3 +22,7 @@ export function  useChangePassword() {
     return useCreateHook(backendClient,'/passwordchange','post',false);
 }
 
+export function  useCheckUserMail() {
+    const backendClient = BackendClient();
+    return useCreateHook(backendClient,'/checkuser','post',false);
+}

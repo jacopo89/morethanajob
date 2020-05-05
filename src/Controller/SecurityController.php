@@ -89,6 +89,31 @@ class SecurityController extends AbstractController
 
     }
 
+
+    /**
+     * @Route("/checkuser", name="login_check_user")
+     * @param Request $request
+     * @return Response
+     */
+    public function checkUser(Request $request){
+        $mail = $request->get('email');
+
+        $content = null;
+        $status = Response::HTTP_BAD_REQUEST;
+        if(!is_null($mail)){
+            $user = $this->em->getRepository(User::class)->findOneBy(['email'=> $mail]);
+            if($user){
+                $status = Response::HTTP_BAD_REQUEST;
+                $content = "This email is already registered";
+            }else{
+                $status = Response::HTTP_OK;
+            }
+        }
+
+
+        return new Response($this->serializer->serialize($content, 'json'), $status);
+    }
+
     /**
      * @Route("/logout", name="app_logout")
      */
