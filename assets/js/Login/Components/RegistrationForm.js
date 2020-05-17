@@ -52,7 +52,7 @@ export default function RegistrationForm({registrationProps}){
                 <TextField name="language" label="Select Language" accepter={SelectPicker} data={pickerData}/>
 
                 <ButtonToolbar>
-                    <MainButton appearance="primary" onClick={()=>registrationProps.registrationHandler(formData)}>Submit</MainButton>
+                    <MainButton appearance="primary" onClick={()=>registrationProps.registrationHandler(formValue)}>Submit</MainButton>
                     <SecondaryButton appearance="default">Cancel</SecondaryButton>
                 </ButtonToolbar>
     </Form>

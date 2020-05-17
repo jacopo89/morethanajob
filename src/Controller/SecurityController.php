@@ -3,6 +3,7 @@
 namespace App\Controller;
 
 use App\Entity\User;
+use App\Service\FileSystemService;
 use App\Service\Serializer;
 use Doctrine\ORM\EntityManagerInterface;
 use Lexik\Bundle\JWTAuthenticationBundle\Encoder\JWTEncoderInterface;
@@ -18,13 +19,14 @@ class SecurityController extends AbstractController
     private $em;
     private $serializer;
     private $mailer;
-    private $mailerSender;
+    private $fileSystemService;
 
-    public function __construct(EntityManagerInterface $em, \Swift_Mailer $mailer, Serializer $serializer)
+    public function __construct(EntityManagerInterface $em, \Swift_Mailer $mailer, Serializer $serializer, FileSystemService $fileSystemService)
     {
         $this->em = $em;
         $this->serializer = $serializer;
         $this->mailer = $mailer;
+        $this->fileSystemService = $fileSystemService;
 
     }
 
@@ -83,6 +85,10 @@ class SecurityController extends AbstractController
 
         $this->em->persist($user);
         $this->em->flush();
+
+        //If registration is successful we need to create folders
+        $this->fileSystemService->createUserFolder($user->getId());
+
         $this->registrationMail($mail);
 
         return new Response($user->getId());

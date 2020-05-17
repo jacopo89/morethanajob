@@ -24,20 +24,27 @@ import * as Routes from './routes';
 import './i18n';
 import ChangePassword from "./Login/Components/ChangePassword";
 import Loading from "./Layout/Loading";
+import MainPage from "./Layout/MainPage";
+import {useTranslation} from "react-i18next";
 
 function App(){
-    const {authenticated} = useSelector(state=>state);
+    const {authenticated, language} = useSelector(state=>state);
+    const {t,i18n} = useTranslation();
+    console.log("translation", i18n.language)
+    console.log("cookies", language)
+    if(i18n.language!==language){
+
+        i18n.changeLanguage(language);
+    }
+
     const registrationPage = <Layout page={<Registration/>}/>;
     const changePasswordPage = <Layout page={<ChangePassword/>}/>;
     const recoverPage = <Layout page={<RecoverPasswordForm/>}/>;
-    const dashboardPage = <Layout page={<Dashboard/>}/>;
+    const dashboardPage = <MainPage page={<Dashboard/>}/>;
     const loginPage = <Layout page={<Login/>}/>;
     const {isLoading} = useSelector(state=>state);
 
     const loading = <Loading/>;
-
-
-
 
 
     const mainApp =
@@ -55,6 +62,7 @@ function App(){
         (<>
             <Switch>
                 <Route exact path={Routes.main} children={loginPage} />
+                <Route exact path={Routes.login} children={loginPage} />
                 <Route exact path={Routes.registration} children={registrationPage}/>
             </Switch>
         </>);
@@ -73,6 +81,6 @@ const store = createStore(reducer,composeEnhancers(
 
 ReactDOM.render(  <Provider store={store}>
     <BrowserRouter>
-        <App/>
+            <App />
     </BrowserRouter>
 </Provider>, document.getElementById('root'));

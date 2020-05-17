@@ -33,3 +33,10 @@ services:
       public: true
       autoconfigure: true
       arguments: []
+
+    App\Service\FileSystemService:
+      class: App\Service\FileSystemService
+      autowire: true
+      public: true
+      autoconfigure: true
+      arguments: []

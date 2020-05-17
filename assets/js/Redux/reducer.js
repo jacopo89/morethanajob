@@ -1,9 +1,11 @@
 import useCookies from "../Backend/useCookies";
 
 import * as ActionTypes from "./actions";
-const [accessToken, authenticated] = useCookies();
+const [accessToken, authenticated, user, language] = useCookies();
 
-const initialState = {authenticated:authenticated, user:null, isLoading:false};
+console.log("reducer language", language);
+const defaultLanguage = (language!==undefined) ? language : "en";
+const initialState = {authenticated:authenticated, user:user, isLoading:false, language:defaultLanguage};
 
 const reducer = (state = initialState, action) => {
 
@@ -18,6 +20,16 @@ const reducer = (state = initialState, action) => {
             case ActionTypes.SWITCH_LOADING_STATUS:{
                 return {
                     ...state, isLoading: action.isLoading
+                }
+            }
+            case ActionTypes.UPDATE_USER_INFO:{
+                return {
+                    ...state, user: action.user
+                }
+            }
+            case ActionTypes.SWITCH_LANGUAGE:{
+                return {
+                    ...state, language: action.language,
                 }
             }
             default: return state;

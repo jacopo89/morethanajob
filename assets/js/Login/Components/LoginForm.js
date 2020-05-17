@@ -54,7 +54,7 @@ export default function LoginForm({loginProps}){
                     model={model}
                     formValue={formValue}
                     onChange={setFormValue}
-                    onSubmit={()=>submitHandler(formValue)}>
+                    onSubmit={()=>loginProps.loginHandler(formValue)}>
                     <FormGroup>
                         <ControlLabel>Email</ControlLabel>
                         <FormControl name="email" type="email" checkAsync />

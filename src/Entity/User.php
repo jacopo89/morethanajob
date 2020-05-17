@@ -2,6 +2,8 @@
 
 namespace App\Entity;
 
+use Doctrine\Common\Collections\ArrayCollection;
+use Doctrine\Common\Collections\Collection;
 use Doctrine\ORM\Mapping as ORM;
 use Symfony\Component\Security\Core\User\UserInterface;
 
@@ -42,6 +44,26 @@ class User implements UserInterface
      * @ORM\Column(type="datetime", nullable=true)
      */
     private $recoveryKeyCreationTime;
+
+    /**
+     * @ORM\OneToMany(targetEntity="App\Entity\File", mappedBy="user")
+     */
+    private $files;
+
+    /**
+     * @ORM\OneToOne(targetEntity="App\Entity\File", cascade={"persist", "remove"})
+     */
+    private $profilePicture;
+
+    /**
+     * @ORM\OneToOne(targetEntity="App\Entity\File", cascade={"persist", "remove"})
+     */
+    private $coverPicture;
+
+    public function __construct()
+    {
+        $this->files = new ArrayCollection();
+    }
 
     public function getId(): ?int
     {
@@ -141,6 +163,61 @@ class User implements UserInterface
     public function setRecoveryKeyCreationTime(?\DateTimeInterface $recoveryKeyCreationTime): self
     {
         $this->recoveryKeyCreationTime = $recoveryKeyCreationTime;
+
+        return $this;
+    }
+
+    /**
+     * @return Collection|File[]
+     */
+    public function getFiles(): Collection
+    {
+        return $this->files;
+    }
+
+    public function addFile(File $file): self
+    {
+        if (!$this->files->contains($file)) {
+            $this->files[] = $file;
+            $file->setUser($this);
+        }
+
+        return $this;
+    }
+
+    public function removeFile(File $file): self
+    {
+        if ($this->files->contains($file)) {
+            $this->files->removeElement($file);
+            // set the owning side to null (unless already changed)
+            if ($file->getUser() === $this) {
+                $file->setUser(null);
+            }
+        }
+
+        return $this;
+    }
+
+    public function getProfilePicture(): ?File
+    {
+        return $this->profilePicture;
+    }
+
+    public function setProfilePicture(?File $profilePicture): self
+    {
+        $this->profilePicture = $profilePicture;
+
+        return $this;
+    }
+
+    public function getCoverPicture(): ?File
+    {
+        return $this->coverPicture;
+    }
+
+    public function setCoverPicture(?File $coverPicture): self
+    {
+        $this->coverPicture = $coverPicture;
 
         return $this;
     }

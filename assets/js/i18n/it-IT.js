@@ -1,5 +1,7 @@
-const translation = {
+export const translation = {
     translation: {
-        "Welcome to React": "Benvenuto in react"
+        "Welcome to React": "Benvenuto in react",
+        "company":"Compagnia",
+        "Already logged": "Già autenticato"
     }
 }

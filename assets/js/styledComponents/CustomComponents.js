@@ -14,6 +14,17 @@ export const RegistrationBox = styled.div`
     flex-direction: column;
     `;
 
+export const Body = styled.div`
+    background-color: white;
+    max-width: 800px;
+    border-color: ${gray};
+    border-width: 1px;
+    border-style: solid;
+    height:100vh;
+    display: flex;
+    flex-direction: column;
+    `;
+
 export const MainButton = styled(Button)`
     background-color: #2589f5;
     color: white;
