@@ -21,11 +21,17 @@ import Registration from "./Login/Pages/Registration";
 import RecoverPasswordForm from "./Login/Components/RecoverPasswordForm";
 import Dashboard from "./MainApp/Dashboard";
 import * as Routes from './routes';
+
+import * as firebase from "firebase/app";
+import "firebase/auth";
+import "firebase/messaging";
+
 import './i18n';
 import ChangePassword from "./Login/Components/ChangePassword";
 import Loading from "./Layout/Loading";
 import MainPage from "./Layout/MainPage";
 import {useTranslation} from "react-i18next";
+import Test from "./Test";
 
 function App(){
     const {authenticated, language} = useSelector(state=>state);
@@ -79,8 +85,25 @@ const store = createStore(reducer,composeEnhancers(
 ));
 
 
+const  firebaseConfig = {
+    apiKey: "AIzaSyDxbfpWNPN68Pd2arE1mVZlDPSJ_ddbLio",
+    authDomain: "morethanajob-555ac.firebaseapp.com",
+    databaseURL: "https://morethanajob-555ac.firebaseio.com",
+    projectId: "morethanajob-555ac",
+    storageBucket: "morethanajob-555ac.appspot.com",
+    messagingSenderId: "658273758321",
+    appId: "1:658273758321:web:abbb5898193d348bac7fd0",
+    measurementId: "G-KH5GT2GVYS"
+};
+
+// Initialize Firebase
+firebase.initializeApp(firebaseConfig);
+const messaging = firebase.messaging();
+messaging.usePublicVapidKey("BJ2vLwEXdwyrGarVrA8BlhuBKHIcjWNIAE4T9uNUoc2xoxEgAiTfpdVp86gVDkL9TPULDd9LkT5L4Uh9bqKTTKo");
+
+
 ReactDOM.render(  <Provider store={store}>
     <BrowserRouter>
-            <App />
+            <Test />
     </BrowserRouter>
 </Provider>, document.getElementById('root'));

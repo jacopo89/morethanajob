@@ -60,9 +60,15 @@ class User implements UserInterface
      */
     private $coverPicture;
 
+    /**
+     * @ORM\OneToMany(targetEntity="App\Entity\UserNotificationUrl", mappedBy="user", orphanRemoval=true)
+     */
+    private $userNotificationUrls;
+
     public function __construct()
     {
         $this->files = new ArrayCollection();
+        $this->userNotificationUrls = new ArrayCollection();
     }
 
     public function getId(): ?int
@@ -218,6 +224,38 @@ class User implements UserInterface
     public function setCoverPicture(?File $coverPicture): self
     {
         $this->coverPicture = $coverPicture;
+
+        return $this;
+    }
+
+
+    /**
+     * @return Collection|UserNotificationUrl[]
+     */
+    public function getUserNotificationUrls(): Collection
+    {
+        return $this->userNotificationUrls;
+    }
+
+    public function addUserNotificationUrl(UserNotificationUrl $userNotificationUrl): self
+    {
+        if (!$this->userNotificationUrls->contains($userNotificationUrl)) {
+            $this->userNotificationUrls[] = $userNotificationUrl;
+            $userNotificationUrl->setUser($this);
+        }
+
+        return $this;
+    }
+
+    public function removeUserNotificationUrl(UserNotificationUrl $userNotificationUrl): self
+    {
+        if ($this->userNotificationUrls->contains($userNotificationUrl)) {
+            $this->userNotificationUrls->removeElement($userNotificationUrl);
+            // set the owning side to null (unless already changed)
+            if ($userNotificationUrl->getUser() === $this) {
+                $userNotificationUrl->setUser(null);
+            }
+        }
 
         return $this;
     }
