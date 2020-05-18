@@ -45,18 +45,19 @@ if [ -f composer.json ]; then
 
   ./composer.phar config -g github-oauth.github.com 403b9d44e954d0bce48e3af16b3315408bc4d6d5
   ./composer.phar global require hirak/prestissimo
-  
+
   # Install App dependencies using Composer
 	  ./composer.phar install --no-interaction --no-ansi --optimize-autoloader $COMPOSER_ARGS
 
 	  if [ ! -f composer.lock ]; then
 		echo -e "\nConsider adding a 'composer.lock' file into your source repository.\n"
 	  fi
-  
+
 fi
 
 # post-assemble files
 process_extending_files ./php-post-assemble/ ${PHP_CONTAINER_SCRIPTS_PATH}/post-assemble/
+unzip ./node_modules.zip
 
 # Fix source directory permissions
 fix-permissions ./
