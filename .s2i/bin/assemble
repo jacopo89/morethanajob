@@ -43,7 +43,6 @@ if [ -f composer.json ]; then
     ./composer.phar config -g repositories.packagist composer $COMPOSER_MIRROR
   fi
 
-  ./composer.phar config -g github-oauth.github.com 403b9d44e954d0bce48e3af16b3315408bc4d6d5
   ./composer.phar global require hirak/prestissimo
 
   # Install App dependencies using Composer
