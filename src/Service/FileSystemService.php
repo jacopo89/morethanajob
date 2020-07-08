@@ -53,13 +53,46 @@ class FileSystemService extends AbstractController
         return $userFolderPath;
     }
 
+    public function getProjectFolderPath($projectId){
+        $projectFolderPath = $this->getParameter('kernel.project_dir').'/public/uploads/projects/'.$projectId;
+
+        return $projectFolderPath;
+    }
+
     public function getUserFolderWebPath($base, $userId){
-        $userFolderPath = $base.'/public/uploads/users/'.$userId;
+        $userFolderPath = $base.'/uploads/users/'.$userId;
+
+        return $userFolderPath;
+    }
+
+    public function getProjectFolderWebPath($base, $projectId){
+        $userFolderPath = $base.'/uploads/projects/'.$projectId;
 
         return $userFolderPath;
     }
 
 
+    public function createServiceFolder(){
+
+
+        $serviceFolderPath = $this->getParameter('kernel.project_dir').'/public/uploads/services';
+        $isCreated = mkdir($serviceFolderPath);
+        if(!$isCreated){
+            $this->logger->error( self::class.".createServiceFolder");
+        }
+    }
+
+    public function getServiceFolderPath(){
+        $serviceFolderPath = $this->getParameter('kernel.project_dir').'/public/uploads/services';
+
+        return $serviceFolderPath;
+    }
+
+    public function getServiceFolderWebPath($base){
+        $servicesFolderPath = $base.'/uploads/services';
+
+        return $servicesFolderPath;
+    }
 
 
 

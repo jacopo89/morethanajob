@@ -1,38 +1,39 @@
 import React from "react";
-import {useHistory} from "react-router-dom";
+import {Link, useHistory} from "react-router-dom";
 import {useLogin} from "../../Backend/useBackend";
 import {useDispatch, useSelector} from "react-redux";
 import * as ActionTypes from "../../Redux/actions";
 import LoginForm from "../Components/LoginForm";
 import Cookies from "universal-cookie";
 import * as Routes from '../../routes';
-import {useGetUserInfo} from "../../Backend/hooks/UserInfo";
+import {useGetUserInfo, useGetUserInfoByEmail} from "../../Backend/hooks/UserInfo";
 import {useTranslation} from "react-i18next";
+import {Button, ButtonToolbar, ControlLabel, Form, FormControl, FormGroup} from "rsuite";
+import {MainButton, RegistrationBox, SecondaryButton} from "../../styledComponents/CustomComponents";
 
 export default function Login(){
     const history = useHistory();
     const {t} = useTranslation();
 
     const [loginResponse, postLoginHandler] = useLogin();
-    const [userInfo, userInfoHandler] = useGetUserInfo();
+    const [userInfo, userInfoHandler] = useGetUserInfoByEmail();
     //const { t, i18n } = useTranslation();
     const cookies = new Cookies();
 
     const {authenticated, user} = useSelector(state=>state);
 
     const dispatch = useDispatch();
-    const successCallback = (data) => {
-        cookies.set('accessToken', data);
-        cookies.set('authenticated', true);
-        dispatch(ActionTypes.switchAuthenticatedStatus());
+    const successCallback = (accessToken) => {
+       /* cookies.set('accessToken', data);
+        cookies.set('authenticated', true);*/
+        dispatch(ActionTypes.login(accessToken));
 
     };
     const userInfoSuccessCallback = (data) => {
         console.log("info callback",data);
-        cookies.set('user', data);
         //cookies.set('user', JSON.stringify(data));
         dispatch(ActionTypes.updateUserInfo(data));
-        history.push(Routes.dashboard);
+        history.push(Routes.profile(data.profileName));
     };
 
 
@@ -54,5 +55,29 @@ export default function Login(){
 
     }
 
-  return (authenticated) ? <div>{t('Already logged')} </div> : <LoginForm loginProps={loginProps}/>;
+  return (authenticated) ? <AlreadyLoggedIn/> : <LoginForm loginProps={loginProps}/>;
+}
+
+function AlreadyLoggedIn(){
+
+    const dispatch = useDispatch();
+    const {t} = useTranslation();
+    const history = useHistory();
+    const {user} = useSelector(state=>state);
+
+    console.log(user);
+    const signOut = () => {
+        dispatch(ActionTypes.logOut());
+    }
+
+    return (user) ? <Button onClick={history.push(Routes.profile(user.profileName))}/> : <RegistrationBox>
+        <div>
+            <h3>Sign in</h3>
+        </div>
+        <div>
+           <div>{t('already_logged_message')}</div>
+           <Button onClick={()=>signOut()}>{t('sign_out')}</Button>
+        </div>
+
+    </RegistrationBox>
 }

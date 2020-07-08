@@ -2,6 +2,7 @@ import i18n from 'i18next';
 import { initReactI18next } from 'react-i18next';
 import {translation as English} from './i18n/en-US';
 import {translation as Italian} from './i18n/it-IT';
+import {translation as Arabic} from './i18n/ar-AR';
 
 // not like to use this?
 // have a look at the Quick start guide
@@ -21,7 +22,8 @@ i18n
     .init({
         resources: {
             en: English,
-            it: Italian
+            it: Italian,
+            ar: Arabic,
         },
         lng: "en",
         fallbackLng: "en",

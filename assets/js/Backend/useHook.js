@@ -31,6 +31,7 @@ export function useCreateHook(Client, url, method, defaultDataValue){
         {
             let startUrl = url;
             requestHandler = (getParameters, callbacks = defaultCallbacks ) => {
+
                 //console.log("Get Parameters", getParameters);
                 if(Array.isArray(getParameters)){
                     getParameters.forEach((parameter)=>{url += "/" + parameter });
@@ -86,7 +87,6 @@ export function useCreateHook(Client, url, method, defaultDataValue){
                 dispatch({type:SWITCH_LOADING_STATUS, isLoading:true});
                 Client.post(url, formData)
                     .then(response => {
-                        console.log("Response", response);
                         //Data Manipulation
                         //console.log(callbacks);
                         if(callbacks.dataManipulationFunction){

@@ -8,8 +8,11 @@ export default function useCookies(){
     const user = cookies.get('user');
     const language = cookies.get('language');
 
-
-
-    return [accessToken, authenticated, user, language];
+    return {
+        accessToken: accessToken,
+        authenticated: authenticated,
+        user: user,
+        language: language
+    }
 }
 

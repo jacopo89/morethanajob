@@ -1,5 +1,6 @@
 {
     "devDependencies": {
+        "@babel/plugin-proposal-class-properties": "^7.10.1",
         "@babel/preset-react": "^7.8.3",
         "@symfony/webpack-encore": "^0.28.2",
         "core-js": "^3.0.0",
@@ -16,12 +17,15 @@
     },
     "dependencies": {
         "axios": "^0.19.2",
+        "dataurl-to-blob": "0.0.1",
+        "dateformat": "^3.0.3",
         "firebase": "^7.14.4",
         "i18next": "^19.3.3",
         "prop-types": "^15.7.2",
         "react": "^16.12.0",
         "react-dom": "^16.12.0",
         "react-i18next": "^11.3.3",
+        "react-image-crop": "^8.6.4",
         "react-redux": "^7.2.0",
         "react-router-dom": "^5.1.2",
         "react-thunk": "^1.0.0",

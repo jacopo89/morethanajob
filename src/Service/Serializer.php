@@ -9,6 +9,8 @@
 namespace App\Service;
 
 
+use App\Entity\Service;
+use App\Serializer\Normalizer\ServiceNormalizer;
 use Symfony\Component\Serializer\Encoder\JsonEncode;
 use Symfony\Component\Serializer\Encoder\JsonEncoder;
 use Symfony\Component\Serializer\Normalizer\AbstractNormalizer;
@@ -17,7 +19,7 @@ use Symfony\Component\Serializer\Normalizer\ObjectNormalizer;
 class Serializer extends \Symfony\Component\Serializer\Serializer
 {
 
-    public function __construct()
+    public function __construct(ServiceNormalizer $serviceNormalizer)
     {
 
         $encoders = [new JsonEncoder()];
@@ -27,7 +29,8 @@ class Serializer extends \Symfony\Component\Serializer\Serializer
             },
         ];
         $normalizer = new ObjectNormalizer(null, null, null, null, null,null,$defaultContext);
-        $normalizers = [$normalizer];
+
+        $normalizers = [$serviceNormalizer,$normalizer];
 
         parent::__construct($normalizers, $encoders);
     }

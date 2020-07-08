@@ -3,7 +3,10 @@ import '../../css/header.css';
 import {ButtonToolbar, Col, Container, Dropdown, Grid, Icon, Nav, Navbar, Row} from "rsuite";
 import {useTranslation} from "react-i18next";
 import * as ActionTypes from "../Redux/actions";
-import {useDispatch} from "react-redux";
+import {useDispatch, useSelector} from "react-redux";
+import {useHistory} from "react-router-dom";
+import * as Routes from '../routes';
+import {bordeaux} from "../styledComponents/CustomComponents";
 
 
 export default function Header(){
@@ -17,45 +20,42 @@ export default function Header(){
 function NavBarInstance({ onSelect, activeKey, ...props }){
 
     const { t, i18n } = useTranslation();
+    const history = useHistory();
     const dispatch = useDispatch();
     const changeLanguage = code => {
         i18n.changeLanguage(code);
         dispatch(ActionTypes.switchLanguage(code))
 
     };
-    const logout = () => console.log("logout");
+    const {user} = useSelector(state=>state);
+    const signOut = () => {
+        dispatch(ActionTypes.logOut());
+        history.push(Routes.login);
+    }
 
     const CustomDropdown = ({ ...props }) => (
         <Dropdown {...props}>
-        <Dropdown.Item onClick={() => changeLanguage('it')} > It</Dropdown.Item>
-        <Dropdown.Item onClick={() => changeLanguage('en')} > En</Dropdown.Item>
+        <Dropdown.Item onClick={() => changeLanguage('it')} > Italian</Dropdown.Item>
+        <Dropdown.Item onClick={() => changeLanguage('en')} > English</Dropdown.Item>
+        <Dropdown.Item onClick={() => changeLanguage('ar')} > Arabic</Dropdown.Item>
         </Dropdown>
         );
 
     return (
-        <Navbar {...props}>
-            <Navbar.Header>
-                <a href="#" className="navbar-brand logo">
-                    RSUITE
-                </a>
-            </Navbar.Header>
+        <Navbar style={{backgroundColor:bordeaux, position:"fixed", zIndex:100, width:"100%"}} {...props}>
             <Navbar.Body>
                 <Nav onSelect={onSelect} activeKey={activeKey}>
-                    <Nav.Item eventKey="1" icon={<Icon icon="home" />}>
+                    <Nav.Item onClick={()=> history.push(Routes.dashboardPage)} eventKey="1" icon={<Icon icon="home" />}>
                         Home
                     </Nav.Item>
-                    <Nav.Item eventKey="2">News</Nav.Item>
-                    <Nav.Item eventKey="3">Products</Nav.Item>
-
-                    <Dropdown title={t('company')}>
-                        <Dropdown.Item eventKey="4">{t('company')}</Dropdown.Item>
-                        <Dropdown.Item eventKey="5">Team</Dropdown.Item>
-                        <Dropdown.Item eventKey="6">Contact</Dropdown.Item>
-                    </Dropdown>
+                    <Nav.Item eventKey="2">{t('Search partners')}</Nav.Item>
+                    <Nav.Item onClick={()=> history.push(Routes.projectPage)} eventKey="3">{t('Search projects')}</Nav.Item>
+                    <Nav.Item onClick={()=> history.push(Routes.profile(user.profileName))} icon={<Icon icon="cog" />}>{t('Profile')}</Nav.Item>
+                    <Nav.Item onClick={()=> history.push(Routes.administration)} icon={<Icon icon="cog" />}>{t('Administration')}</Nav.Item>
                 </Nav>
                 <Nav pullRight>
-                    <CustomDropdown title="Language" trigger="hover" />
-                    <Nav.Item icon={<Icon icon="cog" />}>Settings</Nav.Item>
+                    <CustomDropdown title={t('language')} trigger="hover" />
+                    <Nav.Item onClick={()=>signOut()} icon={<Icon icon="cog" />}>Logout</Nav.Item>
                 </Nav>
             </Navbar.Body>
         </Navbar>

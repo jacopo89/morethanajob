@@ -5,6 +5,7 @@ namespace App\Security;
 use App\Entity\User;
 use Doctrine\ORM\EntityManagerInterface;
 use Lexik\Bundle\JWTAuthenticationBundle\Encoder\JWTEncoderInterface;
+use Lexik\Bundle\JWTAuthenticationBundle\Exception\JWTDecodeFailureException;
 use Lexik\Bundle\JWTAuthenticationBundle\TokenExtractor\AuthorizationHeaderTokenExtractor;
 use Symfony\Component\HttpFoundation\RedirectResponse;
 use Symfony\Component\HttpFoundation\Request;
@@ -51,11 +52,13 @@ class LoginAuthenticator extends AbstractGuardAuthenticator
      *
      *     return new Response('Auth header required', 401);
      *
+     * @param Request $request
+     * @param AuthenticationException|null $authException
      * @return Response
      */
     public function start(Request $request, AuthenticationException $authException = null)
     {
-        // TODO: Implement start() method.
+        return new RedirectResponse('/app/login');
     }
 
     /**
@@ -63,11 +66,13 @@ class LoginAuthenticator extends AbstractGuardAuthenticator
      *
      * If this returns false, the authenticator will be skipped.
      *
+     * @param Request $request
      * @return bool
      */
     public function supports(Request $request)
     {
-        // TODO: Implement supports() method.
+
+        return !in_array($request->attributes->get('_route'), ['home', 'app_login', 'app_register']);
     }
 
     /**
@@ -95,11 +100,12 @@ class LoginAuthenticator extends AbstractGuardAuthenticator
     {
         $extractor = new AuthorizationHeaderTokenExtractor(
             'Bearer',
-            'Authorization'
+            'Authentication'
         );
+
         $token = $extractor->extract($request);
         if (!$token) {
-            return;
+            return new RedirectResponse("/app/login");
         }
         return $token;
     }
@@ -114,21 +120,25 @@ class LoginAuthenticator extends AbstractGuardAuthenticator
      *
      * @param mixed $credentials
      *
-     * @throws AuthenticationException
-     *
+     * @param UserProviderInterface $userProvider
      * @return UserInterface|null
+     *
      */
     public function getUser($credentials, UserProviderInterface $userProvider)
     {
-        $data = $this->jwtEncoder->decode($credentials);
+        try {
+            $data = $this->jwtEncoder->decode($credentials);
+        } catch (JWTDecodeFailureException $e) {
+            throw new AuthenticationException();
+        }
 
         if ($data === false) {
             throw new CustomUserMessageAuthenticationException('Invalid Token');
         }
-        $username = $data['username'];
+        $email = $data['email'];
         return $this->em
             ->getRepository(User::class)
-            ->findOneBy(['username' => $username]);
+            ->findOneBy(['email' => $email]);
     }
 
     /**
@@ -164,6 +174,7 @@ class LoginAuthenticator extends AbstractGuardAuthenticator
     public function onAuthenticationFailure(Request $request, AuthenticationException $exception)
     {
         // TODO: Implement onAuthenticationFailure() method.
+       // return new RedirectResponse("/app/login");
     }
 
     /**

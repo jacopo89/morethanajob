@@ -1,8 +1,17 @@
 import {BackendClient} from "../axios-client";
 import {useCreateHook} from "../useHook";
+import useCookies from "../useCookies";
+import {useSelector} from "react-redux";
 
 export function  useGetUserInfo() {
 
-    const backendClient = BackendClient();
+    const {accessToken} = useSelector(state=>state);
+    const backendClient = BackendClient(accessToken);
     return useCreateHook(backendClient,'/users/get','get',null);
+}
+
+export function useGetUserInfoByEmail(){
+    const {accessToken} = useSelector(state=>state);
+    const backendClient = BackendClient(accessToken);
+    return useCreateHook(backendClient,'/users/getByMail','get',null);
 }

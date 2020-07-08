@@ -14,7 +14,7 @@ const BackendClient = (token = null, responseType=null)=>
             baseURL: process.env.REACT_APP_BACKEND_URL,
             headers: {
                 'Content-Type': 'application/x-www-form-urlencoded',
-                'Authentication': token
+                'Authentication': 'Bearer ' +token
 
             },
             responseType: responseType

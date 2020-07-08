@@ -65,10 +65,77 @@ class User implements UserInterface
      */
     private $userNotificationUrls;
 
+    /**
+     * @ORM\OneToMany(targetEntity="App\Entity\OfferedService", mappedBy="user", orphanRemoval=true)
+     */
+    private $offeredServicesRelations;
+
+    /**
+     * @ORM\OneToMany(targetEntity="App\Entity\ProjectPartner", mappedBy="partner", orphanRemoval=true)
+     */
+    private $projectsRelations;
+
+    /**
+     * @ORM\ManyToMany(targetEntity="App\Entity\Service", inversedBy="interestedUsers")
+     */
+    private $interests;
+
+    /**
+     * @ORM\OneToMany(targetEntity="App\Entity\PositionUserInterest", mappedBy="user", orphanRemoval=true)
+     */
+    private $positionUserInterests;
+
+    /**
+     * @ORM\Column(type="string", length=255, nullable=true)
+     */
+    private $name;
+
+    /**
+     * @ORM\Column(type="text", nullable=true)
+     */
+    private $description;
+
+    /**
+     * @ORM\Column(type="string", length=255, nullable=true)
+     */
+    private $website;
+
+    /**
+     * @ORM\Column(type="string", length=255)
+     */
+    private $profileName;
+
+    /**
+     * @ORM\Column(type="integer", nullable=true)
+     */
+    private $profileId;
+
+    /**
+     * @ORM\Column(type="string", length=255, nullable=true)
+     */
+    private $address;
+
+    /**
+     * @ORM\Column(type="string", length=255, nullable=true)
+     */
+    private $telephone;
+
+    /**
+     * @ORM\Column(type="string", length=255, nullable=true)
+     */
+    private $language;
+
+
+
     public function __construct()
     {
         $this->files = new ArrayCollection();
         $this->userNotificationUrls = new ArrayCollection();
+        $this->offeredServicesRelations = new ArrayCollection();
+        $this->projectsRelations = new ArrayCollection();
+        $this->interests = new ArrayCollection();
+        $this->positionUserInterests = new ArrayCollection();
+
     }
 
     public function getId(): ?int
@@ -256,6 +323,229 @@ class User implements UserInterface
                 $userNotificationUrl->setUser(null);
             }
         }
+
+        return $this;
+    }
+
+    /**
+     * @return Collection|OfferedService[]
+     */
+    public function getOfferedServicesRelations(): Collection
+    {
+        return $this->offeredServicesRelations;
+    }
+
+    public function addOfferedServicesRelation(OfferedService $offeredServicesRelation): self
+    {
+        if (!$this->offeredServicesRelations->contains($offeredServicesRelation)) {
+            $this->offeredServicesRelations[] = $offeredServicesRelation;
+            $offeredServicesRelation->setUser($this);
+        }
+
+        return $this;
+    }
+
+    public function removeOfferedServicesRelation(OfferedService $offeredServicesRelation): self
+    {
+        if ($this->offeredServicesRelations->contains($offeredServicesRelation)) {
+            $this->offeredServicesRelations->removeElement($offeredServicesRelation);
+            // set the owning side to null (unless already changed)
+            if ($offeredServicesRelation->getUser() === $this) {
+                $offeredServicesRelation->setUser(null);
+            }
+        }
+
+        return $this;
+    }
+
+    /**
+     * @return Collection|ProjectPartner[]
+     */
+    public function getProjectsRelations(): Collection
+    {
+        return $this->projectsRelations;
+    }
+
+    public function addProjectsRelation(ProjectPartner $projectsRelation): self
+    {
+        if (!$this->projectsRelations->contains($projectsRelation)) {
+            $this->projectsRelations[] = $projectsRelation;
+            $projectsRelation->setPartner($this);
+        }
+
+        return $this;
+    }
+
+    public function removeProjectsRelation(ProjectPartner $projectsRelation): self
+    {
+        if ($this->projectsRelations->contains($projectsRelation)) {
+            $this->projectsRelations->removeElement($projectsRelation);
+            // set the owning side to null (unless already changed)
+            if ($projectsRelation->getPartner() === $this) {
+                $projectsRelation->setPartner(null);
+            }
+        }
+
+        return $this;
+    }
+
+    /**
+     * @return Collection|Service[]
+     */
+    public function getInterests(): Collection
+    {
+        return $this->interests;
+    }
+
+    public function addInterest(Service $interest): self
+    {
+        if (!$this->interests->contains($interest)) {
+            $this->interests[] = $interest;
+        }
+
+        return $this;
+    }
+
+    public function removeInterest(Service $interest): self
+    {
+        if ($this->interests->contains($interest)) {
+            $this->interests->removeElement($interest);
+        }
+
+        return $this;
+    }
+
+    /**
+     * @return Collection|PositionUserInterest[]
+     */
+    public function getPositionUserInterests(): Collection
+    {
+        return $this->positionUserInterests;
+    }
+
+    public function addPositionUserInterest(PositionUserInterest $positionUserInterest): self
+    {
+        if (!$this->positionUserInterests->contains($positionUserInterest)) {
+            $this->positionUserInterests[] = $positionUserInterest;
+            $positionUserInterest->setUser($this);
+        }
+
+        return $this;
+    }
+
+    public function removePositionUserInterest(PositionUserInterest $positionUserInterest): self
+    {
+        if ($this->positionUserInterests->contains($positionUserInterest)) {
+            $this->positionUserInterests->removeElement($positionUserInterest);
+            // set the owning side to null (unless already changed)
+            if ($positionUserInterest->getUser() === $this) {
+                $positionUserInterest->setUser(null);
+            }
+        }
+
+        return $this;
+    }
+
+    public function getName(): ?string
+    {
+        return $this->name;
+    }
+
+    public function setName(?string $name): self
+    {
+        $this->name = $name;
+
+        return $this;
+    }
+
+    public function getDescription(): ?string
+    {
+        return $this->description;
+    }
+
+    public function setDescription(?string $description): self
+    {
+        $this->description = $description;
+
+        return $this;
+    }
+
+    public function getWebsite(): ?string
+    {
+        return $this->website;
+    }
+
+    public function setWebsite(?string $website): self
+    {
+        $this->website = $website;
+
+        return $this;
+    }
+
+    public function getPortfolioProjects(){
+        return $this->getProjectsRelations()->map(function(ProjectPartner $projectPartner){ return $projectPartner->getProject();})->filter(function(Project $project){return $project->getIsPortfolio();});
+    }
+
+    public function getCollaborations(){
+        return $this->getProjectsRelations()->map(function(ProjectPartner $projectPartner){ return $projectPartner->getProject();})->filter(function(Project $project){return !$project->getIsPortfolio();});
+    }
+
+    public function getProfileName(): ?string
+    {
+        return $this->profileName;
+    }
+
+    public function setProfileName(string $profileName): self
+    {
+        $this->profileName = $profileName;
+
+        return $this;
+    }
+
+    public function getProfileId(): ?int
+    {
+        return $this->profileId;
+    }
+
+    public function setProfileId(?int $profileId): self
+    {
+        $this->profileId = $profileId;
+
+        return $this;
+    }
+
+    public function getAddress(): ?string
+    {
+        return $this->address;
+    }
+
+    public function setAddress(?string $address): self
+    {
+        $this->address = $address;
+
+        return $this;
+    }
+
+    public function getTelephone(): ?string
+    {
+        return $this->telephone;
+    }
+
+    public function setTelephone(?string $telephone): self
+    {
+        $this->telephone = $telephone;
+
+        return $this;
+    }
+
+    public function getLanguage(): ?string
+    {
+        return $this->language;
+    }
+
+    public function setLanguage(?string $language): self
+    {
+        $this->language = $language;
 
         return $this;
     }

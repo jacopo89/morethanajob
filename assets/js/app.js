@@ -32,6 +32,14 @@ import Loading from "./Layout/Loading";
 import MainPage from "./Layout/MainPage";
 import {useTranslation} from "react-i18next";
 import Test from "./Test";
+import UserManagement from "./MainApp/Administration/UserManagement";
+import CategoriesManagement from "./MainApp/Administration/CategoriesManagement";
+import ProjectPage from "./MainApp/Projects/ProjectsPage";
+import Project from "./MainApp/Projects/Project";
+import Profile from "./MainApp/Profile/Profile";
+import NewProject from "./MainApp/Projects/NewProject";
+import EditProject from "./MainApp/Projects/EditProject";
+import DashboardLayout from "./Layout/DashboardLayout";
 
 function App(){
     const {authenticated, language} = useSelector(state=>state);
@@ -43,11 +51,18 @@ function App(){
         i18n.changeLanguage(language);
     }
 
-    const registrationPage = <Layout page={<Registration/>}/>;
-    const changePasswordPage = <Layout page={<ChangePassword/>}/>;
-    const recoverPage = <Layout page={<RecoverPasswordForm/>}/>;
-    const dashboardPage = <MainPage page={<Dashboard/>}/>;
-    const loginPage = <Layout page={<Login/>}/>;
+    const registrationPage = <DashboardLayout page={<Registration/>}/>;
+    const changePasswordPage = <DashboardLayout page={<ChangePassword/>}/>;
+    const recoverPage = <DashboardLayout page={<RecoverPasswordForm/>}/>;
+    const profilePage = <MainPage page={<Profile/>}/>;
+    const administrationPage = <MainPage page={<CategoriesManagement/>}/>;
+    const projectsPage = <MainPage page={<ProjectPage />}/>;
+    const loginPage = <DashboardLayout page={<Login/>}/>;
+    const projectDetailPage = <MainPage page={<Project/>}/>;
+    const editProjectPage = <MainPage page={<EditProject/>}/>;
+    const dashboardPage = <DashboardLayout page={<Dashboard/>} />
+    const newProjectPage = <MainPage page={<NewProject isPortfolio={false}/>} />
+    const newPorfolioPage = <MainPage page={<NewProject isPortfolio={true}/>} />
     const {isLoading} = useSelector(state=>state);
 
     const loading = <Loading/>;
@@ -59,8 +74,17 @@ function App(){
                 <Route path={Routes.registration} children={registrationPage}/>
                 <Route exact path={Routes.changePassword} children={changePasswordPage}/>
                 <Route path={Routes.passwordRecovery} children={recoverPage}/>
-                <Route path={Routes.dashboard} children={dashboardPage}/>
+                <Route path={Routes.routeProfile} children={profilePage}/>
+                <Route path={Routes.projectPage} children={projectsPage}/>
+                <Route path={Routes.dashboardPage} children={dashboardPage}/>
+                <Route path={Routes.newProjectPage} children={newProjectPage}/>
+                <Route path={Routes.newPortfolioPage} children={newPorfolioPage}/>
+                <Route path={Routes.routeEditProject} children={editProjectPage}/>
+                <Route path={Routes.administration} children={administrationPage}/>
+                <Route path={Routes.routeProject} children={projectDetailPage}/>
                 <Route path={Routes.main} children={loginPage}/>
+                <Route path={Routes.login} children={loginPage}/>
+
             </Switch>
         </>);
 
@@ -70,6 +94,7 @@ function App(){
                 <Route exact path={Routes.main} children={loginPage} />
                 <Route exact path={Routes.login} children={loginPage} />
                 <Route exact path={Routes.registration} children={registrationPage}/>
+                <Route path={Routes.dashboardPage} children={dashboardPage}/>
             </Switch>
         </>);
 
@@ -104,6 +129,6 @@ firebase.initializeApp(firebaseConfig);
 
 ReactDOM.render(  <Provider store={store}>
     <BrowserRouter>
-            <Test />
+            <App />
     </BrowserRouter>
 </Provider>, document.getElementById('root'));

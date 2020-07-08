@@ -12,6 +12,7 @@ namespace App\Controller;
 use App\Entity\File;
 use App\Entity\User;
 use App\Service\FileSystemService;
+use App\Service\Serializer;
 use Sensio\Bundle\FrameworkExtraBundle\Configuration\Route;
 use Symfony\Bundle\FrameworkBundle\Controller\AbstractController;
 use Symfony\Component\HttpFoundation\Request;
@@ -25,9 +26,12 @@ use Symfony\Component\HttpFoundation\Response;
 class ProfileController extends AbstractController
 {
     private $fileSystemService;
-    public function __construct(FileSystemService $fileSystemService)
+    private $serializer;
+
+    public function __construct(FileSystemService $fileSystemService, Serializer $serializer)
     {
         $this->fileSystemService = $fileSystemService;
+        $this->serializer = $serializer;
 
     }
 
@@ -37,11 +41,13 @@ class ProfileController extends AbstractController
      * @return Response
      */
     public function updateCoverPicture(Request $request){
-        $email = $request->get('email');
+        $email = json_decode($request->get('email'),true);
         $user = $this->getDoctrine()->getManager()->getRepository(User::class)->findOneBy(['email'=>$email]);
+        $status = Response::HTTP_INTERNAL_SERVER_ERROR;
+        $message = "Error";
         if($user){
             $userId = $user->getId();
-            $uploadedFile = $request->files->get('coverImage');
+            $uploadedFile = $request->files->get('file');
             $basePath = $request->getBasePath();
 
             $userFolderPath = $this->fileSystemService->getUserFolderPath($userId);
@@ -57,18 +63,75 @@ class ProfileController extends AbstractController
             $file = new File();
             $file->setFilename($newFilename);
             $file->setOriginalFilename($originalFilename);
-            $file->setExtension($uploadedFile->guessExtension());
+            $file->setExtension("png");
             $file->setUrl($path);
             $file->setUser($user);
+            $user->setCoverPicture($file);
 
             $this->getDoctrine()->getManager()->persist($file);
             $this->getDoctrine()->getManager()->persist($user);
             $this->getDoctrine()->getManager()->flush();
+            $status = Response::HTTP_OK;
+            $message = null;
+
+        }else{
+            $status = Response::HTTP_BAD_REQUEST;
+            $message = "User Not found";
 
         }
 
 
-        return new Response(null, Response::HTTP_OK);
+        return new Response($message, $status);
+
+    }
+
+    /**
+     * @Route("/profilePicture")
+     * @param Request $request
+     * @return Response
+     */
+    public function updateProfilePicture(Request $request){
+        $email = json_decode($request->get('email'),true);
+        $user = $this->getDoctrine()->getManager()->getRepository(User::class)->findOneBy(['email'=>$email]);
+        $status = Response::HTTP_INTERNAL_SERVER_ERROR;
+        $message = "Error";
+        if($user){
+            $userId = $user->getId();
+            $uploadedFile = $request->files->get('file');
+            $basePath = $request->getBasePath();
+
+            $userFolderPath = $this->fileSystemService->getUserFolderPath($userId);
+            $originalFilename = pathinfo($uploadedFile->getClientOriginalName(), PATHINFO_FILENAME);
+            $newFilename = $originalFilename.'-'.uniqid().'.'.$uploadedFile->guessExtension();
+            $path = $this->fileSystemService->getUserFolderWebPath($basePath, $userId)."/".$newFilename;
+
+            $uploadedFile->move(
+                $userFolderPath,
+                $newFilename
+            );
+
+            $file = new File();
+            $file->setFilename($newFilename);
+            $file->setOriginalFilename($originalFilename);
+            $file->setExtension("png");
+            $file->setUrl($path);
+            $file->setUser($user);
+            $user->setProfilePicture($file);
+
+            $this->getDoctrine()->getManager()->persist($file);
+            $this->getDoctrine()->getManager()->persist($user);
+            $this->getDoctrine()->getManager()->flush();
+            $status = Response::HTTP_OK;
+            $message = null;
+
+        }else{
+            $status = Response::HTTP_BAD_REQUEST;
+            $message = "User Not found";
+
+        }
+
+
+        return new Response($message, $status);
 
     }
 
@@ -78,13 +141,14 @@ class ProfileController extends AbstractController
      * @return Response
      */
     public function loadFiles(Request $request){
-        $email = $request->get('email');
+        $email = json_decode($request->get('email'),true);
         $user = $this->getDoctrine()->getManager()->getRepository(User::class)->findOneBy(['email'=>$email]);
         $status = Response::HTTP_INTERNAL_SERVER_ERROR;
         $message = "Error";
         if($user){
             $userId = $user->getId();
             $basePath = $request->getBasePath();
+
             $uploadedFiles = $request->files;
             foreach ($uploadedFiles as $uploadedFile){
                 $userFolderPath = $this->fileSystemService->getUserFolderPath($userId);
@@ -100,7 +164,7 @@ class ProfileController extends AbstractController
                 $file = new File();
                 $file->setFilename($newFilename);
                 $file->setOriginalFilename($originalFilename);
-                $file->setExtension($uploadedFile->guessExtension());
+                $file->setExtension("png");
                 $file->setUrl($path);
                 $file->setUser($user);
 
@@ -147,6 +211,37 @@ class ProfileController extends AbstractController
 
     }
 
+
+    /**
+     * @Route("/save")
+     * @param Request $request
+     * @return Response
+     */
+    public function saveProfile(Request $request){
+        $email = json_decode($request->get('email'),true);
+        $name = json_decode($request->get('name'),true);
+        $description = json_decode($request->get('description'),true);
+        $website = json_decode($request->get('website'),true);
+        $address = json_decode($request->get('address'),true);
+        $telephone = json_decode($request->get('telephone'),true);
+        $language = json_decode($request->get('language'),true);
+        $user = $this->getDoctrine()->getManager()->getRepository(User::class)->findOneBy(['email'=>$email]);
+        $status = Response::HTTP_INTERNAL_SERVER_ERROR;
+        $message = "Error";
+        if($user){
+            $user->setName($name);
+            $user->setDescription($description);
+            $user->setWebsite($website);
+            $user->setAddress($address);
+            $user->setTelephone($telephone);
+            $user->setLanguage($language);
+            $this->getDoctrine()->getManager()->persist($user);
+            $this->getDoctrine()->getManager()->flush();
+            $status = Response::HTTP_OK;
+            $message = $this->serializer->serialize($user, 'json');
+        }
+        return new Response($message, $status);
+    }
 
 
 }

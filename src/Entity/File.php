@@ -9,6 +9,11 @@ use Doctrine\ORM\Mapping as ORM;
  */
 class File
 {
+    public function __construct()
+    {
+        $this->creationDate = new \DateTime();
+    }
+
     /**
      * @ORM\Id()
      * @ORM\GeneratedValue()

@@ -6,6 +6,8 @@ use App\Entity\User;
 use App\Service\FileSystemService;
 use App\Service\Serializer;
 use Doctrine\ORM\EntityManagerInterface;
+use Doctrine\ORM\NonUniqueResultException;
+use Doctrine\ORM\NoResultException;
 use Lexik\Bundle\JWTAuthenticationBundle\Encoder\JWTEncoderInterface;
 use Symfony\Bundle\FrameworkBundle\Controller\AbstractController;
 use Symfony\Component\HttpFoundation\Request;
@@ -46,6 +48,7 @@ class SecurityController extends AbstractController
         $user = $this->em->getRepository(User::class)->findOneBy(['email'=> $email]);
         if($user){
 
+            $creation_time = new \DateTime();
             if($encoder->isPasswordValid($user, $password)){
                 $data = [
                     'email' => $email
@@ -77,9 +80,16 @@ class SecurityController extends AbstractController
     {
         $mail = $request->get('email');
         $password = $request->get('password');
+        $name = $request->get('name');
 
         $user = new User();
         $user->setEmail($mail);
+        $user->setName($name);
+        $generateUsernameAnswer = $this->generateUsername($name);
+        $profileName = $generateUsernameAnswer["name"];
+        $profileId = $generateUsernameAnswer["profileId"];
+        $user->setProfileName($profileName);
+        $user->setProfileId($profileId);
         $encodedPassword = $encoder->encodePassword($user,$password);
         $user->setPassword($encodedPassword);
 
@@ -244,5 +254,33 @@ class SecurityController extends AbstractController
 
         $this->mailer->send($message);
 
+    }
+
+    private function generateUsername($name)
+    {
+        $qb = $this->em->createQueryBuilder();
+
+        $qb->select('u, MAX(u.profileId) as HIDDEN idMax')->from(User::class, 'u')->where('u.name =?1')->setParameter(1,$name);
+        try {
+            $existingName = $qb->getQuery()->getSingleResult();
+        } catch (NoResultException $e) {
+            $existingName = "boh";
+        } catch (NonUniqueResultException $e) {
+            $existingName = "boh";
+        }
+
+
+        $name = str_replace(" ", "-",strtolower($name));
+
+        if($existingName){
+            $profileId = $existingName->getProfileId();
+            $newProfileId = $profileId+1;
+            $newName = $name."-".$newProfileId;
+        }else{
+            $newName = $name;
+            $newProfileId = 1;
+
+        }
+        return ["name"=>$newName,"profileId"=> $newProfileId ];
     }
 }
