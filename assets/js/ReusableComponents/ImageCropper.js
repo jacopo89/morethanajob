@@ -21,16 +21,24 @@ export default function ImageCropper({keyField, onChange, locked=false, propCrop
     const [croppedImageUrl, setCroppedImageUrl] = useState(null);
 
     const onModalClose = ()=>{
-        const blob = dataUrlToBlob(croppedImageUrl)
-        onChange(blob);
-        setShow(false);
+        const blob = (croppedImageUrl) ? dataUrlToBlob(croppedImageUrl) : null;
         setSrc(null);
         setImageRef(null);
         setCroppedImageUrl(null);
+        setShow(false);
+        onChange(blob);
     }
 
+    const onHide = ()=>{
+        setSrc(null);
+        setImageRef(null);
+        setCroppedImageUrl(null);
+        setShow(false);
+    }
+
+
     const onSelectFile = files => {
-        console.log("evento", files);
+
         if (files.length > 0) {
             const reader = new FileReader();
             reader.addEventListener('load', () =>
@@ -103,48 +111,47 @@ export default function ImageCropper({keyField, onChange, locked=false, propCrop
                 <Uploader fileListVisible={false} name="courseImage" onChange={onSelectFile}>{button}</Uploader>
             </div>
             <CropperModal src={src} crop={crop} croppedImageUrl={croppedImageUrl} locked={locked}
-                          show={show} onModalClose={onModalClose}
+                          show={show} onModalClose={onHide}
                           onImageLoaded={onImageLoaded} onCropComplete={onCropComplete}
-                          onCropChange={onCropChange}
+                          onCropChange={onCropChange} onSave={onModalClose}
             />
 
         </div>
     );
 }
 
-function CropperModal(props){
-    const src = props.src;
-    const crop = props.crop;
-    const croppedImageUrl = props.croppedImageUrl;
+function CropperModal({src, crop, show,croppedImageUrl, onModalClose, onSave, onCropComplete, onCropChange, locked, onImageLoaded}){
     return (
         <>
 
-            <Modal show={props.show} onHide={props.onModalClose} centered>
+            <Modal show={show} onHide={onModalClose} centered>
                 <Modal.Header>
                     <Modal.Title>Cambia la immagine</Modal.Title>
                 </Modal.Header>
                 <Modal.Body>
                     <h5>Original Image </h5>
+
                     {src && (
                         <ReactCrop
+                            style={{maxWidth:400, maxHeight:200}}
                             src={src}
                             crop={crop}
-                            locked={props.locked}
+                            locked={locked}
                             ruleOfThirds
-                            onImageLoaded={props.onImageLoaded}
-                            onComplete={props.onCropComplete}
-                            onChange={props.onCropChange}
+                            onImageLoaded={onImageLoaded}
+                            onComplete={onCropComplete}
+                            onChange={onCropChange}
                         />
                     )}
                     <h5>Resized Image </h5>
-                    <div style={{display:"flex", justifyContent:"center"}}>
+                    <div style={{display:"flex", justifyContent:"center",maxWidth:400, maxHeight:200}}>
                         {croppedImageUrl && (
                             <img alt="Crop" style={{ maxWidth: '100%' }} src={croppedImageUrl} />
                         )}
                     </div>
                 </Modal.Body>
                 <Modal.Footer>
-                    <Button onClick={props.onModalClose}>Conferma</Button>
+                    <Button onClick={onSave}>Conferma</Button>
                 </Modal.Footer>
             </Modal>
         </>);

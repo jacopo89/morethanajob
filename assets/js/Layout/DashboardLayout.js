@@ -32,17 +32,18 @@ export default function DashboardLayout({page}) {
             </Navbar>
 
 
-
-            <div style={{paddingTop:56, paddingLeft:40, paddingRight:40, margin:"0 auto", width: "100%", background:`linear-gradient(${bordeaux} 50%,50%, white 50%)`}}>)
-                {page}
-            </div>
-            <div style={{width:"100%", height:200, backgroundColor:bordeaux, alignItems:"center", display:"flex", flexDirection:"column", padding:50}}>
-                <div style={{display: "flex", width:400, justifyContent: "space-around"}}>
-                    <Icon style={{color:"white"}} icon="facebook-square" size="3x"/>
-                    <Icon style={{color:"white"}} icon="linkedin-square" size="3x"/>
-                    <Icon style={{color:"white"}} icon="twitter-square" size="3x" /> </div>
-                <p style={{color:"white"}}>enibcmed.eu/projects/morethanajob</p>
-                <p style={{color:"white"}}>More than a job is a project funded by the EU</p>
+            <div style={{display:"flex", height: "100vh", flexDirection: "column", position: "absolute", top:0, width:"100%", paddingTop:53 }}>
+                <div style={{paddingTop:56, paddingLeft:40, paddingRight:40, margin:"0 auto", width: "100%", background:`linear-gradient(${bordeaux} 50%,50%, whitesmoke 50%)`, flexGrow:1 }}>
+                    {page}
+                </div>
+                <div style={{width:"100%", height:200, backgroundColor:bordeaux, alignItems:"center", display:"flex", flexDirection:"column", padding:50}}>
+                    <div style={{display: "flex", width:400, justifyContent: "space-around"}}>
+                        <Icon style={{color:"white"}} icon="facebook-square" size="3x"/>
+                        <Icon style={{color:"white"}} icon="linkedin-square" size="3x"/>
+                        <Icon style={{color:"white"}} icon="twitter-square" size="3x" /> </div>
+                    <p style={{color:"white"}}>enibcmed.eu/projects/morethanajob</p>
+                    <p style={{color:"white"}}>More than a job is a project funded by the EU</p>
+                </div>
             </div>
         </div>
         </DesktopDiv>)

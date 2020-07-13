@@ -1,26 +1,20 @@
 import React, {useEffect, useState} from "react";
-import {useDispatch, useSelector} from "react-redux";
-import {Uploader, Icon, Timeline, Form, Dropdown, Button, Grid, Row, Col, Panel, Modal, IconButton} from "rsuite";
-import {useUploadPictures} from "../../Backend/hooks/useProfile";
+import {useSelector} from "react-redux";
+import {Button, Col, Grid, Icon, Modal, Panel, Row} from "rsuite";
 import styled from "styled-components";
-import * as ActionTypes from '../../Redux/actions';
-import {useGetUserInfo} from "../../Backend/hooks/UserInfo";
-import {ProjectMenu} from "./../Profile/ProjectMenu";
 import {useHistory, useParams} from "react-router-dom";
 import {
     useConfirmApplication,
     useGetApplications,
     useGetProject,
-    usePostApplication, useUploadProjectCover,
-    useUploadProjectLogo
+    usePostApplication
 } from "../../Backend/hooks/useProjects";
-import {bordeaux, InverseButton} from "../../styledComponents/CustomComponents";
-import ImageCropper from "../../ReusableComponents/ImageCropper";
+import {bordeaux, coverPicture, InverseButton, projectPicture} from "../../styledComponents/CustomComponents";
 import * as Routes from "../../routes";
 import {GenericTable} from "../../ReusableComponents/GenericTable";
 import {getCalendarFormat} from "../../ReusableComponents/TimeManager";
 import {useTranslation} from "react-i18next";
-
+import {CollaborationDetail} from "../Profile/submenus/SocietyCollaborations";
 
 
 export default function Project(){
@@ -37,85 +31,42 @@ export default function Project(){
     const history = useHistory();
     //project hooks
     const [project, getProjectHandler] = useGetProject();
-    const[responseLogo, uploadProjectLogoHandler] = useUploadProjectLogo();
-    const[responseCover, uploadProjectPictureHandler] = useUploadProjectCover();
-
-
-    const getProjectFunction = ()=>getProjectHandler(id);
 
     useEffect(()=>{
         getProjectHandler(id);
-    },[])
-
+    },[]);
 
     const isOwner = project.projectPartnersRelations.filter((relation)=> {
         return relation.isLeader===true && relation.partner.email===user.email
     }).length>0;
 
 
-    const onChangeHandler = (file) => {
-        let data = {};
-        const formData = new FormData();
-        formData.append('file', file);
-        data.id = id;
-        Object.keys(data).forEach((key)=>  { formData.append(key,JSON.stringify(data[key]));});
-        uploadProjectPictureHandler(formData, {successCallback: ()=>{
-                getProjectHandler(id)
-            }});
-    };
 
-    const onChangeProjectLogoHandler = (file) => {
-        let data = {};
-        const formData = new FormData();
-        formData.append('file', file);
-        data.id = id;
-        Object.keys(data).forEach((key)=>  { formData.append(key,JSON.stringify(data[key]));});
-        uploadProjectLogoHandler(formData, {successCallback: ()=>{
-                getProjectHandler(id)
-            }});
-    };
-
-    const backgroundImage = (project && project.projectLogo) ? project.projectLogo.url  : "/defaults/project_thumbnail.png";
-    const backgrounCoverdImage = (project && project.projectPicture) ? project.projectPicture.url  : "";
-
-    let positions = null;
-    if(project!==null){
-        positions = project.positions.map((position)=> <PositionDescription project={project} isOwnerOfProject={isOwner} position={position} getProjectFunction={getProjectFunction}/>);
-    }
+    const backgroundImage = (project && project.projectLogo) ? project.projectLogo.url  : projectPicture;
+    const backgrounCoverdImage = (project && project.projectPicture) ? project.projectPicture.url  : coverPicture;
 
     let list;
 
     if(project.isPortfolio){
         const existingPartners = project.projectPartnersRelations.map((projectPartnersRelation)=>{
             let profileImage = projectPartnersRelation.partner.profilePicture.url;
-            return <div style={{backgroundImage:  `url(${profileImage})`, backgroundSize: "contain", width:200, height:200}}/>
+            return <div style={{backgroundImage:  `url(${profileImage})`, backgroundSize: "contain", width:150, height:150}}/>
         });
-        const externalpartners =  project.externalPartners.map((externalPartner)=> externalPartner.name);
+        const externalpartners =  project.externalPartners.map((externalPartner)=> <ExternalPartnerPanel partner={externalPartner}/>);
         list = <>
-            <h5 style={{color:bordeaux, margin:"0 auto"}}>{t('Platform Partners')}</h5>
+            <h4 style={{color:bordeaux, margin:"0 auto"}}>{t('Platform Partners')}</h4>
             <div style={{display:"flex", justifyContent:"space-around", flexWrap:"wrap"}}>{existingPartners}</div>
-            <h5 style={{color:bordeaux, margin:"0 auto"}}>{t('External Partners')}</h5>
+            <h4 style={{color:bordeaux, margin:"0 auto"}}>{t('External Partners')}</h4>
             {externalpartners}
         </>
 
     }else{
-        list = positions;
+        list = project.collaborations.map((collaboration)=> <CollaborationDetail collaboration={collaboration} />);
     }
 
-
-    const uploadCoverButton = <InverseButton>{t('Change cover Button')}</InverseButton>
-
     const projectLogostyle = {backgroundImage:  `url(${backgroundImage})`, backgroundSize: "contain", width:150, height:150}
-    const bottoneUploader = <Button style={projectLogostyle} > Upload</Button>
 
-    const projectLogo = <div style={projectLogostyle}></div>
-        const logo = (isOwner) ? <ImageCropper propCrop={{
-            unit: 'px', // default, can be 'px' or '%'
-            x: 0,
-            y: 0,
-            width: 200,
-            height: 200
-        }} keyField="projectImage" onChange={onChangeProjectLogoHandler} button={bottoneUploader} /> : projectLogo;
+    const projectLogo = <div style={projectLogostyle}/>
     return <>
 
         <div style={{height:250, width:"100%", border:"1px solid black", marginBottom:10, backgroundColor:"black",position:"relative", backgroundImage: `url(${backgrounCoverdImage})`}}>
@@ -131,7 +82,7 @@ export default function Project(){
                 <Row className="show-grid" style={{padding:5, display:"flex", alignItems:"flex-start"}}>
                     <Col xs={8}>
                         <div style={{display:"flex", justifyContent:"center"}}>
-                            {logo}
+                            {projectLogo}
                         </div>
                     </Col>
                     <Col xs={16}>
@@ -146,104 +97,16 @@ export default function Project(){
     </>;
 }
 
+export function ExternalPartnerPanel({partner}){
+    return <>
+        <div>{partner.name}</div>
+        <div>{partner.website}</div>
+        <div>{partner.email}</div>
 
-export function PositionDescription({isOwnerOfProject, position, project, getProjectFunction}){
-
-
-    const history = useHistory();
-    const {user} = useSelector(state=>state);
-
-    const [showModal, setShowModal] = useState(false);
-    const openModal = ()=>setShowModal(true);
-    const closeModal = ()=>setShowModal(false);
-
-    const [applyResponse, postApplicationHandler] = usePostApplication();
-
-    const postApplicationFunction = () => {
-        const formData = new FormData();
-        formData.append('user', user.email);
-        formData.append('position', position.id);
-        postApplicationHandler(formData);
-    }
-
-
-    const relations = project.projectPartnersRelations.filter((relation) => {
-        if(relation.position){
-            return relation.position.id === position.id
-        }
-    }).map(relation=>  {
-        let profileImage = (relation.partner.profilePicture) ? "https://localhost:8000/"+relation.partner.profilePicture.url : "";
-        return <div style={{backgroundImage:  `url(${profileImage})`, backgroundSize: "contain", width:100, height:100}}/>
-    });
-
-
-    const relationsList = relations.map(item=> <div>{item}</div>);
-
-
-
-    const backgroundImage = (position && position.service && position.service.picture) ? "https://localhost:8000/"+position.service.picture  : "https://localhost:8000/uploads/users/7/society-5ed3a86ac6b2d.png";
-
-    const alreadyApplied = position.positionUserInterests.filter((userinterest)=> userinterest.user.id === user.id).length>0;
-
-    const render = (position.isOpen) ?
-        <>
-        <Panel header={
-            <PositionPanelTitle position={position} />}>
-            <Row className="show-grid">
-                <Col xs={8}>
-                    <div style={{display:"flex", justifyContent:"center"}}>
-                        <div style={{backgroundImage:  `url(${backgroundImage})`, backgroundSize: "contain", width:150, height:150}}/>
-                    </div>
-                </Col>
-                <Col xs={16}>
-                    <div style={{height:150, maxHeight:150}}>{position.description}</div>
-                    {isOwnerOfProject && <Button onClick={openModal} >Check requests!</Button> }
-                    {position.isOpen && !alreadyApplied && !isOwnerOfProject && <Button style={{float:"right"}} onClick={()=>postApplicationFunction()}>Apply!</Button> }
-                </Col>
-            </Row>
-        </Panel>
-        <RequestsModal position={position} showModal={showModal} closeModal={closeModal} callback={getProjectFunction}/>
-    </> :
-        <>
-            <Panel header={
-                <PositionPanelTitle position={position} />}>
-                <Row className="show-grid">
-                    <Col xs={8}>
-                        <div style={{display:"flex", justifyContent:"center"}}>
-                            <div style={{backgroundImage:  `url(${backgroundImage})`, backgroundSize: "contain", width:150, height:150}}/>
-                        </div>
-                    </Col>
-                    <Col xs={16}>
-                        <div style={{height:150, maxHeight:150, display:"flex", flexDirection:"column", flexWrap:"wrap", justifyContent:"space-around"}}>
-                            <div style={{width:"100%", flexGrow:1}} >{position.description}</div>
-                            <div style={{display:"flex",alignItems:"center"}}>
-                                assigned to
-                                {relations}
-                            </div>
-                        </div>
-                    </Col>
-                </Row>
-            </Panel>
         </>
-    ;
-    return render;
-
 }
 
-export function PositionPanelTitle({position}){
 
-
-
-    return <div style={{backgroundColor:bordeaux, height:40, color:"white", display: "flex", justifyContent: "space-evenly",alignItems: "center"}}>
-        <div style={{flexGrow:3, paddingLeft:5, fontWeight: "bold", fontSize:20}}>
-            {position.service.label}
-        </div>
-        <div style={{flexGrow:1}}>
-            <Icon icon="calendar-o"/> From {getCalendarFormat(position.startDate)} to {getCalendarFormat(position.endDate)}
-        </div>
-    </div>
-
-}
 
 
 export function RequestsModal({position, showModal, closeModal, callback}){
@@ -328,39 +191,6 @@ export function RequestsModal({position, showModal, closeModal, callback}){
 const InfoBox =  styled.div`
 padding: 10px;`
 ;
-
-const ProjectsBox =  styled.div`
-border-color: gray;
-border-width: 26px;
-border-style: dashed;
-border-radius: 10px;
-padding: 10px;
-overflow: scroll;
-max-height:200px`
-
-;
-const UpdateProfilePicButton =  styled.div`
-width: 160px;
-background-color: transparent;
-position: absolute;
-bottom: 4;
-left: 4;
-height: 80px;
-border-bottom-left-radius: 80px;
-border-bottom-right-radius: 80px;
-&:hover {
-background-color: black;
-opacity: 50%
-}
-`
-;
-
-const EditButton = styled(Button)`
-background-color: gray;
-position: absolute;
-bottom: 4;
-right: 4;
-`;
 
 const LinearGradient = styled.div`
 position: absolute;

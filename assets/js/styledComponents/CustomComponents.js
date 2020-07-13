@@ -1,5 +1,5 @@
 import styled from "styled-components";
-import {Button} from 'rsuite';
+import {Button, IconButton} from 'rsuite';
 
 export const gray = "#f7f8f9";
 export const bordeaux = "#b45860";
@@ -19,25 +19,38 @@ export const RegistrationBox = styled.div`
 
 export const Body = styled.div`
     background-color: white;
-    max-width: 900px;
-    border-color: ${gray};
-    border-width: 1px;
-    border-style: solid;
+    max-width: 1081px;
     display: flex;
     flex-direction: column;
     `;
 
 export const MainButton = styled(Button)`
-    background-color: #2589f5;
+    background-color: ${bordeaux};
     color: white;
     `;
 
-export const SecondaryButton = styled(Button)``;
+export const SecondaryButton = styled(Button)`
+    background-color: white;
+    color: ${bordeaux};
+    border: 1px solid ${bordeaux}
+`;
 
-export const DeleteButton = styled(Button)``;
 
 export const InverseButton = styled(Button)`
-    background-color: white!important;
+    background-color: transparent!important;
     color:${bordeaux}!important;
-    border: 4px solid ${bordeaux}!important;
+    border: 1px solid ${bordeaux}!important;
+    &:hover {
+        background-color: white;
+    }
     `;
+
+export const IconButtonTransparent = styled(IconButton)`
+    background-color:white;
+    color:${bordeaux};
+`;
+
+
+export const profilePicture = "/defaults/profile_thumbnail.png";
+export const projectPicture = "/defaults/project_thumbnail.png";
+export const coverPicture = "/defaults/cover_thumbnail.png";

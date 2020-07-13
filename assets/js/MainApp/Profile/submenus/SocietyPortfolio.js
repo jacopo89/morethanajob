@@ -24,10 +24,10 @@ export default function SocietyPortfolio({society}) {
         getPortfolioProjectsHandler(society.email);
     }
 
-    const panels = portfolioProjects.map((project, item)=> <PortfolioDetail project={project}/>);
+    const panels = portfolioProjects.map((project, item)=> <PortfolioDetail key={item} project={project}/>);
     const panelShow = panels.length > 0 ? panels : <div style={{height:100, margin:"0 auto", textAlign:"center", color:bordeaux}}> No portfolio projects </div>
     return  <>
-        <IconButton onClick={() => history.push(Routes.newPortfolioPage)} icon={<Icon icon="plus"/>}/>
+
         <PanelGroup>{panelShow}</PanelGroup>
         <NewProjectModal show={show} onHide={closeModal} successCallback={successCallback} isPortfolio={true} />
         </>
@@ -40,11 +40,11 @@ export function PortfolioDetail({project}){
 
     const history = useHistory();
 
-    const backgroundImage = (project && project.projectLogo) ? "https://localhost:8000/"+project.projectLogo.url  : "https://localhost:8000/uploads/users/7/society-5ed3a86ac6b2d.png";
+    const backgroundImage = (project && project.projectLogo) ? project.projectLogo.url  : "/defaults/project_thumbnail.png";
 
-        const existingPartners = project.projectPartnersRelations.map((projectPartnersRelation)=>{
+        const existingPartners = project.projectPartnersRelations.map((projectPartnersRelation, index)=>{
             let profileImage = (projectPartnersRelation.partner.profilePicture) ? "https://localhost:8000/"+projectPartnersRelation.partner.profilePicture.url : "";
-            return <div style={{backgroundImage:  `url(${profileImage})`, backgroundSize: "contain", width:50, height:50}}/>
+            return <div key={index} style={{backgroundImage:  `url(${profileImage})`, backgroundSize: "contain", width:50, height:50}}/>
         });
         const externalpartners =  project.externalPartners.map((externalPartner)=> externalPartner.name);
         let list = <>
@@ -86,7 +86,7 @@ export function PortfolioPanelTitle({project}){
         <div style={{flexGrow:3, paddingLeft:5, fontWeight: "bold", fontSize:20}}>
             {project.title}
         </div>
-        <div style={{flexGrow:1}}>
+        <div style={{flexGrow:1,fontSize:12}}>
             <Icon icon="calendar-o"/> From {getCalendarFormat(project.startTime)} to {getCalendarFormat(project.endTime)}
         </div>
 

@@ -1,0 +1,16 @@
+#projectMenu .rs-nav-item a{
+    color: rgb(180, 88, 96)!important;
+    font-weight: bold;
+    font-size: 16px;
+    text-align: center;
+}
+#projectMenu .rs-nav-item-active{
+    color: rgb(180, 88, 96)!important;
+    font-weight: bold;
+    font-size: 16px;
+    text-align: center;
+}
+
+#projectMenu .rs-nav-subtle .rs-nav-horizontal .rs-nav-item>.rs-nav-item-content:before a{
+    color: rgb(180, 88, 96)!important;
+}

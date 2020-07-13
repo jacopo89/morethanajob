@@ -125,6 +125,26 @@ class User implements UserInterface
      */
     private $language;
 
+    /**
+     * @ORM\OneToMany(targetEntity="App\Entity\Collaboration", mappedBy="user", orphanRemoval=true)
+     */
+    private $collaborations;
+
+    /**
+     * @ORM\Column(type="string", length=255, nullable=true)
+     */
+    private $facebook;
+
+    /**
+     * @ORM\Column(type="string", length=255, nullable=true)
+     */
+    private $linkedin;
+
+    /**
+     * @ORM\Column(type="string", length=255, nullable=true)
+     */
+    private $twitter;
+
 
 
     public function __construct()
@@ -135,6 +155,7 @@ class User implements UserInterface
         $this->projectsRelations = new ArrayCollection();
         $this->interests = new ArrayCollection();
         $this->positionUserInterests = new ArrayCollection();
+        $this->collaborations = new ArrayCollection();
 
     }
 
@@ -486,9 +507,33 @@ class User implements UserInterface
         return $this->getProjectsRelations()->map(function(ProjectPartner $projectPartner){ return $projectPartner->getProject();})->filter(function(Project $project){return $project->getIsPortfolio();});
     }
 
-    public function getCollaborations(){
-        return $this->getProjectsRelations()->map(function(ProjectPartner $projectPartner){ return $projectPartner->getProject();})->filter(function(Project $project){return !$project->getIsPortfolio();});
+    public function getProjects(){
+        return $this->getProjectsRelations()->map(function(ProjectPartner $projectPartner){ return $projectPartner->getProject();})->filter(function(Project $project){return $project->getIsPortfolio()===false;});
     }
+
+    public function getCollaborations(): Collection
+    {
+        return $this->collaborations;
+    }
+
+    public function getServices(): Collection
+    {
+        return $this->collaborations->filter(function(Collaboration $collaboration){
+            return $collaboration->getPositions()->filter(function(Position $position){
+                return ($position->getIsOpen()===true);
+            })->isEmpty();
+        });
+    }
+
+    public function getActiveCollaborations(): Collection
+    {
+        return $this->collaborations->filter(function(Collaboration $collaboration) {
+            return !$collaboration->getPositions()->filter(function (Position $position) {
+                return ($position->getIsOpen() === true);
+            })->isEmpty();
+        });
+    }
+
 
     public function getProfileName(): ?string
     {
@@ -546,6 +591,65 @@ class User implements UserInterface
     public function setLanguage(?string $language): self
     {
         $this->language = $language;
+
+        return $this;
+    }
+
+    public function addCollaboration(Collaboration $collaboration): self
+    {
+        if (!$this->collaborations->contains($collaboration)) {
+            $this->collaborations[] = $collaboration;
+            $collaboration->setUser($this);
+        }
+
+        return $this;
+    }
+
+    public function removeCollaboration(Collaboration $collaboration): self
+    {
+        if ($this->collaborations->contains($collaboration)) {
+            $this->collaborations->removeElement($collaboration);
+            // set the owning side to null (unless already changed)
+            if ($collaboration->getUser() === $this) {
+                $collaboration->setUser(null);
+            }
+        }
+
+        return $this;
+    }
+
+    public function getFacebook(): ?string
+    {
+        return $this->facebook;
+    }
+
+    public function setFacebook(?string $facebook): self
+    {
+        $this->facebook = $facebook;
+
+        return $this;
+    }
+
+    public function getLinkedin(): ?string
+    {
+        return $this->linkedin;
+    }
+
+    public function setLinkedin(?string $linkedin): self
+    {
+        $this->linkedin = $linkedin;
+
+        return $this;
+    }
+
+    public function getTwitter(): ?string
+    {
+        return $this->twitter;
+    }
+
+    public function setTwitter(?string $twitter): self
+    {
+        $this->twitter = $twitter;
 
         return $this;
     }

@@ -1,26 +1,52 @@
-import {Icon, Nav} from "rsuite";
+import {Button, Icon, IconButton, Nav} from "rsuite";
 import React, {useState} from "react";
 import SocietyPortfolio from "./submenus/SocietyPortfolio";
 import SocietyContacts from "./submenus/SocietyContacts";
-import SocietyServices from "./submenus/SocietyServices";
+import SocietyFornitures, {NewServiceModal} from "./submenus/SocietyFornitures";
 import SocietyCollaborations from "./submenus/SocietyCollaborations";
-
+import {bordeaux, IconButtonTransparent} from "../../styledComponents/CustomComponents";
+import "./projectMenu.css";
+import SocietyProjects from "./submenus/SocietyProjects";
+import * as Routes from "../../routes";
+import {useHistory} from "react-router-dom";
+import SocietyServices from "./submenus/SocietyServices";
 
 const renderItemFunction = (item) => {
-    const style = {height:25}
+    const style = {height:25, color:bordeaux}
+
     return item;
-    return <div style={style}>{item.props.children[1]}</div>
 }
 
 const CustomNav = ({ active, onSelect, ...props }) => {
+
+    const history = useHistory();const [show, setShow] = useState(false);
+    const openModal = ()=> setShow(true);
+    const closeModal = ()=> setShow(false);
+
     return (
-        <Nav {...props} activeKey={active} onSelect={onSelect} justified>
-            <Nav.Item renderItem={renderItemFunction} eventKey="portfolio" icon={<Icon icon="home" />}>
-                Portfolio
+        <Nav id="projectMenu" {...props} activeKey={active} onSelect={onSelect} justified>
+            <Nav.Item renderItem={renderItemFunction} eventKey="portfolio">
+                <div style={{display:"flex", alignItems:"center", justifyContent:"center"}}>
+                    <Icon icon="home" /> PORTFOLIO  <IconButtonTransparent onClick={() => history.push(Routes.newPortfolioPage)} icon={<Icon icon="plus"/>}/>
+                </div>
             </Nav.Item>
-            <Nav.Item renderItem={renderItemFunction} eventKey="societies">Servizi</Nav.Item>
-            <Nav.Item renderItem={renderItemFunction} eventKey="collaborations">Collaboriamo</Nav.Item>
-            <Nav.Item renderItem={renderItemFunction} eventKey="contacts">Contatti</Nav.Item>
+            <Nav.Item renderItem={renderItemFunction} eventKey="offerings">OFFRO
+                <IconButtonTransparent onClick={() => openModal()} icon={<Icon icon="plus"/>}/>
+                <NewServiceModal show={show} onHide={closeModal}/>
+            </Nav.Item>
+            <Nav.Item renderItem={renderItemFunction} eventKey="projects">
+                PROGETTI
+                <IconButtonTransparent onClick={() => history.push(Routes.newProjectPage)} icon={<Icon icon="plus"/>}/>
+            </Nav.Item>
+            <Nav.Item renderItem={renderItemFunction} eventKey="services">
+                SERVIZI
+                <IconButtonTransparent onClick={() => history.push(Routes.newServicePage)} icon={<Icon icon="plus"/>}/>
+            </Nav.Item>
+            <Nav.Item renderItem={renderItemFunction} eventKey="collaborations">
+                COLLABORIAMO
+                <IconButtonTransparent onClick={() => history.push(Routes.newCollaborationPage)} icon={<Icon icon="plus"/>}/>
+            </Nav.Item>
+            <Nav.Item renderItem={renderItemFunction} eventKey="contacts">CONTATTI</Nav.Item>
         </Nav>
     );
 };
@@ -39,8 +65,11 @@ export function ProjectMenu({society}){
             case 'portfolio':{
                 return <SocietyPortfolio society={society} />
             }
-            case 'societies':{
-                return <SocietyServices society={society} />
+            case 'offerings':{
+                return <SocietyFornitures society={society} />
+            }
+            case 'projects':{
+                return <SocietyProjects society={society}/>
             }
             case 'collaborations':{
                 return <SocietyCollaborations society={society} />
@@ -48,13 +77,16 @@ export function ProjectMenu({society}){
             case 'contacts':{
                 return <SocietyContacts society={society} />
             }
+            case 'services':{
+                return <SocietyServices society={society} />
+            }
 
         }
     }
 
     return (
         <div>
-            <CustomNav appearance="subtle" reversed active={active} onSelect={handleSelect} />
+            <CustomNav appearance="subtle" active={active} onSelect={handleSelect} />
             {mainPart(active)}
         </div>
     );

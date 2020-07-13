@@ -1,0 +1,31 @@
+#mainHeader .rs-nav-item a{
+    color: white!important;
+    font-weight: bold;
+    font-size: 16px;
+    text-align: center;
+}
+
+#mainHeader .rs-nav-item a:hover{
+    color: rgb(180, 88, 96)!important;
+    background-color: white;
+    font-weight: bold;
+    font-size: 16px;
+    text-align: center;
+}
+#mainHeader .rs-nav-item-active{
+    color: rgb(180, 88, 96)!important;
+    font-weight: bold;
+    font-size: 16px;
+    text-align: center;
+}
+
+#mainHeader .rs-nav-subtle .rs-nav-horizontal .rs-nav-item>.rs-nav-item-content:before a{
+    color: rgb(180, 88, 96)!important;
+}
+
+#mainHeader .rs-btn .rs-btn-subtle .rs-dropdown-toggle{
+    color: white!important;
+    font-weight: bold;
+    font-size: 16px;
+    text-align: center;
+}

@@ -5,13 +5,15 @@ import * as Routes from '../routes'
 import {Body, bordeaux, gray} from "../styledComponents/CustomComponents";
 import styled from "styled-components";
 import TextField from "../Login/Components/TextField";
+import "./dashboard.css";
 
 export default function Dashboard(){
     const history = useHistory();
 
+    const panelStyle = {width: "85%", borderRadius:"20px", backgroundColor:"white", margin:"0 auto", padding:20, marginTop:20}
 
     return <>
-        <Navbar appearance="inverse" style={{backgroundColor:"transparent", color:"white"}} >
+        <Navbar id="dashboard" appearance="inverse" style={{backgroundColor:"transparent", color:"white"}} >
             <Navbar.Body>
                 <Nav>
                     <Nav.Item eventKey="1" icon={<Icon icon="home" />}>
@@ -29,7 +31,7 @@ export default function Dashboard(){
             </Navbar.Body>
         </Navbar>
         <Body style={{backgroundColor:"transparent", maxWidth:"none"}}>
-            <Box>
+            <Panel shaded style={panelStyle}>
                 <Grid fluid>
                     <Row className="show-grid">
                         <Col xs={12}>
@@ -42,13 +44,13 @@ export default function Dashboard(){
                         </Col>
                     </Row>
                 </Grid>
-            </Box>
-            <Box id="aboutUs">
+            </Panel>
+            <Panel shaded style={panelStyle} id="aboutUs">
                 <Title>
                 ABOUT US
                 </Title>
-            </Box>
-            <Box>
+            </Panel>
+            <Panel shaded style={panelStyle}>
                 <Title>Categories</Title>
                 <div style={{display:"flex", justifyContent:"space-around"}}>
                     <IconTextBox>
@@ -74,8 +76,8 @@ export default function Dashboard(){
 
                 </div>
 
-            </Box>
-            <Box>
+            </Panel>
+            <Panel shaded style={panelStyle}>
                 <Title>FAQ</Title>
                 <PanelGroup accordion bordered>
                     <Panel header="Does this course need special requirements?" defaultExpanded>
@@ -88,17 +90,17 @@ export default function Dashboard(){
                         Domanda 3
                     </Panel>
                 </PanelGroup>
-            </Box>
-            <Box>
+            </Panel>
+            <Panel shaded style={panelStyle}>
                 <Title>Contattaci</Title>
                 <Form fluid>
-                    <TextField name="name" label="Name" />
-                    <TextField name="surname" label="Surname" />
-                    <TextField name="message" label="Message" componentClass="textarea" />
+                    <TextField name="name" placeHolder="Name" />
+                    <TextField name="surname" placeHolder="Surname" />
+                    <TextField name="message" placeHolder="Message" componentClass="textarea" />
                     <Button style={{float:"right", backgroundColor:bordeaux}}>Submit message </Button>
 
                 </Form>
-            </Box>
+            </Panel>
 
         </Body>
     </>

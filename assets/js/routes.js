@@ -11,7 +11,13 @@ export const projectPage = "/app/projects";
 export const dashboardPage = "/app/dashboard";
 export const newProjectPage = "/app/newproject";
 export const newPortfolioPage = "/app/newportfolio";
-
+export const newCollaborationPage = "/app/newcollaboration";
+export const newServicePage = "/app/newservice";
+export const collaborationDetailPage = "/app/collaboration/:id";
+export const routeProfile = "/app/profile/:profilename";
+export const routeProject = "/app/project/:id";
+export const routeEditProject = "/app/editproject/:id";
+export const routeEditCollaboration = "/app/editcollaboration/:id";
 
 
 export function profile(name){
@@ -23,8 +29,16 @@ export function project(id){
 }
 
 export function editProject(id){
-    return "/app/project/edit/"+id;
+    return "/app/editproject/"+id;
 }
-export const routeProfile = "/app/profile/:profilename";
-export const routeProject = "/app/project/:id";
-export const routeEditProject = "/app/project/edit/:id";
+
+export function collaboration(id){
+    return "/app/collaboration/"+id;
+}
+
+export function editCollaboration(id){
+    return "/app/editcollaboration/"+id;
+}
+
+
+

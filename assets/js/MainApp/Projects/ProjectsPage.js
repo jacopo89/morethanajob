@@ -14,7 +14,7 @@ import React, {useEffect, useState} from "react";
 import TextField from "../../Login/Components/TextField";
 import HorizontalStepForm from "../../ReusableComponents/HorizontalStepForm";
 import {useGetServices} from "../../Backend/hooks/useServices";
-import {generateTree} from "../Administration/CategoriesManagement";
+import {generateServiceTree} from "../Administration/CategoriesManagement";
 import {GenericTable} from "../../ReusableComponents/GenericTable";
 import {useCreateNewProject, useGetLastProjects, useSearchProjects} from "../../Backend/hooks/useProjects";
 import styled from "styled-components";
@@ -24,7 +24,7 @@ import {useHistory} from "react-router-dom";
 import {PortfolioDetail} from "../Profile/submenus/SocietyPortfolio";
 import {dataCountry, dataLanguage} from "../../selectData";
 import {useGetUsers} from "../../Backend/hooks/useAdministration";
-import {ServiceDetail} from "../Profile/submenus/SocietyServices";
+import {ServiceDetail} from "../Profile/submenus/SocietyFornitures";
 
 
 const FilterBox = styled.div`
@@ -77,7 +77,7 @@ export default function ProjectPage(){
     useEffect(()=>{
         getServicesHandler();
     },[]);
-    let servicesTree = generateTree(services)
+    let servicesTree = generateServiceTree(services)
 
 
 
@@ -185,7 +185,7 @@ function ListOrCreate({formValue, setFormValue}){
         getServicesHandler();
     },[]);
 
-    let servicesTree = generateTree(services)
+    let servicesTree = generateServiceTree(services)
 
 
 

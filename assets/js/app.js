@@ -40,6 +40,9 @@ import Profile from "./MainApp/Profile/Profile";
 import NewProject from "./MainApp/Projects/NewProject";
 import EditProject from "./MainApp/Projects/EditProject";
 import DashboardLayout from "./Layout/DashboardLayout";
+import NewCollaboration from "./MainApp/Collaborations/NewCollaboration";
+import Collaboration from "./MainApp/Collaborations/Collaboration";
+import EditCollaboration from "./MainApp/Collaborations/EditCollaboration";
 
 function App(){
     const {authenticated, language} = useSelector(state=>state);
@@ -59,10 +62,14 @@ function App(){
     const projectsPage = <MainPage page={<ProjectPage />}/>;
     const loginPage = <DashboardLayout page={<Login/>}/>;
     const projectDetailPage = <MainPage page={<Project/>}/>;
+    const collaborationDetailPage = <MainPage page={<Collaboration/>}/>;
     const editProjectPage = <MainPage page={<EditProject/>}/>;
     const dashboardPage = <DashboardLayout page={<Dashboard/>} />
     const newProjectPage = <MainPage page={<NewProject isPortfolio={false}/>} />
     const newPorfolioPage = <MainPage page={<NewProject isPortfolio={true}/>} />
+    const newCollaborationPage = <MainPage page={<NewCollaboration isService={false} />} />
+    const newServicePage = <MainPage page={<NewCollaboration isService={true} />} />
+    const editCollaborationDetailPage = <MainPage page={<EditCollaboration />} />
     const {isLoading} = useSelector(state=>state);
 
     const loading = <Loading/>;
@@ -71,19 +78,24 @@ function App(){
     const mainApp =
         (<>
             <Switch>
+                <Route path={Routes.routeEditCollaboration} children={editCollaborationDetailPage}/>
                 <Route path={Routes.registration} children={registrationPage}/>
                 <Route exact path={Routes.changePassword} children={changePasswordPage}/>
                 <Route path={Routes.passwordRecovery} children={recoverPage}/>
                 <Route path={Routes.routeProfile} children={profilePage}/>
                 <Route path={Routes.projectPage} children={projectsPage}/>
+                <Route path={Routes.collaborationDetailPage} children={collaborationDetailPage}/>
                 <Route path={Routes.dashboardPage} children={dashboardPage}/>
                 <Route path={Routes.newProjectPage} children={newProjectPage}/>
                 <Route path={Routes.newPortfolioPage} children={newPorfolioPage}/>
+                <Route path={Routes.newCollaborationPage} children={newCollaborationPage}/>
+                <Route path={Routes.newServicePage} children={newServicePage}/>
                 <Route path={Routes.routeEditProject} children={editProjectPage}/>
                 <Route path={Routes.administration} children={administrationPage}/>
                 <Route path={Routes.routeProject} children={projectDetailPage}/>
                 <Route path={Routes.main} children={loginPage}/>
                 <Route path={Routes.login} children={loginPage}/>
+
 
             </Switch>
         </>);

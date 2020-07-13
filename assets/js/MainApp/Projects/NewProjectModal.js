@@ -5,7 +5,7 @@ import TextField from "../../Login/Components/TextField";
 import {Button, ButtonGroup, DatePicker, Form, Icon, List, Modal, SelectPicker, TreePicker, Uploader} from "rsuite";
 import HorizontalStepForm from "../../ReusableComponents/HorizontalStepForm";
 import {useGetServices} from "../../Backend/hooks/useServices";
-import {generateTree} from "../Administration/CategoriesManagement";
+import {generateServiceTree} from "../Administration/CategoriesManagement";
 import {GenericTable} from "../../ReusableComponents/GenericTable";
 import {dataCountry, dataLanguage} from "../../selectData";
 
@@ -14,7 +14,6 @@ export default function NewProjectModal({show, onHide, successCallback = ()=>{},
     const [formValue, setFormValue] = useState({positions: [], partners:[]});
     const {user} = useSelector(state=>state);
     const [response, createNewProjectHandler] = useCreateNewProject();
-    useEffect(()=>console.log("FormValue", formValue), [formValue]);
 
     const onSubmitHandler = () =>{
         const formData = new FormData();
@@ -94,7 +93,7 @@ function ListOrCreate({formValue, setFormValue}){
         getServicesHandler();
     },[]);
 
-    let servicesTree = generateTree(services)
+    let servicesTree = generateServiceTree(services)
 
 
     const [create, setCreate] = useState(false);
@@ -241,7 +240,7 @@ function PartnerListOrCreate({formValue, setFormValue}){
         getServicesHandler();
     },[]);
 
-    let servicesTree = generateTree(services)
+    let servicesTree = generateServiceTree(services)
 
     const [create, setCreate] = useState(false);
     const [existingPartner, setExistingPartner] = useState(false);

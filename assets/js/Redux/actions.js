@@ -9,6 +9,8 @@ export const SWITCH_LANGUAGE = "SWITCH_LANGUAGE";
 export const LOGOUT = "LOGOUT";
 export const LOGIN = "LOGIN";
 
+export const cookiesOptions = {path: "/"};
+
 
 export const switchAuthenticatedStatus = () =>{
 
@@ -27,7 +29,7 @@ export const updateUserInfo = (data) =>{
         roles: data.roles,
         profileName: data.profileName,
     }
-    cookies.set('user', JSON.stringify(userCookie));
+    cookies.set('user', JSON.stringify(userCookie), cookiesOptions);
 
     let userCookies = cookies.get('user');
 
@@ -40,7 +42,7 @@ export const updateUserInfo = (data) =>{
 
 export const switchLanguage = (language) =>{
     const cookies = new Cookies();
-    cookies.set('language', language);
+    cookies.set('language', language, cookiesOptions);
     console.log("Switch language to", language)
     return {
         type: SWITCH_LANGUAGE,
@@ -51,8 +53,8 @@ export const switchLanguage = (language) =>{
 
 export const login = (accessToken) =>{
     const cookies = new Cookies();
-    cookies.set('accessToken', accessToken);
-    cookies.set('authenticated', true);
+    cookies.set('accessToken', accessToken, cookiesOptions);
+    cookies.set('authenticated', true, cookiesOptions);
     return {
         type: LOGIN,
         authenticated: true,

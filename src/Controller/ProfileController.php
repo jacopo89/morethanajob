@@ -225,6 +225,9 @@ class ProfileController extends AbstractController
         $address = json_decode($request->get('address'),true);
         $telephone = json_decode($request->get('telephone'),true);
         $language = json_decode($request->get('language'),true);
+        $facebook = json_decode($request->get('facebook'),true);
+        $linkedin = json_decode($request->get('linkedin'),true);
+        $twitter = json_decode($request->get('twitter'),true);
         $user = $this->getDoctrine()->getManager()->getRepository(User::class)->findOneBy(['email'=>$email]);
         $status = Response::HTTP_INTERNAL_SERVER_ERROR;
         $message = "Error";
@@ -235,6 +238,9 @@ class ProfileController extends AbstractController
             $user->setAddress($address);
             $user->setTelephone($telephone);
             $user->setLanguage($language);
+            $user->setFacebook($facebook);
+            $user->setLinkedin($linkedin);
+            $user->setTwitter($twitter);
             $this->getDoctrine()->getManager()->persist($user);
             $this->getDoctrine()->getManager()->flush();
             $status = Response::HTTP_OK;

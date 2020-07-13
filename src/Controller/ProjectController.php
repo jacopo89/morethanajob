@@ -164,6 +164,25 @@ class ProjectController extends AbstractController
 
 
     /**
+     * @Route("/getbymail/{email}")
+     * @param User $user
+     * @return Response
+     */
+    public function getProjectByMail(User $user){
+        $projects = $user->getProjectsRelations()->filter(function(ProjectPartner $projectPartner){
+            return $projectPartner->getIsLeader()===true;
+        })->map(function(ProjectPartner $projectPartner){ return $projectPartner->getProject();});
+
+        $arrayProjects = [];
+        foreach ($projects as $project){
+            $arrayProjects[] = $project;
+        }
+
+        return new Response($this->serializer->serialize($arrayProjects, 'json'));
+    }
+
+
+    /**
      * @param Request $request
      * @Route("/edit")
      * @return Response
@@ -410,7 +429,7 @@ class ProjectController extends AbstractController
      * @Route("/getcollaborations/{email}")
      */
     public function getCollaborations(User $user){
-        $portfolioProjects = $user->getCollaborations();
+        $portfolioProjects = $user->getProjects();
         $finalProjects = [];
         foreach($portfolioProjects as $project){
             $finalProjects[] = $project;
@@ -543,6 +562,7 @@ class ProjectController extends AbstractController
                 $userPosition = new PositionUserInterest();
                 $userPosition->setUser($user);
                 $userPosition->setPosition($position);
+                $userPosition->setStatus(PositionUserInterest::PENDING);
                 $userPosition->setCreationTime(new \DateTime());
                 $this->em->persist($userPosition);
                 $this->em->flush();
@@ -582,35 +602,40 @@ class ProjectController extends AbstractController
     public function confirmCollaboration(Request $request){
         $userMail = $request->get('user');
         $positionId = $request->get('position');
+        $status = Response::HTTP_OK;
+        $message = "Like";
 
         $user = $this->em->getRepository(User::class)->findOneBy(['email'=> $userMail]);
         $position = $this->em->getRepository(Position::class)->find($positionId);
 
-        $status = Response::HTTP_OK;
-        $message = "Like";
-
         if($user && $position){
-
+            $positionUserInterest = $this->em->getRepository(PositionUserInterest::class)->findOneBy(['user'=>$user, 'position'=>$position]);
+            $positionUserInterest->setStatus(PositionUserInterest::ACCEPTED);
             $position->setIsOpen(false);
 
-            $project = $position->getProject();
-            //$project = new Project();
-            $projectPartnerRelation = new ProjectPartner();
-            $projectPartnerRelation->setProject($project);
-            $projectPartnerRelation->setPartner($user);
-            $projectPartnerRelation->setPosition($position);
-            $projectPartnerRelation->setIsLeader(false);
-            $project->addProjectPartnerRelation($projectPartnerRelation);
+            $collaboration = $position->getCollaboration();
+            if($collaboration){
+                $project = $collaboration->getProject();
+                if($project){
+                    $projectPartnerRelation = new ProjectPartner();
+                    $projectPartnerRelation->setProject($project);
+                    $projectPartnerRelation->setPartner($user);
+                    $projectPartnerRelation->setPosition($position);
+                    $projectPartnerRelation->setIsLeader(false);
+                    $project->addProjectPartnerRelation($projectPartnerRelation);
 
-            $this->em->persist($position);
-            $this->em->persist($projectPartnerRelation);
-            $this->em->flush();
+                    $this->em->persist($position);
+                    $this->em->persist($projectPartnerRelation);
+                    $this->em->flush();
 
 
+                }
+            }
         }else{
             $message = "User or position missing";
             $status = Response::HTTP_BAD_REQUEST;
         }
+
 
 
         return new Response($message, $status);

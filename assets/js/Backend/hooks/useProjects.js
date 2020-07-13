@@ -20,7 +20,7 @@ export function  useGetUserProjects() {
 
     const {accessToken} = useSelector(state=>state);
     const backendClient = BackendClient(accessToken);
-    return useCreateHook(backendClient,'/profile/loadfile','post',null);
+    return useCreateHook(backendClient,'/project/getbymail','get',[]);
 }
 
 
@@ -67,7 +67,7 @@ export function  useGetProject() {
 
     const {accessToken} = useSelector(state=>state);
     const backendClient = BackendClient(accessToken);
-    return useCreateHook(backendClient,'/project/get','get',{positions:[],projectPartnersRelations:[]});
+    return useCreateHook(backendClient,'/project/get','get',{positions:[],projectPartnersRelations:[], collaborations:[]});
 }
 
 

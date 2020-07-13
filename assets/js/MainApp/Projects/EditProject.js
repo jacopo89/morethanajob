@@ -23,10 +23,9 @@ import {
 } from "rsuite";
 import {dataCountry, dataLanguage, modalityData} from "../../selectData";
 import {useGetServices} from "../../Backend/hooks/useServices";
-import {generateTree} from "../Administration/CategoriesManagement";
+import {generateServiceTree} from "../Administration/CategoriesManagement";
 import {GenericTable} from "../../ReusableComponents/GenericTable";
 import {bordeaux, InverseButton} from "../../styledComponents/CustomComponents";
-import {PositionDescription, RequestsModal} from "./Project";
 import styled from "styled-components";
 import ImageCropper from "../../ReusableComponents/ImageCropper";
 import {useParams} from "react-router-dom";
@@ -71,15 +70,18 @@ export default function EditProject({isPortfolio=false}){
     const handleProjectLogoChange = (file) =>{
 
         if(file){
-            setFormValue({
-                ...formValue,
-                projectLogoImage:  file,
-            })
+            const formData = new FormData();
+            formData.append('file', file);
+            data.id = id;
+            Object.keys(data).forEach((key)=>  { formData.append(key,JSON.stringify(data[key]));});
+            uploadProjectLogoHandler(formData, {successCallback: ()=>{
+                    getProjectHandler(id)
+                }});
         }
     };
 
-    const backgroundImage = (project && project.projectLogo) ? "https://localhost:8000/"+project.projectLogo.url  : "";
-    const backgrounCoverdImage = (project && project.projectPicture) ? "https://localhost:8000/"+project.projectPicture.url  : "";
+    const backgroundImage = (project && project.projectLogo) ? project.projectLogo.url  : "";
+    const backgrounCoverdImage = (project && project.projectPicture) ? project.projectPicture.url  : "";
 
 
     const listElements = (formValue) => {return (isPortfolio)  ? <PartnerListOrCreate formValue={formValue} setFormValue={setFormValue} /> : <ListOrCreate formValue={formValue} setFormValue={setFormValue} /> };
@@ -141,7 +143,7 @@ function ListOrCreate({formValue, setFormValue}){
         getServicesHandler();
     },[]);
 
-    let servicesTree = generateTree(services)
+    let servicesTree = generateServiceTree(services)
 
 
     const [create, setCreate] = useState(false);
@@ -296,7 +298,7 @@ function PartnerListOrCreate({formValue, setFormValue}){
         getServicesHandler();
     },[]);
 
-    let servicesTree = generateTree(services)
+    let servicesTree = generateServiceTree(services)
 
     const [create, setCreate] = useState(false);
     const [existingPartner, setExistingPartner] = useState(false);

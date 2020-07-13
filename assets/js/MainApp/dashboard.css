@@ -1,22 +1,24 @@
-.custom-timeline {
-    margin-left: 20px;
+#dashboard .rs-nav-item a{
+    color: white!important;
+    font-weight: bold;
+    font-size: 16px;
+    text-align: center;
 }
 
-.custom-timeline .rs-timeline-item-custom-dot .rs-icon {
-    position: absolute;
-    background: #fff;
-    top: 0;
-    left: -2px;
-    border: 2px solid #ddd;
-    width: 40px;
-    height: 40px;
-    border-radius: 50%;
-    font-size: 18px;
-    padding-top: 9px;
-    color: #999;
-    margin-left: -13px;
+#dashboard .rs-nav-item a:hover{
+    color: rgb(180, 88, 96)!important;
+    background-color: white;
+    font-weight: bold;
+    font-size: 16px;
+    text-align: center;
+}
+#dashboard .rs-nav-item-active{
+    color: rgb(180, 88, 96)!important;
+    font-weight: bold;
+    font-size: 16px;
+    text-align: center;
 }
 
-.custom-timeline .rs-timeline-item-content {
-    margin-left: 24px;
+#dashboard .rs-nav-subtle .rs-nav-horizontal .rs-nav-item>.rs-nav-item-content:before a{
+    color: rgb(180, 88, 96)!important;
 }

@@ -12,7 +12,7 @@ import {
     Col,
     FormGroup,
     ControlLabel,
-    FormControl, ButtonToolbar, SelectPicker
+    FormControl, ButtonToolbar, SelectPicker, IconButton
 } from "rsuite";
 import {useSaveProfile, useUploadPictures, useUploadProfilePicture} from "../../Backend/hooks/useProfile";
 import styled from "styled-components";
@@ -20,7 +20,13 @@ import * as ActionTypes from '../../Redux/actions';
 import {useGetUserInfo} from "../../Backend/hooks/UserInfo";
 import {ProjectMenu} from "./../Profile/ProjectMenu";
 import {Link, useParams} from "react-router-dom";
-import {bordeaux, InverseButton, MainButton, SecondaryButton} from "../../styledComponents/CustomComponents";
+import {
+    bordeaux,
+    coverPicture,
+    InverseButton,
+    MainButton, profilePicture,
+    SecondaryButton
+} from "../../styledComponents/CustomComponents";
 import ImageCropper from "../../ReusableComponents/ImageCropper";
 import * as Routes from "../../routes";
 import TextField from "../../Login/Components/TextField";
@@ -46,7 +52,6 @@ export default function Profile(){
     const [formValue, setFormValue] = useState({name:"", description:""});
 
     const onChangeHandler = (file) => {
-
         let data = {};
         const formData = new FormData();
         formData.append('file', file);
@@ -57,10 +62,14 @@ export default function Profile(){
             }});
     };
 
+    const backgroundImage = (userInfo && userInfo.coverPicture) ? userInfo.coverPicture.url  : coverPicture;
+    const profileImage = (userInfo && userInfo.profilePicture) ? userInfo.profilePicture.url  : profilePicture;
 
-    const backgroundImage = (userInfo && userInfo.coverPicture) ? userInfo.coverPicture.url  : "uploads/users/7/society-5ed3a86ac6b2d.png";
-    const profileImage = (userInfo && userInfo.profilePicture) ? userInfo.profilePicture.url  : "/defaults/profile_thumbnail.png";
-
+    const social = <div style={{position:"absolute", top: 4, right:10, display:"flex", justifyContent:"space-around", width:200 }}>
+        <Icon style={{color:"white"}} icon="facebook-square" size="3x"/>
+        <Icon style={{color:"white"}} icon="linkedin-square" size="3x"/>
+        <Icon style={{color:"white"}} icon="twitter-square" size="3x" />
+    </div>;
 
     const onChangeProfileHandler = (file) => {
         let data = {};
@@ -89,15 +98,16 @@ export default function Profile(){
     },[]);
 
     useEffect(()=>{
-        const uploadCoverButton = <InverseButton>Change cover Button</InverseButton>
+        const uploadCoverButton = <EditButton>Change cover Button</EditButton>
         const editButton = (!isEdit) ?  <EditButton onClick={()=>setIsEdit(!isEdit)}> {t('Edit profile')} </EditButton> : <> <InverseButton onClick={()=>setIsEdit(!isEdit)}> Go back </InverseButton></>
         if(userInfo && !isEdit){
 
             setRender(
                 <>
-                    <div style={{height:250, minHeight:250, width:"100%", marginBottom:10, backgroundColor:"black",position:"relative", backgroundImage: `url(${backgroundImage})`, backgroundSize:"contain", backgroundRepeat: "no-repeat"}}>
+                    <div style={{height:281, width:"100%", marginBottom:10, backgroundColor:"black",position:"relative", backgroundImage: `url(${backgroundImage})`, backgroundSize:"contain", backgroundRepeat: "no-repeat"}}>
                         <LinearGradient/>
                         <h3 style={{position:"absolute", bottom:4, right:10, color:"white"}}>{userInfo && userInfo.website}</h3>
+                        {social}
                         {isOwner  && editButton  }
                     </div>
                     <InfoBox>
@@ -120,63 +130,61 @@ export default function Profile(){
         }else if(userInfo && isEdit){
             const uploaderButton = <Button style={{backgroundImage:  `url(${profileImage})`, backgroundSize: "contain", width:200, height:200}}> Upload</Button>;
             setRender(<>
-                <div style={{height:250, minHeight:250, width:"100%", marginBottom:10, backgroundColor:"black",position:"relative", backgroundImage: `url(${backgroundImage})`, backgroundSize:"contain", backgroundRepeat: "no-repeat"}}>
+                <div style={{height:281, width:"100%", marginBottom:10, backgroundColor:"black",position:"relative", backgroundImage: `url(${backgroundImage})`, backgroundSize:"contain", backgroundRepeat: "no-repeat"}}>
                     <LinearGradient/>
                     <h3 style={{position:"absolute", bottom:4, right:10, color:"white"}}>{userInfo && userInfo.website}</h3>
-
+                    {social}
+                    <ImageCropper button={uploadCoverButton} propCrop={{
+                        unit: 'px', // default, can be 'px' or '%'
+                        x: 0,
+                        y: 0,
+                        width: 250,
+                        aspect:3.592
+                    }} keyField="projectImage" onChange={onChangeHandler}/>
                 </div>
                 <InfoBox>
                     <Grid fluid>
-                        <Row className="show-grid" style={{padding:5, display:"flex", alignItems:"flex-start"}}>
-                            <Col xs={8}>
-                                <div  style={{display:"flex", justifyContent:"center"}}>
-                                    <ImageCropper button={uploaderButton} propCrop={{
-                                        unit: 'px', // default, can be 'px' or '%'
-                                        x: 0,
-                                        y: 0,
-                                        width: 200,
-                                        aspect:1
-                                    }}  keyField="projectImage" onChange={onChangeProfileHandler}/>
-                                </div>
-                            </Col>
-                            <Col xs={16}>
-                                <div style={{display:"flex"}}>
-
-                                    <ImageCropper button={uploadCoverButton} propCrop={{
-                                        unit: 'px', // default, can be 'px' or '%'
-                                        x: 0,
-                                        y: 0,
-                                        width: 250,
-                                        aspect:3.592
-                                    }} keyField="projectImage" onChange={onChangeHandler}/>
-                                </div>
-
+                        <Row>
+                            <div  style={{display:"flex", justifyContent:"center"}}>
+                                <ImageCropper button={uploaderButton} propCrop={{
+                                    unit: 'px', // default, can be 'px' or '%'
+                                    x: 0,
+                                    y: 0,
+                                    width: 200,
+                                    aspect:1
+                                }}  keyField="projectImage" onChange={onChangeProfileHandler}/>
+                            </div>
+                        </Row>
+                        <Row className="show-grid" style={{padding:5}}>
                                 <Form
                                     fluid
                                     autoComplete="off"
                                     formValue={formValue}
                                     onChange={setFormValue}>
-                                    <div style={{display:"flex"}}>
-                                        <TextField style={{width:"100%"}} name="name" label="Society Name" />
-                                        <TextField style={{width:"100%"}} name="language" label="Language" accepter={SelectPicker} data={dataLanguage} />
+                                    <div style={{display:"flex", justifyContent:"space-around"}}>
+                                        <TextField style={{width:"90%"}} name="name" label="Society Name" />
+                                        <TextField style={{width:"90%"}} name="language" label="Language" accepter={SelectPicker} data={dataLanguage} />
                                     </div>
-                                    <TextField name="description" label="Society Description" componentClass="textarea" />
-                                    <div style={{display:"flex"}}>
-                                        <TextField style={{width:"100%"}} name="website" label="Website" />
-                                        <TextField style={{width:"100%"}} name="address" label="Address" />
+                                    <TextField style={{width:"90%"}} name="description" label="Society Description" componentClass="textarea" />
+                                    <div style={{display:"flex", justifyContent:"space-around"}}>
+                                        <TextField style={{width:"90%"}} name="website" label="Website" />
+                                        <TextField style={{width:"90%"}} name="address" label="Address" />
                                     </div>
-                                    <div style={{display:"flex"}}>
-                                        <TextField style={{width:"100%"}} name="telephone" label="Telephone" />
-                                        <TextField style={{width:"100%"}} name="email" label="Email" />
+                                    <div style={{display:"flex", justifyContent:"space-around"}}>
+                                        <TextField style={{width:"90%"}} name="telephone" label="Telephone" />
+                                        <TextField style={{width:"90%"}} name="email" label="Email" />
+                                    </div>
+                                    <div style={{display:"flex", justifyContent:"space-around"}}>
+                                        <TextField style={{width:"90%"}} name="facebook" label="Facebook" />
+                                        <TextField style={{width:"90%"}} name="linkedin" label="Linkedin" />
+                                        <TextField style={{width:"90%"}} name="twitter" label="Twitter" />
                                     </div>
                                     {isOwner && editButton}
                                     <Button style={{float:"right", backgroundColor:bordeaux, color:"white"}} onClick={()=>saveProfile()}> Save profile </Button>
                                 </Form>
-                            </Col>
                         </Row>
                     </Grid>
                 </InfoBox>
-                <ProjectMenu society={userInfo}/>
                 </>
 
             )

@@ -6,7 +6,7 @@ import {
     Button,
     Col,
     DatePicker,
-    Form,
+    Form, Grid,
     Icon,
     IconButton,
     List,
@@ -18,14 +18,21 @@ import {
 } from "rsuite";
 import {dataCountry, dataLanguage, modalityData} from "../../selectData";
 import {useGetServices} from "../../Backend/hooks/useServices";
-import {generateTree} from "../Administration/CategoriesManagement";
+import {generateServiceTree} from "../Administration/CategoriesManagement";
 import {GenericTable} from "../../ReusableComponents/GenericTable";
-import {bordeaux, InverseButton} from "../../styledComponents/CustomComponents";
-import {PositionDescription, RequestsModal} from "./Project";
+import {
+    bordeaux,
+    InverseButton,
+    MainButton,
+    projectPicture,
+    SecondaryButton
+} from "../../styledComponents/CustomComponents";
 import styled from "styled-components";
 import ImageCropper from "../../ReusableComponents/ImageCropper";
 import {useHistory} from "react-router-dom";
 import * as Routes from "../../routes";
+import {getCalendarFormat} from "../../ReusableComponents/TimeManager";
+import {useGetUsers} from "../../Backend/hooks/useAdministration";
 
 export default function NewProject({isPortfolio=false}){
     const [formValue, setFormValue] = useState({positions: [], partners:[]});
@@ -45,6 +52,9 @@ export default function NewProject({isPortfolio=false}){
         createNewProjectHandler(formData, {successCallback: (data)=> history.push(Routes.project(data)) });
     }
 
+    const [pathUrl, setPathUrl] = useState();
+    const [projectLogoUrl, setProjectLogoUrl] = useState(projectPicture);
+
     const handleFileChange = (file) =>{
 
         if(file){
@@ -52,6 +62,12 @@ export default function NewProject({isPortfolio=false}){
                 ...formValue,
                 projectCoverImage:  file,
             })
+
+            const fileReaderInstance = new FileReader();
+            fileReaderInstance.readAsDataURL(file);
+            fileReaderInstance.onload = ()=> {
+                setPathUrl(fileReaderInstance.result);
+            }
         }
     };
 
@@ -62,8 +78,16 @@ export default function NewProject({isPortfolio=false}){
                 ...formValue,
                 projectLogoImage:  file,
             })
+
+            const fileReaderInstance = new FileReader();
+            fileReaderInstance.readAsDataURL(file);
+            fileReaderInstance.onload = ()=> {
+                setProjectLogoUrl(fileReaderInstance.result);
+            }
         }
     };
+
+
 
 
 
@@ -75,19 +99,22 @@ export default function NewProject({isPortfolio=false}){
 
     return (
         <>
-            <div style={{height:250, width:"100%", border:"1px solid black", marginBottom:10, backgroundColor:"black",position:"relative"}}>
+            <div style={{height:281, width:"100%", border:"1px solid black", marginBottom:10, backgroundColor:"black",position:"relative", backgroundImage:`url(${pathUrl})`,  backgroundSize: "contain"}}>
                 <ImageCropper button={uploadCoverButton} propCrop={{
                     unit: 'px', // default, can be 'px' or '%'
                     x: 0,
                     y: 0,
-                    height: 250,
+                    height: 281,
                     aspect: 3.592
                 }} keyField="projectImage" onChange={handleFileChange}/>
             </div>
+
             <InfoBox >
+                <h5 style={{color:bordeaux}}>Info </h5>
                 <Form fluid formValue={formValue} onChange={setFormValue} onSubmit={onSubmitHandler}>
                     <TextField label="Titolo del progetto" name="title" type="text" />
                     <TextField label="Descrizione breve" name="shortDescription" componentClass="textarea" />
+                    <TextField label="Descrizione" name="longDescription" componentClass="textarea" />
                     <div style={{display:"flex", justifyContent:"space-around"}}>
                         <TextField style={{width:"100%"}} label="Data di inizio progetto" name="startTime" accepter={DatePicker} format="DD-MM-YYYY" />
                         <TextField style={{width:"100%"}}  label="Data di fine progetto" name="endTime" accepter={DatePicker} format="DD-MM-YYYY" placement="topEnd" /> </div>
@@ -96,17 +123,33 @@ export default function NewProject({isPortfolio=false}){
                         <TextField style={{width:"100%"}} label="Paese" name="country" accepter={SelectPicker} data={dataCountry} />
                         <TextField style={{width:"100%"}} label="Lingua" name="language" accepter={SelectPicker} data={dataLanguage} />
                     </div>
-
-
-                    <ImageCropper button={uploadLogoButton} propCrop={{
-                        unit: 'px', // default, can be 'px' or '%'
-                        x: 0,
-                        y: 0,
-                        width: 898,
-                        height: 250
-                    }} keyField="projectImage" onChange={handleProjectLogoChange}/>
-                    <h2>Posizioni </h2>
-                    <ListOrCreate formValue={formValue} setFormValue={setFormValue} />
+                    <TextField label="Links" name="links" componentClass="textarea" />
+                    <TextField label="Contatti" name="contacts" componentClass="textarea" />
+                    <Grid>
+                        <Row>
+                            <Col xs={12}>
+                                <div style={{display: "flex", justifyContent: "center"}}>
+                                    <div style={{
+                                        backgroundImage: `url(${projectLogoUrl})`,
+                                        backgroundSize: "contain",
+                                        width: 150,
+                                        height: 150
+                                    }}/>
+                                </div>
+                            </Col>
+                            <Col xs={12}>
+                                <ImageCropper button={uploadLogoButton} propCrop={{
+                                    unit: 'px', // default, can be 'px' or '%'
+                                    x: 0,
+                                    y: 0,
+                                    width: 250,
+                                    height: 250
+                                }} keyField="projectImage" onChange={handleProjectLogoChange}/>
+                            </Col>
+                        </Row>
+                    </Grid>
+                    <h5 style={{color:bordeaux}}>Partner </h5>
+                    {isPortfolio && <PartnerListOrCreate formValue={formValue} setFormValue={setFormValue} />}
 
                     <Button type="submit">Save all</Button>
                 </Form>
@@ -124,7 +167,7 @@ function ListOrCreate({formValue, setFormValue}){
         getServicesHandler();
     },[]);
 
-    let servicesTree = generateTree(services)
+    let servicesTree = generateServiceTree(services)
 
 
     const [create, setCreate] = useState(false);
@@ -194,6 +237,7 @@ function ListOrCreate({formValue, setFormValue}){
 
 
     const createForm = <>
+        <h5 style={{color:bordeaux}}>Posizioni </h5>
         <IncludableForm item={element} updater={update} save={save} back={back} servicesTree={servicesTree}  />
     </>
 
@@ -224,16 +268,23 @@ function ListOrCreate({formValue, setFormValue}){
         {label:"servizio", dataKey: "service"},
         {label:"actions", render:actionRender}
     ]
+    const editHandler = (element)=>{
+        setElement(element);
+        setCreate(true);
+    }
 
     const table = <>
         <Button onClick={createHandler}>Crea</Button>
         <GenericTable rowKey="id" modelData={modelData} propData={formValue.positions} />
     </>
     const list = <>
-        <Button onClick={createHandler}>Crea posizione</Button>
+        <div style={{display:"flex", justifyContent:"space-between"}}>
+            <h5 style={{color:bordeaux}}>Posizioni </h5>
+            <InverseButton onClick={createHandler}>Crea posizione</InverseButton>
+        </div>
         <List>
             {formValue.positions.map((position, index) => (
-                <PositionCreationDescription position={position} services={services} remover={remove} />
+                <PositionCreationDescription position={position} services={services} remover={remove} updater={update} setEdit={editHandler} />
             ))}
         </List>
 
@@ -250,7 +301,7 @@ function IncludableForm({item, updater, save, remover, back, servicesTree}){
         updater(item.id, formValue);
     },[formValue])
 
-    return <div style={{width:"80%"}}>
+    return <div style={{border:"1px solid", borderColor:bordeaux, padding:5}}>
         <Form formValue={formValue}  onChange={setFormValue}>
             <div style={{display:"flex", justifyContent:"space-around"}}>
                 <TextField name="service" label="Servizio" accepter={TreePicker} data={servicesTree} style={{width:"100%"}} />
@@ -267,7 +318,7 @@ function IncludableForm({item, updater, save, remover, back, servicesTree}){
             <TextField name="mainBeneficiaries" label="Beneficiaries" componentClass="textarea"/>
             <TextField name="rates" label="Rates" componentClass="textarea"/>
         </Form>
-        <Button onClick={save}>Salva</Button><Button onClick={()=>back(item.id)}>Cancella</Button>
+        <MainButton onClick={save}>Salva</MainButton><SecondaryButton onClick={()=>back(item.id)}>Cancella</SecondaryButton>
     </div>
 }
 
@@ -279,7 +330,7 @@ function PartnerListOrCreate({formValue, setFormValue}){
         getServicesHandler();
     },[]);
 
-    let servicesTree = generateTree(services)
+    let servicesTree = generateServiceTree(services)
 
     const [create, setCreate] = useState(false);
     const [existingPartner, setExistingPartner] = useState(false);
@@ -427,13 +478,22 @@ function PartnerForm({item, updater, save, back, servicesTree}){
             <TextField name="website" label="Website"  />
 
         </Form>
-        <Button onClick={save}>Salva</Button><Button onClick={back}>Cancella</Button>
+        <MainButton onClick={save}>Aggiungi</MainButton><SecondaryButton onClick={back}>Cancella</SecondaryButton>
     </>
 }
 
 function ExistingPartnerForm({item, updater, save, back, partnersList}){
 
     const [formValue, setFormValue] = useState(item);
+    const [users, getUsersListHandler] = useGetUsers();
+
+    useEffect(()=>{
+        getUsersListHandler(null, {dataManipulationFunction: (data)=>{
+                return data.map((user)=> {
+                    return {...user, label:user.name, value: user.email}
+                });
+            } });
+        },[])
 
     useEffect(()=>{
         updater(item.id, formValue);
@@ -441,7 +501,7 @@ function ExistingPartnerForm({item, updater, save, back, partnersList}){
 
     return <>
         <Form formValue={formValue}  onChange={setFormValue}>
-            <TextField name="email" label="Partner Esistente"/>
+            <TextField name="email" label="Partner Esistente" accepter={SelectPicker} data={users}/>
 
         </Form>
         <Button onClick={save}>Salva</Button><Button onClick={back}>Cancella</Button>
@@ -450,18 +510,17 @@ function ExistingPartnerForm({item, updater, save, back, partnersList}){
 
 
 
-export function PositionCreationDescription({position, services, remover}){
+export function PositionCreationDescription({position, services, remover, updater, setEdit}){
 
     const servicePicture = services.filter((service)=> service.id === position.service)[0].picture;
 
+    const backgroundImage = (position && position.service && position.service.picture) ? position.service.picture  : "https://localhost:8000/uploads/users/7/society-5ed3a86ac6b2d.png";
 
-
-    const backgroundImage = (position && position.service && position.service.picture) ? "https://localhost:8000/"+position.service.picture  : "https://localhost:8000/uploads/users/7/society-5ed3a86ac6b2d.png";
 
 
     return <>
         <Panel header={
-            <PositionPanelTitle position={position} remover={remover}/>}>
+            <PositionPanelTitle position={position}  remover={remover} setEdit={setEdit}/>}>
             <Row className="show-grid">
                 <Col xs={8}>
                     <div style={{display: "flex", justifyContent: "center"}}>
@@ -482,16 +541,18 @@ export function PositionCreationDescription({position, services, remover}){
 
 }
 
-export function PositionPanelTitle({position, remover}){
+export function PositionPanelTitle({position, remover, updater, setEdit}){
 
 
 
     return <div style={{backgroundColor:bordeaux, height:40, color:"white", display: "flex", justifyContent: "space-evenly",alignItems: "center"}}>
         <div style={{flexGrow:3, paddingLeft:5, fontWeight: "bold", fontSize:20}}>
+            {position.service && position.service.label}
         </div>
         <div style={{flexGrow:1}}>
+            <Icon icon="calendar-o"/> From {getCalendarFormat(position.startDate)} to {getCalendarFormat(position.endDate)}
         </div>
-        <div><IconButton onClick={() => remover(position.id)} icon={<Icon icon="cross"/>}/></div>
+        <div><IconButton onClick={() => setEdit(position)} icon={<Icon icon="edit2"/>}/><IconButton onClick={() => remover(position.id)} icon={<Icon icon="trash"/>}/></div>
     </div>
 
 }

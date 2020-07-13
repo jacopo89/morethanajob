@@ -7,7 +7,7 @@ import {useDispatch, useSelector} from "react-redux";
 import {useHistory} from "react-router-dom";
 import * as Routes from '../routes';
 import {bordeaux} from "../styledComponents/CustomComponents";
-
+import "./header.css"
 
 export default function Header(){
 
@@ -42,13 +42,12 @@ function NavBarInstance({ onSelect, activeKey, ...props }){
         );
 
     return (
-        <Navbar style={{backgroundColor:bordeaux, position:"fixed", zIndex:100, width:"100%"}} {...props}>
+        <Navbar id="mainHeader" style={{backgroundColor:bordeaux, position:"fixed", zIndex:100, width:"100%"}} {...props}>
             <Navbar.Body>
                 <Nav onSelect={onSelect} activeKey={activeKey}>
                     <Nav.Item onClick={()=> history.push(Routes.dashboardPage)} eventKey="1" icon={<Icon icon="home" />}>
                         Home
                     </Nav.Item>
-                    <Nav.Item eventKey="2">{t('Search partners')}</Nav.Item>
                     <Nav.Item onClick={()=> history.push(Routes.projectPage)} eventKey="3">{t('Search projects')}</Nav.Item>
                     <Nav.Item onClick={()=> history.push(Routes.profile(user.profileName))} icon={<Icon icon="cog" />}>{t('Profile')}</Nav.Item>
                     <Nav.Item onClick={()=> history.push(Routes.administration)} icon={<Icon icon="cog" />}>{t('Administration')}</Nav.Item>

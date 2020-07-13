@@ -83,9 +83,6 @@ class ServiceController extends AbstractController
         foreach ($servicesRelations as $servicesRelation){
             $serviceData["description"] = $servicesRelation->getDescription();
             $serviceData["service"] = $servicesRelation->getService();
-            $serviceData["startDate"] = $servicesRelation->getStartDate();
-            $serviceData["endDate"]  = $servicesRelation->getEndDate();
-            $serviceData["modality"] = $servicesRelation->getModality();
             $data[] = $serviceData;
         }
 
@@ -205,14 +202,8 @@ class ServiceController extends AbstractController
     public function createOfferedService(Request $request){
         $email = $request->get('email');
         $serviceId = $request->get('service');
-        $shortDescription = json_decode($request->get('shortDescription'));
         $description = json_decode($request->get('description'));
-        $modality = json_decode($request->get('modality'));
         $address = json_decode($request->get('address'));
-        $startDate = json_decode($request->get('startDate'));
-        $endDate = json_decode($request->get('endDate'));
-        $mainBeneficiaries = json_decode($request->get('mainBeneficiaries'));
-        $rates = $request->get('rates');
 
         $user = $this->em->getRepository(User::class)->findOneBy(['email'=>$email]);
         $service = $this->em->getRepository(Service::class)->find($serviceId);
@@ -223,15 +214,7 @@ class ServiceController extends AbstractController
             $offeredService->setUser($user);
             $offeredService->setService($service);
             $offeredService->setDescription($description);
-            $offeredService->setShortDescription($shortDescription);
             $offeredService->setAddress($address);
-            $offeredService->setModality($modality);
-            $offeredService->setMainBeneficiaries($mainBeneficiaries);
-            $startDate = new \DateTime($startDate);
-            $endDate = new \DateTime($endDate);
-            $offeredService->setStartDate($startDate);
-            $offeredService->setEndDate($endDate);
-            $offeredService->setRates($rates);
 
             $this->em->persist($offeredService);
             $this->em->flush();

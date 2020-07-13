@@ -94,6 +94,28 @@ class FileSystemService extends AbstractController
         return $servicesFolderPath;
     }
 
+    public function createCategoriesFolder(){
+
+
+        $serviceFolderPath = $this->getParameter('kernel.project_dir').'/public/uploads/categories';
+        $isCreated = mkdir($serviceFolderPath);
+        if(!$isCreated){
+            $this->logger->error( self::class.".createCategoriesFolder");
+        }
+    }
+
+    public function getCategoriesFolderPath(){
+        $serviceFolderPath = $this->getParameter('kernel.project_dir').'/public/uploads/categories';
+
+        return $serviceFolderPath;
+    }
+
+    public function getCategoriesFolderWebPath($base){
+        $servicesFolderPath = $base.'/uploads/categories';
+
+        return $servicesFolderPath;
+    }
+
 
 
 

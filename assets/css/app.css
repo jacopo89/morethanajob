@@ -1,3 +1,35 @@
 body {
-    background-color: white;
+    background-image: url("/defaults/background.jpg");
+}
+
+
+.rs-form-control-wrapper input{
+    border-radius: 0;
+}
+.rs-form-control-wrapper select{
+    border-radius: 0;
+}
+
+
+.rs-form-control-wrapper textarea{
+    border-radius: 0;
+}
+
+.rs-form-control-wrapper input:hover{
+    border-color: #b45860;
+    border-radius: 0;
+}
+.rs-form-control-wrapper input:active{
+    border-color: #b45860;
+    border-radius: 0;
+}
+
+.rs-form-control-wrapper input:focus{
+    border-color: #b45860;
+    border-radius: 0;
+}
+
+.rs-form-control-wrapper textarea:hover :active :focus{
+    border-color: #b45860;
+    border-radius: 0;
 }

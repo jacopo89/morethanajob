@@ -39,13 +39,19 @@ class UserController extends AbstractController
         $userToSend["roles"] = $user->getRoles();
         $userToSend["name"] = $user->getName();
         $userToSend["description"] = $user->getDescription();
-        $userToSend["coverPicture"] = $user->getCoverPicture();
+
         $userToSend["website"] = $user->getWebsite();
         $userToSend["address"] = $user->getAddress();
         $userToSend["telephone"] = $user->getTelephone();
         $userToSend["language"] = $user->getLanguage();
         $userToSend["profileName"] = $user->getProfileName();
+        $userToSend["facebook"] = $user->getFacebook();
+        $userToSend["linkedin"] = $user->getLinkedin();
+        $userToSend["twitter"] = $user->getTwitter();
+
+        $userToSend["coverPicture"] = $user->getCoverPicture();
         $userToSend["profilePicture"] = $user->getProfilePicture();
+
         return new Response($this->serializer->serialize($userToSend, 'json'), Response::HTTP_OK);
     }
 
@@ -64,6 +70,9 @@ class UserController extends AbstractController
         $userToSend["address"] = $user->getAddress();
         $userToSend["telephone"] = $user->getTelephone();
         $userToSend["language"] = $user->getLanguage();
+        $userToSend["facebook"] = $user->getFacebook();
+        $userToSend["linkedin"] = $user->getLinkedin();
+        $userToSend["twitter"] = $user->getTwitter();
         $userToSend["profileName"] = $user->getProfileName();
         $userToSend["profilePicture"] = $user->getProfilePicture();
         return new Response($this->serializer->serialize($userToSend, 'json'), Response::HTTP_OK);
