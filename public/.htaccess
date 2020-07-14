@@ -9,7 +9,7 @@ DirectoryIndex index.php
 # feature in your server configuration. Uncomment the following line if you
 # install assets as symlinks or if you experience problems related to symlinks
 # when compiling LESS/Sass/CoffeScript assets.
-# Options FollowSymlinks
+# Options +FollowSymlinks
 
 # Disabling MultiViews prevents unwanted negotiation, e.g. "/index" should not resolve
 # to the front controller "/index.php" but be rewritten to "/index.php/index".
@@ -52,8 +52,7 @@ DirectoryIndex index.php
     # We only want to let Apache serve files and not directories.
     # Rewrite all other queries to the front controller.
     RewriteCond %{REQUEST_FILENAME} !-f
-    RewriteRule ^ 404 [L]
-    #RewriteRule ^ %{ENV:BASE}/index.php [L]
+    RewriteRule ^ %{ENV:BASE}/index.php [L]
 </IfModule>
 
 <IfModule !mod_rewrite.c>
