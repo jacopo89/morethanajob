@@ -14,7 +14,7 @@ import {applyMiddleware, compose, createStore} from "redux";
 import thunk from 'redux-thunk';
 import {Provider, useSelector} from "react-redux";
 import Login from "./Login/Pages/Login";
-import {BrowserRouter, Route, Switch} from "react-router-dom";
+import {BrowserRouter, Route, Switch, useLocation} from "react-router-dom";
 import reducer from "./Redux/reducer";
 import Layout from "./Layout/Layout";
 import Registration from "./Login/Pages/Registration";
@@ -43,12 +43,19 @@ import DashboardLayout from "./Layout/DashboardLayout";
 import NewCollaboration from "./MainApp/Collaborations/NewCollaboration";
 import Collaboration from "./MainApp/Collaborations/Collaboration";
 import EditCollaboration from "./MainApp/Collaborations/EditCollaboration";
+import ImmediateLogout from "./Login/ImmediateLogout";
 
 function App(){
     const {authenticated, language} = useSelector(state=>state);
     const {t,i18n} = useTranslation();
     console.log("translation", i18n.language)
     console.log("cookies", language)
+    console.log(process.env);
+
+    let location = useLocation();
+    console.log("location", location);
+
+
     if(i18n.language!==language){
 
         i18n.changeLanguage(language);
@@ -70,6 +77,8 @@ function App(){
     const newCollaborationPage = <MainPage page={<NewCollaboration isService={false} />} />
     const newServicePage = <MainPage page={<NewCollaboration isService={true} />} />
     const editCollaborationDetailPage = <MainPage page={<EditCollaboration />} />
+
+    const immediateLogoutPage = <ImmediateLogout />
     const {isLoading} = useSelector(state=>state);
 
     const loading = <Loading/>;
@@ -93,6 +102,7 @@ function App(){
                 <Route path={Routes.routeEditProject} children={editProjectPage}/>
                 <Route path={Routes.administration} children={administrationPage}/>
                 <Route path={Routes.routeProject} children={projectDetailPage}/>
+                <Route path={Routes.immediateLogout} children={immediateLogoutPage}/>
                 <Route path={Routes.main} children={loginPage}/>
                 <Route path={Routes.login} children={loginPage}/>
 
@@ -137,6 +147,7 @@ const  firebaseConfig = {
 firebase.initializeApp(firebaseConfig);
 //const messaging = firebase.messaging();
 //messaging.usePublicVapidKey("BJ2vLwEXdwyrGarVrA8BlhuBKHIcjWNIAE4T9uNUoc2xoxEgAiTfpdVp86gVDkL9TPULDd9LkT5L4Uh9bqKTTKo");
+
 
 
 ReactDOM.render(  <Provider store={store}>
