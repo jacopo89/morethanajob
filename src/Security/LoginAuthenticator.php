@@ -7,6 +7,7 @@ use Doctrine\ORM\EntityManagerInterface;
 use Lexik\Bundle\JWTAuthenticationBundle\Encoder\JWTEncoderInterface;
 use Lexik\Bundle\JWTAuthenticationBundle\Exception\JWTDecodeFailureException;
 use Lexik\Bundle\JWTAuthenticationBundle\TokenExtractor\AuthorizationHeaderTokenExtractor;
+use Psr\Log\LoggerInterface;
 use Symfony\Component\HttpFoundation\RedirectResponse;
 use Symfony\Component\HttpFoundation\Request;
 use Symfony\Component\HttpFoundation\Response;
@@ -28,11 +29,13 @@ class LoginAuthenticator extends AbstractGuardAuthenticator
 {
     private $jwtEncoder;
     private $em;
+    private $logger;
 
-    public function __construct(JWTEncoderInterface $jwtEncoder, EntityManagerInterface $em)
+    public function __construct(JWTEncoderInterface $jwtEncoder, EntityManagerInterface $em, LoggerInterface $logger)
     {
         $this->em = $em;
         $this->jwtEncoder = $jwtEncoder;
+        $this->logger = $logger;
     }
 
     /**
@@ -72,7 +75,7 @@ class LoginAuthenticator extends AbstractGuardAuthenticator
     public function supports(Request $request)
     {
 
-        return !in_array($request->attributes->get('_route'), ['home', 'app_login', 'app_register']);
+        return !in_array($request->attributes->get('_route'), ['home', 'app_login', 'app_register', "app_default_logout"]);
     }
 
     /**
@@ -104,6 +107,7 @@ class LoginAuthenticator extends AbstractGuardAuthenticator
         );
 
         $token = $extractor->extract($request);
+
         if (!$token) {
             return new RedirectResponse("/app/login");
         }
@@ -174,7 +178,7 @@ class LoginAuthenticator extends AbstractGuardAuthenticator
     public function onAuthenticationFailure(Request $request, AuthenticationException $exception)
     {
         // TODO: Implement onAuthenticationFailure() method.
-       // return new RedirectResponse("/app/login");
+        //return new RedirectResponse("/logout");
     }
 
     /**

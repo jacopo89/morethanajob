@@ -16,6 +16,10 @@ export default function FinalHeader(){
         dispatch(ActionTypes.switchLanguage(code))
 
     };
+    const signOut = () => {
+        dispatch(ActionTypes.logOut());
+        history.push(Routes.login);
+    }
 
     const LanguageDropdown = ({ ...props }) => (
         <Dropdown {...props}>
@@ -33,6 +37,7 @@ export default function FinalHeader(){
             <Dropdown.Item onClick={()=> history.push(Routes.projectPage)} eventKey="3">{t('Search projects')}</Dropdown.Item>
             <Dropdown.Item onClick={()=> history.push(Routes.profile(user.profileName))} icon={<Icon icon="cog" />}>{t('Profile')}</Dropdown.Item>
             <Dropdown.Item onClick={()=> history.push(Routes.administration)} icon={<Icon icon="cog" />}>{t('Administration')}</Dropdown.Item>
+            <Nav.Item onClick={()=>signOut()} icon={<Icon icon="cog" />}>Logout</Nav.Item>
         </Dropdown>
     );
 

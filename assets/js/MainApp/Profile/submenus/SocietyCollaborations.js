@@ -17,9 +17,12 @@ export default function SocietyCollaborations({society}) {
     const history = useHistory();
 
 
+    console.log("Collaborations", collaborations);
+
     useEffect(()=>{
         getCollaborationsHandler(society.email);
     },[]);
+
 
     const successCallback = ()=>{
         closeModal();

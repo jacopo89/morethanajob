@@ -18,6 +18,7 @@ export const routeProfile = "/app/profile/:profilename";
 export const routeProject = "/app/project/:id";
 export const routeEditProject = "/app/editproject/:id";
 export const routeEditCollaboration = "/app/editcollaboration/:id";
+export const immediateLogout = "/app/immediatelogout";
 
 
 export function profile(name){

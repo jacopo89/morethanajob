@@ -66,9 +66,9 @@ export const login = (accessToken) =>{
 
 export const logOut = () =>{
     const cookies = new Cookies();
-    cookies.remove('authenticated');
-    cookies.remove('accessToken');
-    cookies.remove('user');
+    cookies.remove('authenticated',cookiesOptions);
+    cookies.remove('accessToken', cookiesOptions);
+    cookies.remove('user', cookiesOptions);
     return {
         type: LOGOUT,
         authenticated: false,

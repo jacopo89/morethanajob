@@ -40,28 +40,34 @@ export default function Collaboration(){
         </TitleBox>
         <div>{ collaboration && collaboration.description}</div>
         <InfoBox>
-            <Grid>
+            <Grid style={{width:"100%"}}>
                 <Row className="show-grid" style={{padding:5}}>
                     <Col xs={12}>
-                        <Title>Modality</Title>
-                        <IconWithText icon="user" text="uomo"></IconWithText>
-                        <div>{ collaboration && collaboration.modality}</div></Col>
-                    <Col xs={12}><Title>Address</Title>
-                        <div>{ collaboration && collaboration.address}</div></Col>
+                        <IconWithText icon="user" label="Modality" value={collaboration && collaboration.modality}/>
+                    </Col>
+                    <Col xs={12}>
+                        <IconWithText icon="map-marker" label="Address" value={collaboration && collaboration.address}/>
+                    </Col>
                 </Row>
                 <Row className="show-grid" style={{padding:5}}>
-                    <Col xs={12}> <Title>Start Date</Title>
-                        <div>{ collaboration && getCalendarFormat(collaboration.startDate)}</div></Col>
-                    <Col xs={12}><Title>End Date</Title>
-                        <div>{ collaboration && getCalendarFormat(collaboration.endDate)}</div></Col>
+                    <Col xs={12}>
+                        <IconWithText icon="calendar-o" label="Start Date" value={collaboration && getCalendarFormat(collaboration.startDate)}/>
+                    </Col>
+                    <Col xs={12}>
+                        <IconWithText icon="calendar-o" label="End Date" value={collaboration && getCalendarFormat(collaboration.endDate)}/>
+                        </Col>
                 </Row>
                 <Row className="show-grid" style={{padding:5}}>
-                    <Title>Main Beneficiaries</Title>
-                    <div>{ collaboration && collaboration.mainBeneficiaries}</div>
+                    <Col xs={24}>
+                        <IconWithText icon="calendar-o" label="Main Beneficiaries" value={collaboration && collaboration.mainBeneficiaries}/>
+                    </Col>
+
                 </Row>
                 <Row className="show-grid" style={{padding:5}}>
-                    <Title>Rates</Title>
-                    <div>{ collaboration && collaboration.rates}</div>
+                    <Col xs={24}>
+                        <IconWithText icon="calendar-o" label="Costi" value={collaboration && collaboration.rates}/>
+                    </Col>
+
                 </Row>
 
             </Grid>
@@ -266,10 +272,14 @@ export function ServiceFormBox() {
 
 }
 
-export function IconWithText({icon, text}){
+export function IconWithText({icon, label, value}){
     return (<div style={{display:"flex", alignItems:"center"}}>
-        <Icon icon={icon}/>
-        <div style={{borderBottom:`1px solid ${bordeaux}`}}>{text}</div>
+        <Icon size="2x" style={{margin:5, color:bordeaux, width:40}} icon={icon}/>
+        <div style={{borderBottom:`1px solid ${bordeaux}`, display:"flex", alignItems:"center", width:"90%"}}>
+            <div style={{fontSize:"18px", width:150, fontWeight:"bold", color:bordeaux}}>{label}: </div>
+            <div style={{fontSize:"18px", marginLeft:20}}>{value}</div>
+        </div>
+
     </div>);
 }
 
@@ -297,8 +307,11 @@ font-weight: bolder;
 
 
 const InfoBox =  styled.div`
-border-color: ${bordeaux};
-border-style: solid;
-padding:10px;
+border: 3px solid ${bordeaux};
+padding-top:10px;
+padding-bottom:10px;
+padding-left:30px;
+padding-right:30px;
+margin: 40px;
 `
 ;
