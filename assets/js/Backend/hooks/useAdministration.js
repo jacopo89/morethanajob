@@ -6,14 +6,14 @@ export function  useGetUsers() {
 
     const {accessToken} = useSelector(state=>state);
     const backendClient = BackendClient(accessToken);
-    return useCreateHook(backendClient,'/administration/getusers','get',[]);
+    return useCreateHook(backendClient,'/backend/administration/getusers','get',[]);
 }
 
 export function  useChangeUserRole() {
 
     const {accessToken} = useSelector(state=>state);
     const backendClient = BackendClient(accessToken);
-    return useCreateHook(backendClient,'/administration/changerole','post',null);
+    return useCreateHook(backendClient,'/backend/administration/changerole','post',null);
 }
 
 

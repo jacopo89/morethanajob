@@ -21,7 +21,7 @@ use Symfony\Component\HttpFoundation\Response;
 /**
  * Class ProfileController
  * @package App\Controller
- * @Route("/profile")
+ * @Route("/backend/profile")
  */
 class ProfileController extends AbstractController
 {

@@ -27,7 +27,7 @@ use Symfony\Component\HttpFoundation\Response;
 /**
  * Class CollaborationController
  * @package App\Controller
- * @Route("/collaborations")
+ * @Route("/backend/collaborations")
  */
 class CollaborationController extends AbstractController
 {

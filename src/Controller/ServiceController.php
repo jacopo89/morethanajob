@@ -24,7 +24,7 @@ use Symfony\Component\HttpFoundation\Response;
 /**
  * Class ServiceController
  * @package App\Controller
- * @Route("/service")
+ * @Route("/backend/service")
  */
 class ServiceController extends AbstractController
 {

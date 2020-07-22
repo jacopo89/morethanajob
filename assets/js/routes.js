@@ -1,44 +1,44 @@
-export const main = "/app/";
-export const registration = "/app/registration";
-export const login = "/app/login";
-export const passwordRecovery = "/app/recover";
-export const changePassword = "/app/passwordchange";
+export const main = "/";
+export const registration = "/registration";
+export const login = "/login";
+export const passwordRecovery = "/recover";
+export const changePassword = "/passwordchange";
 
 
 
-export const administration = "/app/administration";
-export const projectPage = "/app/projects";
-export const dashboardPage = "/app/dashboard";
-export const newProjectPage = "/app/newproject";
-export const newPortfolioPage = "/app/newportfolio";
-export const newCollaborationPage = "/app/newcollaboration";
-export const newServicePage = "/app/newservice";
-export const collaborationDetailPage = "/app/collaboration/:id";
-export const routeProfile = "/app/profile/:profilename";
-export const routeProject = "/app/project/:id";
-export const routeEditProject = "/app/editproject/:id";
-export const routeEditCollaboration = "/app/editcollaboration/:id";
-export const immediateLogout = "/app/immediatelogout";
+export const administration = "/administration";
+export const projectPage = "/projects";
+export const dashboardPage = "/dashboard";
+export const newProjectPage = "/newproject";
+export const newPortfolioPage = "/newportfolio";
+export const newCollaborationPage = "/newcollaboration";
+export const newServicePage = "/newservice";
+export const collaborationDetailPage = "/collaboration/:id";
+export const routeProfile = "/profile/:profilename";
+export const routeProject = "/project/:id";
+export const routeEditProject = "/editproject/:id";
+export const routeEditCollaboration = "/editcollaboration/:id";
+export const immediateLogout = "/immediatelogout";
 
 
 export function profile(name){
-    return "/app/profile/"+name;
+    return "/profile/"+name;
 }
 
 export function project(id){
-    return "/app/project/"+id;
+    return "/project/"+id;
 }
 
 export function editProject(id){
-    return "/app/editproject/"+id;
+    return "/editproject/"+id;
 }
 
 export function collaboration(id){
-    return "/app/collaboration/"+id;
+    return "/collaboration/"+id;
 }
 
 export function editCollaboration(id){
-    return "/app/editcollaboration/"+id;
+    return "/editcollaboration/"+id;
 }
 
 

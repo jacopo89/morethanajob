@@ -22,7 +22,7 @@ use Symfony\Component\HttpFoundation\Response;
 /**
  * Class CategoriesController
  * @package App\Controller
- * @Route("/categories")
+ * @Route("/backend/categories")
  */
 class CategoriesController extends AbstractController
 {

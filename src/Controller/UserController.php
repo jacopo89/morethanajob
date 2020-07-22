@@ -19,7 +19,7 @@ use Symfony\Bundle\FrameworkBundle\Controller\AbstractController;
 /**
  * Class UserController
  * @package App\Controller
- * @Route("/users")
+ * @Route("/backend/users")
  */
 class UserController extends AbstractController
 {

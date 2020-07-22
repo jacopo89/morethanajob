@@ -30,7 +30,7 @@ use Symfony\Component\HttpFoundation\Response;
 /**
  * Class ProjectController
  * @package App\Controller
- * @Route("/project")
+ * @Route("/backend/project")
  */
 class ProjectController extends AbstractController
 {

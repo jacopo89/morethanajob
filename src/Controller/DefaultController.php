@@ -15,27 +15,15 @@ use Symfony\Component\Routing\Annotation\Route;
 class DefaultController extends AbstractController
 {
 
-    /**
-     * @Route("/", name="base")
-     */
-    public function basic()
-    {
-        return $this->redirectToRoute('default/base.html.twig');
-    }
 
     /**
-     * @Route("/app/{route}", name="home", requirements={"route"=".+"})
+     * @Route("/{route}", name="home", requirements={"route"="^(?!backend).*$"})
      */
     public function index()
     {
         return $this->render('default/base.html.twig');
     }
 
-    /**
-     * @Route("/logout")
-     */
-    public function logout(){
-        return $this->redirectToRoute("home",['route'=>"immediatelogout"]);
-    }
+
 
 }

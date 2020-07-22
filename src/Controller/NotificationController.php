@@ -22,7 +22,7 @@ use Symfony\Component\HttpFoundation\Response;
 /**
  * Class UserController
  * @package App\Controller
- * @Route("/notifications")
+ * @Route("/backend/notifications")
  */
 class NotificationController extends AbstractController
 {

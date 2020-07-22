@@ -6,18 +6,18 @@ export function  useUploadPictures() {
 
     const {accessToken} = useSelector(state=>state);
     const backendClient = BackendClient(accessToken);;
-    return useCreateHook(backendClient,'/profile/cover','post',null);
+    return useCreateHook(backendClient,'/backend/profile/cover','post',null);
 }
 
 export function  useUploadProfilePicture() {
 
     const {accessToken} = useSelector(state=>state);
     const backendClient = BackendClient(accessToken);
-    return useCreateHook(backendClient,'/profile/profilePicture','post',null);
+    return useCreateHook(backendClient,'/backend/profile/profilePicture','post',null);
 }
 export function useSaveProfile(){
     const {accessToken} = useSelector(state=>state);
     const backendClient = BackendClient(accessToken);
-    return useCreateHook(backendClient,'/profile/save','post',null);
+    return useCreateHook(backendClient,'/backend/profile/save','post',null);
 }
 

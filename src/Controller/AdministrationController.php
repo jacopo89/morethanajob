@@ -21,7 +21,7 @@ use Symfony\Component\HttpFoundation\Response;
 /**
  * Class AdministrationController
  * @package App\Controller
- * @Route("/administration")
+ * @Route("/backend/administration")
  */
 class AdministrationController extends AbstractController
 {
