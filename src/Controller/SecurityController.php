@@ -103,7 +103,7 @@ class SecurityController extends AbstractController
         //If registration is successful we need to create folders
         $this->fileSystemService->createUserFolder($user->getId());
 
-        $this->registrationMail($mail);
+        //$this->registrationMail($mail);
 
         return new Response($user->getId());
 
