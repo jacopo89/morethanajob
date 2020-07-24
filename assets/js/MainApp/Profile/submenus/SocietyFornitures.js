@@ -10,7 +10,7 @@ import {
     Icon,
     Modal,
     Panel,
-    Row,
+    Row, Schema,
     SelectPicker,
     TreePicker
 } from "rsuite";
@@ -123,11 +123,19 @@ export function NewServiceModal({show, onHide, successCallback}){
             "value": "f2f",
         }]
 
+
+    const { StringType, ArrayType } = Schema.Types;
+    const model = Schema.Model({
+        service: ArrayType()
+        // .addRule((value, data) => {return asyncCheckUsername(value);}, 'Duplicate username')
+            .isRequired('This field is required'),
+    })
+
     return (<Modal show={show} onHide={closeModal} centered>
         <Modal.Header closeButton>
             Offered Service
         </Modal.Header>
-        <Form fluid formValue={formValue} onChange={setFormValue} onSubmit={onSubmitHandler}  >
+        <Form fluid formValue={formValue} model={model} onChange={setFormValue} onSubmit={onSubmitHandler}  >
             <Modal.Body style={{height:500, padding:10}}>
                 <TextField name="service" label="Servizio" accepter={TreePicker} data={servicesTree} style={{width:"100%"}} />
                 <TextField name="description" label="Description" componentClass="textarea"/>

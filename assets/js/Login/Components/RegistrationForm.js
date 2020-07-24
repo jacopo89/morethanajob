@@ -16,16 +16,6 @@ import TextField from "./TextField";
 import {dataLanguage} from "../../selectData";
 
 export default function RegistrationForm({registrationProps}){
-    const pickerData = [
-        {
-            "label": "Italiano",
-            "value": "it-IT",
-        },
-        {
-            "label": "English",
-            "value": "en-US",
-        }
-        ]
     const { StringType } = Schema.Types;
 
 
@@ -55,7 +45,7 @@ export default function RegistrationForm({registrationProps}){
                 <TextField name="language" label="Seleziona lingua" accepter={SelectPicker} data={dataLanguage} searchable={false} style={{width:"100%"}}/>
 
                 <ButtonToolbar>
-                    <MainButton appearance="primary" onClick={()=>registrationProps.registrationHandler(formValue)}>Submit</MainButton>
+                    <MainButton appearance="primary" onClick={()=>registrationProps.registrationHandler(formValue)}>Sottometti</MainButton>
                     <SecondaryButton appearance="default">Cancel</SecondaryButton>
                 </ButtonToolbar>
     </Form>

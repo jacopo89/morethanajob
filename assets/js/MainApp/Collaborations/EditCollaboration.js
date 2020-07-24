@@ -10,7 +10,7 @@ import {useGetCategories} from "../../Backend/hooks/useCategories";
 import {generateCategoriesTree} from "../Administration/CategoriesManagement";
 import * as Routes from "../../routes";
 import {bordeaux} from "../../styledComponents/CustomComponents";
-import {Button, DatePicker, Form, SelectPicker, TreePicker} from "rsuite";
+import {Button, DatePicker, Form, Schema, SelectPicker, TreePicker} from "rsuite";
 import TextField from "../../Login/Components/TextField";
 import {dataCountry, dataLanguage} from "../../selectData";
 import styled from "styled-components";
@@ -56,8 +56,13 @@ export default function EditCollaboration() {
         Object.keys(formValue).forEach((key)=>  { formData.append(key,JSON.stringify(formValue[key]));});
         createNewCollaborationHandler(formData, {successCallback: (data)=> history.push(Routes.collaboration(data)) });
     }
+    const { StringType, ArrayType } = Schema.Types;
+    const model = Schema.Model({
+        service: ArrayType()
+        // .addRule((value, data) => {return asyncCheckUsername(value);}, 'Duplicate username')
+            .isRequired('This field is required'),
+    })
 
-    console.log(projects);
     return (
         <>
             <div style={{border:`2px solid ${bordeaux}`, height:100, width:"100%", textAlign:"center"}}>{formValue.title}</div>

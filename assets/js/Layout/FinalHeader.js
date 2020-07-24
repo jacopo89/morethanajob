@@ -2,7 +2,7 @@ import {Dropdown, Icon, Nav, Navbar} from "rsuite";
 import * as Routes from "../routes";
 import React from "react";
 import {useTranslation} from "react-i18next";
-import {useDispatch} from "react-redux";
+import {useDispatch, useSelector} from "react-redux";
 import * as ActionTypes from "../Redux/actions";
 import {useHistory} from "react-router-dom";
 
@@ -11,6 +11,7 @@ export default function FinalHeader(){
     const { t, i18n } = useTranslation();
     const history = useHistory();
     const dispatch = useDispatch();
+    const {user} = useSelector(state=>state);
     const changeLanguage = code => {
         i18n.changeLanguage(code);
         dispatch(ActionTypes.switchLanguage(code))

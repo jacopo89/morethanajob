@@ -3,6 +3,7 @@ import * as Routes from "../routes";
 import {bordeaux} from "../styledComponents/CustomComponents";
 import React from "react";
 import styled from "styled-components";
+import FinalHeader from "./FinalHeader";
 
 export default function DashboardLayout({page}) {
 
@@ -10,7 +11,7 @@ export default function DashboardLayout({page}) {
         <DesktopDiv>
         <div style={{backgroundColor: "white", minHeight:"100vh"}}>
 
-            <Navbar appearance="subtle">
+            {/*<Navbar appearance="subtle">
                 <Navbar.Header>
                     <a href="#" className="navbar-brand logo">
                         LOGO ENI
@@ -29,7 +30,8 @@ export default function DashboardLayout({page}) {
                         <Nav.Item onClick={()=>history.push(Routes.registration)} icon={<Icon icon="cog" />}>Register</Nav.Item>
                     </Nav>
                 </Navbar.Body>
-            </Navbar>
+            </Navbar>*/}
+            <FinalHeader />
 
 
             <div style={{display:"flex", height: "100vh", flexDirection: "column", position: "absolute", top:0, width:"100%", paddingTop:53 }}>

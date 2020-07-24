@@ -110,4 +110,9 @@ export function  useGetApplications() {
 }
 
 
+export function useDeleteProject(){
 
+    const {accessToken} = useSelector(state=>state);
+    const backendClient = BackendClient(accessToken);
+    return useCreateHook(backendClient,'/backend/project/removeProject','delete',null);
+}

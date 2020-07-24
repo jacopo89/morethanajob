@@ -17,7 +17,7 @@ const renderItemFunction = (item) => {
     return item;
 }
 
-const CustomNav = ({ active, onSelect, ...props }) => {
+const CustomNav = ({ active, onSelect,isOwner, ...props }) => {
 
     const history = useHistory();const [show, setShow] = useState(false);
     const openModal = ()=> setShow(true);
@@ -27,31 +27,31 @@ const CustomNav = ({ active, onSelect, ...props }) => {
         <Nav id="projectMenu" {...props} activeKey={active} onSelect={onSelect} justified>
             <Nav.Item renderItem={renderItemFunction} eventKey="portfolio">
                 <div style={{display:"flex", alignItems:"center", justifyContent:"center"}}>
-                    <Icon icon="home" /> PORTFOLIO  <IconButtonTransparent onClick={() => history.push(Routes.newPortfolioPage)} icon={<Icon icon="plus"/>}/>
+                    <Icon icon="home" /> PORTFOLIO  {isOwner &&<IconButtonTransparent onClick={() => history.push(Routes.newPortfolioPage)} icon={<Icon icon="plus"/>}/>}
                 </div>
             </Nav.Item>
             <Nav.Item renderItem={renderItemFunction} eventKey="offerings">OFFRO
-                <IconButtonTransparent onClick={() => openModal()} icon={<Icon icon="plus"/>}/>
+                {isOwner && <IconButtonTransparent onClick={() => openModal()} icon={<Icon icon="plus"/>}/>}
                 <NewServiceModal show={show} onHide={closeModal}/>
             </Nav.Item>
             <Nav.Item renderItem={renderItemFunction} eventKey="projects">
                 PROGETTI
-                <IconButtonTransparent onClick={() => history.push(Routes.newProjectPage)} icon={<Icon icon="plus"/>}/>
+                {isOwner && <IconButtonTransparent onClick={() => history.push(Routes.newProjectPage)} icon={<Icon icon="plus"/>}/>}
             </Nav.Item>
             <Nav.Item renderItem={renderItemFunction} eventKey="services">
                 SERVIZI
-                <IconButtonTransparent onClick={() => history.push(Routes.newServicePage)} icon={<Icon icon="plus"/>}/>
+                {isOwner && <IconButtonTransparent onClick={() => history.push(Routes.newServicePage)} icon={<Icon icon="plus"/>}/>}
             </Nav.Item>
             <Nav.Item renderItem={renderItemFunction} eventKey="collaborations">
                 COLLABORIAMO
-                <IconButtonTransparent onClick={() => history.push(Routes.newCollaborationPage)} icon={<Icon icon="plus"/>}/>
+                {isOwner &&<IconButtonTransparent onClick={() => history.push(Routes.newCollaborationPage)} icon={<Icon icon="plus"/>}/>}
             </Nav.Item>
             <Nav.Item renderItem={renderItemFunction} eventKey="contacts">CONTATTI</Nav.Item>
         </Nav>
     );
 };
 
-export function ProjectMenu({society}){
+export function ProjectMenu({society, isOwner}){
 
     const [active, setActive] = useState('portfolio');
 
@@ -86,7 +86,7 @@ export function ProjectMenu({society}){
 
     return (
         <div>
-            <CustomNav appearance="subtle" active={active} onSelect={handleSelect} />
+            <CustomNav appearance="subtle" active={active} onSelect={handleSelect} isOwner={isOwner} />
             {mainPart(active)}
         </div>
     );

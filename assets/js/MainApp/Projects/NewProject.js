@@ -11,7 +11,7 @@ import {
     IconButton,
     List,
     Panel,
-    Row,
+    Row, Schema,
     SelectPicker,
     TreePicker,
     Uploader
@@ -88,7 +88,13 @@ export default function NewProject({isPortfolio=false}){
     };
 
 
-
+    const { StringType, ArrayType } = Schema.Types;
+    const model = Schema.Model({
+        country: ArrayType()
+        // .addRule((value, data) => {return asyncCheckUsername(value);}, 'Duplicate username')
+            .isRequired('This field is required'),
+        language: ArrayType().isRequired('This field is required')
+    })
 
 
     const listElements = (formValue) => {return (isPortfolio)  ? <PartnerListOrCreate formValue={formValue} setFormValue={setFormValue} /> : <ListOrCreate formValue={formValue} setFormValue={setFormValue} /> };
@@ -111,7 +117,7 @@ export default function NewProject({isPortfolio=false}){
 
             <InfoBox >
                 <h5 style={{color:bordeaux}}>Info </h5>
-                <Form fluid formValue={formValue} onChange={setFormValue} onSubmit={onSubmitHandler}>
+                <Form fluid formValue={formValue} model={model} onChange={setFormValue} onSubmit={onSubmitHandler}>
                     <TextField label="Titolo del progetto" name="title" type="text" />
                     <TextField label="Descrizione breve" name="shortDescription" componentClass="textarea" />
                     <TextField label="Descrizione" name="longDescription" componentClass="textarea" />

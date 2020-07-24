@@ -684,6 +684,17 @@ class ProjectController extends AbstractController
     }
 
 
+    /**
+     * @param Project $project
+     * @return Response
+     * @Route("/removeProject/{id}")
+     */
+    public function removeProject(Project $project){
+        $this->em->remove($project);
+        $this->em->flush();
+        return new Response($project->getId(), Response::HTTP_OK);
+    }
+
     private function saveLogo($file, $basePath, $project){
         $projectId = $project->getId();
 

@@ -125,7 +125,7 @@ export default function Profile(){
                             </Row>
                         </Grid>
                     </InfoBox>
-                    <ProjectMenu society={userInfo}/>
+                    <ProjectMenu society={userInfo} isOwner={isOwner}/>
                 </>)
         }else if(userInfo && isEdit){
             const uploaderButton = <Button style={{backgroundImage:  `url(${profileImage})`, backgroundSize: "contain", width:200, height:200}}> Upload</Button>;

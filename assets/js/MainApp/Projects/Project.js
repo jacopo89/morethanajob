@@ -69,10 +69,10 @@ export default function Project(){
     const projectLogo = <div style={projectLogostyle}/>
     return <>
 
-        <div style={{height:250, width:"100%", border:"1px solid black", marginBottom:10, backgroundColor:"black",position:"relative", backgroundImage: `url(${backgrounCoverdImage})`}}>
+        <div style={{height:250, width:"100%", marginBottom:10, backgroundColor:"black",position:"relative", backgroundImage: `url(${backgrounCoverdImage})`}}>
             <LinearGradient/>
             {isOwner && <>
-                <Button onClick={()=>history.push(Routes.editProject(id))}>Edit project</Button>
+                <InverseButton onClick={()=>history.push(Routes.editProject(id))}>Edit project</InverseButton>
             </>
             }
 

@@ -1,7 +1,7 @@
 import React, {useEffect, useState} from "react";
 import {useSelector} from "react-redux";
 import {
-    useCreateNewProject, useEditProject,
+    useCreateNewProject, useDeleteProject, useEditProject,
     useGetProject,
     useUploadProjectCover,
     useUploadProjectLogo
@@ -29,12 +29,13 @@ import {bordeaux, InverseButton} from "../../styledComponents/CustomComponents";
 import styled from "styled-components";
 import ImageCropper from "../../ReusableComponents/ImageCropper";
 import {useParams} from "react-router-dom";
-
+import * as Routes from "../../routes";
 export default function EditProject({isPortfolio=false}){
     const [formValue, setFormValue] = useState({positions: [], partners:[]});
 
     const {id} = useParams();
     const [project, getProjectHandler] = useGetProject();
+    const[deleteProject, deleteProjectHandler] = useDeleteProject();
     useEffect(()=> {
         getProjectHandler(id, {successCallback: (data)=> {
             setFormValue(data);
@@ -80,19 +81,31 @@ export default function EditProject({isPortfolio=false}){
         }
     };
 
+
+
+    const removeProjectSuccessCallaback = ()=> {
+        console.log("Progetto rimosso");
+        console.log("profile name", user.profileName);
+        history.push(Routes.profile(user.profileName));
+    }
+
+    const removeProject = (id)=> {
+        deleteProjectHandler(id, {successCallback:removeProjectSuccessCallaback});
+    }
+
     const backgroundImage = (project && project.projectLogo) ? project.projectLogo.url  : "";
     const backgrounCoverdImage = (project && project.projectPicture) ? project.projectPicture.url  : "";
 
 
     const listElements = (formValue) => {return (isPortfolio)  ? <PartnerListOrCreate formValue={formValue} setFormValue={setFormValue} /> : <ListOrCreate formValue={formValue} setFormValue={setFormValue} /> };
 
-    const uploadCoverButton = <InverseButton>uploadCoverButton</InverseButton>;
-    const uploadLogoButton = <InverseButton>uploadLogoButton</InverseButton>;
+    const uploadCoverButton = <InverseButton>Upload Cover Button</InverseButton>;
+    const uploadLogoButton = <InverseButton>Upload Logo Button</InverseButton>;
 
 
     return (
         <>
-            <div style={{height:250, width:"100%", border:"1px solid black", marginBottom:10, backgroundColor:"black", position:"relative", backgroundImage:`url(${backgrounCoverdImage})`}}>
+            <div style={{height:250, width:"100%", marginBottom:10, backgroundColor:"black", position:"relative", backgroundImage:`url(${backgrounCoverdImage})`}}>
                 <ImageCropper button={uploadCoverButton} propCrop={{
                     unit: 'px', // default, can be 'px' or '%'
                     x: 0,
@@ -127,8 +140,9 @@ export default function EditProject({isPortfolio=false}){
 
                    { /*<h2>Posizioni </h2>  <ListOrCreate formValue={formValue} setFormValue={setFormValue} />*/}
 
-                    <Button type="submit">Save</Button>
+                    <Button type="submit">Save Project</Button>
                 </Form>
+                <Button onClick={()=>removeProject(formValue.id)} >Remove Project</Button>
 
             </InfoBox>
         </>);
