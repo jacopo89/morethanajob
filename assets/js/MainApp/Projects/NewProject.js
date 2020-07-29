@@ -118,19 +118,11 @@ export default function NewProject({isPortfolio=false}){
             <InfoBox >
                 <h5 style={{color:bordeaux}}>Info </h5>
                 <Form fluid formValue={formValue} model={model} onChange={setFormValue} onSubmit={onSubmitHandler}>
-                    <TextField label="Titolo del progetto" name="title" type="text" />
-                    <TextField label="Descrizione breve" name="shortDescription" componentClass="textarea" />
-                    <TextField label="Descrizione" name="longDescription" componentClass="textarea" />
-                    <div style={{display:"flex", justifyContent:"space-around"}}>
-                        <TextField style={{width:"100%"}} label="Data di inizio progetto" name="startTime" accepter={DatePicker} format="DD-MM-YYYY" />
-                        <TextField style={{width:"100%"}}  label="Data di fine progetto" name="endTime" accepter={DatePicker} format="DD-MM-YYYY" placement="topEnd" /> </div>
-
-                    <div style={{display:"flex", justifyContent:"space-around"}}>
-                        <TextField style={{width:"100%"}} label="Paese" name="country" accepter={SelectPicker} data={dataCountry} />
-                        <TextField style={{width:"100%"}} label="Lingua" name="language" accepter={SelectPicker} data={dataLanguage} />
-                    </div>
+                    <TextField label="Title" name="title" type="text" />
+                    <TextField label="Short description" name="shortDescription" componentClass="textarea" />
+                    <TextField label="Description" name="longDescription" componentClass="textarea" />
                     <TextField label="Links" name="links" componentClass="textarea" />
-                    <TextField label="Contatti" name="contacts" componentClass="textarea" />
+                    <TextField label="Contacts" name="contacts" componentClass="textarea" />
                     <Grid>
                         <Row>
                             <Col xs={12}>
@@ -157,7 +149,7 @@ export default function NewProject({isPortfolio=false}){
                     <h5 style={{color:bordeaux}}>Partner </h5>
                     {isPortfolio && <PartnerListOrCreate formValue={formValue} setFormValue={setFormValue} />}
 
-                    <Button type="submit">Save all</Button>
+                    <MainButton type="submit">Save all</MainButton>
                 </Form>
 
             </InfoBox>

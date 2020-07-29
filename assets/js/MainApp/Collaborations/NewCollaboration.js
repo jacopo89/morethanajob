@@ -20,7 +20,7 @@ import {dataCountry, dataLanguage, modalityData} from "../../selectData";
 import {useGetServices} from "../../Backend/hooks/useServices";
 import {generateCategoriesTree, generateServiceTree} from "../Administration/CategoriesManagement";
 import {GenericTable} from "../../ReusableComponents/GenericTable";
-import {bordeaux, InverseButton} from "../../styledComponents/CustomComponents";
+import {bordeaux, InverseButton, MainButton} from "../../styledComponents/CustomComponents";
 import styled from "styled-components";
 import ImageCropper from "../../ReusableComponents/ImageCropper";
 import {useHistory} from "react-router-dom";
@@ -64,23 +64,20 @@ export default function NewCollaboration({isService=false}){
             <InfoBox >
                 <h5 style={{color:bordeaux}}>Info </h5>
                 <Form fluid formValue={formValue} onChange={setFormValue} onSubmit={onSubmitHandler}>
-                    <TextField label="Titolo del progetto" name="title" type="text" />
-                    <TextField label="Descrizione breve" name="shortDescription" componentClass="textarea" />
-                    <div style={{display:"flex", justifyContent:"space-around"}}>
-                        <TextField style={{width:"100%"}} label="Data di inizio progetto" name="startTime" accepter={DatePicker} format="DD-MM-YYYY" />
-                        <TextField style={{width:"100%"}}  label="Data di fine progetto" name="endTime" accepter={DatePicker} format="DD-MM-YYYY" placement="topEnd" /> </div>
+                    <TextField label="Title of the collaboration" name="title" type="text" />
+                    <TextField label="Short description" name="shortDescription" componentClass="textarea" />
+                    <TextField label="Detailed description" name="description" componentClass="textarea" />
 
                     <div style={{display:"flex", justifyContent:"space-around"}}>
-                        <TextField style={{width:"100%"}} label="Paese" name="country" accepter={SelectPicker} data={dataCountry} />
-                        <TextField style={{width:"100%"}} label="Lingua" name="language" accepter={SelectPicker} data={dataLanguage} />
+                        <TextField style={{width:"100%"}} label="Country" name="country" accepter={SelectPicker} data={dataCountry} />
                     </div>
                     <div style={{display:"flex", justifyContent:"space-around"}}>
-                        <TextField style={{width:"100%"}} label="Progetto" name="project" accepter={SelectPicker} data={projects} />
-                        <TextField style={{width:"100%"}} label="Categoria" name="category" accepter={TreePicker} data={categoriesTree} />
+                        <TextField style={{width:"100%"}} label="Project" name="project" accepter={SelectPicker} data={projects} />
+                        <TextField style={{width:"100%"}} label="Macro category of the collaboration" name="category" accepter={TreePicker} data={categoriesTree} />
                     </div>
                     {!isService && <ListOrCreate formValue={formValue} setFormValue={setFormValue} />}
 
-                    <Button type="submit">Save all</Button>
+                    <MainButton type="submit">Save all</MainButton>
                 </Form>
 
             </InfoBox>
@@ -209,8 +206,8 @@ function ListOrCreate({formValue, setFormValue}){
     </>
     const list = <>
         <div style={{display:"flex", justifyContent:"space-between"}}>
-            <h5 style={{color:bordeaux}}>Posizioni </h5>
-            <InverseButton onClick={createHandler}>Crea posizione</InverseButton>
+            <h5 style={{color:bordeaux}}>Positions </h5>
+            <InverseButton onClick={createHandler}>Create position</InverseButton>
         </div>
         <List>
             {formValue.positions.map((position, index) => (
@@ -235,20 +232,15 @@ function IncludableForm({item, updater, save, remover, back, servicesTree}){
         <Form formValue={formValue}  onChange={setFormValue}>
             <div style={{display:"flex", justifyContent:"space-around"}}>
                 <TextField name="service" label="Servizio" accepter={TreePicker} data={servicesTree} style={{width:"100%"}} />
-                <TextField name="modality" label="modality" accepter={SelectPicker} data={modalityData} style={{width:"100%"}} searchable={false}/>
             </div>
-            <TextField name="shortDescription" label="Short Description" componentClass="textarea"/>
             <TextField name="description" label="Description" componentClass="textarea"/>
 
             <TextField name="address" label="address"/>
             <div style={{display:"flex", justifyContent:"space-around"}}>
-                <TextField name="startDate" accepter={DatePicker} label="Data di inizio" format="DD-MM-YYYY" style={{width:"100%"}}/>
-                <TextField name="endDate" accepter={DatePicker} label="Data di fine" format="DD-MM-YYYY" style={{width:"100%"}}/>
+                <TextField name="endDate" accepter={DatePicker} label="Deadline" format="DD-MM-YYYY" style={{width:"100%"}}/>
             </div>
-            <TextField name="mainBeneficiaries" label="Beneficiaries" componentClass="textarea"/>
-            <TextField name="rates" label="Rates" componentClass="textarea"/>
         </Form>
-        <Button onClick={save}>Salva</Button><Button onClick={()=>back(item.id)}>Cancella</Button>
+        <Button onClick={save}>Save</Button><Button onClick={()=>back(item.id)}>Undo</Button>
     </div>
 }
 

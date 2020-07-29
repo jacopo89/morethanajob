@@ -69,19 +69,19 @@ export default function EditCollaboration() {
             <InfoBox >
                 <h5 style={{color:bordeaux}}>Info </h5>
                 <Form fluid formValue={formValue} onChange={setFormValue} onSubmit={onSubmitHandler}>
-                    <TextField label="Titolo del progetto" name="title" type="text" />
-                    <TextField label="Descrizione breve" name="shortDescription" componentClass="textarea" />
+                    <TextField label="Title" name="title" type="text" />
+                    <TextField label="Short description" name="shortDescription" componentClass="textarea" />
                     <div style={{display:"flex", justifyContent:"space-around"}}>
-                        <TextField style={{width:"100%"}} label="Data di inizio progetto" name="startTime" accepter={DatePicker} format="DD-MM-YYYY" />
-                        <TextField style={{width:"100%"}}  label="Data di fine progetto" name="endTime" accepter={DatePicker} format="DD-MM-YYYY" placement="topEnd" /> </div>
+                        <TextField style={{width:"100%"}} label="Start date" name="startTime" accepter={DatePicker} format="DD-MM-YYYY" />
+                        <TextField style={{width:"100%"}}  label="End date" name="endTime" accepter={DatePicker} format="DD-MM-YYYY" placement="topEnd" /> </div>
 
                     <div style={{display:"flex", justifyContent:"space-around"}}>
-                        <TextField style={{width:"100%"}} label="Paese" name="country" accepter={SelectPicker} data={dataCountry} />
-                        <TextField style={{width:"100%"}} label="Lingua" name="language" accepter={SelectPicker} data={dataLanguage} />
+                        <TextField style={{width:"100%"}} label="Country" name="country" accepter={SelectPicker} data={dataCountry} />
+                        <TextField style={{width:"100%"}} label="Language" name="language" accepter={SelectPicker} data={dataLanguage} />
                     </div>
                     <div style={{display:"flex", justifyContent:"space-around"}}>
-                        <TextField style={{width:"100%"}} label="Progetto" name="project" accepter={SelectPicker} data={projects} />
-                        <TextField style={{width:"100%"}} label="Categoria" name="category" accepter={TreePicker} data={categoriesTree} />
+                        <TextField style={{width:"100%"}} label="Project" name="project" accepter={SelectPicker} data={projects} />
+                        <TextField style={{width:"100%"}} label="Category" name="category" accepter={TreePicker} data={categoriesTree} />
                     </div>
 
                     <Button type="submit">Save all</Button>

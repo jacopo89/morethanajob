@@ -22,7 +22,7 @@ import * as Routes from "../../../routes";
 import {bordeaux} from "../../../styledComponents/CustomComponents";
 import {getCalendarFormat} from "../../../ReusableComponents/TimeManager";
 import {useHistory} from "react-router-dom";
-import {modalityData} from "../../../selectData";
+import {dataCountry, modalityData} from "../../../selectData";
 
 export default function SocietyFornitures({society}){
 
@@ -133,13 +133,13 @@ export function NewServiceModal({show, onHide, successCallback}){
 
     return (<Modal show={show} onHide={closeModal} centered>
         <Modal.Header closeButton>
-            Offered Service
+            Expertise
         </Modal.Header>
         <Form fluid formValue={formValue} model={model} onChange={setFormValue} onSubmit={onSubmitHandler}  >
             <Modal.Body style={{height:500, padding:10}}>
-                <TextField name="service" label="Servizio" accepter={TreePicker} data={servicesTree} style={{width:"100%"}} />
+                <TextField name="service" label="Field of expertise" accepter={TreePicker} data={servicesTree} style={{width:"100%"}} />
                 <TextField name="description" label="Description" componentClass="textarea"/>
-                <TextField name="address" label="address"/>
+                <TextField name="country" label="Country" accepter={SelectPicker} data={dataCountry}/>
             </Modal.Body>
 
             <Modal.Footer>

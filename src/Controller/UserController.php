@@ -11,6 +11,7 @@ namespace App\Controller;
 
 use App\Entity\User;
 use App\Service\Serializer;
+use Doctrine\ORM\EntityManagerInterface;
 use Symfony\Component\HttpFoundation\Response;
 use Symfony\Component\Routing\Annotation\Route;
 use Symfony\Bundle\FrameworkBundle\Controller\AbstractController;
@@ -24,9 +25,11 @@ use Symfony\Bundle\FrameworkBundle\Controller\AbstractController;
 class UserController extends AbstractController
 {
     private $serializer;
-    public function __construct(Serializer $serializer)
+    private $em;
+    public function __construct(Serializer $serializer, EntityManagerInterface $em)
     {
         $this->serializer = $serializer;
+        $this->em = $em;
     }
 
     /**
@@ -77,6 +80,43 @@ class UserController extends AbstractController
         $userToSend["profilePicture"] = $user->getProfilePicture();
         return new Response($this->serializer->serialize($userToSend, 'json'), Response::HTTP_OK);
     }
+
+    /**
+     * @Route("/getrandom", name="get_random")
+     * @return Response
+     */
+    public function getRandom(){
+
+        $users = $this->em->getRepository(User::class)->findAll();
+        shuffle($users);
+
+        $totalNumberUsers = sizeof($users);
+        $finalSize = ($totalNumberUsers<5) ? $totalNumberUsers : 5;
+        $finalUsers = [];
+        for($i=0;  $i<$finalSize; $i++){
+            $user = $users[$i];
+            $userToSend["email"] = $user->getEmail();
+            $userToSend["roles"] = $user->getRoles();
+            $userToSend["name"] = $user->getName();
+            $userToSend["description"] = $user->getDescription();
+            $userToSend["coverPicture"] = $user->getCoverPicture();
+            $userToSend["website"] = $user->getWebsite();
+            $userToSend["address"] = $user->getAddress();
+            $userToSend["telephone"] = $user->getTelephone();
+            $userToSend["language"] = $user->getLanguage();
+            $userToSend["facebook"] = $user->getFacebook();
+            $userToSend["linkedin"] = $user->getLinkedin();
+            $userToSend["twitter"] = $user->getTwitter();
+            $userToSend["profileName"] = $user->getProfileName();
+            $userToSend["profilePicture"] = $user->getProfilePicture();
+            $finalUsers[] = $userToSend;
+        }
+
+
+        return new Response($this->serializer->serialize($finalUsers, 'json'), Response::HTTP_OK);
+    }
+
+
 
 
 }

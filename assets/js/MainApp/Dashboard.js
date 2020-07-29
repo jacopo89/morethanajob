@@ -1,11 +1,12 @@
-import React, {useState} from "react";
+import React, {useEffect, useState} from "react";
 import {Button, Col, Form, Grid, Icon, Nav, Navbar, Panel, PanelGroup, Row} from "rsuite";
 import {useHistory} from "react-router-dom";
 import * as Routes from '../routes'
-import {Body, bordeaux, gray} from "../styledComponents/CustomComponents";
+import {Body, bordeaux, gray, MainButton} from "../styledComponents/CustomComponents";
 import styled from "styled-components";
 import TextField from "../Login/Components/TextField";
 import "./dashboard.css";
+import {useGetRandomProfiles} from "../Backend/hooks/UserInfo";
 
 export default function Dashboard(){
     const history = useHistory();
@@ -13,18 +14,30 @@ export default function Dashboard(){
     const [readMore, setReadMore] = useState(false);
 
     const panelStyle = {width: "85%", borderRadius:"20px", backgroundColor:"white", margin:"0 auto", padding:20, marginTop:20}
+    const [profiles, getRandomProfilesHandler] = useGetRandomProfiles();
+
+    useEffect(()=>{
+        getRandomProfilesHandler();
+    },[]);
+
+    const profilePics = profiles.map((profile)=> <IconTextBox>
+        <img width={75} src={profile.profilePicture.url}/>
+        <p>{profile.name}</p>
+    </IconTextBox> );
 
     return <>
         <Navbar id="dashboard" appearance="inverse" style={{backgroundColor:"transparent", color:"white"}} >
             <Navbar.Body>
                 <Nav>
-                    <Nav.Item eventKey="1" icon={<Icon icon="home" />}>
+                    <Nav.Item href="#home" eventKey="1" icon={<Icon icon="home" />}>
                         Home
                     </Nav.Item>
-                    <Nav.Item href="#aboutUs"  eventKey="2">About us</Nav.Item>
-                    <Nav.Item  eventKey="3">Categories</Nav.Item>
-                    <Nav.Item  eventKey="3">FAQ</Nav.Item>
-                    <Nav.Item  eventKey="3">Contact us</Nav.Item>
+                    <Nav.Item href="#aboutUs"  eventKey="2">The project</Nav.Item>
+                    <Nav.Item href="#services"  eventKey="3">Services and opportunities</Nav.Item>
+                    <Nav.Item href="#organisations"  eventKey="4">Organisations</Nav.Item>
+                    <Nav.Item href="FAQ"  eventKey="5">FAQ</Nav.Item>
+
+                    <Nav.Item href="contact"  eventKey="6">Contact us</Nav.Item>
                 </Nav>
                 <Nav pullRight>
                     <Nav.Item onClick={()=>history.push(Routes.login)} icon={<Icon icon="cog" />}>Login</Nav.Item>
@@ -33,7 +46,10 @@ export default function Dashboard(){
             </Navbar.Body>
         </Navbar>
         <Body style={{backgroundColor:"transparent", maxWidth:"none"}}>
-            <Panel shaded style={panelStyle}>
+            <Panel shaded style={panelStyle} >
+                <Title id="home">
+
+                </Title>
                 <Grid fluid>
                     <Row className="show-grid">
                         <Col xs={12}>
@@ -43,10 +59,10 @@ export default function Dashboard(){
                                 This portal is a multilingual interactive space aiming at fostering dialogue and cooperation between SSE actors and public administrations for the development and delivery of services supporting the social and labour inclusion of vulnerable groups.
                                 Our main aim is to provide a simple and complete overview of the existing services and opportunities to support the social and employment inclusion offered in the project partners’ territories. It is also possible to find opportunities of collaboration for the co-development and implementation of new services and opportunities on social and labour inclusion.
                             </p>
-                            <Button onClick={()=>history.push(Routes.projectPage)}>Find the Service</Button>
+                            <MainButton onClick={()=>history.push(Routes.projectPage)}>Find services and opportunities</MainButton>
                         </Col>
                         <Col xs={12}>
-                            Col2
+                            <img width={400} src="/defaults/bg-dashboard.jpg"/>
                         </Col>
                     </Row>
                 </Grid>
@@ -117,6 +133,7 @@ export default function Dashboard(){
                 </Grid>
 
             </Panel>
+
             <Panel shaded style={panelStyle}>
                 <Title>Categories</Title>
                 <div style={{display:"flex", justifyContent:"space-around"}}>
@@ -144,6 +161,16 @@ export default function Dashboard(){
                 </div>
 
             </Panel>
+            <Panel shaded style={panelStyle}>
+                <Title id="organisations">Organisations</Title>
+                <div style={{display:"flex", justifyContent:"space-around"}}>
+                    {profilePics}
+
+                </div>
+
+            </Panel>
+
+
             <Panel shaded style={panelStyle}>
                 <Title>FAQ</Title>
                 <PanelGroup accordion bordered>

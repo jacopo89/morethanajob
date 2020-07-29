@@ -4,6 +4,7 @@ import {Navbar, Nav, Dropdown, Icon} from 'rsuite';
 import Header from "./Header";
 import styled from 'styled-components';
 import FinalHeader from "./FinalHeader";
+import Footer from "./Footer";
 
 export default function MainPage({page}){
     return (
@@ -19,14 +20,7 @@ export default function MainPage({page}){
 
                 </div>
             </div>
-            <div style={{width:"100%", height:200, backgroundColor:bordeaux, alignItems:"center", display:"flex", flexDirection:"column", padding:50}}>
-                <div style={{display: "flex", width:400, justifyContent: "space-around"}}>
-                    <Icon style={{color:"white"}} icon="facebook-square" size="3x"/>
-                    <Icon style={{color:"white"}} icon="linkedin-square" size="3x"/>
-                    <Icon style={{color:"white"}} icon="twitter-square" size="3x" /> </div>
-                <p style={{color:"white"}}>enibcmed.eu/projects/morethanajob</p>
-                <p style={{color:"white"}}>More than a job is a project funded by the EU</p>
-            </div>
+            <Footer/>
         </DesktopDiv>
 
         </>

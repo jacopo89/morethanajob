@@ -27,10 +27,10 @@ const CustomNav = ({ active, onSelect,isOwner, ...props }) => {
         <Nav id="projectMenu" {...props} activeKey={active} onSelect={onSelect} justified>
             <Nav.Item renderItem={renderItemFunction} eventKey="portfolio">
                 <div style={{display:"flex", alignItems:"center", justifyContent:"center"}}>
-                    <Icon icon="home" /> PORTFOLIO  {isOwner &&<IconButtonTransparent onClick={() => history.push(Routes.newPortfolioPage)} icon={<Icon icon="plus"/>}/>}
+                    <Icon icon="home" /> PROJECTS  {isOwner &&<IconButtonTransparent onClick={() => history.push(Routes.newPortfolioPage)} icon={<Icon icon="plus"/>}/>}
                 </div>
             </Nav.Item>
-            <Nav.Item renderItem={renderItemFunction} eventKey="offerings">OFFRO
+            <Nav.Item renderItem={renderItemFunction} eventKey="offerings"> WHAT WE OFFER
                 {isOwner && <IconButtonTransparent onClick={() => openModal()} icon={<Icon icon="plus"/>}/>}
                 <NewServiceModal show={show} onHide={closeModal}/>
             </Nav.Item>
@@ -39,14 +39,14 @@ const CustomNav = ({ active, onSelect,isOwner, ...props }) => {
                 {isOwner && <IconButtonTransparent onClick={() => history.push(Routes.newProjectPage)} icon={<Icon icon="plus"/>}/>}
             </Nav.Item>
             <Nav.Item renderItem={renderItemFunction} eventKey="services">
-                SERVIZI
+                SERVICES AND OPPORTUNITIES
                 {isOwner && <IconButtonTransparent onClick={() => history.push(Routes.newServicePage)} icon={<Icon icon="plus"/>}/>}
             </Nav.Item>
             <Nav.Item renderItem={renderItemFunction} eventKey="collaborations">
-                COLLABORIAMO
+                COLLABORATIONS
                 {isOwner &&<IconButtonTransparent onClick={() => history.push(Routes.newCollaborationPage)} icon={<Icon icon="plus"/>}/>}
             </Nav.Item>
-            <Nav.Item renderItem={renderItemFunction} eventKey="contacts">CONTATTI</Nav.Item>
+            <Nav.Item renderItem={renderItemFunction} eventKey="contacts">CONTACTS</Nav.Item>
         </Nav>
     );
 };

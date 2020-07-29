@@ -75,7 +75,7 @@ class LoginAuthenticator extends AbstractGuardAuthenticator
     public function supports(Request $request)
     {
 
-        return !in_array($request->attributes->get('_route'), ['home', 'app_login', 'app_register', "app_default_logout"]);
+        return !in_array($request->attributes->get('_route'), ['home', 'app_login', 'app_register', "app_default_logout", "get_random"]);
     }
 
     /**

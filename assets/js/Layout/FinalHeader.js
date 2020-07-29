@@ -27,6 +27,7 @@ export default function FinalHeader(){
             <Dropdown.Item onClick={() => changeLanguage('it')} > Italian</Dropdown.Item>
             <Dropdown.Item onClick={() => changeLanguage('en')} > English</Dropdown.Item>
             <Dropdown.Item onClick={() => changeLanguage('ar')} > Arabic</Dropdown.Item>
+            <Dropdown.Item onClick={() => changeLanguage('gr')} > Greek</Dropdown.Item>
         </Dropdown>
     );
 
@@ -54,7 +55,7 @@ export default function FinalHeader(){
             <Nav pullRight>
                 <LanguageDropdown title={t('language')} trigger="hover" />
                 <Nav.Item onClick={()=>history.push(Routes.registration)} icon={<Icon icon="cog" />}>Register</Nav.Item>
-                <CustomDropdown title={t('MORETHANAJOB')} placement="bottomEnd" trigger="hover" />
+                <CustomDropdown icon={<Icon icon="bars" />} placement="bottomEnd" trigger="hover" />
             </Nav>
         </Navbar.Body>
     </Navbar>

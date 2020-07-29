@@ -30,7 +30,7 @@ import {
 import ImageCropper from "../../ReusableComponents/ImageCropper";
 import * as Routes from "../../routes";
 import TextField from "../../Login/Components/TextField";
-import {dataLanguage} from "../../selectData";
+import {dataCountry, dataLanguage} from "../../selectData";
 import {useTranslation} from "react-i18next";
 
 export default function Profile(){
@@ -164,6 +164,7 @@ export default function Profile(){
                                     <div style={{display:"flex", justifyContent:"space-around"}}>
                                         <TextField style={{width:"90%"}} name="name" label="Society Name" />
                                         <TextField style={{width:"90%"}} name="language" label="Language" accepter={SelectPicker} data={dataLanguage} />
+                                        <TextField style={{width:"90%"}} name="country" label="Country" accepter={SelectPicker} data={dataCountry} />
                                     </div>
                                     <TextField style={{width:"90%"}} name="description" label="Society Description" componentClass="textarea" />
                                     <div style={{display:"flex", justifyContent:"space-around"}}>
