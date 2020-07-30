@@ -60,9 +60,9 @@ export default function Dashboard(){
                 <Grid fluid>
                     <Row className="show-grid">
                         <Col xs={12}>
-                            <h4>MoreThanAJob Portal</h4>
-                            <h5>An integrated offer of services for the well-being of the community </h5>
-                            <p>
+                            <h4 style={{color: bordeaux, margin:10}}>MoreThanAJob Portal</h4>
+                            <h5 style={{margin:10}}>An integrated offer of services for the well-being of the community </h5>
+                            <p style={{margin:10}}>
                                 This portal is a multilingual interactive space aiming at fostering dialogue and cooperation between SSE actors and public administrations for the development and delivery of services supporting the social and labour inclusion of vulnerable groups.
                                 Our main aim is to provide a simple and complete overview of the existing services and opportunities to support the social and employment inclusion offered in the project partners’ territories. It is also possible to find opportunities of collaboration for the co-development and implementation of new services and opportunities on social and labour inclusion.
                             </p>
@@ -189,7 +189,7 @@ export default function Dashboard(){
 
 
             <Panel shaded style={panelStyle}>
-                <Title>FAQ</Title>
+                <Title id="FAQ">FAQ</Title>
                 <PanelGroup accordion bordered>
                     <Panel header="Does this course need special requirements?" defaultExpanded>
                         No. It is a standard course.
