@@ -66,7 +66,7 @@ export default function LoginForm({loginProps}){
                     <FormGroup>
                         <ButtonToolbar>
                             <MainButton appearance="primary" type="submit">Login</MainButton>
-                            <SecondaryButton appearance="default" onClick={()=> history.push(Routes.changePassword)}>Cancel</SecondaryButton>
+                            {false && <SecondaryButton appearance="default" onClick={()=> history.push(Routes.changePassword)}>Cancel</SecondaryButton>}
                             {registrationButton}
                         </ButtonToolbar>
                     </FormGroup>

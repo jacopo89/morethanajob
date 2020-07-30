@@ -48,12 +48,9 @@ import ImmediateLogout from "./Login/ImmediateLogout";
 function App(){
     const {authenticated, language} = useSelector(state=>state);
     const {t,i18n} = useTranslation();
-    console.log("translation", i18n.language)
-    console.log("cookies", language)
-    console.log(process.env);
 
     let location = useLocation();
-    console.log("location", location);
+
 
 
     if(i18n.language!==language){
@@ -113,7 +110,8 @@ function App(){
     const authRequired =
         (<>
             <Switch>
-                <Route exact path={Routes.main} children={loginPage} />
+                <Route exact path={Routes.main} children={dashboardPage} />
+                <Route path={Routes.projectPage} children={projectsPage}/>
                 <Route exact path={Routes.login} children={loginPage} />
                 <Route exact path={Routes.registration} children={registrationPage}/>
                 <Route path={Routes.dashboardPage} children={dashboardPage}/>

@@ -39,9 +39,9 @@ export default function FinalHeader(){
                 Home
             </Dropdown.Item>
             <Dropdown.Item onClick={()=> history.push(Routes.projectPage)} eventKey="3">{t('Search projects')}</Dropdown.Item>
-            <Dropdown.Item onClick={()=> history.push(Routes.profile(user.profileName))} icon={<Icon icon="cog" />}>{t('Profile')}</Dropdown.Item>
-            {false && <Dropdown.Item onClick={()=> history.push(Routes.administration)} icon={<Icon icon="cog" />}>{t('Administration')}</Dropdown.Item>}
-            <Nav.Item onClick={()=>signOut()} icon={<Icon icon="cog" />}>Logout</Nav.Item>
+            <Dropdown.Item onClick={()=> history.push(Routes.profile(user.profileName))} >{t('Profile')}</Dropdown.Item>
+            {false && <Dropdown.Item onClick={()=> history.push(Routes.administration)} >{t('Administration')}</Dropdown.Item>}
+            <Dropdown.Item onClick={()=>signOut()} >Logout</Dropdown.Item>
         </Dropdown>
     );
 

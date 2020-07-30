@@ -66,10 +66,12 @@ export default function Dashboard(){
                                 This portal is a multilingual interactive space aiming at fostering dialogue and cooperation between SSE actors and public administrations for the development and delivery of services supporting the social and labour inclusion of vulnerable groups.
                                 Our main aim is to provide a simple and complete overview of the existing services and opportunities to support the social and employment inclusion offered in the project partners’ territories. It is also possible to find opportunities of collaboration for the co-development and implementation of new services and opportunities on social and labour inclusion.
                             </p>
-                            <MainButton onClick={()=>history.push(Routes.projectPage)}>Find services and opportunities</MainButton>
+                            <MainButton style={{float:"right", margin:10}} onClick={()=>history.push(Routes.projectPage)}>Find services and opportunities</MainButton>
                         </Col>
                         <Col xs={12}>
+                            <div style={{display:"flex", justifyContent:"center"}}>
                             <img width={400} src="/defaults/bg-dashboard.jpg"/>
+                            </div>
                         </Col>
                     </Row>
                 </Grid>
@@ -79,7 +81,9 @@ export default function Dashboard(){
                 <Grid fluid>
                     <Row className="show-grid">
                         <Col xs={12}>
+                            <div style={{display:"flex", justifyContent:"center"}}>
                             <img width={400} src="/defaults/MoreThanAJob_Cover.jpg"/>
+                            </div>
                         </Col>
                         <Col xs={12}>
                             <Title id="aboutUs">
@@ -88,11 +92,12 @@ export default function Dashboard(){
                             <p>
                                 This portal is developed as part of the ENI CBC MED project “MoreThanAJob - Reinforcing social and solidarity economy for the unemployed, uneducated and refugees” aiming at fostering the social and labour inclusion of vulnerable groups through a stronger cooperation between SSE actors and public administrations.
                             </p>
+                            <MainButton style={{float:"right", margin:10}} onClick={()=>setReadMore(!readMore)}>Read more</MainButton>
                         </Col>
                     </Row>
-                    <Row className="show-grid">
+                    <Row style={{marginTop: 20}} className="show-grid">
 
-                        <Button onClick={()=>setReadMore(!readMore)}>Read more</Button>
+
                         {readMore &&
                             <>
                                 <p>
@@ -149,19 +154,19 @@ export default function Dashboard(){
                     </IconTextBox>
                     <IconTextBox>
                         <img width={75} src="/icons/ico2.png"/>
-                        <p>Family and income support</p>
+                        <p>Health and counselling services</p>
                     </IconTextBox>
                     <IconTextBox>
                         <img width={75} src="/icons/ico3.png"/>
-                        <p>Family and income support</p>
+                        <p>Education and training</p>
                     </IconTextBox>
                     <IconTextBox>
                         <img width={75} src="/icons/ico4.png"/>
-                        <p>Family and income support</p>
+                        <p>Career guidance and employment support</p>
                     </IconTextBox>
                     <IconTextBox>
                         <img width={75} src="/icons/ico5.png"/>
-                        <p>Family and income support</p>
+                        <p>Culture and participation</p>
                     </IconTextBox>
 
                 </div>
@@ -197,7 +202,7 @@ export default function Dashboard(){
                     </Panel>
                 </PanelGroup>
             </Panel>
-            <Panel shaded style={panelStyle}>
+            {false && <Panel shaded style={panelStyle}>
                 <Title>Contattaci</Title>
                 <Form fluid>
                     <TextField name="name" placeHolder="Name" />
@@ -206,7 +211,7 @@ export default function Dashboard(){
                     <Button style={{float:"right", backgroundColor:bordeaux, color:"white"}}>Submit message </Button>
 
                 </Form>
-            </Panel>
+            </Panel>}
 
         </Body>
     </>

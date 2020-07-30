@@ -60,7 +60,7 @@ export function CollaborationDetail({collaboration}){
                     <div style={{width:"100%", flexGrow:1}} >{collaboration.shortDescription}</div>
                     {collaborationPositions}
                 </div>
-                <Button style={{float:"right", color:"white", backgroundColor: bordeaux}} onClick={()=> history.push(Routes.collaboration(collaboration.id))}>Dettaglio</Button>
+                <Button style={{float:"right", color:"white", backgroundColor: bordeaux}} onClick={()=> history.push(Routes.collaboration(collaboration.id))}>Details</Button>
             </Col>
         </Row>
     </Panel>

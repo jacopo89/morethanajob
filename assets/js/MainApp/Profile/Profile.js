@@ -68,9 +68,9 @@ export default function Profile(){
     const profileImage = (userInfo && userInfo.profilePicture) ? userInfo.profilePicture.url  : profilePicture;
 
     const social = <div style={{position:"absolute", top: 4, right:10, display:"flex", justifyContent:"space-around", width:200 }}>
-        <IconButton size="lg" href={user.facebook}  style={{color:"white"}} icon={<Icon size="3x" icon="facebook-official"/>} size="3x"/>
-        <Icon style={{color:"white"}} icon="linkedin-square" size="3x"/>
-        <Icon style={{color:"white"}} icon="twitter-square" size="3x" />
+        {userInfo && userInfo.facebook &&  <a href={userInfo&& userInfo.facebook}><Icon style={{color:"white"}} icon="facebook-square" size="3x"/></a>}
+        {userInfo && userInfo.linkedin && <a href={userInfo&& userInfo.linkedin}><Icon style={{color:"white"}} icon="linkedin-square" size="3x"/></a>}
+        {userInfo && userInfo.twitter && <a href={userInfo && userInfo.twitter}><Icon style={{color:"white"}} icon="twitter-square" size="3x" /></a>}
     </div>;
 
     const onChangeProfileHandler = (file) => {

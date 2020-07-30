@@ -22,6 +22,7 @@ export const Body = styled.div`
     max-width: 1081px;
     display: flex;
     flex-direction: column;
+    margin-bottom:20;
     `;
 
 export const MainButton = styled(Button)`

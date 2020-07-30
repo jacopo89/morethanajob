@@ -17,9 +17,9 @@ export default function SocietyContacts({society}){
            <IconSpan><Icon style={{color:bordeaux}} icon="envelope" size="3x" /> {userInfo && userInfo.email}</IconSpan>
        </div>
        <div style={{display: "flex", justifyContent: "space-around", height:100}}>
-           <IconSpan><Icon style={{color:bordeaux}} icon="facebook-square" size="3x"/>{userInfo && userInfo.facebook}</IconSpan >
-           <IconSpan><Icon style={{color:bordeaux}} icon="linkedin-square" size="3x"/> {userInfo && userInfo.linkedin}</IconSpan>
-           <IconSpan><Icon style={{color:bordeaux}} icon="twitter-square" size="3x" />{userInfo && userInfo.twitter}</IconSpan> </div>
+           <a href={userInfo && userInfo.facebook}><Icon style={{color:bordeaux}} icon="facebook-square" size="3x"/>{userInfo && userInfo.facebook}</a >
+           <a href={userInfo && userInfo.linkedin}><Icon style={{color:bordeaux}} icon="linkedin-square" size="3x"/> {userInfo && userInfo.linkedin}</a>
+           <a href={userInfo && userInfo.twitter}><Icon style={{color:bordeaux}} icon="twitter-square" size="3x" />{userInfo && userInfo.twitter}</a> </div>
 
        <div>
            {fileList}
