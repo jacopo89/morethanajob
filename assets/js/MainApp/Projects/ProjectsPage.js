@@ -93,6 +93,10 @@ export default function ProjectPage(){
                     <TextField label="Proposed by" name="user" data={users} accepter={SelectPicker} searchable={true} style={{width:"100%"}} />
                 </div>
                 <div style={{display:"flex", justifyContent:"space-between"}}>
+                    <TextField label="From" name="from" accepter={DatePicker}  style={{width:"100%"}} />
+                    <TextField label="To" name="to" accepter={DatePicker}  style={{width:"100%"}} />
+                </div>
+                <div style={{display:"flex", justifyContent:"space-between"}}>
                     <TextField label="Country" name="country" data={dataCountry} accepter={SelectPicker} searchable={false} style={{width:"100%"}} />
                     <TextField label="Service" name="service" data={servicesTree} accepter={CheckTreePicker} style={{width:"100%"}} cascade={false} />
                 </div>

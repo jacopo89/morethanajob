@@ -1,5 +1,10 @@
 import React, {useEffect, useState} from "react";
-import {useCreateOfferedService, useGetServices, useGetServicesBySociety} from "../../../Backend/hooks/useServices";
+import {
+    useCreateOfferedService,
+    useGetServices,
+    useGetServicesBySociety,
+    useRemoveOfferedService
+} from "../../../Backend/hooks/useServices";
 import {
     Button,
     ButtonGroup,
@@ -7,7 +12,7 @@ import {
     DatePicker,
     Form,
     Grid,
-    Icon,
+    Icon, IconButton,
     Modal,
     Panel,
     Row, Schema,
@@ -54,7 +59,7 @@ export default function SocietyFornitures({society}){
 }
 
 export function ServiceDetail({service}){
-    const serviceImage = (service && service.service) ? service.service.picture  : "https://localhost:8000/uploads/users/7/society-5ed3a86ac6b2d.png";
+    const serviceImage = (service && service.service) ? service.service.picture  : "";
 
     return <Panel header={
         <ServicePanelTitle service={service} />}>
@@ -76,9 +81,15 @@ export function ServiceDetail({service}){
 
 
 export function ServicePanelTitle({service}){
+    const [deleteService, deleteServiceHandler] = useRemoveOfferedService();
+    console.log("service", service);
+
     return <div style={{color:bordeaux, height:40, backgroundColor:"whitesmoke", display: "flex", justifyContent: "space-evenly",alignItems: "center"}}>
         <div style={{flexGrow:3, paddingLeft:5, fontWeight: "bold", fontSize:20}}>
             {service.service.name}
+        </div>
+        <div>
+            <IconButton icon={<Icon icon="trash"/> } onClick={() => deleteServiceHandler(service.id)}/>
         </div>
     </div>
 }

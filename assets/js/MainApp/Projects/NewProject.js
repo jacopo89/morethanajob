@@ -437,8 +437,8 @@ function PartnerListOrCreate({formValue, setFormValue}){
         );
     }
     const modelData = [
-        {label:"id",dataKey: "id"},
         {label:"Email", dataKey: "email"},
+        {label:"Name", dataKey: "name"},
         {label:"actions", render:actionRender}
     ]
 
@@ -476,7 +476,7 @@ function PartnerForm({item, updater, save, back, servicesTree}){
             <TextField name="website" label="Website"  />
 
         </Form>
-        <MainButton onClick={save}>Aggiungi</MainButton><SecondaryButton onClick={back}>Cancella</SecondaryButton>
+        <MainButton onClick={save}>Confirm</MainButton><SecondaryButton onClick={back}>Undo</SecondaryButton>
     </>
 }
 

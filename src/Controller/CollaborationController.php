@@ -96,8 +96,11 @@ class CollaborationController extends AbstractController
             $title = json_decode($request->get('title'));
             $shortDescription = json_decode($request->get('shortDescription'));
             $longDescription = json_decode($request->get('longDescription'));
-            $startDate = json_decode($request->get('startTime'));
-            $endDate = json_decode($request->get('endTime'));
+            $startDate = json_decode($request->get('startDate'));
+            $endDate = json_decode($request->get('endDate'));
+            $rates = json_decode($request->get('rates'));
+            $modality = json_decode($request->get('modality'));
+            $mainBeneficiaries = json_decode($request->get('mainBeneficiaries'));
             $categoryId = $request->get('category');
             $projectId = $request->get('project');
 
@@ -110,6 +113,9 @@ class CollaborationController extends AbstractController
             $collaboration->setTitle($title);
             $collaboration->setShortDescription($shortDescription);
             $collaboration->setDescription($longDescription);
+            $collaboration->setMainBeneficiaries($mainBeneficiaries);
+            $collaboration->setModality($modality);
+            $collaboration->setRates($rates);
             if($categoryId) {
                 $category = $this->em->getRepository(Category::class)->find($categoryId);
                 if($category){
@@ -133,11 +139,8 @@ class CollaborationController extends AbstractController
                 })->first();
                 $newPosition->setService($service);
                 $newPosition->setDescription($position["shortDescription"]);
-                $newPosition->setDetailedDescription($position["description"]);
-                $newPosition->setStartDate(new \DateTime($position["startDate"]));
-                $newPosition->setEndDate(new \DateTime($position["endDate"]));
-                $newPosition->setMainBeneficiaries($position["mainBeneficiaries"]);
-                $newPosition->setRates($position["rates"]);
+                $newPosition->setDeadline(new \DateTime($position["deadline"]));
+
 
                 $newPosition->setIsOpen(true);
                 $newPosition->setCollaboration($collaboration);

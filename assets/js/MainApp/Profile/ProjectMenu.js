@@ -35,13 +35,13 @@ const CustomNav = ({ active, onSelect,isOwner, ...props }) => {
         <Nav id="projectMenu" {...props} activeKey={active} onSelect={onSelect} justified>
             <Nav.Item renderItem={renderItemFunction} eventKey="portfolio">
                 <div style={{display:"flex", alignItems:"center", justifyContent:"center"}}>
-                    <Icon icon="home" /> PROJECTS  {isOwner &&<IconButtonTransparent onClick={openProjectModal} icon={<Icon icon="plus"/>}/>}
+                    PROJECTS  {isOwner &&<IconButtonTransparent onClick={openProjectModal} icon={<Icon icon="plus"/>}/>}
                 </div>
                 <ProjectModal show={showprojectModal} onHide={closeProjectModal}/>
             </Nav.Item>
             <Nav.Item renderItem={renderItemFunction} eventKey="offerings"> WHAT WE OFFER
                 {isOwner && <IconButtonTransparent onClick={() => openModal()} icon={<Icon icon="plus"/>}/>}
-                <NewServiceModal show={show} onHide={closeModal}/>
+                <NewServiceModal show={show} onHide={closeModal} successCallback={closeModal}/>
             </Nav.Item>
             <Nav.Item renderItem={renderItemFunction} eventKey="services">
                 SERVICES AND OPPORTUNITIES

@@ -73,7 +73,7 @@ export function CollaborationPanelTitle({project}){
             <Icon icon="calendar-o"/> From {getCalendarFormat(project.startTime)} to {getCalendarFormat(project.endTime)}
         </div>
         <div style={{flexGrow:1, fontSize:12}}>
-            Numero collaborazioni: {collaborationsNumber}
+            Collaborations number: {collaborationsNumber}
         </div>
     </div>
 }

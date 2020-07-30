@@ -45,34 +45,10 @@ class Position
     private $positionUserInterests;
 
     /**
-     * @ORM\Column(type="text")
-     */
-    private $detailedDescription;
-
-    /**
-     * @ORM\Column(type="string", length=255, nullable=true)
-     */
-    private $modality;
-
-    /**
      * @ORM\Column(type="date", nullable=true)
      */
-    private $startDate;
+    private $deadline;
 
-    /**
-     * @ORM\Column(type="date", nullable=true)
-     */
-    private $endDate;
-
-    /**
-     * @ORM\Column(type="text", nullable=true)
-     */
-    private $mainBeneficiaries;
-
-    /**
-     * @ORM\Column(type="text", nullable=true)
-     */
-    private $rates;
 
     public function __construct()
     {
@@ -163,75 +139,20 @@ class Position
         return $this;
     }
 
-    public function getDetailedDescription(): ?string
+
+
+
+
+    public function getDeadline(): ?\DateTimeInterface
     {
-        return $this->detailedDescription;
+        return $this->deadline;
     }
 
-    public function setDetailedDescription(string $detailedDescription): self
+    public function setDeadline(?\DateTimeInterface $deadline): self
     {
-        $this->detailedDescription = $detailedDescription;
+        $this->deadline = $deadline;
 
         return $this;
     }
 
-    public function getModality(): ?string
-    {
-        return $this->modality;
-    }
-
-    public function setModality(?string $modality): self
-    {
-        $this->modality = $modality;
-
-        return $this;
-    }
-
-    public function getStartDate(): ?\DateTimeInterface
-    {
-        return $this->startDate;
-    }
-
-    public function setStartDate(?\DateTimeInterface $startDate): self
-    {
-        $this->startDate = $startDate;
-
-        return $this;
-    }
-
-    public function getEndDate(): ?\DateTimeInterface
-    {
-        return $this->endDate;
-    }
-
-    public function setEndDate(?\DateTimeInterface $endDate): self
-    {
-        $this->endDate = $endDate;
-
-        return $this;
-    }
-
-    public function getMainBeneficiaries(): ?string
-    {
-        return $this->mainBeneficiaries;
-    }
-
-    public function setMainBeneficiaries(?string $mainBeneficiaries): self
-    {
-        $this->mainBeneficiaries = $mainBeneficiaries;
-
-        return $this;
-    }
-
-    public function getRates(): ?string
-    {
-        return $this->rates;
-    }
-
-    public function setRates(?string $rates): self
-    {
-        $this->rates = $rates;
-
-        return $this;
-    }
 }

@@ -82,6 +82,7 @@ class ServiceController extends AbstractController
         $data = [];
         foreach ($servicesRelations as $servicesRelation){
             $serviceData["description"] = $servicesRelation->getDescription();
+            $serviceData["id"] = $servicesRelation->getId();
             $serviceData["service"] = $servicesRelation->getService();
             $data[] = $serviceData;
         }
@@ -233,10 +234,14 @@ class ServiceController extends AbstractController
     }
 
     /**
-     * @Route("/removeUserService")
+     * @Route("/removeUserService/{id}")
+     * @param OfferedService $offeredService
+     * @return Response
      */
-    public function removeUserService(){
-
+    public function removeUserService(OfferedService $offeredService){
+        $this->em->remove($offeredService);
+        $this->em->flush();
+        return new Response("Service removed", Response::HTTP_OK);
     }
 
 

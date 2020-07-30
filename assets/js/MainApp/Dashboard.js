@@ -42,9 +42,8 @@ export default function Dashboard(){
                     <Nav.Item href="#aboutUs"  eventKey="2">The project</Nav.Item>
                     <Nav.Item href="#services"  eventKey="3">Services and opportunities</Nav.Item>
                     <Nav.Item href="#organisations"  eventKey="4">Organisations</Nav.Item>
-                    <Nav.Item href="FAQ"  eventKey="5">FAQ</Nav.Item>
+                    <Nav.Item href="#FAQ"  eventKey="5">FAQ</Nav.Item>
 
-                    <Nav.Item href="contact"  eventKey="6">Contact us</Nav.Item>
                 </Nav>
                 <Nav pullRight>
                     <Nav.Item onClick={()=>history.push(Routes.login)} icon={<Icon icon="cog" />}>Login</Nav.Item>

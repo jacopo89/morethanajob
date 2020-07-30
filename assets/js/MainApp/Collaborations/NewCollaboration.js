@@ -38,10 +38,14 @@ export default function NewCollaboration({isService=false}){
 
     useEffect(()=>{
         getProjectsHandler(user.email, {dataManipulationFunction:(data)=>{
-            return {...data, label:data.title, value: data.id }
+            return data.map(item =>{
+                return {...item, label:item.title, value: item.id }
+            }  )
+
             }})
     },[]);
 
+    console.log("progetti", projects);
     const [categories, getCategoriesHandler] = useGetCategories();
 
     useEffect(()=>{
@@ -58,22 +62,37 @@ export default function NewCollaboration({isService=false}){
         createNewProjectHandler(formData, {successCallback: (data)=> history.push(Routes.collaboration(data)) });
     }
 
+    const titleLabel = (isService) ? "Title of the service" : "Title of the collaboration";
+    const categoryLabel = (isService) ? "Macro category of the service" : "Macro category of the collaboration" ;
+
     return (
         <>
-            <div style={{border:`2px solid ${bordeaux}`, height:100, width:"100%", textAlign:"center"}}>{formValue.title}</div>
+            <TitleBox >{formValue.title}</TitleBox>
             <InfoBox >
                 <h5 style={{color:bordeaux}}>Info </h5>
                 <Form fluid formValue={formValue} onChange={setFormValue} onSubmit={onSubmitHandler}>
-                    <TextField label="Title of the collaboration" name="title" type="text" />
+                    <TextField label={titleLabel} name="title" type="text" />
                     <TextField label="Short description" name="shortDescription" componentClass="textarea" />
                     <TextField label="Detailed description" name="description" componentClass="textarea" />
 
                     <div style={{display:"flex", justifyContent:"space-around"}}>
                         <TextField style={{width:"100%"}} label="Country" name="country" accepter={SelectPicker} data={dataCountry} />
+                        <TextField style={{width:"100%"}} label="Modality" name="modality" accepter={SelectPicker} data={modalityData} />
                     </div>
+
+                    {isService && <div style={{display:"flex", justifyContent:"space-around"}}>
+                        <TextField label="Start Date" name="startDate" accepter={DatePicker}  style={{width:"100%"}} />
+                        <TextField label="End Date" name="endDate" accepter={DatePicker}  style={{width:"100%"}} />
+                    </div> }
+
+                    {isService && <>
+                        <TextField label="Rates" name="rates" componentClass="textarea" />
+                        <TextField label="Main Beneficiaries" name="mainBeneficiaries" componentClass="textarea" />
+                    </> }
+
                     <div style={{display:"flex", justifyContent:"space-around"}}>
                         <TextField style={{width:"100%"}} label="Project" name="project" accepter={SelectPicker} data={projects} />
-                        <TextField style={{width:"100%"}} label="Macro category of the collaboration" name="category" accepter={TreePicker} data={categoriesTree} />
+                        <TextField style={{width:"100%"}} label={categoryLabel} name="category" accepter={TreePicker} data={categoriesTree} />
                     </div>
                     {!isService && <ListOrCreate formValue={formValue} setFormValue={setFormValue} />}
 
@@ -235,14 +254,12 @@ function IncludableForm({item, updater, save, remover, back, servicesTree}){
             </div>
             <TextField name="description" label="Description" componentClass="textarea"/>
 
-            <TextField name="address" label="address"/>
             <div style={{display:"flex", justifyContent:"space-around"}}>
-                <TextField name="endDate" accepter={DatePicker} label="Data di fine" format="DD-MM-YYYY" style={{width:"100%"}}/>
+                <TextField name="deadline" accepter={DatePicker} label="Deadline" format="DD-MM-YYYY" style={{width:"100%"}}/>
             </div>
-            <TextField name="mainBeneficiaries" label="Beneficiaries" componentClass="textarea"/>
-            <TextField name="rates" label="Rates" componentClass="textarea"/>
+
         </Form>
-        <Button onClick={save}>Salva</Button><Button onClick={()=>back(item.id)}>Cancella</Button>
+        <Button onClick={save}>Save</Button><Button onClick={()=>back(item.id)}>Undo</Button>
     </div>
 }
 
@@ -475,4 +492,18 @@ export function PositionPanelTitle({position, remover, updater, setEdit}){
 
 const InfoBox =  styled.div`
 padding: 10px;`
+;
+
+
+const TitleBox =  styled.div`
+width: 100%;
+height:200px;
+background-color: ${bordeaux};
+color: white;
+font-size: 40px;
+font-weight: bolder;
+display: flex;
+align-items: center;    
+justify-content: center;
+`
 ;
