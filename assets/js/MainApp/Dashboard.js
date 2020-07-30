@@ -26,7 +26,7 @@ export default function Dashboard(){
     },[]);
 
     const profilePics = profiles.map((profile)=> <IconTextBox>
-        <img width={75} src={profile.profilePicture.url}/>
+        {profile.profilePicture && <img width={75} src={profile.profilePicture.url}/>}
         <p>{profile.name}</p>
     </IconTextBox> );
 
