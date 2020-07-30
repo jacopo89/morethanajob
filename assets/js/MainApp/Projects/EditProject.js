@@ -124,11 +124,6 @@ export default function EditProject({isPortfolio=false}){
                         <TextField style={{width:"100%"}}  label="Data di fine progetto" name="endTime" accepter={DatePicker} format="DD-MM-YYYY" placement="topEnd" />*/}
                     </div>
 
-                    <div style={{display:"flex", justifyContent:"space-around"}}>
-                        <TextField style={{width:"100%"}} label="Paese" name="country" accepter={SelectPicker} data={dataCountry} />
-                        <TextField style={{width:"100%"}} label="Lingua" name="language" accepter={SelectPicker} data={dataLanguage} />
-                    </div>
-
 
                     <ImageCropper button={uploadLogoButton} propCrop={{
                         unit: 'px', // default, can be 'px' or '%'

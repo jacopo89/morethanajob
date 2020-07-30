@@ -179,6 +179,7 @@ class ServiceController extends AbstractController
             $file->setFilename($newFilename);
             $file->setOriginalFilename($originalFilename);
             $file->setExtension("png");
+            $file->setIsDoc(false);
             $file->setUrl($path);
             $service->setPicture($file);
 
@@ -203,7 +204,7 @@ class ServiceController extends AbstractController
         $email = $request->get('email');
         $serviceId = $request->get('service');
         $description = json_decode($request->get('description'));
-        $address = json_decode($request->get('address'));
+        $country = json_decode($request->get('country'));
 
         $user = $this->em->getRepository(User::class)->findOneBy(['email'=>$email]);
         $service = $this->em->getRepository(Service::class)->find($serviceId);
@@ -214,7 +215,7 @@ class ServiceController extends AbstractController
             $offeredService->setUser($user);
             $offeredService->setService($service);
             $offeredService->setDescription($description);
-            $offeredService->setAddress($address);
+            $offeredService->setCountry($country);
 
             $this->em->persist($offeredService);
             $this->em->flush();

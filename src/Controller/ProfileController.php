@@ -65,8 +65,9 @@ class ProfileController extends AbstractController
             $file->setOriginalFilename($originalFilename);
             $file->setExtension("png");
             $file->setUrl($path);
-            $file->setUser($user);
+            $file->setUser($user);$file->setIsDoc(false);
             $user->setCoverPicture($file);
+
 
             $this->getDoctrine()->getManager()->persist($file);
             $this->getDoctrine()->getManager()->persist($user);
@@ -115,7 +116,7 @@ class ProfileController extends AbstractController
             $file->setOriginalFilename($originalFilename);
             $file->setExtension("png");
             $file->setUrl($path);
-            $file->setUser($user);
+            $file->setUser($user);$file->setIsDoc(false);
             $user->setProfilePicture($file);
 
             $this->getDoctrine()->getManager()->persist($file);
@@ -141,7 +142,7 @@ class ProfileController extends AbstractController
      * @return Response
      */
     public function loadFiles(Request $request){
-        $email = json_decode($request->get('email'),true);
+        $email = $request->get('email');
         $user = $this->getDoctrine()->getManager()->getRepository(User::class)->findOneBy(['email'=>$email]);
         $status = Response::HTTP_INTERNAL_SERVER_ERROR;
         $message = "Error";
@@ -166,6 +167,7 @@ class ProfileController extends AbstractController
                 $file->setOriginalFilename($originalFilename);
                 $file->setExtension("png");
                 $file->setUrl($path);
+                $file->setIsDoc(true);
                 $file->setUser($user);
 
                 $this->getDoctrine()->getManager()->persist($file);
@@ -220,6 +222,7 @@ class ProfileController extends AbstractController
     public function saveProfile(Request $request){
         $email = json_decode($request->get('email'),true);
         $name = json_decode($request->get('name'),true);
+        $country = json_decode($request->get('country'),true);
         $description = json_decode($request->get('description'),true);
         $website = json_decode($request->get('website'),true);
         $address = json_decode($request->get('address'),true);
@@ -233,6 +236,7 @@ class ProfileController extends AbstractController
         $message = "Error";
         if($user){
             $user->setName($name);
+            $user->setCountry($country);
             $user->setDescription($description);
             $user->setWebsite($website);
             $user->setAddress($address);

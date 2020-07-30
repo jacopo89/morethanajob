@@ -14,7 +14,7 @@ import {
     ControlLabel,
     FormControl, ButtonToolbar, SelectPicker, IconButton
 } from "rsuite";
-import {useSaveProfile, useUploadPictures, useUploadProfilePicture} from "../../Backend/hooks/useProfile";
+import {useLoadFiles, useSaveProfile, useUploadPictures, useUploadProfilePicture} from "../../Backend/hooks/useProfile";
 import styled from "styled-components";
 import * as ActionTypes from '../../Redux/actions';
 import {useGetUserInfo} from "../../Backend/hooks/UserInfo";
@@ -44,12 +44,14 @@ export default function Profile(){
     const [response, uploadPictureHandler] = useUploadPictures();
     const [userInfo, getUserInfoHandler]= useGetUserInfo();
     const [uploadProfilePictureResponse, uploadProfilePictureHandler] = useUploadProfilePicture();
+    const [loadFileResponse, loadFileHandler] = useLoadFiles();
     const [saveProfileResponse, saveProfileHandler] = useSaveProfile();
     const dispatch = useDispatch();
     const [render, setRender] = useState(null);
     const [isEdit, setIsEdit] = useState(false);
 
     const [formValue, setFormValue] = useState({name:"", description:""});
+    const [fileFormValue, setFileFormValue] = useState({});
 
     const onChangeHandler = (file) => {
         let data = {};
@@ -66,7 +68,7 @@ export default function Profile(){
     const profileImage = (userInfo && userInfo.profilePicture) ? userInfo.profilePicture.url  : profilePicture;
 
     const social = <div style={{position:"absolute", top: 4, right:10, display:"flex", justifyContent:"space-around", width:200 }}>
-        <Icon style={{color:"white"}} icon="facebook-square" size="3x"/>
+        <IconButton size="lg" href={user.facebook}  style={{color:"white"}} icon={<Icon size="3x" icon="facebook-official"/>} size="3x"/>
         <Icon style={{color:"white"}} icon="linkedin-square" size="3x"/>
         <Icon style={{color:"white"}} icon="twitter-square" size="3x" />
     </div>;
@@ -92,9 +94,29 @@ export default function Profile(){
         setIsEdit(!isEdit);
     }
 
+
+    const submitFiles = () => {
+        const formData = new FormData();
+        formData.append('email', userInfo.email);
+        formData.append('file', formValue.file);
+        formData.append('title', formValue.title);
+        loadFileHandler(formData);
+
+    }
+
+    const handleFileChange = (file) =>{
+        setFormValue({
+            ...formValue,
+            file: file[0].blobFile,
+            title: file[0].name
+        })
+    };
+
+    useEffect(()=>{console.log("final Form value", fileFormValue)},[fileFormValue]);
+
     useEffect(()=>{
         getUserInfoHandler(profilename, {successCallback: (data)=>{setFormValue({name:data.name, description:data.description,
-                website:data.website, address: data.address, telephone:data.telephone, language:data.language, email:data.email})}});
+                website:data.website, address: data.address, telephone:data.telephone, language:data.language, email:data.email, facebook:data.facebook, twitter:data.twitter, linkedin:data.linkedin})}});
     },[]);
 
     useEffect(()=>{
@@ -180,6 +202,16 @@ export default function Profile(){
                                         <TextField style={{width:"90%"}} name="linkedin" label="Linkedin" />
                                         <TextField style={{width:"90%"}} name="twitter" label="Twitter" />
                                     </div>
+                                    <Uploader
+                                        action="//jsonplaceholder.typicode.com/posts/"
+                                        onChange={handleFileChange}
+                                        dragable  autoUpload={false} multiple={false}>
+                                        <div style={{lineHeight:10}}>Click or Drag files to this area to upload</div>
+                                    </Uploader>
+                                    <Button onClick={submitFiles}>
+                                        Start Upload
+                                    </Button>
+
                                     {isOwner && editButton}
                                     <Button style={{float:"right", backgroundColor:bordeaux, color:"white"}} onClick={()=>saveProfile()}> Save profile </Button>
                                 </Form>

@@ -31,3 +31,10 @@ export function  useEditCollaboration() {
     const backendClient = BackendClient();
     return useCreateHook(backendClient,'/backend/collaborations/edit','post',null);
 }
+
+
+export function  useGetRandomCollaborations() {
+
+    const backendClient = BackendClient();
+    return useCreateHook(backendClient,'/backend/collaborations/getrandom','get',[]);
+}

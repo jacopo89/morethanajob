@@ -21,3 +21,9 @@ export function useSaveProfile(){
     return useCreateHook(backendClient,'/backend/profile/save','post',null);
 }
 
+export function useLoadFiles(){
+    const {accessToken} = useSelector(state=>state);
+    const backendClient = BackendClient(accessToken);
+    return useCreateHook(backendClient,'/backend/profile/loadfile','post',null);
+}
+

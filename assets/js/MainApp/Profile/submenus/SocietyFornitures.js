@@ -135,7 +135,7 @@ export function NewServiceModal({show, onHide, successCallback}){
         <Modal.Header closeButton>
             Expertise
         </Modal.Header>
-        <Form fluid formValue={formValue} model={model} onChange={setFormValue} onSubmit={onSubmitHandler}  >
+        <Form fluid formValue={formValue} onChange={setFormValue} onSubmit={onSubmitHandler}  >
             <Modal.Body style={{height:500, padding:10}}>
                 <TextField name="service" label="Field of expertise" accepter={TreePicker} data={servicesTree} style={{width:"100%"}} />
                 <TextField name="description" label="Description" componentClass="textarea"/>

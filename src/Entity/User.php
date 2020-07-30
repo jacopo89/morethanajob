@@ -145,6 +145,11 @@ class User implements UserInterface
      */
     private $twitter;
 
+    /**
+     * @ORM\Column(type="string", length=255, nullable=true)
+     */
+    private $country;
+
 
 
     public function __construct()
@@ -267,6 +272,16 @@ class User implements UserInterface
     public function getFiles(): Collection
     {
         return $this->files;
+    }
+
+    public function getDocFiles()
+    {
+        $filtered = $this->files->filter(function(File $file){return $file->getIsDoc()===true;});
+        $finalArray = [];
+        foreach($filtered as $item){
+            $finalArray[] = $item;
+        }
+        return $finalArray;
     }
 
     public function addFile(File $file): self
@@ -650,6 +665,18 @@ class User implements UserInterface
     public function setTwitter(?string $twitter): self
     {
         $this->twitter = $twitter;
+
+        return $this;
+    }
+
+    public function getCountry(): ?string
+    {
+        return $this->country;
+    }
+
+    public function setCountry(?string $country): self
+    {
+        $this->country = $country;
 
         return $this;
     }

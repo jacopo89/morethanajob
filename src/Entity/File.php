@@ -51,6 +51,11 @@ class File
      */
     private $originalFilename;
 
+    /**
+     * @ORM\Column(type="boolean")
+     */
+    private $isDoc;
+
     public function getId(): ?int
     {
         return $this->id;
@@ -124,6 +129,18 @@ class File
     public function setOriginalFilename(string $originalFilename): self
     {
         $this->originalFilename = $originalFilename;
+
+        return $this;
+    }
+
+    public function getIsDoc(): ?bool
+    {
+        return $this->isDoc;
+    }
+
+    public function setIsDoc(bool $isDoc): self
+    {
+        $this->isDoc = $isDoc;
 
         return $this;
     }

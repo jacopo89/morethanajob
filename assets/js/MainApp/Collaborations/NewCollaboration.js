@@ -55,7 +55,7 @@ export default function NewCollaboration({isService=false}){
         formData.append('email', user.email);
 
         Object.keys(formValue).forEach((key)=>  { formData.append(key,JSON.stringify(formValue[key]));});
-        createNewProjectHandler(formData, {successCallback: (data)=> history.push(Routes.project(data)) });
+        createNewProjectHandler(formData, {successCallback: (data)=> history.push(Routes.collaboration(data)) });
     }
 
     return (
@@ -237,10 +237,12 @@ function IncludableForm({item, updater, save, remover, back, servicesTree}){
 
             <TextField name="address" label="address"/>
             <div style={{display:"flex", justifyContent:"space-around"}}>
-                <TextField name="endDate" accepter={DatePicker} label="Deadline" format="DD-MM-YYYY" style={{width:"100%"}}/>
+                <TextField name="endDate" accepter={DatePicker} label="Data di fine" format="DD-MM-YYYY" style={{width:"100%"}}/>
             </div>
+            <TextField name="mainBeneficiaries" label="Beneficiaries" componentClass="textarea"/>
+            <TextField name="rates" label="Rates" componentClass="textarea"/>
         </Form>
-        <Button onClick={save}>Save</Button><Button onClick={()=>back(item.id)}>Undo</Button>
+        <Button onClick={save}>Salva</Button><Button onClick={()=>back(item.id)}>Cancella</Button>
     </div>
 }
 

@@ -12,6 +12,7 @@ export default function FinalHeader(){
     const history = useHistory();
     const dispatch = useDispatch();
     const {user} = useSelector(state=>state);
+    const {authenticated} = useSelector(state=>state);
     const changeLanguage = code => {
         i18n.changeLanguage(code);
         dispatch(ActionTypes.switchLanguage(code))
@@ -21,6 +22,7 @@ export default function FinalHeader(){
         dispatch(ActionTypes.logOut());
         history.push(Routes.login);
     }
+
 
     const LanguageDropdown = ({ ...props }) => (
         <Dropdown {...props}>
@@ -38,7 +40,7 @@ export default function FinalHeader(){
             </Dropdown.Item>
             <Dropdown.Item onClick={()=> history.push(Routes.projectPage)} eventKey="3">{t('Search projects')}</Dropdown.Item>
             <Dropdown.Item onClick={()=> history.push(Routes.profile(user.profileName))} icon={<Icon icon="cog" />}>{t('Profile')}</Dropdown.Item>
-            <Dropdown.Item onClick={()=> history.push(Routes.administration)} icon={<Icon icon="cog" />}>{t('Administration')}</Dropdown.Item>
+            {false && <Dropdown.Item onClick={()=> history.push(Routes.administration)} icon={<Icon icon="cog" />}>{t('Administration')}</Dropdown.Item>}
             <Nav.Item onClick={()=>signOut()} icon={<Icon icon="cog" />}>Logout</Nav.Item>
         </Dropdown>
     );
@@ -54,8 +56,8 @@ export default function FinalHeader(){
 
             <Nav pullRight>
                 <LanguageDropdown title={t('language')} trigger="hover" />
-                <Nav.Item onClick={()=>history.push(Routes.registration)} icon={<Icon icon="cog" />}>Register</Nav.Item>
-                <CustomDropdown icon={<Icon icon="bars" />} placement="bottomEnd" trigger="hover" />
+                {false && <Nav.Item onClick={()=>history.push(Routes.registration)} icon={<Icon icon="cog" />}>Register</Nav.Item>}
+                {authenticated && <CustomDropdown icon={<Icon icon="bars" />} placement="bottomEnd" trigger="hover" />}
             </Nav>
         </Navbar.Body>
     </Navbar>

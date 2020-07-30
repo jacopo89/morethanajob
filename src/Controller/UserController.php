@@ -54,6 +54,7 @@ class UserController extends AbstractController
 
         $userToSend["coverPicture"] = $user->getCoverPicture();
         $userToSend["profilePicture"] = $user->getProfilePicture();
+        $userToSend["files"] = $user->getDocFiles();
 
         return new Response($this->serializer->serialize($userToSend, 'json'), Response::HTTP_OK);
     }
@@ -78,6 +79,7 @@ class UserController extends AbstractController
         $userToSend["twitter"] = $user->getTwitter();
         $userToSend["profileName"] = $user->getProfileName();
         $userToSend["profilePicture"] = $user->getProfilePicture();
+        $userToSend["files"] = $user->getDocFiles();
         return new Response($this->serializer->serialize($userToSend, 'json'), Response::HTTP_OK);
     }
 
@@ -109,6 +111,7 @@ class UserController extends AbstractController
             $userToSend["twitter"] = $user->getTwitter();
             $userToSend["profileName"] = $user->getProfileName();
             $userToSend["profilePicture"] = $user->getProfilePicture();
+            $userToSend["files"] = $user->getDocFiles();
             $finalUsers[] = $userToSend;
         }
 

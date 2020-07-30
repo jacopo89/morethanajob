@@ -93,6 +93,7 @@ class CollaborationController extends AbstractController
         $email = $request->get('email');
         $user = $this->em->getRepository(User::class)->findOneBy(['email'=>$email]);
         if($user) {
+            $title = json_decode($request->get('title'));
             $shortDescription = json_decode($request->get('shortDescription'));
             $longDescription = json_decode($request->get('longDescription'));
             $startDate = json_decode($request->get('startTime'));
@@ -106,6 +107,7 @@ class CollaborationController extends AbstractController
             $collaboration = new Collaboration();
 
             $collaboration->setUser($user);
+            $collaboration->setTitle($title);
             $collaboration->setShortDescription($shortDescription);
             $collaboration->setDescription($longDescription);
             if($categoryId) {
@@ -194,6 +196,28 @@ class CollaborationController extends AbstractController
 
 
         return new Response($this->serializer->serialize($collaboration->getId(), 'json'));
+    }
+
+
+    /**
+     * @Route("/getrandom", name="get_random_collaborations")
+     * @return Response
+     */
+    public function getRandom(){
+
+        $collaborations = $this->em->getRepository(Collaboration::class)->findAll();
+        shuffle($collaborations);
+
+        $totalNumberCollaborations = sizeof($collaborations);
+        $finalSize = ($totalNumberCollaborations<5) ? $totalNumberCollaborations : 5;
+        $finalCollaborations = [];
+        for($i=0;  $i<$finalSize; $i++){
+            $collaboration = $collaborations[$i];
+            $finalCollaborations[] = $collaboration;
+        }
+
+
+        return new Response($this->serializer->serialize($finalCollaborations, 'json'), Response::HTTP_OK);
     }
 
 }

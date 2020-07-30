@@ -39,7 +39,6 @@ export default function SocietyProjects({society}) {
 
 export function CollaborationDetail({project}){
 
-    console.log("Project", project);
     const history = useHistory();
 
     const backgroundImage = (project && project.projectLogo) ? "https://localhost:8000/"+project.projectLogo.url  : "https://localhost:8000/uploads/users/7/society-5ed3a86ac6b2d.png";

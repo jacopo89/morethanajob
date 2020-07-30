@@ -14,7 +14,7 @@ import {applyMiddleware, compose, createStore} from "redux";
 import thunk from 'redux-thunk';
 import {Provider, useSelector} from "react-redux";
 import Login from "./Login/Pages/Login";
-import {BrowserRouter, Route, Switch, useLocation} from "react-router-dom";
+import {BrowserRouter, Redirect, Route, Switch, useLocation} from "react-router-dom";
 import reducer from "./Redux/reducer";
 import Layout from "./Layout/Layout";
 import Registration from "./Login/Pages/Registration";
@@ -117,6 +117,9 @@ function App(){
                 <Route exact path={Routes.login} children={loginPage} />
                 <Route exact path={Routes.registration} children={registrationPage}/>
                 <Route path={Routes.dashboardPage} children={dashboardPage}/>
+                <Route path="/">
+                    <Redirect to="/login" />
+                </Route>
             </Switch>
         </>);
 

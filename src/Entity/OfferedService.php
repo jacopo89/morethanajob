@@ -37,7 +37,7 @@ class OfferedService
     /**
      * @ORM\Column(type="string", length=255, nullable=true)
      */
-    private $address;
+    private $country;
 
 
     public function getId(): ?int
@@ -81,14 +81,14 @@ class OfferedService
         return $this;
     }
 
-    public function getAddress(): ?string
+    public function getCountry(): ?string
     {
-        return $this->address;
+        return $this->country;
     }
 
-    public function setAddress(?string $address): self
+    public function setCountry(?string $country): self
     {
-        $this->address = $address;
+        $this->country = $country;
 
         return $this;
     }

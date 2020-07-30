@@ -7,6 +7,8 @@ import styled from "styled-components";
 import TextField from "../Login/Components/TextField";
 import "./dashboard.css";
 import {useGetRandomProfiles} from "../Backend/hooks/UserInfo";
+import {useGetRandomCollaborations} from "../Backend/hooks/useCollaborations";
+import {CollaborationDetail} from "./Profile/submenus/SocietyCollaborations";
 
 export default function Dashboard(){
     const history = useHistory();
@@ -15,15 +17,20 @@ export default function Dashboard(){
 
     const panelStyle = {width: "85%", borderRadius:"20px", backgroundColor:"white", margin:"0 auto", padding:20, marginTop:20}
     const [profiles, getRandomProfilesHandler] = useGetRandomProfiles();
+    const [collaborations, getRandomCollaborationsHandler] = useGetRandomCollaborations();
+
 
     useEffect(()=>{
         getRandomProfilesHandler();
+        getRandomCollaborationsHandler();
     },[]);
 
     const profilePics = profiles.map((profile)=> <IconTextBox>
         <img width={75} src={profile.profilePicture.url}/>
         <p>{profile.name}</p>
     </IconTextBox> );
+
+    const collaborationBlocks = collaborations.map(collaboration=><CollaborationDetail collaboration={collaboration} />)
 
     return <>
         <Navbar id="dashboard" appearance="inverse" style={{backgroundColor:"transparent", color:"white"}} >
@@ -41,7 +48,7 @@ export default function Dashboard(){
                 </Nav>
                 <Nav pullRight>
                     <Nav.Item onClick={()=>history.push(Routes.login)} icon={<Icon icon="cog" />}>Login</Nav.Item>
-                    <Nav.Item onClick={()=>history.push(Routes.registration)} icon={<Icon icon="cog" />}>Register</Nav.Item>
+                    {false && <Nav.Item onClick={()=>history.push(Routes.registration)} icon={<Icon icon="cog" />}>Register</Nav.Item>}
                 </Nav>
             </Navbar.Body>
         </Navbar>
@@ -68,14 +75,23 @@ export default function Dashboard(){
                 </Grid>
             </Panel>
             <Panel shaded style={panelStyle} id="aboutUs">
-                <Title>
-                ABOUT US
-                </Title>
+
                 <Grid fluid>
                     <Row className="show-grid">
-                        <p>
-                            This portal is developed as part of the ENI CBC MED project “MoreThanAJob - Reinforcing social and solidarity economy for the unemployed, uneducated and refugees” aiming at fostering the social and labour inclusion of vulnerable groups through a stronger cooperation between SSE actors and public administrations.
-                        </p>
+                        <Col xs={12}>
+                            <img width={400} src="/defaults/MoreThanAJob_Cover.jpg"/>
+                        </Col>
+                        <Col xs={12}>
+                            <Title id="aboutUs">
+                                THE PROJECT
+                            </Title>
+                            <p>
+                                This portal is developed as part of the ENI CBC MED project “MoreThanAJob - Reinforcing social and solidarity economy for the unemployed, uneducated and refugees” aiming at fostering the social and labour inclusion of vulnerable groups through a stronger cooperation between SSE actors and public administrations.
+                            </p>
+                        </Col>
+                    </Row>
+                    <Row className="show-grid">
+
                         <Button onClick={()=>setReadMore(!readMore)}>Read more</Button>
                         {readMore &&
                             <>
@@ -84,16 +100,6 @@ export default function Dashboard(){
                                     Improving the cooperation between these two main actors and their different realities will foster the development of innovative and more effective services able to respond to the social and economic challenges of our societies, particularly in the aftermath of the Covid19 emergency. Indeed, this emergency has highlighted how a solid welfare system is essential to protect the weaker segments, ensure fairer societies and that each citizen has the same rights and opportunities.
                                     MoreThanAJob will bring a change in the way SSE actors and public institutions work together for services provision to vulnerable groups through the development of a framework of new social pilot schemes as well as the development of policy briefs and suggestions improving the planning of policies adapted to the needs of the target groups.
                                     The project is funded by the ENI CBC Programme 2014-2020 and involves partners from five different countries: Palestine, Jordan, Lebanon, Greece and Italy.
-                                </p>
-                                <SmallTitle>Main Activities</SmallTitle>
-                                <p>
-
-                                    Report of international good practices for effective cooperation between SSE and public administration to reinforce social inclusion of vulnerable groups as unemployed, low-skilled people and refugees
-                                    Development of MoreThanAJob Framework by adapting international good practices to local features
-                                    Training seminars to SSE actors and public administration representatives
-                                    Financial support to SSE actors to implement innovative private-public cooperation initiatives
-                                    Recommendations for translation of the MoreThanAJob framework in effective programmes and policies at national level
-                                    MoreThanAJob portal as online cooperation space between the different stakeholders
                                 </p>
                                 <SmallTitle>Social and Solidarity Economy</SmallTitle>
                                 <p>
@@ -167,6 +173,12 @@ export default function Dashboard(){
                     {profilePics}
 
                 </div>
+
+            </Panel>
+
+            <Panel shaded style={panelStyle}>
+                <Title id="services">Collaborations</Title>
+                {collaborationBlocks}
 
             </Panel>
 

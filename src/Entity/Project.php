@@ -43,15 +43,6 @@ class Project
      */
     private $isPortfolio;
 
-    /**
-     * @ORM\Column(type="datetime")
-     */
-    private $startTime;
-
-    /**
-     * @ORM\Column(type="datetime", nullable=true)
-     */
-    private $endTime;
 
     /**
      * @ORM\Column(type="datetime")
@@ -69,29 +60,20 @@ class Project
     private $projectLogo;
 
     /**
-     * @ORM\Column(type="array", nullable=true)
+     * @ORM\Column(type="text", nullable=true)
      */
-    private $links = [];
+    private $links;
 
     /**
-     * @ORM\Column(type="array", nullable=true)
+     * @ORM\Column(type="text", nullable=true)
      */
-    private $contacts = [];
+    private $contacts;
 
     /**
      * @ORM\ManyToMany(targetEntity="App\Entity\ExternalPartner", inversedBy="projects")
      */
     private $externalPartners;
 
-    /**
-     * @ORM\Column(type="string", length=255)
-     */
-    private $country;
-
-    /**
-     * @ORM\Column(type="string", length=255)
-     */
-    private $language;
 
     /**
      * @ORM\ManyToOne(targetEntity="App\Entity\Category", inversedBy="projects")
@@ -196,29 +178,7 @@ class Project
         return $this;
     }
 
-    public function getStartTime(): ?\DateTimeInterface
-    {
-        return $this->startTime;
-    }
 
-    public function setStartTime(\DateTimeInterface $startTime): self
-    {
-        $this->startTime = $startTime;
-
-        return $this;
-    }
-
-    public function getEndTime(): ?\DateTimeInterface
-    {
-        return $this->endTime;
-    }
-
-    public function setEndTime(?\DateTimeInterface $endTime): self
-    {
-        $this->endTime = $endTime;
-
-        return $this;
-    }
 
     public function getCreationTime(): ?\DateTimeInterface
     {
@@ -256,24 +216,24 @@ class Project
         return $this;
     }
 
-    public function getLinks(): ?array
+    public function getLinks()
     {
         return $this->links;
     }
 
-    public function setLinks(?array $links): self
+    public function setLinks($links): self
     {
         $this->links = $links;
 
         return $this;
     }
 
-    public function getContacts(): ?array
+    public function getContacts()
     {
         return $this->contacts;
     }
 
-    public function setContacts(?array $contacts): self
+    public function setContacts( $contacts): self
     {
         $this->contacts = $contacts;
 
@@ -306,29 +266,7 @@ class Project
         return $this;
     }
 
-    public function getCountry(): ?string
-    {
-        return $this->country;
-    }
 
-    public function setCountry(string $country): self
-    {
-        $this->country = $country;
-
-        return $this;
-    }
-
-    public function getLanguage(): ?string
-    {
-        return $this->language;
-    }
-
-    public function setLanguage(string $language): self
-    {
-        $this->language = $language;
-
-        return $this;
-    }
 
     public function getCategory(): ?Category
     {

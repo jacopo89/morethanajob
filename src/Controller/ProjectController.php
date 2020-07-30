@@ -225,11 +225,6 @@ class ProjectController extends AbstractController
             $isPortfolio = json_decode($request->get('isPortfolio'));
             $shortDescription = json_decode($request->get('shortDescription'));
             $longDescription = json_decode($request->get('longDescription'));
-            $country = json_decode($request->get('country'));
-            $language = json_decode($request->get('language'));
-            $startDate = json_decode($request->get('startTime'));
-            $endDate = json_decode($request->get('endTime'));
-
             $positions = json_decode($request->get('positions'),true);
             $partners = json_decode($request->get('partners'),true);
 
@@ -237,11 +232,7 @@ class ProjectController extends AbstractController
             $project->setTitle($title);
             $project->setShortDescription($shortDescription);
             $project->setLongDescription($longDescription);
-            $project->setCountry($country);
-            $project->setLanguage($language);
             $project->setIsPortfolio($isPortfolio);
-            $project->setStartTime(new \DateTime($startDate));
-            $project->setEndTime(new \DateTime($endDate));
             $project->setCreationTime(new \DateTime());
             $projectPartner = new ProjectPartner();
             $projectPartner->setProject($project);
@@ -319,6 +310,7 @@ class ProjectController extends AbstractController
                 $file->setFilename($newFilename);
                 $file->setOriginalFilename($originalFilename);
                 $file->setExtension("png");
+                $file->setIsDoc(false);
                 $file->setUrl($path);
                 $project->setProjectPicture($file);
                 $this->em->persist($file);
@@ -344,6 +336,7 @@ class ProjectController extends AbstractController
                 $file->setFilename($newFilename);
                 $file->setOriginalFilename($originalFilename);
                 $file->setExtension("png");
+                $file->setIsDoc(false);
                 $file->setUrl($path);
                 $project->setProjectLogo($file);
                 $this->em->persist($file);
@@ -467,6 +460,7 @@ class ProjectController extends AbstractController
             $file->setFilename($newFilename);
             $file->setOriginalFilename($originalFilename);
             $file->setExtension("png");
+            $file->setIsDoc(false);
             $file->setUrl($path);
             $project->setProjectLogo($file);
 
@@ -517,6 +511,7 @@ class ProjectController extends AbstractController
             $file->setFilename($newFilename);
             $file->setOriginalFilename($originalFilename);
             $file->setExtension("png");
+            $file->setIsDoc(false);
             $file->setUrl($path);
             $project->setProjectPicture($file);
 
@@ -712,6 +707,7 @@ class ProjectController extends AbstractController
         $file->setFilename($newFilename);
         $file->setOriginalFilename($originalFilename);
         $file->setExtension("png");
+        $file->setIsDoc(false);
         $file->setUrl($path);
         $project->setProjectLogo($file);
 

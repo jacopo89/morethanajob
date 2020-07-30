@@ -67,6 +67,7 @@ class CategoriesController extends AbstractController
             $file->setFilename($newFilename);
             $file->setOriginalFilename($originalFilename);
             $file->setExtension("png");
+            $file->setIsDoc(false);
             $file->setUrl($path);
             $service->setPicture($file);
 
