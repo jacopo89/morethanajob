@@ -101,6 +101,7 @@ class CollaborationController extends AbstractController
             $rates = json_decode($request->get('rates'));
             $modality = json_decode($request->get('modality'));
             $mainBeneficiaries = json_decode($request->get('mainBeneficiaries'));
+            $country = json_decode($request->get('country'));
             $categoryId = $request->get('category');
             $projectId = $request->get('project');
 
@@ -111,6 +112,7 @@ class CollaborationController extends AbstractController
 
             $collaboration->setUser($user);
             $collaboration->setTitle($title);
+            $collaboration->setCountry($country);
             $collaboration->setShortDescription($shortDescription);
             $collaboration->setDescription($longDescription);
             $collaboration->setMainBeneficiaries($mainBeneficiaries);

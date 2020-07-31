@@ -29,6 +29,22 @@ export function getCalendarFormat(time) {
 
 }
 
+export function getCalendarDate(time) {
+    if(time!==undefined){
+        time = time.timestamp*1000;
+        const offset = new Date().getTimezoneOffset();
+        const tempoReset = (new Date(time).getTime() - offset*60*1000);
+
+        return tempoReset;
+        //const date = dateFormat(evt.target.value,"isoUtcDateTime");
+    }else{
+        return time;
+    }
+
+}
+
+
+
 export function getDayAndMonth(time) {
     if(time!==undefined){
         time = time.timestamp*1000;

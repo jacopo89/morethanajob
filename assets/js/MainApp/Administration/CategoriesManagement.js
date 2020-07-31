@@ -108,7 +108,6 @@ export function generateServiceTree(items){
 
 export function generateCategoriesTree(items){
 
-    console.log("categories", items);
     items = items.map((item)=>{return {...item, label: item.label, value: item.id }});
 
 //    console.log("generate tree", items);

@@ -112,7 +112,6 @@ export default function Profile(){
         })
     };
 
-    useEffect(()=>{console.log("final Form value", fileFormValue)},[fileFormValue]);
 
     useEffect(()=>{
         getUserInfoHandler(profilename, {successCallback: (data)=>{setFormValue({name:data.name, description:data.description,

@@ -25,15 +25,18 @@ import {dataCountry, dataLanguage, modalityData} from "../../selectData";
 import {useGetServices} from "../../Backend/hooks/useServices";
 import {generateServiceTree} from "../Administration/CategoriesManagement";
 import {GenericTable} from "../../ReusableComponents/GenericTable";
-import {bordeaux, InverseButton} from "../../styledComponents/CustomComponents";
+import {bordeaux, InverseButton, MainButton} from "../../styledComponents/CustomComponents";
 import styled from "styled-components";
 import ImageCropper from "../../ReusableComponents/ImageCropper";
-import {useParams} from "react-router-dom";
+import {useHistory, useParams} from "react-router-dom";
 import * as Routes from "../../routes";
 export default function EditProject({isPortfolio=false}){
     const [formValue, setFormValue] = useState({positions: [], partners:[]});
 
     const {id} = useParams();
+
+    const history = useHistory();
+
     const [project, getProjectHandler] = useGetProject();
     const[deleteProject, deleteProjectHandler] = useDeleteProject();
     useEffect(()=> {
@@ -135,7 +138,7 @@ export default function EditProject({isPortfolio=false}){
 
                    { /*<h2>Posizioni </h2>  <ListOrCreate formValue={formValue} setFormValue={setFormValue} />*/}
 
-                    <Button type="submit">Save Project</Button>
+                    <MainButton type="submit">Save Project</MainButton>
                 </Form>
                 <Button onClick={()=>removeProject(formValue.id)} >Remove Project</Button>
 

@@ -6,7 +6,7 @@ import {
     Form, FormControl, FormGroup, Icon,
     List,
     Modal,
-    Panel,
+    Panel, Radio, RadioGroup,
     SelectPicker,
     TreePicker, Uploader
 } from "rsuite";
@@ -14,7 +14,7 @@ import React, {useEffect, useState} from "react";
 import TextField from "../../Login/Components/TextField";
 import HorizontalStepForm from "../../ReusableComponents/HorizontalStepForm";
 import {useGetServices} from "../../Backend/hooks/useServices";
-import {generateServiceTree} from "../Administration/CategoriesManagement";
+import {generateCategoriesTree, generateServiceTree} from "../Administration/CategoriesManagement";
 import {GenericTable} from "../../ReusableComponents/GenericTable";
 import {useCreateNewProject, useGetLastProjects, useSearchProjects} from "../../Backend/hooks/useProjects";
 import styled from "styled-components";
@@ -25,6 +25,8 @@ import {PortfolioDetail} from "../Profile/submenus/SocietyPortfolio";
 import {dataCountry, dataLanguage} from "../../selectData";
 import {useGetUsers} from "../../Backend/hooks/useAdministration";
 import {ServiceDetail} from "../Profile/submenus/SocietyFornitures";
+import {CollaborationDetail} from "../Profile/submenus/SocietyCollaborations";
+import {useGetCategories} from "../../Backend/hooks/useCategories";
 
 
 const FilterBox = styled.div`
@@ -46,6 +48,7 @@ export default function ProjectPage(){
 
     const onSubmitHandler = () => {
         const formData = new FormData();
+        console.log(formValue);
        // formData.append('isPortfolio', isPortFolioCheckboxChecked);
         Object.keys(formValue).forEach((key)=>  { formData.append(key,JSON.stringify(formValue[key]));});
         getProjectsHandler(formData);
@@ -65,7 +68,7 @@ export default function ProjectPage(){
 
 
     const projectPanels = projects.projects.map((project, index)=> {
-        return (<PortfolioDetail project={project} />)
+        return (<CollaborationDetail collaboration={project} />)
     });
     const servicePanels = projects.services.map((service, index)=>{
         return (<ServiceDetail service={service} />)
@@ -73,11 +76,14 @@ export default function ProjectPage(){
 
 
     const [services, getServicesHandler] = useGetServices();
+    const [categories, getCategoriesHandler] = useGetCategories();
 
     useEffect(()=>{
         getServicesHandler();
+        getCategoriesHandler();
     },[]);
     let servicesTree = generateServiceTree(services)
+    let categoriesTree = generateCategoriesTree(categories)
 
 
 
@@ -89,20 +95,26 @@ export default function ProjectPage(){
             <Form fluid formValue={formValue} onChange={setFormValue} onSubmit={onSubmitHandler}>
                 <TextField name="freeText" type="text" style={{width:"100%"}}/>
                 <div style={{display:"flex", justifyContent:"space-between"}}>
-                    <TextField label="Language" name="language" data={dataLanguage} accepter={SelectPicker} searchable={false} style={{width:"100%"}} />
                     <TextField label="Proposed by" name="user" data={users} accepter={SelectPicker} searchable={true} style={{width:"100%"}} />
                 </div>
                 <div style={{display:"flex", justifyContent:"space-between"}}>
-                    <TextField label="From" name="from" accepter={DatePicker}  style={{width:"100%"}} />
-                    <TextField label="To" name="to" accepter={DatePicker}  style={{width:"100%"}} />
+                    <TextField label="Deadline" name="to" accepter={DatePicker}  style={{width:"100%"}} />
                 </div>
                 <div style={{display:"flex", justifyContent:"space-between"}}>
                     <TextField label="Country" name="country" data={dataCountry} accepter={SelectPicker} searchable={false} style={{width:"100%"}} />
-                    <TextField label="Service" name="service" data={servicesTree} accepter={CheckTreePicker} style={{width:"100%"}} cascade={false} />
+                    <TextField label="Category" name="category" data={categoriesTree} accepter={CheckTreePicker} style={{width:"100%"}} cascade={false} />
                 </div>
-                <Checkbox name="isPortfolio" onChange={()=>setChecked(!isPortFolioCheckboxChecked)}>
-                            Show Portfolio projects
-                </Checkbox>
+                <FormGroup>
+                    <ControlLabel>Radio</ControlLabel>
+                    <FormControl
+                        name="radio"
+                        accepter={RadioGroup}
+                    >
+                        <Radio defaultChecked value="all">All</Radio>
+                        <Radio value="services">Services and opportunities</Radio>
+                        <Radio value="collaborations">Collaborations</Radio>
+                    </FormControl>
+                </FormGroup>
 
                 <Button type="submit">Search</Button>
             </Form>

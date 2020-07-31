@@ -9,12 +9,13 @@ import {useGetCollaborationProjects, useGetUserProjects} from "../../Backend/hoo
 import {useGetCategories} from "../../Backend/hooks/useCategories";
 import {generateCategoriesTree} from "../Administration/CategoriesManagement";
 import * as Routes from "../../routes";
-import {bordeaux} from "../../styledComponents/CustomComponents";
+import {bordeaux, InverseButton} from "../../styledComponents/CustomComponents";
 import {Button, DatePicker, Form, Schema, SelectPicker, TreePicker} from "rsuite";
 import TextField from "../../Login/Components/TextField";
 import {dataCountry, dataLanguage} from "../../selectData";
 import styled from "styled-components";
 import {useHistory, useParams} from "react-router-dom";
+import {getCalendarDate} from "../../ReusableComponents/TimeManager";
 
 export default function EditCollaboration() {
     const [formValue, setFormValue] = useState({positions: []});
@@ -26,7 +27,15 @@ export default function EditCollaboration() {
     const {id} = useParams();
 
     useEffect(()=>{
-        getCollaborationHandler(id,{successCallback: (data)=> {
+        getCollaborationHandler(id,{
+            dataManipulationFunction:(data) =>
+            {
+                const newData = {...data, startTime: getCalendarDate(data.startDate)}
+                console.log("premanipulation", newData);
+                return newData
+                } ,
+            successCallback: (data)=> {
+                console.log("collaboration", data);
                 setFormValue(data);
             }});
     },[]);
@@ -49,6 +58,7 @@ export default function EditCollaboration() {
 
     let categoriesTree = generateCategoriesTree(categories)
 
+
     const onSubmitHandler = () =>{
         const formData = new FormData();
         formData.append('email', user.email);
@@ -65,7 +75,9 @@ export default function EditCollaboration() {
 
     return (
         <>
-            <div style={{border:`2px solid ${bordeaux}`, height:100, width:"100%", textAlign:"center"}}>{formValue.title}</div>
+            <div style={{border:`2px solid ${bordeaux}`, height:100, width:"100%", textAlign:"center"}}>
+                {formValue.title}
+            </div>
             <InfoBox >
                 <h5 style={{color:bordeaux}}>Info </h5>
                 <Form fluid formValue={formValue} onChange={setFormValue} onSubmit={onSubmitHandler}>
@@ -75,10 +87,6 @@ export default function EditCollaboration() {
                         <TextField style={{width:"100%"}} label="Start date" name="startTime" accepter={DatePicker} format="DD-MM-YYYY" />
                         <TextField style={{width:"100%"}}  label="End date" name="endTime" accepter={DatePicker} format="DD-MM-YYYY" placement="topEnd" /> </div>
 
-                    <div style={{display:"flex", justifyContent:"space-around"}}>
-                        <TextField style={{width:"100%"}} label="Country" name="country" accepter={SelectPicker} data={dataCountry} />
-                        <TextField style={{width:"100%"}} label="Language" name="language" accepter={SelectPicker} data={dataLanguage} />
-                    </div>
                     <div style={{display:"flex", justifyContent:"space-around"}}>
                         <TextField style={{width:"100%"}} label="Project" name="project" accepter={SelectPicker} data={projects} />
                         <TextField style={{width:"100%"}} label="Category" name="category" accepter={TreePicker} data={categoriesTree} />

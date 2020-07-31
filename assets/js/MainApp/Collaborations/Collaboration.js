@@ -36,7 +36,7 @@ export default function Collaboration(){
         <TitleBox>
             <div style={{height: 150, width: 150, backgroundImage: `url(${categoryImage})`, backgroundColor: "white", backgroundSize: "contain"}}/>
             {collaboration && collaboration.title}
-            <InverseButton onClick={()=>history.push(Routes.editCollaboration(id))}>Edit Collaboration</InverseButton>
+            <InverseButton style={{backgroundColor:"white", color:bordeaux}} onClick={()=>history.push(Routes.editCollaboration(id))}>Edit Collaboration</InverseButton>
         </TitleBox>
         <div>{ collaboration && collaboration.description}</div>
         <InfoBox>

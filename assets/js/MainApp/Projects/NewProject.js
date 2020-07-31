@@ -21,7 +21,7 @@ import {useGetServices} from "../../Backend/hooks/useServices";
 import {generateServiceTree} from "../Administration/CategoriesManagement";
 import {GenericTable} from "../../ReusableComponents/GenericTable";
 import {
-    bordeaux,
+    bordeaux, coverPicture,
     InverseButton,
     MainButton,
     projectPicture,
@@ -52,7 +52,7 @@ export default function NewProject({isPortfolio=false}){
         createNewProjectHandler(formData, {successCallback: (data)=> history.push(Routes.project(data)) });
     }
 
-    const [pathUrl, setPathUrl] = useState();
+    const [pathUrl, setPathUrl] = useState(coverPicture);
     const [projectLogoUrl, setProjectLogoUrl] = useState(projectPicture);
 
     const handleFileChange = (file) =>{
@@ -99,13 +99,13 @@ export default function NewProject({isPortfolio=false}){
 
     const listElements = (formValue) => {return (isPortfolio)  ? <PartnerListOrCreate formValue={formValue} setFormValue={setFormValue} /> : <ListOrCreate formValue={formValue} setFormValue={setFormValue} /> };
 
-    const uploadCoverButton = <InverseButton>uploadCoverButton</InverseButton>;
-    const uploadLogoButton = <InverseButton>uploadLogoButton</InverseButton>;
+    const uploadCoverButton = <InverseButton>Upload cover button</InverseButton>;
+    const uploadLogoButton = <InverseButton>Upload logo button</InverseButton>;
 
 
     return (
         <>
-            <div style={{height:281, width:"100%", border:"1px solid black", marginBottom:10, backgroundColor:"black",position:"relative", backgroundImage:`url(${pathUrl})`,  backgroundSize: "contain"}}>
+            <div style={{height:281, width:"100%", marginBottom:10,position:"relative", backgroundImage:`url(${pathUrl})`,  backgroundSize: "contain"}}>
                 <ImageCropper button={uploadCoverButton} propCrop={{
                     unit: 'px', // default, can be 'px' or '%'
                     x: 0,
@@ -146,8 +146,8 @@ export default function NewProject({isPortfolio=false}){
                             </Col>
                         </Row>
                     </Grid>
-                    <h5 style={{color:bordeaux}}>Partner </h5>
-                    {isPortfolio && <PartnerListOrCreate formValue={formValue} setFormValue={setFormValue} />}
+
+                    {isPortfolio && <><h5 style={{color:bordeaux}}>Partner </h5><PartnerListOrCreate formValue={formValue} setFormValue={setFormValue} /></>}
 
                     <MainButton type="submit">Save all</MainButton>
                 </Form>

@@ -36,7 +36,7 @@ class Collaboration
     /**
      * @ORM\Column(type="string", length=255, nullable=true)
      */
-    private $address;
+    private $country;
 
     /**
      * @ORM\Column(type="date", nullable=true)
@@ -83,6 +83,8 @@ class Collaboration
      * @ORM\ManyToOne(targetEntity="App\Entity\Project", inversedBy="collaborations")
      */
     private $project;
+
+    private $isActive;
 
     public function __construct()
     {
@@ -131,14 +133,14 @@ class Collaboration
         return $this;
     }
 
-    public function getAddress(): ?string
+    public function getCountry(): ?string
     {
-        return $this->address;
+        return $this->country;
     }
 
-    public function setAddress(?string $address): self
+    public function setCountry(?string $country): self
     {
-        $this->address = $address;
+        $this->country = $country;
 
         return $this;
     }
@@ -269,5 +271,13 @@ class Collaboration
 
         return $this;
     }
+
+    public function getIsActive(){
+        return !$this->getPositions()->filter(function(Position $position){
+            return ($position->getIsOpen()===true);
+        })->isEmpty();
+    }
+
+
     
 }

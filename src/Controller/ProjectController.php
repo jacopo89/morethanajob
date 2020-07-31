@@ -9,6 +9,8 @@
 namespace App\Controller;
 
 
+use App\Entity\Category;
+use App\Entity\Collaboration;
 use App\Entity\ExternalPartner;
 use App\Entity\File;
 use App\Entity\OfferedService;
@@ -68,34 +70,45 @@ class ProjectController extends AbstractController
         $country = json_decode($request->get('country'));
         $language = json_decode($request->get('language'));
         $services = json_decode($request->get('service'));
+        $categories = json_decode($request->get('category'));
         $userMail = json_decode($request->get('user'));
+        $from = json_decode($request->get('from'));
+        $to = json_decode($request->get('to'));
+
+        $deadline = new \DateTime($to);
+        $checkbox = json_decode($request->get('radio'));
+
 
 
         $user = $this->em->getRepository(User::class)->findOneBy(['email'=>$userMail]);
         $trueServices = $this->em->getRepository(Service::class)->findBy(['id'=>$services]);
-        $userProjectIds = [];
+        $trueCategories = $this->em->getRepository(Category::class)->findBy(['id'=>$categories]);
+        $userCollaborationsIds = [];
         $userServiceIds = [];
 
         $arrayServicesIds = [];
         $userOfferedServicesIds = [];
 
 
-        $projectFilters = [];$serviceFilters = [];
+        $projectFilters = []; $serviceFilters = [];
         if($country){
             $projectFilters['country'] = $country;
         }
-        if($language){
+        /*if($language){
             $projectFilters['language'] = $language;
+        }*/
+        if($categories){
+            $projectFilters['category'] = $trueCategories;
         }
         if($user){
-            $userProjectIds = $user->getProjectsRelations()->filter(function(ProjectPartner $projectPartner){ return $projectPartner->getIsLeader() === true; })
-                ->map(function(ProjectPartner $projectPartner){
-                   return $projectPartner->getProject()->getId();
-                })->toArray();
+            $userCollaborationsIds = $user->getCollaborations()->map(function(Collaboration $collaboration){return $collaboration->getId();})->toArray();
 
             $userOfferedServicesIds = $user->getOfferedServicesRelations()->map(function(OfferedService $offeredService){return $offeredService->getId();})->toArray();
         }
         if($services){
+
+            //ricerca con fornitura
+
             $positions = $this->getDoctrine()->getRepository(Position::class)->findBy(['service'=>$trueServices, 'isOpen'=>true]);
 
             $array_positions = [];
@@ -104,7 +117,7 @@ class ProjectController extends AbstractController
             }
 
             $userServiceIds = array_unique(array_map(function(Position $position){
-                return $position->getProject()->getId();
+                return $position->getCollaboration()->getId();
             }, $array_positions));
 
             $offeredServices = $this->getDoctrine()->getRepository(OfferedService::class)->findBy(['service'=> $trueServices]);
@@ -119,7 +132,7 @@ class ProjectController extends AbstractController
 
 
 
-        $arrayId = array_unique(array_merge($userProjectIds, $userServiceIds));
+        $arrayId = array_unique(array_merge($userCollaborationsIds, $userServiceIds));
 
         $servicesId = array_diff($userOfferedServicesIds,$arrayServicesIds)
         ;
@@ -133,16 +146,60 @@ class ProjectController extends AbstractController
 
         $offeredServices = $this->getDoctrine()
             ->getRepository(OfferedService::class)
-            ->findBy($serviceFilters,[], 10);
+            ->findBy($serviceFilters);
 
         $records = $this->getDoctrine()
-            ->getRepository(Project::class)
-            ->findBy($projectFilters, array('creationTime' => 'DESC'), 10)
+            ->getRepository(Collaboration::class)
+            ->findBy($projectFilters)
         ;
 
+
         $results = [];
-        $results["services"] = $offeredServices;
-        $results["projects"] = $records;
+
+        switch($checkbox){
+            case "services":{
+                $filteredRecords = array_filter($records, function(Collaboration $collaboration){
+                    return $collaboration->getIsActive()===false;
+                });
+                $newRecords = [];
+                foreach ($filteredRecords as $filteredRecord){
+                    $newRecords[] = $filteredRecord;
+                }
+            }
+                break;
+            case "collaborations":{
+                $filteredRecords = array_filter($records, function(Collaboration $collaboration){
+                    return $collaboration->getIsActive()===true;
+                });
+                $newRecords = [];
+                foreach ($filteredRecords as $filteredRecord){
+                    $newRecords[] = $filteredRecord;
+                }
+            }
+                break;
+            default:{
+                $newRecords = $records;
+            }
+                break;
+
+        }
+
+        if($to){
+            $timeRecords = array_filter($newRecords, function(Collaboration $collaboration)use($deadline){
+                return $collaboration->getEndDate() < $deadline;
+            });
+            $finalRecords = [];
+            foreach($timeRecords as $timeRecord){
+                $finalRecords[] = $timeRecord;
+            }
+        }else{
+            $finalRecords = $newRecords;
+        }
+
+
+
+        $results["services"] = [];
+        $results["projects"] = $finalRecords;
 
 
         return new Response($this->serializer->serialize($results, 'json'));
@@ -195,13 +252,9 @@ class ProjectController extends AbstractController
             $title = json_decode($request->get('title'));
             $shortDescription = json_decode($request->get('shortDescription'));
             $longDescription = json_decode($request->get('longDescription'));
-            $country = json_decode($request->get('country'));
-            $language = json_decode($request->get('language'));
             $project->setTitle($title);
             $project->setShortDescription($shortDescription);
             $project->setLongDescription($longDescription);
-            $project->setCountry($country);
-            $project->setLanguage($language);
 
             $this->em->persist($project);
             $this->em->flush();
