@@ -27,7 +27,7 @@ export default function Dashboard(){
 
     const profilePics = profiles.map((profile)=> <IconTextBox>
         {profile.profilePicture && <img width={75} src={profile.profilePicture.url}/>}
-        <p>{profile.name}</p>
+        <a href={`/profile/${profile.profileName}`} >{profile.name}</a>
     </IconTextBox> );
 
     const collaborationBlocks = collaborations.map(collaboration=><CollaborationDetail collaboration={collaboration} />)
@@ -181,7 +181,7 @@ export default function Dashboard(){
             </Panel>
 
             <Panel shaded style={panelStyle}>
-                <Title id="services">Collaborations</Title>
+                <Title id="services">Services and opportunities</Title>
                 {collaborationBlocks}
 
             </Panel>

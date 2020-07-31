@@ -159,6 +159,7 @@ export function useCreateHook(Client, url, method, defaultDataValue){
                         setStatus(response.status);
                     })
                     .catch((e)=>{
+                        console.log("Evento catch delete",e);
                         setStatus(e.response.status);
                         //ErrorCallback
                         // console.log("Is callback undefined", callbacks.errorCallback===undefined);

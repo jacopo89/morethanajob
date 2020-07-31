@@ -57,7 +57,7 @@ export default function EditProject({isPortfolio=false}){
         const formData = new FormData();
         formData.append('id', id);
         Object.keys(formValue).forEach((key)=>  { formData.append(key,JSON.stringify(formValue[key]));});
-        editProjectHandler(formData);
+        editProjectHandler(formData, {successCallback: () =>    history.push(Routes.profile(user.profileName))} );
     }
 
     const handleFileChange = (file) => {
@@ -119,9 +119,11 @@ export default function EditProject({isPortfolio=false}){
             </div>
             <InfoBox >
                 <Form fluid formValue={formValue} onChange={setFormValue} onSubmit={onSubmitHandler}>
-                    <TextField label="Titolo del progetto" name="title" type="text" />
-                    <TextField label="Descrizione breve" name="shortDescription" componentClass="textarea" />
-                    <TextField label="Descrizione" name="longDescription" componentClass="textarea" />
+                    <TextField label="Title" name="title" type="text" />
+                    <TextField label="Short description" name="shortDescription" componentClass="textarea" />
+                    <TextField label="Description" name="longDescription" componentClass="textarea" />
+                    <TextField label="Links" name="links" componentClass="textarea" />
+                    <TextField label="Contacts" name="contacts" componentClass="textarea" />
                     <div style={{display:"flex", justifyContent:"space-around"}}>
                     {/*    <TextField style={{width:"100%"}} label="Data di inizio progetto" name="startTime" accepter={DatePicker} format="DD-MM-YYYY" />
                         <TextField style={{width:"100%"}}  label="Data di fine progetto" name="endTime" accepter={DatePicker} format="DD-MM-YYYY" placement="topEnd" />*/}

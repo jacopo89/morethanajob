@@ -33,11 +33,14 @@ export default function Collaboration(){
     const serviceBox = <ServiceFormBox/>;
 
     return (<>
-        <TitleBox>
-            <div style={{height: 150, width: 150, backgroundImage: `url(${categoryImage})`, backgroundColor: "white", backgroundSize: "contain"}}/>
-            {collaboration && collaboration.title}
-            <InverseButton style={{backgroundColor:"white", color:bordeaux}} onClick={()=>history.push(Routes.editCollaboration(id))}>Edit Collaboration</InverseButton>
-        </TitleBox>
+        <div style={{width:"100%", backgroundColor:bordeaux}}>
+            <TitleBox>
+                <div style={{height: 150, width: 150, backgroundImage: `url(${categoryImage})`, backgroundColor: "white", backgroundSize: "contain"}}/>
+                {collaboration && collaboration.title}
+            </TitleBox>
+            <Button style={{backgroundColor:"white", color:bordeaux, margin:10}} onClick={()=>history.push(Routes.editCollaboration(id))}>Edit Collaboration</Button>
+        </div>
+
         <div>{ collaboration && collaboration.description}</div>
         <InfoBox>
             <Grid style={{width:"100%"}}>
@@ -262,7 +265,7 @@ export function ServiceFormBox() {
         <div style={{width:"100%", display:"flex", justifyContent:"center", alignItems:"center", margin:5, height:300}}>
             {(!apply) ? <MainButton style={{width:200}}  onClick={()=>setApply(true)}>Apply</MainButton> :
                 <Form fluid formValue={formValue} onChange={setFormValue} onSubmit={onSubmit}>
-                    <TextField name="message" label="Messaggio" componentClass="textarea" />
+                    <TextField name="message" label="Message" componentClass="textarea" />
                     <MainButton style={{width:100}} type="submit">Send</MainButton>
                 </Form>}
         </div>
@@ -287,7 +290,8 @@ export function IconWithText({icon, label, value}){
 
 const TitleBox =  styled.div`
 width: 100%;
-height:200px;
+margin-top:20px;
+height:150px;
 background-color: ${bordeaux};
 color: white;
 font-size: 40px;

@@ -5,9 +5,9 @@ import React from "react";
 export default function Footer() {
     return (<div style={{width:"100%", backgroundColor:bordeaux, alignItems:"center", display:"flex", flexDirection:"column", padding:50}}>
         <div style={{display: "flex", width:400, justifyContent: "space-around"}}>
-            <a href="http://facebook.com/morethanajob"><Icon style={{color:"white"}} icon="facebook-square" size="3x"/></a>
-            <a href="http://www.linkedin.com/company/morethanajobeni/"><Icon style={{color:"white"}} icon="linkedin-square" size="3x"/></a>
-            <a href="http://twitter.com/than_job"><Icon style={{color:"white"}} icon="twitter-square" size="3x" /></a> </div>
+            <a target="_blank" href="http://facebook.com/morethanajob"><Icon style={{color:"white"}} icon="facebook-square" size="3x"/></a>
+            <a target="_blank" href="http://www.linkedin.com/company/morethanajobeni/"><Icon style={{color:"white"}} icon="linkedin-square" size="3x"/></a>
+            <a target="_blank" href="http://twitter.com/than_job"><Icon style={{color:"white"}} icon="twitter-square" size="3x" /></a> </div>
         <p style={{color:"white"}}><a href="http://www.enicbcmed.eu/projects/morethanajob">http://www.enicbcmed.eu/projects/morethanajob</a></p>
         <p style={{color:"white", fontSize:9}}>“This publication has been produced with the financial assistance of the European Union under the ENI CBC Mediterranean Sea Basin Programme. The contents of this document are the sole responsibility of CESIE and can under no circumstances be regarded as reflecting the position of the European Union or the Programme management structures.
 

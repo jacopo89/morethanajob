@@ -1,7 +1,7 @@
 import React, {useEffect, useState} from "react";
 import {useSelector} from "react-redux";
 import {
-    useCreateNewCollaboration,
+    useCreateNewCollaboration, useDeleteCollaboration,
     useEditCollaboration,
     useGetCollaboration
 } from "../../Backend/hooks/useCollaborations";
@@ -9,7 +9,7 @@ import {useGetCollaborationProjects, useGetUserProjects} from "../../Backend/hoo
 import {useGetCategories} from "../../Backend/hooks/useCategories";
 import {generateCategoriesTree} from "../Administration/CategoriesManagement";
 import * as Routes from "../../routes";
-import {bordeaux, InverseButton} from "../../styledComponents/CustomComponents";
+import {bordeaux, InverseButton, MainButton} from "../../styledComponents/CustomComponents";
 import {Button, DatePicker, Form, Schema, SelectPicker, TreePicker} from "rsuite";
 import TextField from "../../Login/Components/TextField";
 import {dataCountry, dataLanguage} from "../../selectData";
@@ -23,6 +23,8 @@ export default function EditCollaboration() {
     const [getResponse, getCollaborationHandler] = useGetCollaboration();
     const [response, createNewCollaborationHandler] = useEditCollaboration();
     const [projects, getProjectsHandler] = useGetCollaborationProjects();
+
+    const [deleteResponse, deleteCollaborationHandler] = useDeleteCollaboration();
     const history = useHistory();
     const {id} = useParams();
 
@@ -58,6 +60,12 @@ export default function EditCollaboration() {
 
     let categoriesTree = generateCategoriesTree(categories)
 
+    const deleteHandler = (id) => {
+        deleteCollaborationHandler(id, {successCallback:()=>{
+            history.push(Routes.profile(user.profileName));
+        }});
+    }
+
 
     const onSubmitHandler = () =>{
         const formData = new FormData();
@@ -92,7 +100,9 @@ export default function EditCollaboration() {
                         <TextField style={{width:"100%"}} label="Category" name="category" accepter={TreePicker} data={categoriesTree} />
                     </div>
 
-                    <Button type="submit">Save all</Button>
+                    <MainButton type="submit">Save all</MainButton>
+                    <Button onClick={()=>deleteHandler(formValue.id)}>Delete</Button>
+
                 </Form>
 
             </InfoBox>

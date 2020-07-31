@@ -252,10 +252,13 @@ class ProjectController extends AbstractController
             $title = json_decode($request->get('title'));
             $shortDescription = json_decode($request->get('shortDescription'));
             $longDescription = json_decode($request->get('longDescription'));
+            $links = json_decode($request->get('links'));
+            $contacts = json_decode($request->get('contacts'));
             $project->setTitle($title);
             $project->setShortDescription($shortDescription);
             $project->setLongDescription($longDescription);
-
+            $project->setLinks($links);
+            $project->setContacts($contacts);
             $this->em->persist($project);
             $this->em->flush();
 

@@ -3,6 +3,7 @@ import {Button, Icon} from "rsuite";
 import styled from "styled-components";
 import {bordeaux} from "../../../styledComponents/CustomComponents";
 import {useGetUserInfo, useGetUserInfoByEmail} from "../../../Backend/hooks/UserInfo";
+import {GenericTable} from "../../../ReusableComponents/GenericTable";
 
 export default function SocietyContacts({society}){
     const [userInfo, getUserInfoHandler] = useGetUserInfoByEmail();
@@ -10,20 +11,31 @@ export default function SocietyContacts({society}){
         getUserInfoHandler(society.email);
     },[])
 
-    const fileList = userInfo && userInfo.files.map((file)=><Button href={file.url}>{file.filename}</Button>);
+
+    const actionRender= (rowData) => {
+
+        return (
+                    <Button href={rowData.url}>Download</Button>
+        );
+    }
+    const modelData = [
+        {label:"File", dataKey: "filename"},
+        {label:"download", render:actionRender}
+    ]
+
+
+    const table = userInfo ? <GenericTable rowKey="id" modelData={modelData} propData={userInfo.files} /> :<div></div>
+    
    return <>
        <div style={{display: "flex", justifyContent: "space-around", height:100}}>
-           <IconSpan><Icon style={{color:bordeaux}} icon="globe" size="3x" /> {userInfo && userInfo.website}</IconSpan>
+           <IconSpan><a target="_blank" href={userInfo && userInfo.website}><Icon style={{color:bordeaux}} icon="globe" size="3x" /> {userInfo && userInfo.website}</a></IconSpan>
            <IconSpan><Icon style={{color:bordeaux}} icon="envelope" size="3x" /> {userInfo && userInfo.email}</IconSpan>
        </div>
        <div style={{display: "flex", justifyContent: "space-around", height:100}}>
-           <a href={userInfo && userInfo.facebook}><Icon style={{color:bordeaux}} icon="facebook-square" size="3x"/>{userInfo && userInfo.facebook}</a >
-           <a href={userInfo && userInfo.linkedin}><Icon style={{color:bordeaux}} icon="linkedin-square" size="3x"/> {userInfo && userInfo.linkedin}</a>
-           <a href={userInfo && userInfo.twitter}><Icon style={{color:bordeaux}} icon="twitter-square" size="3x" />{userInfo && userInfo.twitter}</a> </div>
-
-       <div>
-           {fileList}
-           </div>
+           <IconSpan><a target="_blank" href={userInfo && userInfo.facebook}><Icon style={{color:bordeaux}} icon="facebook-square" size="3x"/>{userInfo && userInfo.facebook}</a ></IconSpan>
+           <IconSpan><a target="_blank" href={userInfo && userInfo.linkedin}><Icon style={{color:bordeaux}} icon="linkedin-square" size="3x"/> {userInfo && userInfo.linkedin}</a></IconSpan>
+           <IconSpan><a target="_blank" href={userInfo && userInfo.twitter}><Icon style={{color:bordeaux}} icon="twitter-square" size="3x" />{userInfo && userInfo.twitter}</a></IconSpan> </div>
+       {table}
    </>
 }
 

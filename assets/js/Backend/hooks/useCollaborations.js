@@ -38,3 +38,9 @@ export function  useGetRandomCollaborations() {
     const backendClient = BackendClient();
     return useCreateHook(backendClient,'/backend/collaborations/getrandom','get',[]);
 }
+
+export function  useDeleteCollaboration() {
+
+    const backendClient = BackendClient();
+    return useCreateHook(backendClient,'/backend/collaborations/delete','delete',null);
+}

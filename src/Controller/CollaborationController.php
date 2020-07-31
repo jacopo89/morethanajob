@@ -225,4 +225,18 @@ class CollaborationController extends AbstractController
         return new Response($this->serializer->serialize($finalCollaborations, 'json'), Response::HTTP_OK);
     }
 
+    /**
+     * @Route("/delete/{id}", methods={"DELETE"})
+     * @param Collaboration $collaboration
+     * @return Response
+     */
+    public function deleteCollaboration(Collaboration $collaboration){
+
+        $this->em->remove($collaboration);
+        $this->em->flush();
+
+
+        return new Response(null, Response::HTTP_OK);
+    }
+
 }
