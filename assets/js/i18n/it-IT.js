@@ -5,6 +5,8 @@ export const translation = {
         "Already logged": "Già autenticato",
         "language":"Lingua",
 
+        "Administration":"amministrazione",
+
 
         //project
         "Platform Partners": "Partner di piattaforma",

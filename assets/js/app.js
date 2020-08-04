@@ -73,7 +73,8 @@ function App(){
     const newPorfolioPage = <MainPage page={<NewProject isPortfolio={true}/>} />
     const newCollaborationPage = <MainPage page={<NewCollaboration isService={false} />} />
     const newServicePage = <MainPage page={<NewCollaboration isService={true} />} />
-    const editCollaborationDetailPage = <MainPage page={<EditCollaboration />} />
+    const editCollaborationDetailPage = <MainPage page={<EditCollaboration isService={false} />} />
+    const editServiceDetailPage = <MainPage page={<EditCollaboration isService={true} />} />
 
     const immediateLogoutPage = <ImmediateLogout />
     const {isLoading} = useSelector(state=>state);
@@ -85,6 +86,7 @@ function App(){
         (<>
             <Switch>
                 <Route path={Routes.routeEditCollaboration} children={editCollaborationDetailPage}/>
+                <Route path={Routes.routeEditService} children={editServiceDetailPage}/>
                 <Route path={Routes.registration} children={registrationPage}/>
                 <Route exact path={Routes.changePassword} children={changePasswordPage}/>
                 <Route path={Routes.passwordRecovery} children={recoverPage}/>

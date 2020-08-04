@@ -40,7 +40,7 @@ export default function Dashboard(){
                         Home
                     </Nav.Item>
                     <Nav.Item href="#aboutUs"  eventKey="2">The project</Nav.Item>
-                    <Nav.Item href="#services"  eventKey="3">Services and opportunities</Nav.Item>
+                    <Nav.Item href={()=>history.push(Routes.projectPage)}  eventKey="3">Services and opportunities</Nav.Item>
                     <Nav.Item href="#organisations"  eventKey="4">Organisations</Nav.Item>
                     <Nav.Item href="#FAQ"  eventKey="5">FAQ</Nav.Item>
 
@@ -53,9 +53,7 @@ export default function Dashboard(){
         </Navbar>
         <Body style={{backgroundColor:"transparent", maxWidth:"none"}}>
             <Panel shaded style={panelStyle} >
-                <Title id="home">
-
-                </Title>
+                <Anchor id="home"/>
                 <Grid fluid>
                     <Row className="show-grid">
                         <Col xs={12}>
@@ -75,8 +73,8 @@ export default function Dashboard(){
                     </Row>
                 </Grid>
             </Panel>
-            <Panel shaded style={panelStyle} id="aboutUs">
-
+            <Panel shaded style={panelStyle}>
+                <Anchor id="aboutUs">Abus</Anchor>
                 <Grid fluid>
                     <Row className="show-grid">
                         <Col xs={12}>
@@ -172,7 +170,8 @@ export default function Dashboard(){
 
             </Panel>
             <Panel shaded style={panelStyle}>
-                <Title id="organisations">Organisations</Title>
+                <Title>Organisations</Title>
+                <Anchor id="organisations"/>
                 <div style={{display:"flex", justifyContent:"space-around"}}>
                     {profilePics}
 
@@ -188,7 +187,8 @@ export default function Dashboard(){
 
 
             <Panel shaded style={panelStyle}>
-                <Title id="FAQ">FAQ</Title>
+                <Title>FAQ</Title>
+                <Anchor id="FAQ"/>
                 <PanelGroup accordion bordered>
                     <Panel header="Does this course need special requirements?" defaultExpanded>
                         No. It is a standard course.
@@ -228,3 +228,8 @@ const IconTextBox = styled.div`display: flex;
     flex-direction: column;
     align-items: center;
     max-width: 158px;`;
+
+const Anchor = styled.div
+    `position: relative;
+    left: 0px;
+    top: -100px;`;

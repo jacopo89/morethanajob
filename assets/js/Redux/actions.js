@@ -28,6 +28,7 @@ export const updateUserInfo = (data) =>{
         email: data.email,
         roles: data.roles,
         profileName: data.profileName,
+        language: data.language
     }
     cookies.set('user', JSON.stringify(userCookie), cookiesOptions);
 

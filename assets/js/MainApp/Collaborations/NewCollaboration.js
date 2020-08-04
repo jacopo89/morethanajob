@@ -28,6 +28,7 @@ import * as Routes from "../../routes";
 import {getCalendarFormat} from "../../ReusableComponents/TimeManager";
 import {useCreateNewCollaboration} from "../../Backend/hooks/useCollaborations";
 import {useGetCategories} from "../../Backend/hooks/useCategories";
+import {Schema} from 'rsuite';
 
 export default function NewCollaboration({isService=false}){
     const [formValue, setFormValue] = useState({positions: []});
@@ -45,7 +46,13 @@ export default function NewCollaboration({isService=false}){
             }})
     },[]);
 
-    console.log("progetti", projects);
+    const { StringType, NumberType, ArrayType } = Schema.Types;
+
+    console.log(formValue);
+    const model = Schema.Model({
+        category: NumberType().isRequired('This field is required.'),
+    });
+
     const [categories, getCategoriesHandler] = useGetCategories();
 
     useEffect(()=>{
@@ -70,7 +77,7 @@ export default function NewCollaboration({isService=false}){
             <TitleBox >{formValue.title}</TitleBox>
             <InfoBox >
                 <h5 style={{color:bordeaux}}>Info </h5>
-                <Form fluid formValue={formValue} onChange={setFormValue} onSubmit={onSubmitHandler}>
+                <Form model={model} fluid formValue={formValue} onChange={setFormValue} onSubmit={onSubmitHandler}>
                     <TextField label={titleLabel} name="title" type="text" />
                     <TextField label="Short description" name="shortDescription" componentClass="textarea" />
                     <TextField label="Detailed description" name="description" componentClass="textarea" />
@@ -93,6 +100,10 @@ export default function NewCollaboration({isService=false}){
                     <div style={{display:"flex", justifyContent:"space-around"}}>
                         <TextField style={{width:"100%"}} label="Project" name="project" accepter={SelectPicker} data={projects} />
                         <TextField style={{width:"100%"}} label={categoryLabel} name="category" accepter={TreePicker} data={categoriesTree} />
+                    </div>
+                    <div style={{display:"flex", justifyContent:"space-around"}}>
+                        <TextField style={{width:"100%"}} label="Language" name="language" accepter={SelectPicker} data={dataLanguage} />
+
                     </div>
                     {!isService && <ListOrCreate formValue={formValue} setFormValue={setFormValue} />}
 
@@ -250,7 +261,7 @@ function IncludableForm({item, updater, save, remover, back, servicesTree}){
     return <div style={{border:"1px solid", borderColor:bordeaux, padding:5}}>
         <Form formValue={formValue}  onChange={setFormValue}>
             <div style={{display:"flex", justifyContent:"space-around"}}>
-                <TextField name="service" label="Servizio" accepter={TreePicker} data={servicesTree} style={{width:"100%"}} />
+                <TextField name="service" label="Expertise" accepter={TreePicker} data={servicesTree} style={{width:"100%"}} />
             </div>
             <TextField name="description" label="Description" componentClass="textarea"/>
 

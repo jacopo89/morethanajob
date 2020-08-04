@@ -30,6 +30,8 @@ export default function Collaboration(){
 
     const isCollaborationClosed =  collaboration && collaboration.positions.filter((position)=>!position.isOpen).length === collaboration.positions.length;
 
+
+
     const serviceBox = <ServiceFormBox/>;
 
     return (<>
@@ -38,7 +40,7 @@ export default function Collaboration(){
                 <div style={{height: 150, width: 150, backgroundImage: `url(${categoryImage})`, backgroundColor: "white", backgroundSize: "contain"}}/>
                 {collaboration && collaboration.title}
             </TitleBox>
-            <Button style={{backgroundColor:"white", color:bordeaux, margin:10}} onClick={()=>history.push(Routes.editCollaboration(id))}>Edit Collaboration</Button>
+            {isCollaborationClosed ? <Button style={{backgroundColor:"white", color:bordeaux, margin:10}} onClick={()=>history.push(Routes.editCollaboration(id))}>Edit Collaboration</Button> : <Button style={{backgroundColor:"white", color:bordeaux, margin:10}} onClick={()=>history.push(Routes.editService(id))}>Edit Service</Button> }
         </div>
 
         <div>{ collaboration && collaboration.description}</div>

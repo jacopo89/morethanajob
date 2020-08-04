@@ -17,7 +17,7 @@ import styled from "styled-components";
 import {useHistory, useParams} from "react-router-dom";
 import {getCalendarDate} from "../../ReusableComponents/TimeManager";
 
-export default function EditCollaboration() {
+export default function EditCollaboration({isService}) {
     const [formValue, setFormValue] = useState({positions: []});
     const {user} = useSelector(state=>state);
     const [getResponse, getCollaborationHandler] = useGetCollaboration();
@@ -81,6 +81,8 @@ export default function EditCollaboration() {
             .isRequired('This field is required'),
     })
 
+    const categoryLabel = (isService) ? "Macro category of the service" : "Macro category of the collaboration" ;
+
     return (
         <>
             <div style={{border:`2px solid ${bordeaux}`, height:100, width:"100%", textAlign:"center"}}>
@@ -99,6 +101,25 @@ export default function EditCollaboration() {
                         <TextField style={{width:"100%"}} label="Project" name="project" accepter={SelectPicker} data={projects} />
                         <TextField style={{width:"100%"}} label="Category" name="category" accepter={TreePicker} data={categoriesTree} />
                     </div>
+                    {isService && <div style={{display:"flex", justifyContent:"space-around"}}>
+                        <TextField label="Start Date" name="startDate" accepter={DatePicker}  style={{width:"100%"}} />
+                        <TextField label="End Date" name="endDate" accepter={DatePicker}  style={{width:"100%"}} />
+                    </div> }
+
+                    {isService && <>
+                        <TextField label="Rates" name="rates" componentClass="textarea" />
+                        <TextField label="Main Beneficiaries" name="mainBeneficiaries" componentClass="textarea" />
+                    </> }
+
+                    <div style={{display:"flex", justifyContent:"space-around"}}>
+                        <TextField style={{width:"100%"}} label="Project" name="project" accepter={SelectPicker} data={projects} />
+                        <TextField style={{width:"100%"}} label={categoryLabel} name="category" accepter={TreePicker} data={categoriesTree} />
+                    </div>
+                    <div style={{display:"flex", justifyContent:"space-around"}}>
+                        <TextField style={{width:"100%"}} label="Language" name="language" accepter={SelectPicker} data={dataLanguage} />
+
+                    </div>
+
 
                     <MainButton type="submit">Save all</MainButton>
                     <Button onClick={()=>deleteHandler(formValue.id)}>Delete</Button>

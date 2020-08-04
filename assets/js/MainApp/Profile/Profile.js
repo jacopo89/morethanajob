@@ -35,10 +35,15 @@ import {useTranslation} from "react-i18next";
 
 export default function Profile(){
 
-    const {user} = useSelector(state=>state);
+    const {user,language} = useSelector(state=>state);
     const {profilename} = useParams();
 
     const { t, i18n } = useTranslation();
+
+    useEffect(()=>{
+        console.log("Language has changed", language);
+        console.log("Language in i18n",i18n.language);
+    },[language]);
 
     const isOwner = (user.profileName === profilename);
     const [response, uploadPictureHandler] = useUploadPictures();
@@ -127,7 +132,7 @@ export default function Profile(){
                 <>
                     <div style={{height:281, width:"100%", marginBottom:10, backgroundColor:"black",position:"relative", backgroundImage: `url(${backgroundImage})`, backgroundSize:"contain", backgroundRepeat: "no-repeat"}}>
                         <LinearGradient/>
-                        <h3 style={{position:"absolute", bottom:4, right:10, color:"white"}}>{userInfo && userInfo.website}</h3>
+                        <h3 style={{position:"absolute", bottom:4, right:10, color:"white"}}><a target="_blank" href={userInfo && userInfo.website}>{userInfo && userInfo.website}</a></h3>
                         {social}
                         {isOwner  && editButton  }
                     </div>
@@ -221,7 +226,7 @@ export default function Profile(){
 
             )
         }
-    },[userInfo,isEdit, formValue])
+    },[userInfo,isEdit, formValue, language])
 
 
     return render;

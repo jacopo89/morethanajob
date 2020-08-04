@@ -18,6 +18,7 @@ export const routeProfile = "/profile/:profilename";
 export const routeProject = "/project/:id";
 export const routeEditProject = "/editproject/:id";
 export const routeEditCollaboration = "/editcollaboration/:id";
+export const routeEditService = "/editservice/:id";
 export const immediateLogout = "/immediatelogout";
 
 
@@ -40,6 +41,11 @@ export function collaboration(id){
 export function editCollaboration(id){
     return "/editcollaboration/"+id;
 }
+
+export function editService(id){
+    return "/editservice/"+id;
+}
+
 
 
 

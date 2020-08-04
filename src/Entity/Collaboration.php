@@ -86,6 +86,16 @@ class Collaboration
 
     private $isActive;
 
+    /**
+     * @ORM\Column(type="string", length=255, nullable=true)
+     */
+    private $language;
+
+    /**
+     * @ORM\Column(type="boolean")
+     */
+    private $isCollaboration;
+
     public function __construct()
     {
         $this->positions = new ArrayCollection();
@@ -276,6 +286,30 @@ class Collaboration
         return !$this->getPositions()->filter(function(Position $position){
             return ($position->getIsOpen()===true);
         })->isEmpty();
+    }
+
+    public function getLanguage(): ?string
+    {
+        return $this->language;
+    }
+
+    public function setLanguage(?string $language): self
+    {
+        $this->language = $language;
+
+        return $this;
+    }
+
+    public function getIsCollaboration(): ?bool
+    {
+        return $this->isCollaboration;
+    }
+
+    public function setIsCollaboration(bool $isCollaboration): self
+    {
+        $this->isCollaboration = $isCollaboration;
+
+        return $this;
     }
 
 

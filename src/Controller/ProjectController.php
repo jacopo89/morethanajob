@@ -68,7 +68,7 @@ class ProjectController extends AbstractController
     public function getFiltered(Request $request){
 
         $country = json_decode($request->get('country'));
-        $language = json_decode($request->get('language'));
+        $language = $request->get('language');
         $services = json_decode($request->get('service'));
         $categories = json_decode($request->get('category'));
         $userMail = json_decode($request->get('user'));
@@ -94,9 +94,9 @@ class ProjectController extends AbstractController
         if($country){
             $projectFilters['country'] = $country;
         }
-        /*if($language){
+        if($language){
             $projectFilters['language'] = $language;
-        }*/
+        }
         if($categories){
             $projectFilters['category'] = $trueCategories;
         }

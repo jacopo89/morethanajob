@@ -25,7 +25,7 @@ export default function SocietyContacts({society}){
 
 
     const table = userInfo ? <GenericTable rowKey="id" modelData={modelData} propData={userInfo.files} /> :<div></div>
-    
+
    return <>
        <div style={{display: "flex", justifyContent: "space-around", height:100}}>
            <IconSpan><a target="_blank" href={userInfo && userInfo.website}><Icon style={{color:bordeaux}} icon="globe" size="3x" /> {userInfo && userInfo.website}</a></IconSpan>
