@@ -108,7 +108,7 @@ export default function NewCollaboration({isService=false}){
                     </div>
                     {!isService && <ListOrCreate formValue={formValue} setFormValue={setFormValue} />}
 
-                    <MainButton type="submit">Save all</MainButton>
+                    <MainButton style={{float:"right", margin:10}} type="submit">Save all</MainButton>
                 </Form>
 
             </InfoBox>

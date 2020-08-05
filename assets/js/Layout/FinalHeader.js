@@ -41,7 +41,7 @@ export default function FinalHeader(){
             <Dropdown.Item onClick={()=> history.push(Routes.projectPage)} eventKey="3">{t('Search projects')}</Dropdown.Item>
             <Dropdown.Item onClick={()=> history.push(Routes.profile(user.profileName))} >{t('Profile')}</Dropdown.Item>
             {false && <Dropdown.Item onClick={()=> history.push(Routes.administration)} >{t('Administration')}</Dropdown.Item>}
-            <Dropdown.Item onClick={()=>signOut()} >Logout</Dropdown.Item>
+            <Dropdown.Item onClick={()=>signOut()} >{t('Logout')}</Dropdown.Item>
         </Dropdown>
     );
 

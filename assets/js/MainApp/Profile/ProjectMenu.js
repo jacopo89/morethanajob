@@ -12,6 +12,7 @@ import {useHistory} from "react-router-dom";
 import SocietyServices from "./submenus/SocietyServices";
 import TextField from "../../Login/Components/TextField";
 import {dataCountry} from "../../selectData";
+import {useTranslation} from "react-i18next";
 
 const renderItemFunction = (item) => {
     const style = {height:25, color:bordeaux}
@@ -22,6 +23,7 @@ const renderItemFunction = (item) => {
 const CustomNav = ({ active, onSelect,isOwner, ...props }) => {
 
     const history = useHistory();
+    const { t, i18n } = useTranslation();
     const [show, setShow] = useState(false);
     const openModal = ()=> setShow(true);
     const closeModal = ()=> setShow(false);
@@ -35,23 +37,23 @@ const CustomNav = ({ active, onSelect,isOwner, ...props }) => {
         <Nav id="projectMenu" {...props} activeKey={active} onSelect={onSelect} justified>
             <Nav.Item renderItem={renderItemFunction} eventKey="portfolio">
                 <div style={{display:"flex", alignItems:"center", justifyContent:"center"}}>
-                    PORTFOLIO  {isOwner &&<IconButtonTransparent onClick={openProjectModal} icon={<Icon icon="plus"/>}/>}
+                    {t('PORTFOLIO')}  {isOwner &&<IconButtonTransparent onClick={openProjectModal} icon={<Icon icon="plus"/>}/>}
                 </div>
                 <ProjectModal show={showprojectModal} onHide={closeProjectModal}/>
             </Nav.Item>
-            <Nav.Item renderItem={renderItemFunction} eventKey="offerings"> WHAT WE OFFER
+            <Nav.Item renderItem={renderItemFunction} eventKey="offerings">  {t('WHAT WE OFFER')}
                 {isOwner && <IconButtonTransparent onClick={() => openModal()} icon={<Icon icon="plus"/>}/>}
                 <NewServiceModal show={show} onHide={closeModal} successCallback={closeModal}/>
             </Nav.Item>
             <Nav.Item renderItem={renderItemFunction} eventKey="services">
-                SERVICES AND OPPORTUNITIES
+                 {t('SERVICES AND OPPORTUNITIES')}
                 {isOwner && <IconButtonTransparent onClick={() => history.push(Routes.newServicePage)} icon={<Icon icon="plus"/>}/>}
             </Nav.Item>
             <Nav.Item renderItem={renderItemFunction} eventKey="collaborations">
-                COLLABORATIONS
+                {t('COLLABORATIONS')}
                 {isOwner &&<IconButtonTransparent onClick={() => history.push(Routes.newCollaborationPage)} icon={<Icon icon="plus"/>}/>}
             </Nav.Item>
-            <Nav.Item renderItem={renderItemFunction} eventKey="contacts">CONTACTS</Nav.Item>
+            <Nav.Item renderItem={renderItemFunction} eventKey="contacts">{t('CONTACTS')}</Nav.Item>
         </Nav>
     );
 };

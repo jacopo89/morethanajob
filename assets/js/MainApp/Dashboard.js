@@ -67,7 +67,7 @@ export default function Dashboard(){
                         </Col>
                         <Col xs={12}>
                             <div style={{display:"flex", justifyContent:"center"}}>
-                            <img width={400} src="/defaults/bg-dashboard.jpg"/>
+                            <img width="100%" src="/defaults/bg-dashboard.jpg"/>
                             </div>
                         </Col>
                     </Row>
@@ -79,7 +79,7 @@ export default function Dashboard(){
                     <Row className="show-grid">
                         <Col xs={12}>
                             <div style={{display:"flex", justifyContent:"center"}}>
-                            <img width={400} src="/defaults/MoreThanAJob_Cover.jpg"/>
+                            <img width="100%" src="/defaults/MoreThanAJob_Cover.jpg"/>
                             </div>
                         </Col>
                         <Col xs={12}>

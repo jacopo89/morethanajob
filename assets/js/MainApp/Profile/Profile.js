@@ -125,7 +125,7 @@ export default function Profile(){
 
     useEffect(()=>{
         const uploadCoverButton = <EditButton>Change cover Button</EditButton>
-        const editButton = (!isEdit) ?  <EditButton onClick={()=>setIsEdit(!isEdit)}> {t('Edit profile')} </EditButton> : <> <InverseButton onClick={()=>setIsEdit(!isEdit)}> Go back </InverseButton></>
+        const editButton = (!isEdit) ?  <EditButton onClick={()=>setIsEdit(!isEdit)}> {t('Edit profile')} </EditButton> : <> <InverseButton onClick={()=>setIsEdit(!isEdit)}> {t('Go Back')} </InverseButton></>
         if(userInfo && !isEdit){
 
             setRender(
@@ -188,36 +188,36 @@ export default function Profile(){
                                     formValue={formValue}
                                     onChange={setFormValue}>
                                     <div style={{display:"flex", justifyContent:"space-around"}}>
-                                        <TextField style={{width:"90%"}} name="name" label="Society Name" />
-                                        <TextField style={{width:"90%"}} name="language" label="Language" accepter={SelectPicker} data={dataLanguage} />
-                                        <TextField style={{width:"90%"}} name="country" label="Country" accepter={SelectPicker} data={dataCountry} />
+                                        <TextField style={{width:"90%"}} name="name" label={t('Society Name')} />
+                                        <TextField style={{width:"90%"}} name="language" label={t('Language')} accepter={SelectPicker} data={dataLanguage} />
+                                        <TextField style={{width:"90%"}} name="country" label={t('Country')} accepter={SelectPicker} data={dataCountry} />
                                     </div>
-                                    <TextField style={{width:"90%"}} name="description" label="Society Description" componentClass="textarea" />
+                                    <TextField style={{width:"90%"}} name="description" label={t('Society Description')} componentClass="textarea" />
                                     <div style={{display:"flex", justifyContent:"space-around"}}>
-                                        <TextField style={{width:"90%"}} name="website" label="Website" />
-                                        <TextField style={{width:"90%"}} name="address" label="Address" />
-                                    </div>
-                                    <div style={{display:"flex", justifyContent:"space-around"}}>
-                                        <TextField style={{width:"90%"}} name="telephone" label="Telephone" />
-                                        <TextField style={{width:"90%"}} name="email" label="Email" />
+                                        <TextField style={{width:"90%"}} name="website" label={t('Website')} />
+                                        <TextField style={{width:"90%"}} name="address" label={t('Address')} />
                                     </div>
                                     <div style={{display:"flex", justifyContent:"space-around"}}>
-                                        <TextField style={{width:"90%"}} name="facebook" label="Facebook" />
-                                        <TextField style={{width:"90%"}} name="linkedin" label="Linkedin" />
-                                        <TextField style={{width:"90%"}} name="twitter" label="Twitter" />
+                                        <TextField style={{width:"90%"}} name="telephone" label={t('Telephone')} />
+                                        <TextField style={{width:"90%"}} name="email" label={t('Email')} />
+                                    </div>
+                                    <div style={{display:"flex", justifyContent:"space-around"}}>
+                                        <TextField style={{width:"90%"}} name="facebook" label={t('Facebook')} />
+                                        <TextField style={{width:"90%"}} name="linkedin" label={t('Linkedin')} />
+                                        <TextField style={{width:"90%"}} name="twitter" label={t('Twitter')} />
                                     </div>
                                     <Uploader
                                         action="//jsonplaceholder.typicode.com/posts/"
                                         onChange={handleFileChange}
                                         dragable  autoUpload={false} multiple={false}>
-                                        <div style={{lineHeight:10}}>Click or Drag files to this area to upload</div>
+                                        <div style={{lineHeight:10}}>{t('clickdrag')}</div>
                                     </Uploader>
                                     <Button onClick={submitFiles}>
-                                        Start Upload
+                                        {t('Start Upload')}
                                     </Button>
 
                                     {isOwner && editButton}
-                                    <Button style={{float:"right", backgroundColor:bordeaux, color:"white"}} onClick={()=>saveProfile()}> Save profile </Button>
+                                    <Button style={{float:"right", backgroundColor:bordeaux, color:"white"}} onClick={()=>saveProfile()}> {t('Save Profile')} </Button>
                                 </Form>
                         </Row>
                     </Grid>
