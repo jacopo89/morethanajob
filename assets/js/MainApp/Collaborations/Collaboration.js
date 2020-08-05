@@ -38,7 +38,7 @@ export default function Collaboration(){
                 <div style={{height: 150, width: 150, backgroundImage: `url(${categoryImage})`, backgroundColor: "white", backgroundSize: "contain"}}/>
                 {collaboration && collaboration.title}
             </TitleBox>
-            {isCollaborationClosed ? <Button style={{backgroundColor:"white", color:bordeaux, margin:10}} onClick={()=>history.push(Routes.editService(id))}>Edit Service</Button> : <Button style={{backgroundColor:"white", color:bordeaux, margin:10}} onClick={()=>history.push(Routes.editCollaboration(id))}>Edit Collaboration</Button> }
+            {isOwner&& (isCollaborationClosed ? <Button style={{backgroundColor:"white", color:bordeaux, margin:10}} onClick={()=>history.push(Routes.editService(id))}>Edit Service</Button> : <Button style={{backgroundColor:"white", color:bordeaux, margin:10}} onClick={()=>history.push(Routes.editCollaboration(id))}>Edit Collaboration</Button> )}
         </div>
 
         <div>{ collaboration && collaboration.description}</div>
