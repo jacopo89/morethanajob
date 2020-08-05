@@ -22,6 +22,7 @@ use Sensio\Bundle\FrameworkExtraBundle\Configuration\Route;
 use Symfony\Bundle\FrameworkBundle\Controller\AbstractController;
 use Symfony\Component\HttpFoundation\Request;
 use Symfony\Component\HttpFoundation\Response;
+use Symfony\Component\Mailer\Exception\TransportExceptionInterface;
 
 
 /**
@@ -288,15 +289,23 @@ class CollaborationController extends AbstractController
             )
         ;
 
-        $mailResponse = $this->mailer->send($message);
 
-        if($mailResponse>0){
-            $status = Response::HTTP_INTERNAL_SERVER_ERROR;
-        }else{
-            $status = Response::HTTP_OK;
+        try {
+            $mailResponse = $this->mailer->send($message);
+            $response = "sent";
+                $status = Response::HTTP_OK;
+
+        } catch (TransportExceptionInterface $e) {
+              $status = Response::HTTP_INTERNAL_SERVER_ERROR;
+              $response = $e->getMessage();
+            // some error prevented the email sending; display an
+            // error message or try to resend the messag
         }
 
-        return new Response("sent", $status);
+
+
+
+        return new Response($response, $status);
     }
 
 }
