@@ -56,6 +56,7 @@ export default function NewCollaboration({isService=false}){
         category: NumberType().isRequired('This field is required.'),
         country: StringType().isRequired('This field is required.'),
         language: StringType().isRequired('This field is required.'),
+        contacts: StringType().isEmail()
 
     });
 
