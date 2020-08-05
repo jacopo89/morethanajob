@@ -74,9 +74,9 @@ export default function EditCollaboration({isService}) {
         Object.keys(formValue).forEach((key)=>  { formData.append(key,JSON.stringify(formValue[key]));});
         createNewCollaborationHandler(formData, {successCallback: (data)=> history.push(Routes.collaboration(data)) });
     }
-    const { StringType, ArrayType } = Schema.Types;
+    const { StringType, NumberType } = Schema.Types;
     const model = Schema.Model({
-        service: ArrayType()
+        service: NumberType()
         // .addRule((value, data) => {return asyncCheckUsername(value);}, 'Duplicate username')
             .isRequired('This field is required'),
     })

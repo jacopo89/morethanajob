@@ -104,6 +104,7 @@ class CollaborationController extends AbstractController
             $country = json_decode($request->get('country'));
             $categoryId = $request->get('category');
             $projectId = $request->get('project');
+            $isService = json_decode($request->get('isService'));
 
             $positions = json_decode($request->get('positions'), true);
 
@@ -118,6 +119,8 @@ class CollaborationController extends AbstractController
             $collaboration->setMainBeneficiaries($mainBeneficiaries);
             $collaboration->setModality($modality);
             $collaboration->setRates($rates);
+            $collaboration->setIsCollaboration(!$isService);
+
             if($categoryId) {
                 $category = $this->em->getRepository(Category::class)->find($categoryId);
                 if($category){
@@ -176,6 +179,10 @@ class CollaborationController extends AbstractController
             $endDate = json_decode($request->get('endTime'));
             $categoryId = $request->get('category');
             $projectId = $request->get('project');
+            $rates = json_decode($request->get('rates'));
+            $modality = json_decode($request->get('modality'));
+            $mainBeneficiaries = json_decode($request->get('mainBeneficiaries'));
+            $country = json_decode($request->get('country'));
 
             $collaboration->setShortDescription($shortDescription);
             $collaboration->setDescription($longDescription);
@@ -193,6 +200,10 @@ class CollaborationController extends AbstractController
             }
             $collaboration->setStartDate(new \DateTime($startDate));
             $collaboration->setEndDate(new \DateTime($endDate));
+            $collaboration->setRates($rates);
+            $collaboration->setModality($modality);
+            $collaboration->setMainBeneficiaries($mainBeneficiaries);
+            $collaboration->setCountry($country);
 
             $this->em->persist($collaboration);
             $this->em->flush();

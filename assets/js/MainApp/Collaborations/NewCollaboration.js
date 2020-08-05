@@ -64,6 +64,7 @@ export default function NewCollaboration({isService=false}){
     const onSubmitHandler = () =>{
         const formData = new FormData();
         formData.append('email', user.email);
+        formData.append('isService', isService.toString());
 
         Object.keys(formValue).forEach((key)=>  { formData.append(key,JSON.stringify(formValue[key]));});
         createNewProjectHandler(formData, {successCallback: (data)=> history.push(Routes.collaboration(data)) });
