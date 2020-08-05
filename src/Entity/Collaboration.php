@@ -97,9 +97,10 @@ class Collaboration
     private $isCollaboration;
 
     /**
-     * @ORM\Column(type="text", nullable=true)
+     * @ORM\Column(type="string", nullable=true)
      */
     private $contacts;
+
 
     public function __construct()
     {
@@ -328,6 +329,7 @@ class Collaboration
 
         return $this;
     }
+
 
 
     

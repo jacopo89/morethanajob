@@ -109,6 +109,7 @@ class CollaborationController extends AbstractController
             $contacts = json_decode($request->get('contacts'));
             $projectId = $request->get('project');
             $isService = json_decode($request->get('isService'));
+            $email = json_decode($request->get('email'));
 
             $positions = json_decode($request->get('positions'), true);
 
@@ -123,6 +124,7 @@ class CollaborationController extends AbstractController
             $collaboration->setMainBeneficiaries($mainBeneficiaries);
             $collaboration->setModality($modality);
             $collaboration->setRates($rates);
+            $collaboration->setEmail($email);
 
             $collaboration->setIsCollaboration(!$isService);
             $collaboration->setContacts($contacts);
@@ -190,6 +192,7 @@ class CollaborationController extends AbstractController
             $mainBeneficiaries = json_decode($request->get('mainBeneficiaries'));
             $contacts = json_decode($request->get('contacts'));
             $country = json_decode($request->get('country'));
+            $email = json_decode($request->get('email'));
 
             $collaboration->setShortDescription($shortDescription);
             $collaboration->setDescription($longDescription);
@@ -212,6 +215,7 @@ class CollaborationController extends AbstractController
             $collaboration->setMainBeneficiaries($mainBeneficiaries);
             $collaboration->setCountry($country);
             $collaboration->setContacts($contacts);
+            $collaboration->setEmail($email);
 
             $this->em->persist($collaboration);
             $this->em->flush();

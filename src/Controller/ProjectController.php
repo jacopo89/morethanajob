@@ -186,7 +186,7 @@ class ProjectController extends AbstractController
 
         if($to){
             $timeRecords = array_filter($newRecords, function(Collaboration $collaboration)use($deadline){
-                return $collaboration->getEndDate() > $deadline;
+                return $collaboration->getEndDate() >= $deadline;
             });
             $finalRecords = [];
             foreach($timeRecords as $timeRecord){

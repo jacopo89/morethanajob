@@ -266,11 +266,13 @@ export function ServiceFormBox({collaboration}) {
     const [apply, setApply] = useState(false);
     const [messageResponse, sendMessageHandler] =  useSendMessage();
 
+    const receiver = (collaboration.contacts) ? collaboration.contacts : collaboration.user.email;
+
     const onSubmit = () =>{
         const formData = new FormData();
         formData.append('emailSender',user.email);
         formData.append('userSender', JSON.stringify(user));
-        formData.append('emailReceiver',collaboration.user.email);
+        formData.append('emailReceiver',receiver);
         formData.append('message', formValue.message);
         sendMessageHandler(formData);
     }

@@ -46,11 +46,17 @@ export default function NewCollaboration({isService=false}){
             }})
     },[]);
 
-    const { StringType, NumberType, ArrayType } = Schema.Types;
+    const { StringType, NumberType, ArrayType, DateType } = Schema.Types;
 
     console.log(formValue);
     const model = Schema.Model({
+        title: StringType().isRequired('This field is required.'),
+        shortDescription: StringType().isRequired('This field is required.').maxLength(500),
+        description: StringType().maxLength(500),
         category: NumberType().isRequired('This field is required.'),
+        country: StringType().isRequired('This field is required.'),
+        language: StringType().isRequired('This field is required.'),
+
     });
 
     const [categories, getCategoriesHandler] = useGetCategories();
@@ -107,6 +113,10 @@ export default function NewCollaboration({isService=false}){
 
                     </div>
                     {!isService && <ListOrCreate formValue={formValue} setFormValue={setFormValue} />}
+
+                    <>
+                        <TextField label="Contacts" name="contacts"  />
+                    </>
 
                     <MainButton style={{float:"right", margin:10}} type="submit">Save all</MainButton>
                 </Form>

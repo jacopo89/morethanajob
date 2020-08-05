@@ -109,7 +109,7 @@ export default function EditCollaboration({isService}) {
                     </> }
 
                     {isService && <>
-                        <TextField label="Contacts" name="contacts" componentClass="textarea" />
+                        <TextField label="Contacts" name="contacts"  />
                     </> }
 
                     <div style={{display:"flex", justifyContent:"space-around"}}>
