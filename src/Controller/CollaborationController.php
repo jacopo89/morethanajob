@@ -270,7 +270,7 @@ class CollaborationController extends AbstractController
         $profileName = $userSender["profileName"];
 
         $emailReceiver = $request->get('emailReceiver');
-        $message = $request->get('message');
+        $body = $request->get('message');
 
 
         $message = (new \Swift_Message('Service Information'))
@@ -280,7 +280,7 @@ class CollaborationController extends AbstractController
                 $this->renderView(
                 // templates/emails/registration.html.twig
                     'emails/main/servicemessage.html.twig',
-                    ['message' => $message,
+                    ['message' => $body,
                         'sender'=> $emailSender,
                         'profileName'=>$profileName]
                 ),
@@ -288,9 +288,15 @@ class CollaborationController extends AbstractController
             )
         ;
 
-        $this->mailer->send($message);
+        $mailResponse = $this->mailer->send($message);
 
-        return new Response("sent", Response::HTTP_OK);
+        if($mailResponse>0){
+            $status = Response::HTTP_INTERNAL_SERVER_ERROR;
+        }else{
+            $status = Response::HTTP_OK;
+        }
+
+        return new Response("sent", $status);
     }
 
 }
