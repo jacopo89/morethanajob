@@ -96,6 +96,11 @@ class Collaboration
      */
     private $isCollaboration;
 
+    /**
+     * @ORM\Column(type="text", nullable=true)
+     */
+    private $contacts;
+
     public function __construct()
     {
         $this->positions = new ArrayCollection();
@@ -308,6 +313,18 @@ class Collaboration
     public function setIsCollaboration(bool $isCollaboration): self
     {
         $this->isCollaboration = $isCollaboration;
+
+        return $this;
+    }
+
+    public function getContacts(): ?string
+    {
+        return $this->contacts;
+    }
+
+    public function setContacts(?string $contacts): self
+    {
+        $this->contacts = $contacts;
 
         return $this;
     }

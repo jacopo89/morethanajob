@@ -44,3 +44,9 @@ export function  useDeleteCollaboration() {
     const backendClient = BackendClient();
     return useCreateHook(backendClient,'/backend/collaborations/delete','delete',null);
 }
+
+export function  useSendMessage() {
+
+    const backendClient = BackendClient();
+    return useCreateHook(backendClient,'/backend/collaborations/sendmessage','post',null);
+}

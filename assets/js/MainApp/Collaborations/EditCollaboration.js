@@ -10,7 +10,7 @@ import {useGetCategories} from "../../Backend/hooks/useCategories";
 import {generateCategoriesTree} from "../Administration/CategoriesManagement";
 import * as Routes from "../../routes";
 import {bordeaux, InverseButton, MainButton} from "../../styledComponents/CustomComponents";
-import {Button, DatePicker, Form, Schema, SelectPicker, TreePicker} from "rsuite";
+import {Button, DatePicker, Form, HelpBlock, Schema, SelectPicker, TreePicker} from "rsuite";
 import TextField from "../../Login/Components/TextField";
 import {dataCountry, dataLanguage} from "../../selectData";
 import styled from "styled-components";
@@ -38,7 +38,8 @@ export default function EditCollaboration({isService}) {
                 } ,
             successCallback: (data)=> {
                 console.log("collaboration", data);
-                setFormValue(data);
+                const formValue = {...data, category:data.category.value, startTime: getCalendarDate(data.startDate)};
+                setFormValue(formValue);
             }});
     },[]);
 
@@ -101,24 +102,20 @@ export default function EditCollaboration({isService}) {
                         <TextField style={{width:"100%"}} label="Project" name="project" accepter={SelectPicker} data={projects} />
                         <TextField style={{width:"100%"}} label="Category" name="category" accepter={TreePicker} data={categoriesTree} />
                     </div>
-                    {isService && <div style={{display:"flex", justifyContent:"space-around"}}>
-                        <TextField label="Start Date" name="startDate" accepter={DatePicker}  style={{width:"100%"}} />
-                        <TextField label="End Date" name="endDate" accepter={DatePicker}  style={{width:"100%"}} />
-                    </div> }
 
                     {isService && <>
                         <TextField label="Rates" name="rates" componentClass="textarea" />
                         <TextField label="Main Beneficiaries" name="mainBeneficiaries" componentClass="textarea" />
                     </> }
 
-                    <div style={{display:"flex", justifyContent:"space-around"}}>
-                        <TextField style={{width:"100%"}} label="Project" name="project" accepter={SelectPicker} data={projects} />
-                        <TextField style={{width:"100%"}} label={categoryLabel} name="category" accepter={TreePicker} data={categoriesTree} />
-                    </div>
+                    {isService && <>
+                        <TextField label="Contacts" name="contacts" componentClass="textarea" />
+                    </> }
+
                     <div style={{display:"flex", justifyContent:"space-around"}}>
                         <TextField style={{width:"100%"}} label="Language" name="language" accepter={SelectPicker} data={dataLanguage} />
-
                     </div>
+                    <HelpBlock>This content in available only in {formValue.language}</HelpBlock>
 
 
                     <MainButton type="submit">Save all</MainButton>

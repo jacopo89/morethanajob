@@ -33,11 +33,13 @@ class CollaborationController extends AbstractController
 {
     private $serializer;
     private $em;
+    private $mailer;
 
-    public function __construct(EntityManagerInterface $em,Serializer $serializer)
+    public function __construct(EntityManagerInterface $em,Serializer $serializer, \Swift_Mailer $mailer)
     {
         $this->serializer = $serializer;
         $this->em = $em;
+        $this->mailer = $mailer;
     }
 
 
@@ -103,6 +105,7 @@ class CollaborationController extends AbstractController
             $mainBeneficiaries = json_decode($request->get('mainBeneficiaries'));
             $country = json_decode($request->get('country'));
             $categoryId = $request->get('category');
+            $contacts = json_decode($request->get('contacts'));
             $projectId = $request->get('project');
             $isService = json_decode($request->get('isService'));
 
@@ -119,7 +122,9 @@ class CollaborationController extends AbstractController
             $collaboration->setMainBeneficiaries($mainBeneficiaries);
             $collaboration->setModality($modality);
             $collaboration->setRates($rates);
+
             $collaboration->setIsCollaboration(!$isService);
+            $collaboration->setContacts($contacts);
 
             if($categoryId) {
                 $category = $this->em->getRepository(Category::class)->find($categoryId);
@@ -182,6 +187,7 @@ class CollaborationController extends AbstractController
             $rates = json_decode($request->get('rates'));
             $modality = json_decode($request->get('modality'));
             $mainBeneficiaries = json_decode($request->get('mainBeneficiaries'));
+            $contacts = json_decode($request->get('contacts'));
             $country = json_decode($request->get('country'));
 
             $collaboration->setShortDescription($shortDescription);
@@ -204,6 +210,7 @@ class CollaborationController extends AbstractController
             $collaboration->setModality($modality);
             $collaboration->setMainBeneficiaries($mainBeneficiaries);
             $collaboration->setCountry($country);
+            $collaboration->setContacts($contacts);
 
             $this->em->persist($collaboration);
             $this->em->flush();
@@ -248,6 +255,42 @@ class CollaborationController extends AbstractController
 
 
         return new Response(null, Response::HTTP_OK);
+    }
+
+
+    /**
+     * @Route("/sendmessage", methods={"POST"})
+     * @param Request $request
+     * @return Response
+     */
+    public function sendMessage(Request $request){
+
+        $emailSender = $request->get('emailSender');
+        $userSender = json_decode($request->get('userSender'),true);
+        $profileName = $userSender["profileName"];
+
+        $emailReceiver = $request->get('emailReceiver');
+        $message = $request->get('message');
+
+
+        $message = (new \Swift_Message('Service Information'))
+            ->setFrom($emailSender)
+            ->setTo($emailReceiver)
+            ->setBody(
+                $this->renderView(
+                // templates/emails/registration.html.twig
+                    'emails/main/servicemessage.html.twig',
+                    ['message' => $message,
+                        'sender'=> $emailSender,
+                        'profileName'=>$profileName]
+                ),
+                'text/html'
+            )
+        ;
+
+        $this->mailer->send($message);
+
+        return new Response("sent", Response::HTTP_OK);
     }
 
 }

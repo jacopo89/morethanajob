@@ -1,0 +1,8 @@
+{% extends "emails/login/base_email.html.twig" %}
+
+{% block title %}Message by {sender}{% endblock %}
+{% block body %}
+    {message}
+
+    Check the user profile <a href="https://joinmorethanajob.org/profile/#{profileName}">here</a>
+{% endblock %}

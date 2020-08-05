@@ -2,7 +2,7 @@ import React, {useEffect, useState} from "react";
 import {useHistory, useParams} from "react-router-dom";
 import {Button, Col, Form, Grid, Icon, Modal, Panel, Row} from "rsuite";
 import {bordeaux, InverseButton, MainButton} from "../../styledComponents/CustomComponents";
-import {useGetCollaboration} from "../../Backend/hooks/useCollaborations";
+import {useGetCollaboration, useSendMessage} from "../../Backend/hooks/useCollaborations";
 import {getCalendarFormat} from "../../ReusableComponents/TimeManager";
 import {useSelector} from "react-redux";
 import {useConfirmApplication, useGetApplications, usePostApplication} from "../../Backend/hooks/useProjects";
@@ -17,8 +17,6 @@ export default function Collaboration(){
     const {user} = useSelector(state=>state);
     const isOwner = collaboration && collaboration.user.email === user.email;
 
-    console.log("is owner", isOwner);
-
     const history = useHistory();
 
     useEffect(()=>{
@@ -32,7 +30,7 @@ export default function Collaboration(){
 
 
 
-    const serviceBox = <ServiceFormBox/>;
+    const serviceBox = <ServiceFormBox collaboration={collaboration}/>;
 
     return (<>
         <div style={{width:"100%", backgroundColor:bordeaux}}>
@@ -70,7 +68,13 @@ export default function Collaboration(){
                 </Row>
                 <Row className="show-grid" style={{padding:5}}>
                     <Col xs={24}>
-                        <IconWithText icon="calendar-o" label="Costi" value={collaboration && collaboration.rates}/>
+                        <IconWithText icon="calendar-o" label="Rates" value={collaboration && collaboration.rates}/>
+                    </Col>
+
+                </Row>
+                <Row className="show-grid" style={{padding:5}}>
+                    <Col xs={24}>
+                        <IconWithText icon="calendar-o" label="Contacts" value={collaboration && collaboration.contacts}/>
                     </Col>
 
                 </Row>
@@ -255,22 +259,34 @@ export function RequestsModal({position, showModal, closeModal, callback}){
 }
 
 
-export function ServiceFormBox() {
+export function ServiceFormBox({collaboration}) {
 
+    const {user} = useSelector(state=>state);
     const [formValue, setFormValue] = useState();
     const [apply, setApply] = useState(false);
-    const onSubmit = () =>{}
+    const [messageResponse, sendMessageHandler] =  useSendMessage();
+
+    const onSubmit = () =>{
+        const formData = new FormData();
+        formData.append('emailSender',user.email);
+        formData.append('userSender', JSON.stringify(user));
+        formData.append('emailReceiver',collaboration.user.email);
+        formData.append('message', formValue.message);
+        sendMessageHandler(formData);
+    }
+
 
 
 
     return(
+        (!messageResponse) ?
         <div style={{width:"100%", display:"flex", justifyContent:"center", alignItems:"center", margin:5, height:300}}>
             {(!apply) ? <MainButton style={{width:200}}  onClick={()=>setApply(true)}>Apply</MainButton> :
                 <Form fluid formValue={formValue} onChange={setFormValue} onSubmit={onSubmit}>
                     <TextField name="message" label="Message" componentClass="textarea" />
                     <MainButton style={{width:100}} type="submit">Send</MainButton>
                 </Form>}
-        </div>
+        </div> : <div>Message correctly sent!</div>
     )
 
 
