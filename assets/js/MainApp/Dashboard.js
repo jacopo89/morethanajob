@@ -40,7 +40,7 @@ export default function Dashboard(){
                         Home
                     </Nav.Item>
                     <Nav.Item href="#aboutUs"  eventKey="2">The project</Nav.Item>
-                    <Nav.Item href={()=>history.push(Routes.projectPage)}  eventKey="3">Services and opportunities</Nav.Item>
+                    <Nav.Item onClick={()=>history.push(Routes.projectPage)}  eventKey="3">Services and opportunities</Nav.Item>
                     <Nav.Item href="#organisations"  eventKey="4">Organisations</Nav.Item>
                     <Nav.Item href="#FAQ"  eventKey="5">FAQ</Nav.Item>
 

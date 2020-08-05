@@ -59,8 +59,13 @@ export default function ProjectPage(){
 
     useEffect(()=>{
         const formData = new FormData();
-        formData.append('language', user.language);
-        getProjectsHandler(formData);
+        if(user){
+            formData.append('language', user.language);
+            getProjectsHandler(formData);
+
+        }else{
+            getProjectsHandler();
+        }
         getUsersListHandler(null, {dataManipulationFunction: (data)=>{
             return data.map((user)=> {
                 return {...user, label:user.name, value: user.email}
