@@ -101,6 +101,21 @@ class Collaboration
      */
     private $contacts;
 
+    /**
+     * @ORM\Column(type="text", nullable=true)
+     */
+    private $localLanguageDescription;
+
+    /**
+     * @ORM\Column(type="string", length=255, nullable=true)
+     */
+    private $localLanguageTitle;
+
+    /**
+     * @ORM\Column(type="string", length=255, nullable=true)
+     */
+    private $localLanguage;
+
 
     public function __construct()
     {
@@ -326,6 +341,42 @@ class Collaboration
     public function setContacts(?string $contacts): self
     {
         $this->contacts = $contacts;
+
+        return $this;
+    }
+
+    public function getLocalLanguageDescription(): ?string
+    {
+        return $this->localLanguageDescription;
+    }
+
+    public function setLocalLanguageDescription(?string $localLanguageDescription): self
+    {
+        $this->localLanguageDescription = $localLanguageDescription;
+
+        return $this;
+    }
+
+    public function getLocalLanguageTitle(): ?string
+    {
+        return $this->localLanguageTitle;
+    }
+
+    public function setLocalLanguageTitle(?string $localLanguageTitle): self
+    {
+        $this->localLanguageTitle = $localLanguageTitle;
+
+        return $this;
+    }
+
+    public function getLocalLanguage(): ?string
+    {
+        return $this->localLanguage;
+    }
+
+    public function setLocalLanguage(?string $localLanguage): self
+    {
+        $this->localLanguage = $localLanguage;
 
         return $this;
     }

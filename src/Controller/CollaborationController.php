@@ -98,7 +98,7 @@ class CollaborationController extends AbstractController
         if($user) {
             $title = json_decode($request->get('title'));
             $shortDescription = json_decode($request->get('shortDescription'));
-            $longDescription = json_decode($request->get('longDescription'));
+            $longDescription = json_decode($request->get('description'));
             $startDate = json_decode($request->get('startDate'));
             $endDate = json_decode($request->get('endDate'));
             $rates = json_decode($request->get('rates'));
@@ -109,7 +109,10 @@ class CollaborationController extends AbstractController
             $contacts = json_decode($request->get('contacts'));
             $projectId = $request->get('project');
             $isService = json_decode($request->get('isService'));
-            $email = json_decode($request->get('email'));
+            $localLanguageTitle = json_decode($request->get('localTitle'));
+            $localLanguage = $request->get('localLanguage');
+            $localLanguageDescription = json_decode($request->get('localDescription'));
+
 
             $positions = json_decode($request->get('positions'), true);
 
@@ -121,10 +124,13 @@ class CollaborationController extends AbstractController
             $collaboration->setCountry($country);
             $collaboration->setShortDescription($shortDescription);
             $collaboration->setDescription($longDescription);
+
             $collaboration->setMainBeneficiaries($mainBeneficiaries);
             $collaboration->setModality($modality);
             $collaboration->setRates($rates);
-            $collaboration->setEmail($email);
+            $collaboration->setLocalLanguageTitle($localLanguageTitle);
+            $collaboration->setLocalLanguageDescription($localLanguageDescription);
+            $collaboration->setLocalLanguage($localLanguage);
 
             $collaboration->setIsCollaboration(!$isService);
             $collaboration->setContacts($contacts);
@@ -192,10 +198,13 @@ class CollaborationController extends AbstractController
             $mainBeneficiaries = json_decode($request->get('mainBeneficiaries'));
             $contacts = json_decode($request->get('contacts'));
             $country = json_decode($request->get('country'));
-            $email = json_decode($request->get('email'));
+            $localLanguageTitle = json_decode($request->get('localLanguageTitle'));
+            $localLanguageDescription = json_decode($request->get('localLanguageDescription'));
 
             $collaboration->setShortDescription($shortDescription);
             $collaboration->setDescription($longDescription);
+            $collaboration->setLocalLanguageTitle($localLanguageTitle);
+            $collaboration->setLocalLanguageDescription($localLanguageDescription);
             if($categoryId) {
                 $category = $this->em->getRepository(Category::class)->find($categoryId);
                 if($category){
@@ -215,7 +224,6 @@ class CollaborationController extends AbstractController
             $collaboration->setMainBeneficiaries($mainBeneficiaries);
             $collaboration->setCountry($country);
             $collaboration->setContacts($contacts);
-            $collaboration->setEmail($email);
 
             $this->em->persist($collaboration);
             $this->em->flush();

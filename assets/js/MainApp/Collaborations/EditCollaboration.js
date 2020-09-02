@@ -93,7 +93,10 @@ export default function EditCollaboration({isService}) {
                 <h5 style={{color:bordeaux}}>Info </h5>
                 <Form fluid formValue={formValue} onChange={setFormValue} onSubmit={onSubmitHandler}>
                     <TextField label="Title" name="title" type="text" />
+                    <TextField label="Local Title" name="localTitle" type="text" />
                     <TextField label="Short description" name="shortDescription" componentClass="textarea" />
+                    <TextField label="Description" name="description" componentClass="textarea" />
+                    <TextField label={t('Local Language Detailed description')} name="localDescription" componentClass="textarea" />
                     <div style={{display:"flex", justifyContent:"space-around"}}>
                         <TextField style={{width:"100%"}} label="Start date" name="startTime" accepter={DatePicker} format="DD-MM-YYYY" />
                         <TextField style={{width:"100%"}}  label="End date" name="endTime" accepter={DatePicker} format="DD-MM-YYYY" placement="topEnd" /> </div>

@@ -44,6 +44,7 @@ import NewCollaboration from "./MainApp/Collaborations/NewCollaboration";
 import Collaboration from "./MainApp/Collaborations/Collaboration";
 import EditCollaboration from "./MainApp/Collaborations/EditCollaboration";
 import ImmediateLogout from "./Login/ImmediateLogout";
+import SearchPartners from "./MainApp/Partners/SearchPartners";
 
 function App(){
     const {authenticated, language} = useSelector(state=>state);
@@ -64,6 +65,7 @@ function App(){
     const profilePage = <MainPage page={<Profile/>}/>;
     const administrationPage = <MainPage page={<CategoriesManagement/>}/>;
     const projectsPage = <MainPage page={<ProjectPage />}/>;
+    const searchUserPage = <MainPage page={<SearchPartners />}/>;
     const loginPage = <DashboardLayout page={<Login/>}/>;
     const projectDetailPage = <MainPage page={<Project/>}/>;
     const collaborationDetailPage = <MainPage page={<Collaboration/>}/>;
@@ -92,6 +94,7 @@ function App(){
                 <Route path={Routes.passwordRecovery} children={recoverPage}/>
                 <Route path={Routes.routeProfile} children={profilePage}/>
                 <Route path={Routes.projectPage} children={projectsPage}/>
+                <Route path={Routes.searchUserPage} children={searchUserPage}/>
                 <Route path={Routes.collaborationDetailPage} children={collaborationDetailPage}/>
                 <Route path={Routes.dashboardPage} children={dashboardPage}/>
                 <Route path={Routes.newProjectPage} children={newProjectPage}/>
@@ -112,11 +115,26 @@ function App(){
     const authRequired =
         (<>
             <Switch>
-                <Route exact path={Routes.main} children={dashboardPage} />
+                <Route path={Routes.routeEditCollaboration} children={editCollaborationDetailPage}/>
+                <Route path={Routes.routeEditService} children={editServiceDetailPage}/>
+                <Route path={Routes.registration} children={registrationPage}/>
+                <Route exact path={Routes.changePassword} children={changePasswordPage}/>
+                <Route path={Routes.passwordRecovery} children={recoverPage}/>
+                <Route path={Routes.routeProfile} children={profilePage}/>
                 <Route path={Routes.projectPage} children={projectsPage}/>
-                <Route exact path={Routes.login} children={loginPage} />
-                <Route exact path={Routes.registration} children={registrationPage}/>
+                <Route path={Routes.searchUserPage} children={searchUserPage}/>
+                <Route path={Routes.collaborationDetailPage} children={collaborationDetailPage}/>
                 <Route path={Routes.dashboardPage} children={dashboardPage}/>
+                <Route path={Routes.newProjectPage} children={newProjectPage}/>
+                <Route path={Routes.newPortfolioPage} children={newPorfolioPage}/>
+                <Route path={Routes.newCollaborationPage} children={newCollaborationPage}/>
+                <Route path={Routes.newServicePage} children={newServicePage}/>
+                <Route path={Routes.routeEditProject} children={editProjectPage}/>
+                <Route path={Routes.administration} children={administrationPage}/>
+                <Route path={Routes.routeProject} children={projectDetailPage}/>
+                <Route path={Routes.immediateLogout} children={immediateLogoutPage}/>
+                <Route path={Routes.main} children={loginPage}/>
+                <Route path={Routes.login} children={loginPage}/>
                 <Route path="/">
                     <Redirect to="/login" />
                 </Route>

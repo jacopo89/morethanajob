@@ -224,6 +224,7 @@ class ProfileController extends AbstractController
         $name = json_decode($request->get('name'),true);
         $country = json_decode($request->get('country'),true);
         $description = json_decode($request->get('description'),true);
+        $localDescription = json_decode($request->get('localDescription'),true);
         $website = json_decode($request->get('website'),true);
         $address = json_decode($request->get('address'),true);
         $telephone = json_decode($request->get('telephone'),true);
@@ -245,6 +246,7 @@ class ProfileController extends AbstractController
             $user->setFacebook($facebook);
             $user->setLinkedin($linkedin);
             $user->setTwitter($twitter);
+            $user->setLocalLanguageDescription($localDescription);
             $this->getDoctrine()->getManager()->persist($user);
             $this->getDoctrine()->getManager()->flush();
             $status = Response::HTTP_OK;

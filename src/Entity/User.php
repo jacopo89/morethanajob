@@ -25,7 +25,7 @@ class User implements UserInterface
     private $email;
 
     /**
-     * @ORM\Column(type="array")
+     * @ORM\Column(type="json")
      */
     private $roles = [];
 
@@ -149,6 +149,11 @@ class User implements UserInterface
      * @ORM\Column(type="string", length=255, nullable=true)
      */
     private $country;
+
+    /**
+     * @ORM\Column(type="text", nullable=true)
+     */
+    private $localLanguageDescription;
 
 
 
@@ -677,6 +682,18 @@ class User implements UserInterface
     public function setCountry(?string $country): self
     {
         $this->country = $country;
+
+        return $this;
+    }
+
+    public function getLocalLanguageDescription(): ?string
+    {
+        return $this->localLanguageDescription;
+    }
+
+    public function setLocalLanguageDescription(?string $localLanguageDescription): self
+    {
+        $this->localLanguageDescription = $localLanguageDescription;
 
         return $this;
     }

@@ -72,7 +72,7 @@ export function CollaborationPanelTitle({collaboration}){
     const openPositions = collaboration.positions.filter((position) => position.isOpen === true).length;
 
 
-    return <div style={{color:bordeaux, height:40, backgroundColor:"whitesmoke", display: "flex", justifyContent: "space-evenly",alignItems: "center"}}>
+    return <div style={{color:bordeaux, minHeight:40, backgroundColor:"whitesmoke", display: "flex", justifyContent: "space-evenly",alignItems: "center"}}>
         <div style={{flexGrow:3, paddingLeft:10, fontWeight: "bold", fontSize:20}}>
             {collaboration.title}
         </div>

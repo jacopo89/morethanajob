@@ -133,7 +133,7 @@ export default function Profile(){
                     <div style={{height:281, width:"100%", marginBottom:10, backgroundColor:"black",position:"relative", backgroundImage: `url(${backgroundImage})`, backgroundSize:"contain", backgroundRepeat: "no-repeat"}}>
                         <LinearGradient/>
                         <h3 style={{position:"absolute", bottom:4, right:10, color:"white"}}><a target="_blank" href={userInfo && userInfo.website}>{userInfo && userInfo.website}</a></h3>
-                        {social}
+                       {/* {social}*/}
                         {isOwner  && editButton  }
                     </div>
                     <InfoBox>
@@ -159,7 +159,7 @@ export default function Profile(){
                 <div style={{height:281, width:"100%", marginBottom:10, backgroundColor:"black",position:"relative", backgroundImage: `url(${backgroundImage})`, backgroundSize:"contain", backgroundRepeat: "no-repeat"}}>
                     <LinearGradient/>
                     <h3 style={{position:"absolute", bottom:4, right:10, color:"white"}}>{userInfo && userInfo.website}</h3>
-                    {social}
+                    {/*{social}*/}
                     <ImageCropper button={uploadCoverButton} propCrop={{
                         unit: 'px', // default, can be 'px' or '%'
                         x: 0,
@@ -193,6 +193,7 @@ export default function Profile(){
                                         <TextField style={{width:"90%"}} name="country" label={t('Country')} accepter={SelectPicker} data={dataCountry} />
                                     </div>
                                     <TextField style={{width:"90%"}} name="description" label={t('Society Description')} componentClass="textarea" />
+                                    <TextField label={t('Local Language description')} name="localDescription" componentClass="textarea" />
                                     <div style={{display:"flex", justifyContent:"space-around"}}>
                                         <TextField style={{width:"90%"}} name="website" label={t('Website')} />
                                         <TextField style={{width:"90%"}} name="address" label={t('Address')} />

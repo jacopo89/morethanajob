@@ -14,7 +14,7 @@ import TextField from "../../Login/Components/TextField";
 export default function Collaboration(){
     const {id} = useParams();
     const [collaboration, getCollaborationHandler] = useGetCollaboration();
-    const {user} = useSelector(state=>state);
+    const {user,language} = useSelector(state=>state);
     const isOwner = collaboration && collaboration.user.email === user.email;
 
     const history = useHistory();
@@ -28,7 +28,11 @@ export default function Collaboration(){
 
     const isCollaborationClosed =  collaboration && collaboration.positions.filter((position)=>!position.isOpen).length === collaboration.positions.length;
 
+    const title = (collaboration && collaboration.localLanguage === language && collaboration.localLanguageTitle.length!==0) ? collaboration && collaboration.localLanguageTitle  : collaboration && collaboration.title ;
+    const description = (collaboration && collaboration.localLanguage === language && collaboration.localLanguageDescription.length!==0) ? collaboration && collaboration.localLanguageDescription  : collaboration && collaboration.description ;
+    const isLocalAvailable = collaboration && collaboration.localLanguageDescription.length!==0;
 
+    const languageMessage = (isLocalAvailable) ? "" : "This content is available only in English";
 
     const serviceBox = <ServiceFormBox collaboration={collaboration}/>;
 
@@ -36,12 +40,13 @@ export default function Collaboration(){
         <div style={{width:"100%", backgroundColor:bordeaux}}>
             <TitleBox>
                 <div style={{height: 150, width: 150, backgroundImage: `url(${categoryImage})`, backgroundColor: "white", backgroundSize: "contain"}}/>
-                {collaboration && collaboration.title}
+                {title}
             </TitleBox>
             {isOwner&& (isCollaborationClosed ? <Button style={{backgroundColor:"white", color:bordeaux, margin:10}} onClick={()=>history.push(Routes.editService(id))}>Edit Service</Button> : <Button style={{backgroundColor:"white", color:bordeaux, margin:10}} onClick={()=>history.push(Routes.editCollaboration(id))}>Edit Collaboration</Button> )}
         </div>
 
-        <div>{ collaboration && collaboration.description}</div>
+        <div>{description}</div>
+        <p>{languageMessage}</p>
         <InfoBox>
             <Grid style={{width:"100%"}}>
                 <Row className="show-grid" style={{padding:5}}>
@@ -171,7 +176,7 @@ export function PositionPanelTitle({position}){
 
 
 
-    return <div style={{backgroundColor:"whitesmoke", height:40, color:bordeaux, display: "flex", justifyContent: "space-evenly",alignItems: "center"}}>
+    return <div style={{backgroundColor:"whitesmoke", minHeight:40, color:bordeaux, display: "flex", justifyContent: "space-evenly",alignItems: "center"}}>
         <div style={{flexGrow:3, paddingLeft:5, fontWeight: "bold", fontSize:20}}>
             {position.service.label}
         </div>

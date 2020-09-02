@@ -29,6 +29,7 @@ import {getCalendarFormat} from "../../ReusableComponents/TimeManager";
 import {useCreateNewCollaboration} from "../../Backend/hooks/useCollaborations";
 import {useGetCategories} from "../../Backend/hooks/useCategories";
 import {Schema} from 'rsuite';
+import {useTranslation} from "react-i18next";
 
 export default function NewCollaboration({isService=false}){
     const [formValue, setFormValue] = useState({positions: []});
@@ -36,6 +37,7 @@ export default function NewCollaboration({isService=false}){
     const [response, createNewProjectHandler] = useCreateNewCollaboration();
     const [projects, getProjectsHandler] = useGetUserProjects();
     const history = useHistory();
+    const { t, i18n } = useTranslation();
 
     useEffect(()=>{
         getProjectsHandler(user.email, {dataManipulationFunction:(data)=>{
@@ -48,7 +50,6 @@ export default function NewCollaboration({isService=false}){
 
     const { StringType, NumberType, ArrayType, DateType } = Schema.Types;
 
-    console.log(formValue);
     const model = Schema.Model({
         title: StringType().isRequired('This field is required.'),
         shortDescription: StringType().isRequired('This field is required.').maxLength(500),
@@ -71,13 +72,15 @@ export default function NewCollaboration({isService=false}){
     const onSubmitHandler = () =>{
         const formData = new FormData();
         formData.append('email', user.email);
+        formData.append('localLanguage', user.language);
         formData.append('isService', isService.toString());
 
         Object.keys(formValue).forEach((key)=>  { formData.append(key,JSON.stringify(formValue[key]));});
         createNewProjectHandler(formData, {successCallback: (data)=> history.push(Routes.collaboration(data)) });
     }
 
-    const titleLabel = (isService) ? "Title of the service" : "Title of the collaboration";
+    const titleLabel = (isService) ? t('Title of the service') : t('Title of the collaboration');
+    const titleLocalLabel = (isService) ? t('Title of the service in local language') : t('Title of the collaboration in local language');
     const categoryLabel = (isService) ? "Macro category of the service" : "Macro category of the collaboration" ;
 
     return (
@@ -87,36 +90,38 @@ export default function NewCollaboration({isService=false}){
                 <h5 style={{color:bordeaux}}>Info </h5>
                 <Form model={model} fluid formValue={formValue} onChange={setFormValue} onSubmit={onSubmitHandler}>
                     <TextField label={titleLabel} name="title" type="text" />
-                    <TextField label="Short description" name="shortDescription" componentClass="textarea" />
-                    <TextField label="Detailed description" name="description" componentClass="textarea" />
+                    <TextField label={titleLocalLabel} name="localTitle" type="text" />
+                    <TextField label={t('Short description')} name="shortDescription" componentClass="textarea" />
+                    <TextField label={t('Detailed description')} name="description" componentClass="textarea" />
+                    <TextField label={t('Local Language Detailed description')} name="localDescription" componentClass="textarea" />
 
                     <div style={{display:"flex", justifyContent:"space-around"}}>
-                        <TextField style={{width:"100%"}} label="Country" name="country" accepter={SelectPicker} data={dataCountry} />
-                        <TextField style={{width:"100%"}} label="Modality" name="modality" accepter={SelectPicker} data={modalityData} />
+                        <TextField style={{width:"100%"}} label={t('Country')} name="country" accepter={SelectPicker} data={dataCountry} />
+                        <TextField style={{width:"100%"}} label={t('Modality')} name="modality" accepter={SelectPicker} data={modalityData} />
                     </div>
 
                     {isService && <div style={{display:"flex", justifyContent:"space-around"}}>
-                        <TextField label="Start Date" name="startDate" accepter={DatePicker}  style={{width:"100%"}} />
-                        <TextField label="End Date" name="endDate" accepter={DatePicker}  style={{width:"100%"}} />
+                        <TextField label={t('Start Date')} name="startDate" accepter={DatePicker}  style={{width:"100%"}} />
+                        <TextField label={t('End Date')} name="endDate" accepter={DatePicker}  style={{width:"100%"}} />
                     </div> }
 
                     {isService && <>
-                        <TextField label="Rates" name="rates" componentClass="textarea" />
-                        <TextField label="Main Beneficiaries" name="mainBeneficiaries" componentClass="textarea" />
+                        <TextField label={t('Rates')} name="rates" componentClass="textarea" />
+                        <TextField label={t('Main Beneficiaries')} name="mainBeneficiaries" componentClass="textarea" />
                     </> }
 
                     <div style={{display:"flex", justifyContent:"space-around"}}>
-                        <TextField style={{width:"100%"}} label="Project" name="project" accepter={SelectPicker} data={projects} />
+                        <TextField style={{width:"100%"}} label={t('Project')} name="project" accepter={SelectPicker} data={projects} />
                         <TextField style={{width:"100%"}} label={categoryLabel} name="category" accepter={TreePicker} data={categoriesTree} />
                     </div>
                     <div style={{display:"flex", justifyContent:"space-around"}}>
-                        <TextField style={{width:"100%"}} label="Language" name="language" accepter={SelectPicker} data={dataLanguage} />
+                        <TextField style={{width:"100%"}} label={t('Language')} name="language" accepter={SelectPicker} data={dataLanguage} />
 
                     </div>
                     {!isService && <ListOrCreate formValue={formValue} setFormValue={setFormValue} />}
 
                     <>
-                        <TextField label="Contacts" name="contacts"  />
+                        <TextField label={t('Contacts')} name="contacts"  />
                     </>
 
                     <MainButton style={{float:"right", margin:10}} type="submit">Save all</MainButton>
@@ -500,7 +505,7 @@ export function PositionPanelTitle({position, remover, updater, setEdit}){
 
 
 
-    return <div style={{backgroundColor:bordeaux, height:40, color:"white", display: "flex", justifyContent: "space-evenly",alignItems: "center"}}>
+    return <div style={{backgroundColor:bordeaux, minHeight:40, color:"white", display: "flex", justifyContent: "space-evenly",alignItems: "center"}}>
         <div style={{flexGrow:3, paddingLeft:5, fontWeight: "bold", fontSize:20}}>
             {position.service && position.service.label}
         </div>

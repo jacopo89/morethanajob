@@ -65,7 +65,7 @@ export function CollaborationPanelTitle({project}){
     const collaborationsNumber = project.collaborations.length;
 
 
-    return <div style={{backgroundColor:bordeaux, height:40, color:"white", display: "flex", justifyContent: "space-evenly",alignItems: "center"}}>
+    return <div style={{backgroundColor:bordeaux, minHeight:40, color:"white", display: "flex", justifyContent: "space-evenly",alignItems: "center"}}>
         <div style={{flexGrow:3, paddingLeft:5, fontWeight: "bold", fontSize:20}}>
             {project.title}
         </div>

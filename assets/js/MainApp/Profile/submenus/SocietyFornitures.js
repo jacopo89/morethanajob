@@ -84,7 +84,7 @@ export function ServicePanelTitle({service}){
     const [deleteService, deleteServiceHandler] = useRemoveOfferedService();
     console.log("service", service);
 
-    return <div style={{color:bordeaux, height:40, backgroundColor:"whitesmoke", display: "flex", justifyContent: "space-evenly",alignItems: "center"}}>
+    return <div style={{color:bordeaux, minHeight:40, backgroundColor:"whitesmoke", display: "flex", justifyContent: "space-evenly",alignItems: "center"}}>
         <div style={{flexGrow:3, paddingLeft:5, fontWeight: "bold", fontSize:20}}>
             {service.service.name}
         </div>

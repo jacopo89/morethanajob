@@ -42,7 +42,7 @@ export default function Dashboard(){
                     <Nav.Item href="#aboutUs"  eventKey="2">The project</Nav.Item>
                     <Nav.Item onClick={()=>history.push(Routes.projectPage)}  eventKey="3">Services and opportunities</Nav.Item>
                     <Nav.Item href="#organisations"  eventKey="4">Organisations</Nav.Item>
-                    <Nav.Item href="#FAQ"  eventKey="5">FAQ</Nav.Item>
+                    {/*<Nav.Item href="#FAQ"  eventKey="5">FAQ</Nav.Item>*/}
 
                 </Nav>
                 <Nav pullRight>
@@ -186,7 +186,7 @@ export default function Dashboard(){
             </Panel>
 
 
-            <Panel shaded style={panelStyle}>
+           {/* <Panel shaded style={panelStyle}>
                 <Title>FAQ</Title>
                 <Anchor id="FAQ"/>
                 <PanelGroup accordion bordered>
@@ -200,7 +200,7 @@ export default function Dashboard(){
                         Domanda 3
                     </Panel>
                 </PanelGroup>
-            </Panel>
+            </Panel>*/}
             {false && <Panel shaded style={panelStyle}>
                 <Title>Contattaci</Title>
                 <Form fluid>

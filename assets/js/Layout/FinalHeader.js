@@ -39,6 +39,7 @@ export default function FinalHeader(){
                 Home
             </Dropdown.Item>
             <Dropdown.Item onClick={()=> history.push(Routes.projectPage)} eventKey="3">{t('Search projects')}</Dropdown.Item>
+            <Dropdown.Item onClick={()=> history.push(Routes.searchUserPage)} eventKey="4">{t('Search users')}</Dropdown.Item>
             <Dropdown.Item onClick={()=> history.push(Routes.profile(user.profileName))} >{t('Profile')}</Dropdown.Item>
             {false && <Dropdown.Item onClick={()=> history.push(Routes.administration)} >{t('Administration')}</Dropdown.Item>}
             <Dropdown.Item onClick={()=>signOut()} >{t('Logout')}</Dropdown.Item>
@@ -48,16 +49,16 @@ export default function FinalHeader(){
 
 
     return <Navbar appearance="subtle" style={{position:"fixed", zIndex:100, width:"100%", height:100}}>
-        <Navbar.Header>
+        <Navbar.Header onClick={()=>history.push(Routes.dashboardPage)}>
             <img height={100} src="/defaults/en_morethanajob.png" className="navbar-brand logo">
             </img>
         </Navbar.Header>
         <Navbar.Body>
 
             <Nav pullRight>
-                <LanguageDropdown title={t('language')} trigger="hover" />
+                <LanguageDropdown title={t('language')} />
                 {false && <Nav.Item onClick={()=>history.push(Routes.registration)} icon={<Icon icon="cog" />}>Register</Nav.Item>}
-                {authenticated && <CustomDropdown icon={<Icon icon="bars" />} placement="bottomEnd" trigger="hover" />}
+                {authenticated && <CustomDropdown icon={<Icon icon="bars" />} placement="bottomEnd" />}
             </Nav>
         </Navbar.Body>
     </Navbar>
