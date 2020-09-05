@@ -7,6 +7,7 @@ import {useHistory} from "react-router-dom";
 import * as Routes from '../../../routes';
 import NewProjectModal from "../../Projects/NewProjectModal";
 import {CollaborationDetail} from "./SocietyProjects";
+import {useTranslation} from "react-i18next";
 
 export default function SocietyPortfolio({society}) {
     const [portfolioProjects, getPortfolioProjectsHandler] = useGetPortfolioProjects();
@@ -14,6 +15,7 @@ export default function SocietyPortfolio({society}) {
     const [show, setShow] = useState(false);
     const openModal = ()=> setShow(true);
     const closeModal = ()=> setShow(false);
+    const { t, i18n } = useTranslation();
 
     const history = useHistory();
 
@@ -81,7 +83,7 @@ export function PortfolioDetail({project}){
                 </Col>
                 <Col xs={16}>
 
-                    <Button style={{backgroundColor:bordeaux, color:"white", float:"right"}} onClick={()=> history.push(Routes.project(project.id))}>Read More</Button>
+                    <Button style={{backgroundColor:bordeaux, color:"white", float:"right"}} onClick={()=> history.push(Routes.project(project.id))}>{t('Read More')}</Button>
                 </Col>
             </Row>
     </Panel>
@@ -94,7 +96,7 @@ export function PortfolioPanelTitle({project}){
             {project.title}
         </div>
         <div style={{flexGrow:1,fontSize:12}}>
-            <Icon icon="calendar-o"/> From {getCalendarFormat(project.startTime)} to {getCalendarFormat(project.endTime)}
+            <Icon icon="calendar-o"/> {t('From')} {getCalendarFormat(project.startTime)} {t('To')} {getCalendarFormat(project.endTime)}
         </div>
 
     </div>

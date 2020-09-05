@@ -16,6 +16,7 @@ import {dataCountry, dataLanguage} from "../../selectData";
 import styled from "styled-components";
 import {useHistory, useParams} from "react-router-dom";
 import {getCalendarDate} from "../../ReusableComponents/TimeManager";
+import {useTranslation} from "react-i18next";
 
 export default function EditCollaboration({isService}) {
     const [formValue, setFormValue] = useState({positions: []});
@@ -23,7 +24,7 @@ export default function EditCollaboration({isService}) {
     const [getResponse, getCollaborationHandler] = useGetCollaboration();
     const [response, createNewCollaborationHandler] = useEditCollaboration();
     const [projects, getProjectsHandler] = useGetCollaborationProjects();
-
+    const { t, i18n } = useTranslation();
     const [deleteResponse, deleteCollaborationHandler] = useDeleteCollaboration();
     const history = useHistory();
     const {id} = useParams();
@@ -92,36 +93,36 @@ export default function EditCollaboration({isService}) {
             <InfoBox >
                 <h5 style={{color:bordeaux}}>Info </h5>
                 <Form fluid formValue={formValue} onChange={setFormValue} onSubmit={onSubmitHandler}>
-                    <TextField label="Title" name="title" type="text" />
-                    <TextField label="Local Title" name="localTitle" type="text" />
-                    <TextField label="Short description" name="shortDescription" componentClass="textarea" />
-                    <TextField label="Description" name="description" componentClass="textarea" />
+                    <TextField label={t('title')} name="title" type="text" />
+                    <TextField label={t('Local Title')} name="localTitle" type="text" />
+                    <TextField label={t('Short Description')} name="shortDescription" componentClass="textarea" />
+                    <TextField label={t('Description')} name="description" componentClass="textarea" />
                     <TextField label={t('Local Language Detailed description')} name="localDescription" componentClass="textarea" />
                     <div style={{display:"flex", justifyContent:"space-around"}}>
-                        <TextField style={{width:"100%"}} label="Start date" name="startTime" accepter={DatePicker} format="DD-MM-YYYY" />
-                        <TextField style={{width:"100%"}}  label="End date" name="endTime" accepter={DatePicker} format="DD-MM-YYYY" placement="topEnd" /> </div>
+                        <TextField style={{width:"100%"}} label={t('Start Date')} name="startTime" accepter={DatePicker} format="DD-MM-YYYY" />
+                        <TextField style={{width:"100%"}}  label={t('End Date')} name="endTime" accepter={DatePicker} format="DD-MM-YYYY" placement="topEnd" /> </div>
 
                     <div style={{display:"flex", justifyContent:"space-around"}}>
-                        <TextField style={{width:"100%"}} label="Project" name="project" accepter={SelectPicker} data={projects} />
-                        <TextField style={{width:"100%"}} label="Category" name="category" accepter={TreePicker} data={categoriesTree} />
+                        <TextField style={{width:"100%"}} label={t('Project')} name="project" accepter={SelectPicker} data={projects} />
+                        <TextField style={{width:"100%"}} label={t('Category')} name="category" accepter={TreePicker} data={categoriesTree} />
                     </div>
 
                     {isService && <>
-                        <TextField label="Rates" name="rates" componentClass="textarea" />
-                        <TextField label="Main Beneficiaries" name="mainBeneficiaries" componentClass="textarea" />
+                        <TextField label={t('Rates')} name="rates" componentClass="textarea" />
+                        <TextField label={t('Main beneficiaries')} name="mainBeneficiaries" componentClass="textarea" />
                     </> }
 
                     {isService && <>
-                        <TextField label="Contacts" name="contacts"  />
+                        <TextField label={t('Contacts')} name="contacts"  />
                     </> }
 
                     <div style={{display:"flex", justifyContent:"space-around"}}>
-                        <TextField style={{width:"100%"}} label="Language" name="language" accepter={SelectPicker} data={dataLanguage} />
+                        <TextField style={{width:"100%"}} label={t('Language')} name="language" accepter={SelectPicker} data={dataLanguage} />
                     </div>
                     <HelpBlock>This content in available only in {formValue.language}</HelpBlock>
 
 
-                    <MainButton type="submit">Save all</MainButton>
+                    <MainButton type="submit">{t('Save')}</MainButton>
                     <Button onClick={()=>deleteHandler(formValue.id)}>Delete</Button>
 
                 </Form>

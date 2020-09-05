@@ -124,7 +124,7 @@ export default function Profile(){
     },[]);
 
     useEffect(()=>{
-        const uploadCoverButton = <EditButton>Change cover Button</EditButton>
+        const uploadCoverButton = <EditButton>{t('Change cover Button')}</EditButton>
         const editButton = (!isEdit) ?  <EditButton onClick={()=>setIsEdit(!isEdit)}> {t('Edit profile')} </EditButton> : <> <InverseButton onClick={()=>setIsEdit(!isEdit)}> {t('Go Back')} </InverseButton></>
         if(userInfo && !isEdit){
 

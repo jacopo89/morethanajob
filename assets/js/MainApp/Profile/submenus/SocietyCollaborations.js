@@ -7,6 +7,7 @@ import {getCalendarFormat} from "../../../ReusableComponents/TimeManager";
 import {useHistory} from "react-router-dom";
 import {PortfolioPanelTitle} from "./SocietyPortfolio";
 import {useGetCollaborations} from "../../../Backend/hooks/useCollaborations";
+import {useTranslation} from "react-i18next";
 
 export default function SocietyCollaborations({society}) {
     const [collaborations, getCollaborationsHandler] = useGetCollaborations();
@@ -15,6 +16,7 @@ export default function SocietyCollaborations({society}) {
     const closeModal = ()=> setShow(false);
 
     const history = useHistory();
+    const { t, i18n } = useTranslation();
 
 
     console.log("Collaborations", collaborations);
@@ -60,7 +62,7 @@ export function CollaborationDetail({collaboration}){
                     <div style={{width:"100%", flexGrow:1}} >{collaboration.shortDescription}</div>
                     {collaborationPositions}
                 </div>
-                <Button style={{float:"right", color:"white", backgroundColor: bordeaux}} onClick={()=> history.push(Routes.collaboration(collaboration.id))}>Details</Button>
+                <Button style={{float:"right", color:"white", backgroundColor: bordeaux}} onClick={()=> history.push(Routes.collaboration(collaboration.id))}>{t('details')}</Button>
             </Col>
         </Row>
     </Panel>
@@ -77,10 +79,10 @@ export function CollaborationPanelTitle({collaboration}){
             {collaboration.title}
         </div>
         <div style={{flexGrow:1, fontSize:12}}>
-            <Icon icon="calendar-o"/> From {getCalendarFormat(collaboration.startDate)} to {getCalendarFormat(collaboration.endDate)}
+            <Icon icon="calendar-o"/> {t('From')} {getCalendarFormat(collaboration.startDate)} {t('to')} {getCalendarFormat(collaboration.endDate)}
         </div>
         <div style={{flexGrow:1, fontSize:12}}>
-            <Icon icon="suitcase" /> Open Positions: {openPositions}
+            <Icon icon="suitcase" /> {t('Open positions')}: {openPositions}
         </div>
     </div>
 }

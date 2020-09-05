@@ -97,18 +97,18 @@ export default function ProjectPage(){
     const finalPanels = [...projectPanels, ...servicePanels];
     return <>
 
-        <Panel header="Filters" bordered>
+        <Panel header={t('Filters')} bordered>
 
             <Form fluid formValue={formValue} onChange={setFormValue} onSubmit={onSubmitHandler}>
                 <div style={{display:"flex", justifyContent:"space-between"}}>
                     <TextField label="Proposed by" name="user" data={users} accepter={SelectPicker} searchable={true} style={{width:"100%"}} />
                 </div>
                 <div style={{display:"flex", justifyContent:"space-between"}}>
-                    <TextField label="Deadline" name="to" accepter={DatePicker}  style={{width:"100%"}} />
+                    <TextField label={t('Deadline')} name="to" accepter={DatePicker}  style={{width:"100%"}} />
                 </div>
                 <div style={{display:"flex", justifyContent:"space-between"}}>
-                    <TextField label="Country" name="country" data={dataCountry} accepter={SelectPicker} searchable={false} style={{width:"100%"}} />
-                    <TextField label="Category" name="category" data={categoriesTree} accepter={CheckTreePicker} style={{width:"100%"}} cascade={false} />
+                    <TextField label={t('Country')} name="country" data={dataCountry} accepter={SelectPicker} searchable={false} style={{width:"100%"}} />
+                    <TextField label={t('Category')} name="category" data={categoriesTree} accepter={CheckTreePicker} style={{width:"100%"}} cascade={false} />
                 </div>
                 <FormGroup>
                     <FormControl
@@ -121,7 +121,7 @@ export default function ProjectPage(){
                     </FormControl>
                 </FormGroup>
 
-                <Button type="submit">Search</Button>
+                <Button type="submit">{t('Search')}</Button>
             </Form>
         </Panel>
 

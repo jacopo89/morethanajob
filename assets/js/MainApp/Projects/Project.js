@@ -128,7 +128,6 @@ export function RequestsModal({position, showModal, closeModal, callback}){
 
     const actionRender= (rowData) => {
 
-        console.log("Rowdata", rowData);
 
         return (
             <span>
@@ -157,7 +156,7 @@ export function RequestsModal({position, showModal, closeModal, callback}){
 
 
     const model = [
-        {label:"Nome società", render:nameRender},
+        {label:t('Society Name'), render:nameRender},
         {label:"Time", render:timeRender},
         {label:"actions", render:actionRender}
     ];
@@ -168,7 +167,7 @@ export function RequestsModal({position, showModal, closeModal, callback}){
 
     return (<Modal overflow={true} show={showModal}  >
         <Modal.Header>
-            <Modal.Title>Modal Title</Modal.Title>
+            <Modal.Title></Modal.Title>
         </Modal.Header>
         <Modal.Body>
             {table}

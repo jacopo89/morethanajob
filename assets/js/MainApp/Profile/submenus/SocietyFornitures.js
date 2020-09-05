@@ -28,6 +28,7 @@ import {bordeaux} from "../../../styledComponents/CustomComponents";
 import {getCalendarFormat} from "../../../ReusableComponents/TimeManager";
 import {useHistory} from "react-router-dom";
 import {dataCountry, modalityData} from "../../../selectData";
+import {useTranslation} from "react-i18next";
 
 export default function SocietyFornitures({society}){
 
@@ -42,6 +43,7 @@ export default function SocietyFornitures({society}){
     const [show, setShow] = useState(false);
     const openModal = ()=>setShow(true);
     const closeModal = ()=>setShow(false);
+    const { t, i18n } = useTranslation();
 
     const successCallback = () => {
         closeModal();
@@ -148,15 +150,15 @@ export function NewServiceModal({show, onHide, successCallback}){
         </Modal.Header>
         <Form fluid formValue={formValue} onChange={setFormValue} onSubmit={onSubmitHandler}  >
             <Modal.Body style={{height:500, padding:10}}>
-                <TextField name="service" label="Field of expertise" accepter={TreePicker} data={servicesTree} style={{width:"100%"}} />
-                <TextField name="description" label="Description" componentClass="textarea"/>
-                <TextField name="country" label="Country" accepter={SelectPicker} data={dataCountry}/>
+                <TextField name="service" label={t('Field of expertise')} accepter={TreePicker} data={servicesTree} style={{width:"100%"}} />
+                <TextField name="description" label={t('description')} componentClass="textarea"/>
+                <TextField name="country" label={t('Country')} accepter={SelectPicker} data={dataCountry}/>
             </Modal.Body>
 
             <Modal.Footer>
                 <ButtonGroup>
                     <Button type="submit" style={{float:'right', backgroundColor: bordeaux, color:"white", margin:5}}>
-                        Salva
+                        {t('Save')}
                     </Button>
                 </ButtonGroup>
             </Modal.Footer>

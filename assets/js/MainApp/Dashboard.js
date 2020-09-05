@@ -9,10 +9,11 @@ import "./dashboard.css";
 import {useGetRandomProfiles} from "../Backend/hooks/UserInfo";
 import {useGetRandomCollaborations} from "../Backend/hooks/useCollaborations";
 import {CollaborationDetail} from "./Profile/submenus/SocietyCollaborations";
+import {useTranslation} from "react-i18next";
 
 export default function Dashboard(){
     const history = useHistory();
-
+    const { t, i18n } = useTranslation();
     const [readMore, setReadMore] = useState(false);
 
     const panelStyle = {width: "85%", borderRadius:"20px", backgroundColor:"white", margin:"0 auto", padding:20, marginTop:20}
@@ -57,13 +58,12 @@ export default function Dashboard(){
                 <Grid fluid>
                     <Row className="show-grid">
                         <Col xs={12}>
-                            <h4 style={{color: bordeaux, margin:10}}>MoreThanAJob Portal</h4>
-                            <h5 style={{margin:10}}>An integrated offer of services for the well-being of the community </h5>
+                            <h4 style={{color: bordeaux, margin:10}}>{t('MoreThanAJob Portal')}</h4>
+                            <h5 style={{margin:10}}>{t('Dashboard title')}</h5>
                             <p style={{margin:10}}>
-                                This portal is a multilingual interactive space aiming at fostering dialogue and cooperation between SSE actors and public administrations for the development and delivery of services supporting the social and labour inclusion of vulnerable groups.
-                                Our main aim is to provide a simple and complete overview of the existing services and opportunities to support the social and employment inclusion offered in the project partners’ territories. It is also possible to find opportunities of collaboration for the co-development and implementation of new services and opportunities on social and labour inclusion.
+                                {t('Dashboard text')}
                             </p>
-                            <MainButton style={{float:"right", margin:10}} onClick={()=>history.push(Routes.projectPage)}>Find services and opportunities</MainButton>
+                            <MainButton style={{float:"right", margin:10}} onClick={()=>history.push(Routes.projectPage)}>  {t('Dashboard button')}</MainButton>
                         </Col>
                         <Col xs={12}>
                             <div style={{display:"flex", justifyContent:"center"}}>
@@ -84,10 +84,10 @@ export default function Dashboard(){
                         </Col>
                         <Col xs={12}>
                             <Title id="aboutUs">
-                                THE PROJECT
+                                {t('projectTitle')}
                             </Title>
                             <p>
-                                This portal is developed as part of the ENI CBC MED project “MoreThanAJob - Reinforcing social and solidarity economy for the unemployed, uneducated and refugees” aiming at fostering the social and labour inclusion of vulnerable groups through a stronger cooperation between SSE actors and public administrations.
+                                {t('projectPre')}
                             </p>
                             <MainButton style={{float:"right", margin:10}} onClick={()=>setReadMore(!readMore)}>Read more</MainButton>
                         </Col>
@@ -98,42 +98,31 @@ export default function Dashboard(){
                         {readMore &&
                             <>
                                 <p>
-                                    The MoreThanAJob project aims at enhancing the development of cooperation mechanism between the Social and Solidarity Economy (SSE) and the public administration to improve the social services for vulnerable groups in order to increase their opportunities of social and labour inclusion.
-                                    Improving the cooperation between these two main actors and their different realities will foster the development of innovative and more effective services able to respond to the social and economic challenges of our societies, particularly in the aftermath of the Covid19 emergency. Indeed, this emergency has highlighted how a solid welfare system is essential to protect the weaker segments, ensure fairer societies and that each citizen has the same rights and opportunities.
-                                    MoreThanAJob will bring a change in the way SSE actors and public institutions work together for services provision to vulnerable groups through the development of a framework of new social pilot schemes as well as the development of policy briefs and suggestions improving the planning of policies adapted to the needs of the target groups.
-                                    The project is funded by the ENI CBC Programme 2014-2020 and involves partners from five different countries: Palestine, Jordan, Lebanon, Greece and Italy.
+                                    {t('projectMore')}.
                                 </p>
-                                <SmallTitle>Social and Solidarity Economy</SmallTitle>
+                                <SmallTitle>{t('projectSSE')}</SmallTitle>
                                 <p>
-                                    The expression Social and Solidarity Economy is increasingly being used to refer to a broad range of organisations that are distinguished from conventional economy actors by two core features: they have explicit economic and social objectives and they involve varying forms of co-operative, associative and solidarity relations. They include, for example, NGOs, cooperatives, mutual societies, foundations, social enterprises, fair trade organisations or other similar companies and organisations.
+                                    {t('projectSSEText')}
                                 </p>
-                                <SmallTitle>Partners</SmallTitle>
+                                <SmallTitle>{t('projectPartners')}</SmallTitle>
                                 <ul>
                                     <li>
-                                        Coordinator
-                                        An-Najah National University – Palestine
-                                        https://www.najah.edu/ar/
+                                        {t('partner1')}
                                     </li>
                                     <li>
-                                        Nablus chamber of commerce and industry – Palestine
-                                        http://nablus-chamber.org/
+                                        {t('partner2')}
                                     </li>
                                     <li>
-                                        Ministry of Public Works & Housing – Jordan
-                                        Mutah University – Jordan
-                                        https://mutah.edu.jo/Home.aspx
+                                        {t('partner3')}
                                     </li>
                                     <li>
-                                        Business Consultancy and Training Services – Lebanon
-                                        http://bctslb.com/
+                                        {t('partner4')}
                                     </li>
                                     <li>
-                                        CESIE – Italy
-                                        www.cesie.org
+                                        {t('partner5')}
                                     </li>
                                     <li>
-                                        Eurotraining Educational Organization SA – Greece
-                                        https://www.eurotraining.gr/
+                                        {t('partner6')}
                                     </li>
                                 </ul>
                             </>}
@@ -147,23 +136,23 @@ export default function Dashboard(){
                 <div style={{display:"flex", justifyContent:"space-around"}}>
                     <IconTextBox>
                         <img width={75} src="/icons/ico1.png"/>
-                        <p>Family and income support</p>
+                        <p>{t('categoryFamily')}</p>
                     </IconTextBox>
                     <IconTextBox>
                         <img width={75} src="/icons/ico2.png"/>
-                        <p>Health and counselling services</p>
+                        <p>{t('categoryCounseling')}</p>
                     </IconTextBox>
                     <IconTextBox>
                         <img width={75} src="/icons/ico3.png"/>
-                        <p>Education and training</p>
+                        <p>{t('categoryEducation')}</p>
                     </IconTextBox>
                     <IconTextBox>
                         <img width={75} src="/icons/ico4.png"/>
-                        <p>Career guidance and employment support</p>
+                        <p>{t('categoryCarrier')}</p>
                     </IconTextBox>
                     <IconTextBox>
                         <img width={75} src="/icons/ico5.png"/>
-                        <p>Culture and participation</p>
+                        <p>{t('categoryCulture')}</p>
                     </IconTextBox>
 
                 </div>
