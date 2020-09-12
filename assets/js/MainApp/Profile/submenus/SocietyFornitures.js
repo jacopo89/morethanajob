@@ -104,6 +104,7 @@ export function NewServiceModal({show, onHide, successCallback}){
     const [formValue, setFormValue] = useState();
     const {user} = useSelector(state=>state);
     const [createOfferedService, createOfferedServiceHandler] = useCreateOfferedService();
+    const { t, i18n } = useTranslation();
 
 
     const onSubmitHandler = () => {
