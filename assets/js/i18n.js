@@ -3,6 +3,7 @@ import { initReactI18next } from 'react-i18next';
 import {translation as English} from './i18n/en-US';
 import {translation as Italian} from './i18n/it-IT';
 import {translation as Arabic} from './i18n/ar-AR';
+import {translation as Greek} from './i18n/gr-GR';
 
 // not like to use this?
 // have a look at the Quick start guide
@@ -24,6 +25,7 @@ i18n
             en: English,
             it: Italian,
             ar: Arabic,
+            gr: Greek,
         },
         lng: "en",
         fallbackLng: "en",

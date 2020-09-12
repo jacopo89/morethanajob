@@ -38,17 +38,17 @@ export default function Dashboard(){
             <Navbar.Body>
                 <Nav>
                     <Nav.Item href="#home" eventKey="1" icon={<Icon icon="home" />}>
-                        Home
+                        {t('Home')}
                     </Nav.Item>
-                    <Nav.Item href="#aboutUs"  eventKey="2">The project</Nav.Item>
-                    <Nav.Item onClick={()=>history.push(Routes.projectPage)}  eventKey="3">Services and opportunities</Nav.Item>
-                    <Nav.Item href="#organisations"  eventKey="4">Organisations</Nav.Item>
+                    <Nav.Item href="#aboutUs"  eventKey="2">{t('The project')}</Nav.Item>
+                    <Nav.Item onClick={()=>history.push(Routes.projectPage)}  eventKey="3">{t('Services and opportunities')}</Nav.Item>
+                    <Nav.Item href="#organisations"  eventKey="4">{t('Organisations')}</Nav.Item>
                     {/*<Nav.Item href="#FAQ"  eventKey="5">FAQ</Nav.Item>*/}
 
                 </Nav>
                 <Nav pullRight>
-                    <Nav.Item onClick={()=>history.push(Routes.login)} icon={<Icon icon="cog" />}>Login</Nav.Item>
-                    {false && <Nav.Item onClick={()=>history.push(Routes.registration)} icon={<Icon icon="cog" />}>Register</Nav.Item>}
+                    <Nav.Item onClick={()=>history.push(Routes.login)} icon={<Icon icon="cog" />}>{t('Login')}</Nav.Item>
+                    {false && <Nav.Item onClick={()=>history.push(Routes.registration)} icon={<Icon icon="cog" />}>{t('Register')}</Nav.Item>}
                 </Nav>
             </Navbar.Body>
         </Navbar>

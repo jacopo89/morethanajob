@@ -27,6 +27,7 @@ import {useGetUsers} from "../../Backend/hooks/useAdministration";
 import {ServiceDetail} from "../Profile/submenus/SocietyFornitures";
 import {CollaborationDetail} from "../Profile/submenus/SocietyCollaborations";
 import {useGetCategories} from "../../Backend/hooks/useCategories";
+import {useTranslation} from "react-i18next";
 
 
 const FilterBox = styled.div`
@@ -41,6 +42,7 @@ export default function ProjectPage(){
 
     const [projects, getProjectsHandler] = useSearchProjects();
     const [users, getUsersListHandler] = useGetUsers();
+    const { t, i18n } = useTranslation();
 
     const {user} = useSelector(state=>state);
 
