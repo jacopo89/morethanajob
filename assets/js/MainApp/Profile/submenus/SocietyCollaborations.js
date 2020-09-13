@@ -73,6 +73,7 @@ export function CollaborationDetail({collaboration}){
 export function CollaborationPanelTitle({collaboration}){
 
     const openPositions = collaboration.positions.filter((position) => position.isOpen === true).length;
+    const { t, i18n } = useTranslation();
 
 
     return <div style={{color:bordeaux, minHeight:40, backgroundColor:"whitesmoke", display: "flex", justifyContent: "space-evenly",alignItems: "center"}}>
