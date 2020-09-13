@@ -44,6 +44,7 @@ export default function SocietyCollaborations({society}) {
 export function CollaborationDetail({collaboration}){
 
     const history = useHistory();
+    const { t, i18n } = useTranslation();
 
     const backgroundImage = (collaboration && collaboration.category && collaboration.category.picture) ? collaboration.category.picture  : "/defaults/project_thumbnail.png";
 
