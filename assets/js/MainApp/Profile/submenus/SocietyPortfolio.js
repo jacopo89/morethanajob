@@ -48,6 +48,7 @@ export default function SocietyPortfolio({society}) {
 export function PortfolioDetail({project}){
 
     const history = useHistory();
+    const { t, i18n } = useTranslation();
 
     const backgroundImage = (project && project.projectLogo) ? project.projectLogo.url  : "/defaults/project_thumbnail.png";
 
@@ -91,6 +92,7 @@ export function PortfolioDetail({project}){
 }
 
 export function PortfolioPanelTitle({project}){
+    const { t, i18n } = useTranslation();
     return <div style={{backgroundColor:bordeaux, minHeight:40, color:"white", display: "flex", justifyContent: "space-evenly",alignItems: "center"}}>
         <div style={{flexGrow:3, paddingLeft:5, fontWeight: "bold", fontSize:20}}>
             {project.title}
