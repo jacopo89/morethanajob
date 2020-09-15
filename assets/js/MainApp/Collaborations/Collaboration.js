@@ -125,7 +125,7 @@ export function PositionDescription({isOwnerOfProject, position}){
 
 
 
-    const backgroundImage = (position && position.service && position.service.picture) ? position.service.picture  : "https://localhost:8000/uploads/users/7/society-5ed3a86ac6b2d.png";
+    const backgroundImage = (position && position.service && position.service.picture) ? position.service.picture  : "";
 
     const alreadyApplied = position.positionUserInterests.filter((userinterest)=> userinterest.user.id === user.id).length>0;
 

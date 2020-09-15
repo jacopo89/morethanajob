@@ -50,7 +50,7 @@ export default function Project(){
     if(project.isPortfolio){
         const existingPartners = project.projectPartnersRelations.map((projectPartnersRelation)=>{
             let profileImage = (projectPartnersRelation.partner.profilePicture) ? projectPartnersRelation.partner.profilePicture.url : "" ;
-            return <div style={{backgroundImage:  `url(${profileImage})`, backgroundSize: "contain", width:150, height:150}}/>
+            return <div style={{backgroundImage:  `url(${profileImage})`, backgroundSize: "auto", width:150, height:150}}/>
         });
         const externalpartners =  project.externalPartners.map((externalPartner)=> <ExternalPartnerPanel partner={externalPartner}/>);
         list = <>
@@ -64,7 +64,7 @@ export default function Project(){
         list = project.collaborations.map((collaboration)=> <CollaborationDetail collaboration={collaboration} />);
     }
 
-    const projectLogostyle = {backgroundImage:  `url(${backgroundImage})`, backgroundSize: "contain", width:150, height:150}
+    const projectLogostyle = {backgroundImage:  `url(${backgroundImage})`, backgroundSize: "auto", width:150, height:150}
 
     const projectLogo = <div style={projectLogostyle}/>
     return <>

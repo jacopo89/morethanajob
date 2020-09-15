@@ -127,16 +127,6 @@ export function NewServiceModal({show, onHide, successCallback}){
 
     let servicesTree = generateServiceTree(services);
 
-    const data = [
-        {
-            "label": "Online",
-            "value": "online",
-        },
-        {
-            "label": "Face 2 face",
-            "value": "f2f",
-        }]
-
 
     const { StringType, ArrayType } = Schema.Types;
     const model = Schema.Model({

@@ -130,7 +130,7 @@ export default function Profile(){
 
             setRender(
                 <>
-                    <div style={{height:281, width:"100%", marginBottom:10, backgroundColor:"black",position:"relative", backgroundImage: `url(${backgroundImage})`, backgroundSize:"contain", backgroundRepeat: "no-repeat"}}>
+                    <div style={{height:281, width:"100%", marginBottom:10, backgroundColor:"black",position:"relative", backgroundImage: `url(${backgroundImage})`, backgroundSize:"auto", backgroundRepeat: "no-repeat"}}>
                         <LinearGradient/>
                         <h3 style={{position:"absolute", bottom:4, right:10, color:"white"}}><a target="_blank" href={userInfo && userInfo.website}>{userInfo && userInfo.website}</a></h3>
                        {/* {social}*/}
@@ -154,7 +154,7 @@ export default function Profile(){
                     <ProjectMenu society={userInfo} isOwner={isOwner}/>
                 </>)
         }else if(userInfo && isEdit){
-            const uploaderButton = <Button style={{backgroundImage:  `url(${profileImage})`, backgroundSize: "contain", width:200, height:200}}> Upload</Button>;
+            const uploaderButton = <Button style={{backgroundImage:  `url(${profileImage})`, backgroundSize: "auto", width:200, height:200}}> Upload</Button>;
             setRender(<>
                 <div style={{height:281, width:"100%", marginBottom:10, backgroundColor:"black",position:"relative", backgroundImage: `url(${backgroundImage})`, backgroundSize:"contain", backgroundRepeat: "no-repeat"}}>
                     <LinearGradient/>

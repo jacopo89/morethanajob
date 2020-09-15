@@ -59,11 +59,11 @@ export function CollaborationDetail({collaboration}){
                 </div>
             </Col>
             <Col xs={16}>
-                <div style={{height:150, maxHeight:150, display:"flex", flexDirection:"column", flexWrap:"wrap", justifyContent:"space-around"}}>
+                <div style={{display:"flex", flexDirection:"column", flexWrap:"wrap", justifyContent:"space-around"}}>
                     <div style={{width:"100%", flexGrow:1}} >{collaboration.shortDescription}</div>
                     {collaborationPositions}
                 </div>
-                <Button style={{float:"right", color:"white", backgroundColor: bordeaux}} onClick={()=> history.push(Routes.collaboration(collaboration.id))}>{t('details')}</Button>
+                <Button style={{float:"right", color:"white", backgroundColor: bordeaux}} onClick={()=> history.push(Routes.collaboration(collaboration.id))}>{t('Details')}</Button>
             </Col>
         </Row>
     </Panel>
@@ -81,7 +81,7 @@ export function CollaborationPanelTitle({collaboration}){
             {collaboration.title}
         </div>
         <div style={{flexGrow:1, fontSize:12}}>
-            <Icon icon="calendar-o"/> {t('From')} {getCalendarFormat(collaboration.startDate)} {t('to')} {getCalendarFormat(collaboration.endDate)}
+            <Icon icon="calendar-o"/> {t('From')} {getCalendarFormat(collaboration.startDate)} {t('To')} {getCalendarFormat(collaboration.endDate)}
         </div>
         <div style={{flexGrow:1, fontSize:12}}>
             <Icon icon="suitcase" /> {t('Open positions')}: {openPositions}
