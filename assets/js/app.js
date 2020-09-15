@@ -105,7 +105,7 @@ function App(){
                 <Route path={Routes.administration} children={administrationPage}/>
                 <Route path={Routes.routeProject} children={projectDetailPage}/>
                 <Route path={Routes.immediateLogout} children={immediateLogoutPage}/>
-                <Route path={Routes.main} children={loginPage}/>
+                <Route path={Routes.main} children={dashboardPage}/>
                 <Route path={Routes.login} children={loginPage}/>
 
 
@@ -133,7 +133,7 @@ function App(){
                 <Route path={Routes.administration} children={administrationPage}/>
                 <Route path={Routes.routeProject} children={projectDetailPage}/>
                 <Route path={Routes.immediateLogout} children={immediateLogoutPage}/>
-                <Route path={Routes.main} children={loginPage}/>
+                <Route path={Routes.main} children={dashboardPage}/>
                 <Route path={Routes.login} children={loginPage}/>
                 <Route path="/">
                     <Redirect to="/dashboard" />
