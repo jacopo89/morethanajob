@@ -110,7 +110,7 @@ class CollaborationController extends AbstractController
             $projectId = $request->get('project');
             $isService = json_decode($request->get('isService'));
             $localLanguageTitle = json_decode($request->get('localTitle'));
-            $localLanguage = $request->get('localLanguage');
+            $localLanguage = $request->get('language');
             $localLanguageDescription = json_decode($request->get('localDescription'));
 
 
@@ -131,6 +131,7 @@ class CollaborationController extends AbstractController
             $collaboration->setLocalLanguageTitle($localLanguageTitle);
             $collaboration->setLocalLanguageDescription($localLanguageDescription);
             $collaboration->setLocalLanguage($localLanguage);
+            $collaboration->setLanguage($localLanguage);
 
             $collaboration->setIsCollaboration(!$isService);
             $collaboration->setContacts($contacts);

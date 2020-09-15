@@ -5,23 +5,13 @@ import {MainButton, RegistrationBox, SecondaryButton} from "../../styledComponen
 import * as Routes from '../../routes';
 import {useChangePassword, useCheckUserMail, useLogin} from "../../Backend/useBackend";
 import TextField from "./TextField";
+import {useTranslation} from "react-i18next";
 
 export default function LoginForm({loginProps}){
 
     const { StringType } = Schema.Types;
-    const [userMailResponse, checkUserMailHandler, userMailLoaded, userMailStatus] =  useCheckUserMail();
+    const { t, i18n } = useTranslation();
 
-    function asyncCheckUsername(name) {
-        const formData = new FormData();
-        formData.append('email', name);
-        let response = "cazzo";
-
-        const callbacks = {successCallback: ()=> response = response + response, errorCallback: ()=> response= false };
-        checkUserMailHandler(formData, callbacks);
-        console.log("user mail checked", response);
-
-        return response;
-    }
 
 
     const model = Schema.Model({
@@ -56,17 +46,16 @@ export default function LoginForm({loginProps}){
                     onChange={setFormValue}
                     onSubmit={()=>loginProps.loginHandler(formValue)}>
                     <FormGroup>
-                        <ControlLabel>Email</ControlLabel>
+                        <ControlLabel>{t('Email')}</ControlLabel>
                         <FormControl name="email" type="email" checkAsync />
                     </FormGroup>
                     <FormGroup>
-                        <ControlLabel><div style={{display:"flex", justifyContent:"space-between"}}><span>Password</span> <Link to={Routes.passwordRecovery}>Forgot password?</Link> </div></ControlLabel>
+                        <ControlLabel><div style={{display:"flex", justifyContent:"space-between"}}><span>{t('Password')}</span> <Link to={Routes.passwordRecovery}>Forgot password?</Link> </div></ControlLabel>
                         <FormControl name="password" type="password" />
                     </FormGroup>
                     <FormGroup>
                         <ButtonToolbar>
-                            <MainButton appearance="primary" type="submit">Login</MainButton>
-                            {false && <SecondaryButton appearance="default" onClick={()=> history.push(Routes.changePassword)}>Cancel</SecondaryButton>}
+                            <MainButton appearance="primary" type="submit">{t('Login')}</MainButton>
                             {registrationButton}
                         </ButtonToolbar>
                     </FormGroup>

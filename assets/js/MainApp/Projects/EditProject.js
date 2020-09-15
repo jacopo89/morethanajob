@@ -89,8 +89,6 @@ export default function EditProject({isPortfolio=false}){
 
 
     const removeProjectSuccessCallaback = ()=> {
-        console.log("Progetto rimosso");
-        console.log("profile name", user.profileName);
         history.push(Routes.profile(user.profileName));
     }
 

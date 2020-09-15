@@ -49,7 +49,7 @@ export default function Project(){
 
     if(project.isPortfolio){
         const existingPartners = project.projectPartnersRelations.map((projectPartnersRelation)=>{
-            let profileImage = projectPartnersRelation.partner.profilePicture.url;
+            let profileImage = (projectPartnersRelation.partner.profilePicture) ? projectPartnersRelation.partner.profilePicture.url : "" ;
             return <div style={{backgroundImage:  `url(${profileImage})`, backgroundSize: "contain", width:150, height:150}}/>
         });
         const externalpartners =  project.externalPartners.map((externalPartner)=> <ExternalPartnerPanel partner={externalPartner}/>);

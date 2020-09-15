@@ -1,4 +1,4 @@
-import React, {useEffect, useState} from "react";
+import React, {useEffect, useState, useRef} from "react";
 import {useSelector} from "react-redux";
 import {useCreateNewProject, useGetUserProjects} from "../../Backend/hooks/useProjects";
 import TextField from "../../Login/Components/TextField";
@@ -50,6 +50,8 @@ export default function NewCollaboration({isService=false}){
 
     const { StringType, NumberType, ArrayType, DateType } = Schema.Types;
 
+    const formRef = useRef();
+
     const model = Schema.Model({
         title: StringType().isRequired('This field is required.'),
         shortDescription: StringType().isRequired('This field is required.').maxLength(500),
@@ -75,10 +77,12 @@ export default function NewCollaboration({isService=false}){
         formData.append('localLanguage', user.language);
         formData.append('isService', isService.toString());
 
-        Object.keys(formValue).forEach((key)=>  { formData.append(key,JSON.stringify(formValue[key]));});
-        createNewProjectHandler(formData, {successCallback: (data)=> history.push(Routes.collaboration(data)) });
-    }
+        if(formRef.current.check()){
+            Object.keys(formValue).forEach((key)=>  { formData.append(key,JSON.stringify(formValue[key]));});
+            createNewProjectHandler(formData, {successCallback: (data)=> history.push(Routes.collaboration(data)) });
+        }
 
+    }
     const titleLabel = (isService) ? t('Title of the service') : t('Title of the collaboration');
     const titleLocalLabel = (isService) ? t('Title of the service in local language') : t('Title of the collaboration in local language');
     const categoryLabel = (isService) ? "Macro category of the service" : "Macro category of the collaboration" ;
@@ -88,7 +92,7 @@ export default function NewCollaboration({isService=false}){
             <TitleBox >{formValue.title}</TitleBox>
             <InfoBox >
                 <h5 style={{color:bordeaux}}>Info </h5>
-                <Form model={model} fluid formValue={formValue} onChange={setFormValue} onSubmit={onSubmitHandler}>
+                <Form ref={formRef} model={model} fluid formValue={formValue} onChange={setFormValue} onSubmit={onSubmitHandler}>
                     <TextField label={titleLabel} name="title" type="text" />
                     <TextField label={titleLocalLabel} name="localTitle" type="text" />
                     <TextField label={t('Short description')} name="shortDescription" componentClass="textarea" />

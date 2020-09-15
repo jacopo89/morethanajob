@@ -61,15 +61,15 @@ export default function Collaboration(){
                 </Row>
                 <Row className="show-grid" style={{padding:5}}>
                     <Col xs={12}>
-                        <IconWithText icon="calendar-o" label={t('Start Date')} value={collaboration && getCalendarFormat(collaboration.startDate)}/>
+                        <IconWithText icon="calendar-o" label={t('Start date')} value={collaboration && getCalendarFormat(collaboration.startDate)}/>
                     </Col>
                     <Col xs={12}>
-                        <IconWithText icon="calendar-o" label={t('End Date')} value={collaboration && getCalendarFormat(collaboration.endDate)}/>
+                        <IconWithText icon="calendar-o" label={t('End date')} value={collaboration && getCalendarFormat(collaboration.endDate)}/>
                         </Col>
                 </Row>
                 <Row className="show-grid" style={{padding:5}}>
                     <Col xs={24}>
-                        <IconWithText icon="calendar-o" label={t('Main Beneficiaries')} value={collaboration && collaboration.mainBeneficiaries}/>
+                        <IconWithText icon="calendar-o" label={t('Main beneficiaries')} value={collaboration && collaboration.mainBeneficiaries}/>
                     </Col>
 
                 </Row>

@@ -111,8 +111,11 @@ function ProjectModal({show, onHide}){
             Show Project Type
         </Modal.Header>
             <Modal.Body>
-                <Button onClick={() => history.push(Routes.newPortfolioPage)}> Create portfolio project</Button>
-                <Button onClick={() => history.push(Routes.newProjectPage)}> Create new project</Button>
+                <div style={{display:"flex"}}>
+                    <Button style={{flexGrow:1, margin:5}} onClick={() => history.push(Routes.newPortfolioPage)}> Create portfolio project</Button>
+                    <Button style={{flexGrow:1, margin:5}} onClick={() => history.push(Routes.newProjectPage)}> Create new project</Button>
+                </div>
+
             </Modal.Body>
 
 

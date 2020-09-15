@@ -24,14 +24,10 @@ export default function Login(){
 
     const dispatch = useDispatch();
     const successCallback = (accessToken) => {
-       /* cookies.set('accessToken', data);
-        cookies.set('authenticated', true);*/
         dispatch(ActionTypes.login(accessToken));
 
     };
     const userInfoSuccessCallback = (data) => {
-        console.log("info callback",data);
-        //cookies.set('user', JSON.stringify(data));
         dispatch(ActionTypes.updateUserInfo(data));
         history.push(Routes.profile(data.profileName));
     };

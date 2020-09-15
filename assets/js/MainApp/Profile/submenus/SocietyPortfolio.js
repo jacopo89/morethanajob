@@ -56,7 +56,6 @@ export function PortfolioDetail({project}){
             let profileImage = (projectPartnersRelation.partner.profilePicture) ? "https://localhost:8000/"+projectPartnersRelation.partner.profilePicture.url : "";
             return <div key={index} style={{backgroundImage:  `url(${profileImage})`, backgroundSize: "contain", width:50, height:50}}/>
         });
-        const externalpartners =  project.externalPartners.map((externalPartner)=> externalPartner.name);
         let list = <>
             <div style={{display:"flex", flexWrap:"wrap"}}>{existingPartners}</div>
         </>
@@ -71,7 +70,7 @@ export function PortfolioDetail({project}){
                 </div>
             </Col>
             <Col xs={16}>
-                <div style={{height:150, maxHeight:150, display:"flex", flexDirection:"column", flexWrap:"wrap", justifyContent:"space-around"}}>
+                <div style={{display:"flex", flexDirection:"column", flexWrap:"wrap", justifyContent:"space-around"}}>
                     <div style={{width:"100%", flexGrow:1}} >{project.shortDescription}</div>
                     {list}
                 </div>
@@ -83,7 +82,6 @@ export function PortfolioDetail({project}){
 
                 </Col>
                 <Col xs={16}>
-
                     <Button style={{backgroundColor:bordeaux, color:"white", float:"right"}} onClick={()=> history.push(Routes.project(project.id))}>{t('Read More')}</Button>
                 </Col>
             </Row>
@@ -96,9 +94,6 @@ export function PortfolioPanelTitle({project}){
     return <div style={{backgroundColor:bordeaux, minHeight:40, color:"white", display: "flex", justifyContent: "space-evenly",alignItems: "center"}}>
         <div style={{flexGrow:3, paddingLeft:5, fontWeight: "bold", fontSize:20}}>
             {project.title}
-        </div>
-        <div style={{flexGrow:1,fontSize:12}}>
-            <Icon icon="calendar-o"/> {t('From')} {getCalendarFormat(project.startTime)} {t('To')} {getCalendarFormat(project.endTime)}
         </div>
 
     </div>

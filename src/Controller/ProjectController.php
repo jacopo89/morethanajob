@@ -281,6 +281,8 @@ class ProjectController extends AbstractController
             $isPortfolio = json_decode($request->get('isPortfolio'));
             $shortDescription = json_decode($request->get('shortDescription'));
             $longDescription = json_decode($request->get('longDescription'));
+            $links = json_decode($request->get('links'));
+            $contacts = json_decode($request->get('contacts'));
             $positions = json_decode($request->get('positions'),true);
             $partners = json_decode($request->get('partners'),true);
 
@@ -289,6 +291,8 @@ class ProjectController extends AbstractController
             $project->setShortDescription($shortDescription);
             $project->setLongDescription($longDescription);
             $project->setIsPortfolio($isPortfolio);
+            $project->setLinks($links);
+            $project->setContacts($contacts);
             $project->setCreationTime(new \DateTime());
             $projectPartner = new ProjectPartner();
             $projectPartner->setProject($project);

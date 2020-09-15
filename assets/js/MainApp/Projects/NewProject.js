@@ -1,4 +1,4 @@
-import React, {useEffect, useState} from "react";
+import React, {useEffect, useState, useRef} from "react";
 import {useSelector} from "react-redux";
 import {useCreateNewProject} from "../../Backend/hooks/useProjects";
 import TextField from "../../Login/Components/TextField";
@@ -33,12 +33,15 @@ import {useHistory} from "react-router-dom";
 import * as Routes from "../../routes";
 import {getCalendarFormat} from "../../ReusableComponents/TimeManager";
 import {useGetUsers} from "../../Backend/hooks/useAdministration";
+import {useTranslation} from "react-i18next";
 
 export default function NewProject({isPortfolio=false}){
     const [formValue, setFormValue] = useState({positions: [], partners:[]});
     const {user} = useSelector(state=>state);
     const [response, createNewProjectHandler] = useCreateNewProject();
     const history = useHistory();
+    const formRef = useRef();
+    const { t, i18n } = useTranslation();
 //    useEffect(()=>console.log("FormValue", formValue), [formValue]);
 
     const onSubmitHandler = () =>{
@@ -48,8 +51,12 @@ export default function NewProject({isPortfolio=false}){
         formData.append('email', user.email);
         formData.append('isPortfolio', isPortfolio.toString());
 
-        Object.keys(formValue).forEach((key)=>  { formData.append(key,JSON.stringify(formValue[key]));});
-        createNewProjectHandler(formData, {successCallback: (data)=> history.push(Routes.project(data)) });
+        if(formRef.current.check()){
+            Object.keys(formValue).forEach((key)=>  { formData.append(key,JSON.stringify(formValue[key]));});
+            createNewProjectHandler(formData, {successCallback: (data)=> history.push(Routes.project(data)) });
+        }
+
+
     }
 
     const [pathUrl, setPathUrl] = useState(coverPicture);
@@ -90,17 +97,16 @@ export default function NewProject({isPortfolio=false}){
 
     const { StringType, ArrayType } = Schema.Types;
     const model = Schema.Model({
-        country: ArrayType()
-        // .addRule((value, data) => {return asyncCheckUsername(value);}, 'Duplicate username')
-            .isRequired('This field is required'),
-        language: ArrayType().isRequired('This field is required')
+        title: StringType().isRequired("This field is required"),
     })
 
 
     const listElements = (formValue) => {return (isPortfolio)  ? <PartnerListOrCreate formValue={formValue} setFormValue={setFormValue} /> : <ListOrCreate formValue={formValue} setFormValue={setFormValue} /> };
 
-    const uploadCoverButton = <InverseButton>Upload cover button</InverseButton>;
-    const uploadLogoButton = <InverseButton>Upload logo button</InverseButton>;
+    const uploadCoverButton = <InverseButton>{t('Upload cover button')}</InverseButton>;
+    const uploadLogoButton = <InverseButton>{t('Upload logo button')}</InverseButton>;
+
+
 
 
     return (
@@ -116,41 +122,44 @@ export default function NewProject({isPortfolio=false}){
             </div>
 
             <InfoBox >
-                <h5 style={{color:bordeaux}}>Info </h5>
-                <Form fluid formValue={formValue} model={model} onChange={setFormValue} onSubmit={onSubmitHandler}>
-                    <TextField label="Title" name="title" type="text" />
-                    <TextField label="Short description" name="shortDescription" componentClass="textarea" />
-                    <TextField label="Description" name="longDescription" componentClass="textarea" />
-                    <TextField label="Links" name="links" componentClass="textarea" />
-                    <TextField label="Contacts" name="contacts" componentClass="textarea" />
-                    <Grid>
-                        <Row>
-                            <Col xs={12}>
-                                <div style={{display: "flex", justifyContent: "center"}}>
-                                    <div style={{
-                                        backgroundImage: `url(${projectLogoUrl})`,
-                                        backgroundSize: "contain",
-                                        width: 150,
-                                        height: 150
-                                    }}/>
-                                </div>
-                            </Col>
-                            <Col xs={12}>
-                                <ImageCropper button={uploadLogoButton} propCrop={{
-                                    unit: 'px', // default, can be 'px' or '%'
-                                    x: 0,
-                                    y: 0,
-                                    width: 250,
-                                    height: 250
-                                }} keyField="projectImage" onChange={handleProjectLogoChange}/>
-                            </Col>
-                        </Row>
-                    </Grid>
+                <h4 style={{color:bordeaux}}>Info </h4>
+                <div style={{margin:5}}>
+                    <Form ref={formRef} fluid formValue={formValue} model={model} onChange={setFormValue} onSubmit={onSubmitHandler}>
+                        <TextField label={t('Title')} name="title" type="text" />
+                        <TextField label={t('Short Description')} name="shortDescription" componentClass="textarea" />
+                        <TextField label={t('Description')} name="longDescription" componentClass="textarea" />
+                        <TextField label={t('Links')} name="links" componentClass="textarea" />
+                        <TextField label={t('Contacts')} name="contacts" componentClass="textarea" />
+                        <Grid>
+                            <Row>
+                                <Col xs={12}>
+                                    <div style={{display: "flex", justifyContent: "center"}}>
+                                        <div style={{
+                                            backgroundImage: `url(${projectLogoUrl})`,
+                                            backgroundSize: "contain",
+                                            width: 150,
+                                            height: 150
+                                        }}/>
+                                    </div>
+                                </Col>
+                                <Col xs={12}>
+                                    <ImageCropper button={uploadLogoButton} propCrop={{
+                                        unit: 'px', // default, can be 'px' or '%'
+                                        x: 0,
+                                        y: 0,
+                                        width: 250,
+                                        height: 250
+                                    }} keyField="projectImage" onChange={handleProjectLogoChange}/>
+                                </Col>
+                            </Row>
+                        </Grid>
 
-                    {isPortfolio && <><h5 style={{color:bordeaux}}>Partner </h5><PartnerListOrCreate formValue={formValue} setFormValue={setFormValue} /></>}
+                        {isPortfolio && <><h5 style={{color:bordeaux}}>Partner </h5><PartnerListOrCreate formValue={formValue} setFormValue={setFormValue} /></>}
 
-                    <MainButton type="submit">Save all</MainButton>
-                </Form>
+                        <MainButton type="submit">Save</MainButton>
+                    </Form>
+                </div>
+
 
             </InfoBox>
         </>);
@@ -414,9 +423,9 @@ function PartnerListOrCreate({formValue, setFormValue}){
 
         const editHandler = (rowData)=>{
             if(rowData.type==="old"){
-                setExistingPartner(false)
-            }else{
                 setExistingPartner(true)
+            }else{
+                setExistingPartner(false)
             }
             setElement(rowData);
             setCreate(true);
@@ -446,16 +455,6 @@ function PartnerListOrCreate({formValue, setFormValue}){
         <Button onClick={createHandlerExistingPartner}>Insert existing partner</Button>
         <Button onClick={createHandler}>Create new partner</Button>
         <GenericTable rowKey="id" modelData={modelData} propData={formValue.partners} />
-    </>
-    const list = <>
-        <List>
-            {formValue.partners.map((item, index) => (
-                <List.Item key={index} index={index}>
-                    {item.service}
-                </List.Item>
-            ))}
-        </List>
-        <Button onClick={createHandler}>Crea</Button>
     </>
 
     return (create) ? createForm : table;
