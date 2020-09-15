@@ -136,7 +136,7 @@ function App(){
                 <Route path={Routes.main} children={loginPage}/>
                 <Route path={Routes.login} children={loginPage}/>
                 <Route path="/">
-                    <Redirect to="/login" />
+                    <Redirect to="/dashboard" />
                 </Route>
             </Switch>
         </>);
