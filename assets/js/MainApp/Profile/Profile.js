@@ -45,7 +45,7 @@ export default function Profile(){
         console.log("Language in i18n",i18n.language);
     },[language]);
 
-    const isOwner = (user.profileName === profilename);
+    const isOwner = (user!==undefined) ? (user.profileName === profilename) : false;
     const [response, uploadPictureHandler] = useUploadPictures();
     const [userInfo, getUserInfoHandler]= useGetUserInfo();
     const [uploadProfilePictureResponse, uploadProfilePictureHandler] = useUploadProfilePicture();

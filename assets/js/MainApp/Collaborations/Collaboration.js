@@ -16,7 +16,7 @@ export default function Collaboration(){
     const {id} = useParams();
     const [collaboration, getCollaborationHandler] = useGetCollaboration();
     const {user,language} = useSelector(state=>state);
-    const isOwner = collaboration && collaboration.user.email === user.email;
+    const isOwner = (user!==undefined) ? (collaboration && collaboration.user.email === user.email) :false;
     const { t, i18n } = useTranslation();
 
     const history = useHistory();
