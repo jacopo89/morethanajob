@@ -87,6 +87,7 @@ function App(){
     const mainApp =
         (<>
             <Switch>
+                <Route path={Routes.login} children={loginPage}/>
                 <Route path={Routes.routeEditCollaboration} children={editCollaborationDetailPage}/>
                 <Route path={Routes.routeEditService} children={editServiceDetailPage}/>
                 <Route path={Routes.registration} children={registrationPage}/>
@@ -106,7 +107,6 @@ function App(){
                 <Route path={Routes.routeProject} children={projectDetailPage}/>
                 <Route path={Routes.immediateLogout} children={immediateLogoutPage}/>
                 <Route path={Routes.main} children={dashboardPage}/>
-                <Route path={Routes.login} children={loginPage}/>
 
 
             </Switch>
@@ -115,6 +115,7 @@ function App(){
     const authRequired =
         (<>
             <Switch>
+                <Route path={Routes.login} children={loginPage}/>
                 <Route path={Routes.routeEditCollaboration} children={editCollaborationDetailPage}/>
                 <Route path={Routes.routeEditService} children={editServiceDetailPage}/>
                 <Route path={Routes.registration} children={registrationPage}/>
@@ -134,9 +135,8 @@ function App(){
                 <Route path={Routes.routeProject} children={projectDetailPage}/>
                 <Route path={Routes.immediateLogout} children={immediateLogoutPage}/>
                 <Route path={Routes.main} children={dashboardPage}/>
-                <Route path={Routes.login} children={loginPage}/>
                 <Route path="/">
-                    <Redirect to="/dashboard" />
+                    <Redirect to="/login" />
                 </Route>
             </Switch>
         </>);
