@@ -6,6 +6,7 @@ import {MainButton, SecondaryButton} from "../../styledComponents/CustomComponen
 import ImageCropper from "../../ReusableComponents/ImageCropper";
 import * as ActionTypes from "../../Redux/actions";
 import {useCategoryUploadPicture, useGetCategories} from "../../Backend/hooks/useCategories";
+import {useTranslation} from "react-i18next";
 
 export default function CategoriesManagement(){
 
@@ -107,8 +108,9 @@ export function generateServiceTree(items){
 }
 
 export function generateCategoriesTree(items){
+    const { t, i18n } = useTranslation();
 
-    items = items.map((item)=>{return {...item, label: item.label, value: item.id }});
+    items = items.map((item)=>{return {...item, label: t(item.label), value: item.id }});
 
 //    console.log("generate tree", items);
     let rootItems = items.filter((item)=> item.parentCategoryId ===null);
