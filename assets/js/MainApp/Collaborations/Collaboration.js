@@ -10,12 +10,14 @@ import * as Routes from "../../routes";
 import {GenericTable} from "../../ReusableComponents/GenericTable";
 import styled from "styled-components";
 import TextField from "../../Login/Components/TextField";
+import {useTranslation} from "react-i18next";
 
 export default function Collaboration(){
     const {id} = useParams();
     const [collaboration, getCollaborationHandler] = useGetCollaboration();
     const {user,language} = useSelector(state=>state);
     const isOwner = collaboration && collaboration.user.email === user.email;
+    const { t, i18n } = useTranslation();
 
     const history = useHistory();
 
@@ -51,35 +53,35 @@ export default function Collaboration(){
             <Grid style={{width:"100%"}}>
                 <Row className="show-grid" style={{padding:5}}>
                     <Col xs={12}>
-                        <IconWithText icon="user" label="Modality" value={collaboration && collaboration.modality}/>
+                        <IconWithText icon="user" label={t('Modality')} value={collaboration && collaboration.modality}/>
                     </Col>
                     <Col xs={12}>
-                        <IconWithText icon="map-marker" label="Address" value={collaboration && collaboration.address}/>
+                        <IconWithText icon="map-marker" label={t('Address')} value={collaboration && collaboration.address}/>
                     </Col>
                 </Row>
                 <Row className="show-grid" style={{padding:5}}>
                     <Col xs={12}>
-                        <IconWithText icon="calendar-o" label="Start Date" value={collaboration && getCalendarFormat(collaboration.startDate)}/>
+                        <IconWithText icon="calendar-o" label={t('Start Date')} value={collaboration && getCalendarFormat(collaboration.startDate)}/>
                     </Col>
                     <Col xs={12}>
-                        <IconWithText icon="calendar-o" label="End Date" value={collaboration && getCalendarFormat(collaboration.endDate)}/>
+                        <IconWithText icon="calendar-o" label={t('End Date')} value={collaboration && getCalendarFormat(collaboration.endDate)}/>
                         </Col>
                 </Row>
                 <Row className="show-grid" style={{padding:5}}>
                     <Col xs={24}>
-                        <IconWithText icon="calendar-o" label="Main Beneficiaries" value={collaboration && collaboration.mainBeneficiaries}/>
+                        <IconWithText icon="calendar-o" label={t('Main Beneficiaries')} value={collaboration && collaboration.mainBeneficiaries}/>
                     </Col>
 
                 </Row>
                 <Row className="show-grid" style={{padding:5}}>
                     <Col xs={24}>
-                        <IconWithText icon="calendar-o" label="Rates" value={collaboration && collaboration.rates}/>
+                        <IconWithText icon="calendar-o" label={t('Rates')} value={collaboration && collaboration.rates}/>
                     </Col>
 
                 </Row>
                 <Row className="show-grid" style={{padding:5}}>
                     <Col xs={24}>
-                        <IconWithText icon="calendar-o" label="Contacts" value={collaboration && collaboration.contacts}/>
+                        <IconWithText icon="calendar-o" label={t('Contacts')} value={collaboration && collaboration.contacts}/>
                     </Col>
 
                 </Row>
@@ -270,6 +272,7 @@ export function ServiceFormBox({collaboration}) {
     const [formValue, setFormValue] = useState();
     const [apply, setApply] = useState(false);
     const [messageResponse, sendMessageHandler] =  useSendMessage();
+    const { t, i18n } = useTranslation();
 
     const receiver = (collaboration.contacts) ? collaboration.contacts : collaboration.user.email;
 
@@ -288,9 +291,9 @@ export function ServiceFormBox({collaboration}) {
     return(
         (!messageResponse) ?
         <div style={{width:"100%", display:"flex", justifyContent:"center", alignItems:"center", margin:5, height:300}}>
-            {(!apply) ? <MainButton style={{width:200}}  onClick={()=>setApply(true)}>Apply</MainButton> :
+            {(!apply) ? <MainButton style={{width:200}}  onClick={()=>setApply(true)}>{t('Apply')}</MainButton> :
                 <Form fluid formValue={formValue} onChange={setFormValue} onSubmit={onSubmit}>
-                    <TextField name="message" label="Message" componentClass="textarea" />
+                    <TextField name="message" label={t('Message')} componentClass="textarea" />
                     <MainButton style={{width:100}} type="submit">Send</MainButton>
                 </Form>}
         </div> : <div>Message correctly sent!</div>

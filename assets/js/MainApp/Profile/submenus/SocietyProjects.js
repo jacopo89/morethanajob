@@ -7,12 +7,14 @@ import {bordeaux} from "../../../styledComponents/CustomComponents";
 import {getCalendarFormat} from "../../../ReusableComponents/TimeManager";
 import {useHistory} from "react-router-dom";
 import {PortfolioPanelTitle} from "./SocietyPortfolio";
+import {useTranslation} from "react-i18next";
 
 export default function SocietyProjects({society}) {
     const [portfolioProjects, getCollaborationProjectsHandler] = useGetCollaborationProjects();
     const [show, setShow] = useState(false);
     const openModal = ()=> setShow(true);
     const closeModal = ()=> setShow(false);
+    const { t, i18n } = useTranslation();
 
     const history = useHistory();
 
@@ -40,8 +42,9 @@ export default function SocietyProjects({society}) {
 export function CollaborationDetail({project}){
 
     const history = useHistory();
+    const { t, i18n } = useTranslation();
 
-    const backgroundImage = (project && project.projectLogo) ? "https://localhost:8000/"+project.projectLogo.url  : "https://localhost:8000/uploads/users/7/society-5ed3a86ac6b2d.png";
+    const backgroundImage = (project && project.projectLogo) ? project.projectLogo.url  : "https://localhost:8000/uploads/users/7/society-5ed3a86ac6b2d.png";
 
     return <Panel header={
         <CollaborationPanelTitle project={project} />}>
@@ -53,7 +56,7 @@ export function CollaborationDetail({project}){
             </Col>
             <Col xs={16}>
                 <div style={{height:150, maxHeight:150}}>{project.shortDescription}</div>
-                <Button style={{float:"right", color:"white", backgroundColor: bordeaux}} onClick={()=> history.push(Routes.project(project.id))}>Details</Button>
+                <Button style={{float:"right", color:"white", backgroundColor: bordeaux}} onClick={()=> history.push(Routes.project(project.id))}>{t('Details')}</Button>
             </Col>
         </Row>
     </Panel>
@@ -63,6 +66,7 @@ export function CollaborationDetail({project}){
 export function CollaborationPanelTitle({project}){
 
     const collaborationsNumber = project.collaborations.length;
+    const { t, i18n } = useTranslation();
 
 
     return <div style={{backgroundColor:bordeaux, minHeight:40, color:"white", display: "flex", justifyContent: "space-evenly",alignItems: "center"}}>
@@ -70,10 +74,10 @@ export function CollaborationPanelTitle({project}){
             {project.title}
         </div>
         <div style={{flexGrow:1, fontSize:12}}>
-            <Icon icon="calendar-o"/> From {getCalendarFormat(project.startTime)} to {getCalendarFormat(project.endTime)}
+            <Icon icon="calendar-o"/> {t('From')} {getCalendarFormat(project.startTime)} {t('To')} {getCalendarFormat(project.endTime)}
         </div>
         <div style={{flexGrow:1, fontSize:12}}>
-            Collaborations number: {collaborationsNumber}
+            {t('Collaborations number')}: {collaborationsNumber}
         </div>
     </div>
 }

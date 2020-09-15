@@ -30,10 +30,12 @@ import styled from "styled-components";
 import ImageCropper from "../../ReusableComponents/ImageCropper";
 import {useHistory, useParams} from "react-router-dom";
 import * as Routes from "../../routes";
+import {useTranslation} from "react-i18next";
 export default function EditProject({isPortfolio=false}){
     const [formValue, setFormValue] = useState({positions: [], partners:[]});
 
     const {id} = useParams();
+    const { t, i18n } = useTranslation();
 
     const history = useHistory();
 
@@ -119,11 +121,11 @@ export default function EditProject({isPortfolio=false}){
             </div>
             <InfoBox >
                 <Form fluid formValue={formValue} onChange={setFormValue} onSubmit={onSubmitHandler}>
-                    <TextField label="Title" name="title" type="text" />
-                    <TextField label="Short description" name="shortDescription" componentClass="textarea" />
-                    <TextField label="Description" name="longDescription" componentClass="textarea" />
-                    <TextField label="Links" name="links" componentClass="textarea" />
-                    <TextField label="Contacts" name="contacts" componentClass="textarea" />
+                    <TextField label={t('Title')} name="title" type="text" />
+                    <TextField label={t('Short Description')} name="shortDescription" componentClass="textarea" />
+                    <TextField label={t('Description')} name="longDescription" componentClass="textarea" />
+                    <TextField label={t('Links')} name="links" componentClass="textarea" />
+                    <TextField label={t('Contacts')} name="contacts" componentClass="textarea" />
                     <div style={{display:"flex", justifyContent:"space-around"}}>
                     {/*    <TextField style={{width:"100%"}} label="Data di inizio progetto" name="startTime" accepter={DatePicker} format="DD-MM-YYYY" />
                         <TextField style={{width:"100%"}}  label="Data di fine progetto" name="endTime" accepter={DatePicker} format="DD-MM-YYYY" placement="topEnd" />*/}
@@ -140,9 +142,9 @@ export default function EditProject({isPortfolio=false}){
 
                    { /*<h2>Posizioni </h2>  <ListOrCreate formValue={formValue} setFormValue={setFormValue} />*/}
 
-                    <MainButton type="submit">Save Project</MainButton>
+                    <MainButton type="submit">{t('Save')}</MainButton>
                 </Form>
-                <Button onClick={()=>removeProject(formValue.id)} >Remove Project</Button>
+                <Button onClick={()=>removeProject(formValue.id)} >{t('Delete')}</Button>
 
             </InfoBox>
         </>);
@@ -278,6 +280,7 @@ function ListOrCreate({formValue, setFormValue}){
 function IncludableForm({item, updater, save, remover, back, servicesTree}){
 
     const [formValue, setFormValue] = useState(item);
+
 
     useEffect(()=>{
         updater(item.id, formValue);
