@@ -30,9 +30,9 @@ export default function Collaboration(){
 
     const isCollaborationClosed =  collaboration && collaboration.positions.filter((position)=>!position.isOpen).length === collaboration.positions.length;
 
-    const title = (collaboration && collaboration.localLanguage === language && collaboration.localLanguageTitle.length!==0) ? collaboration && collaboration.localLanguageTitle  : collaboration && collaboration.title ;
-    const description = (collaboration && collaboration.localLanguage === language && collaboration.localLanguageDescription.length!==0) ? collaboration && collaboration.localLanguageDescription  : collaboration && collaboration.description ;
-    const isLocalAvailable = collaboration && collaboration.localLanguageDescription.length!==0;
+    const title = (collaboration && collaboration.localLanguage === language && collaboration.localLanguageTitle && collaboration.localLanguageTitle.length!==0) ? collaboration && collaboration.localLanguageTitle  : collaboration && collaboration.title ;
+    const description = (collaboration && collaboration.localLanguage === language && collaboration.localLanguageDescription && collaboration.localLanguageDescription.length!==0) ? collaboration && collaboration.localLanguageDescription  : collaboration && collaboration.description ;
+    const isLocalAvailable = collaboration && collaboration.localLanguageDescription && collaboration.localLanguageDescription.length!==0;
 
     const languageMessage = (isLocalAvailable) ? "" : "This content is available only in English";
 
