@@ -75,7 +75,7 @@ export default function Collaboration(){
                 </Row>
                 <Row className="show-grid" style={{padding:5}}>
                     <Col xs={24}>
-                        <IconWithText icon="calendar-o" label={t('Rates')} value={collaboration && collaboration.rates}/>
+                        <IconWithText icon="calendar-o" label={t('Payment mode')} value={collaboration && collaboration.rates}/>
                     </Col>
 
                 </Row>

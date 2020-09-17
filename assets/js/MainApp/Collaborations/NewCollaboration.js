@@ -2,34 +2,18 @@ import React, {useEffect, useState, useRef} from "react";
 import {useSelector} from "react-redux";
 import {useCreateNewProject, useGetUserProjects} from "../../Backend/hooks/useProjects";
 import TextField from "../../Login/Components/TextField";
-import {
-    Button,
-    Col,
-    DatePicker,
-    Form, Grid,
-    Icon,
-    IconButton,
-    List,
-    Panel,
-    Row,
-    SelectPicker,
-    TreePicker,
-    Uploader
-} from "rsuite";
+import {DatePicker, Form, SelectPicker, TreePicker} from "rsuite";
 import {dataCountry, dataLanguage, modalityData} from "../../selectData";
-import {useGetServices} from "../../Backend/hooks/useServices";
 import {generateCategoriesTree, generateServiceTree} from "../Administration/CategoriesManagement";
-import {GenericTable} from "../../ReusableComponents/GenericTable";
 import {bordeaux, InverseButton, MainButton} from "../../styledComponents/CustomComponents";
 import styled from "styled-components";
-import ImageCropper from "../../ReusableComponents/ImageCropper";
 import {useHistory} from "react-router-dom";
 import * as Routes from "../../routes";
-import {getCalendarFormat} from "../../ReusableComponents/TimeManager";
 import {useCreateNewCollaboration} from "../../Backend/hooks/useCollaborations";
 import {useGetCategories} from "../../Backend/hooks/useCategories";
 import {Schema} from 'rsuite';
 import {useTranslation} from "react-i18next";
+import PositionList from "../Position/PositionList";
 
 export default function NewCollaboration({isService=false}){
     const [formValue, setFormValue] = useState({positions: []});
@@ -125,7 +109,7 @@ export default function NewCollaboration({isService=false}){
                     <>
                         <TextField label={t('Contacts')} name="contacts"  />
                     </>
-                    {!isService && <ListOrCreate formValue={formValue} setFormValue={setFormValue} />}
+                    {!isService && <PositionList formValue={formValue} setFormValue={setFormValue} />}
 
 
 
@@ -137,216 +121,6 @@ export default function NewCollaboration({isService=false}){
 
 
 }
-
-function ListOrCreate({formValue, setFormValue}){
-
-    const [services, getServicesHandler] = useGetServices();
-
-    useEffect(()=>{
-        getServicesHandler();
-    },[]);
-
-    let servicesTree = generateServiceTree(services)
-
-
-    const [create, setCreate] = useState(false);
-    const [element, setElement] = useState(null);
-
-    const add = () => {
-        const creationTime = Date.now();
-        const newElement = { id: creationTime, creationTimeFrontend:creationTime }
-        const oldElements = formValue.positions;
-        const newElements = oldElements.concat(newElement);
-        const newFormValue = Object.assign({},formValue);
-        newFormValue.positions = newElements;
-        setFormValue(newFormValue);
-        return newElement;
-    };
-
-    const remove = (id) => {
-        const newElements = formValue.positions.filter((element)=> element.id !== id);
-        const newFormValue = Object.assign({},formValue);
-        newFormValue.positions = newElements;
-        setFormValue(newFormValue);
-
-    };
-
-    const update = (id, elementFormValue) => {
-        const newElements = formValue.positions.map((element) =>  {
-            if(element.id===id){
-                return {id: element.id, creationTimeFrontend: element.creationTimeFrontend,...elementFormValue};
-            }else{
-                return element;
-            }
-        })
-        const newFormValue = Object.assign({},formValue);
-        newFormValue.positions = newElements;
-        setFormValue(newFormValue);
-    }
-
-    const removeIds = (formValue) =>{
-        const oldElements = formValue.positions;
-        const newElements = oldElements.map((element) => {
-            let newElement = Object.assign({}, element);
-            if(element.id === element.creationTimeFrontend){
-                delete newElement.id;
-            }
-            return newElement;
-        })
-        const newFormValue = Object.assign({},formValue);
-        newFormValue.positions = newElements;
-        return newFormValue;
-    }
-
-
-    const createHandler = () => {
-        let newElement = add();
-        setElement(newElement);
-        setCreate(true);
-    }
-
-    const back= (id)=>{
-        remove(id);
-        setCreate(false);
-    }
-
-    const save= ()=>{
-        setCreate(false);
-    }
-
-
-    const createForm = <>
-        <h5 style={{color:bordeaux}}>Need </h5>
-        <IncludableForm item={element} updater={update} save={save} back={back} servicesTree={servicesTree}  />
-    </>
-
-    const actionRender= (rowData) => {
-        console.log("RowData", rowData)
-
-        const editHandler = ()=>{
-            setElement(rowData);
-            setCreate(true);
-        }
-
-        const removeHandler = () => {
-            remove(rowData.id);
-        }
-
-        function handleAction() {
-            alert(`id:${rowData.id}`);
-        }
-        return (
-            <span>
-                    <a onClick={editHandler}> Edit </a> |{' '}
-                <a onClick={removeHandler}> Remove </a>
-                  </span>
-        );
-    }
-    const modelData = [
-        {label:"id",dataKey: "id"},
-        {label:"servizio", dataKey: "service"},
-        {label:"actions", render:actionRender}
-    ]
-    const editHandler = (element)=>{
-        setElement(element);
-        setCreate(true);
-    }
-
-    const table = <>
-        <Button onClick={createHandler}>Crea</Button>
-        <GenericTable rowKey="id" modelData={modelData} propData={formValue.positions} />
-    </>
-    const list = <>
-        <div style={{display:"flex", justifyContent:"space-between"}}>
-            <h5 style={{color:bordeaux}}>{('Positions')} </h5>
-            <InverseButton onClick={createHandler}>{('Create position')}</InverseButton>
-        </div>
-        <List>
-            {formValue.positions.map((position, index) => (
-                <PositionCreationDescription position={position} services={services} remover={remove} updater={update} setEdit={editHandler} />
-            ))}
-        </List>
-
-    </>
-
-    return (create) ? createForm : list;
-}
-
-function IncludableForm({item, updater, save, remover, back, servicesTree}){
-
-    const [formValue, setFormValue] = useState(item);
-    const { t, i18n } = useTranslation();
-
-    useEffect(()=>{
-        updater(item.id, formValue);
-    },[formValue])
-
-    return <div style={{border:"1px solid", borderColor:bordeaux, padding:5}}>
-        <Form formValue={formValue}  onChange={setFormValue}>
-            <div style={{display:"flex", justifyContent:"space-around"}}>
-                <TextField name="service" label={t('Expertise')} accepter={TreePicker} data={servicesTree} style={{width:"100%"}} />
-            </div>
-            <TextField name="description" label={t('Description')} componentClass="textarea"/>
-
-            <div style={{display:"flex", justifyContent:"space-around"}}>
-                <TextField name="deadline" accepter={DatePicker} label={t('Deadline')} format="DD-MM-YYYY" style={{width:"100%"}}/>
-            </div>
-
-        </Form>
-        <Button onClick={save}>{t('Save')}</Button><Button onClick={()=>back(item.id)}>Undo</Button>
-    </div>
-}
-
-
-
-
-export function PositionCreationDescription({position, services, remover, updater, setEdit}){
-
-    const servicePicture = services.filter((service)=> service.id === position.service)[0].picture;
-
-    const backgroundImage = (position && position.service && position.service.picture) ? position.service.picture  : "https://localhost:8000/uploads/users/7/society-5ed3a86ac6b2d.png";
-
-
-
-    return <>
-        <Panel header={
-            <PositionPanelTitle position={position}  remover={remover} setEdit={setEdit}/>}>
-            <Row className="show-grid">
-                <Col xs={8}>
-                    <div style={{display: "flex", justifyContent: "center"}}>
-                        <div style={{
-                            backgroundImage: `url(${servicePicture})`,
-                            backgroundSize: "contain",
-                            width: 150,
-                            height: 150
-                        }}/>
-                    </div>
-                </Col>
-                <Col xs={16}>
-                    <div style={{height: 150, maxHeight: 150}}>{position.description}</div>
-                </Col>
-            </Row>
-        </Panel>
-    </>;
-
-}
-
-export function PositionPanelTitle({position, remover, updater, setEdit}){
-
-
-
-    return <div style={{backgroundColor:bordeaux, minHeight:40, color:"white", display: "flex", justifyContent: "space-evenly",alignItems: "center"}}>
-        <div style={{flexGrow:3, paddingLeft:5, fontWeight: "bold", fontSize:20}}>
-            {position.service && position.service.label}
-        </div>
-        <div style={{flexGrow:1}}>
-            <Icon icon="calendar-o"/> From {getCalendarFormat(position.startDate)} to {getCalendarFormat(position.endDate)}
-        </div>
-        <div><IconButton onClick={() => setEdit(position)} icon={<Icon icon="edit2"/>}/><IconButton onClick={() => remover(position.id)} icon={<Icon icon="trash"/>}/></div>
-    </div>
-
-}
-
 
 const InfoBox =  styled.div`
 padding: 10px;`

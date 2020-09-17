@@ -36,7 +36,7 @@ export function  useEditCollaboration() {
 export function  useGetRandomCollaborations() {
 
     const backendClient = BackendClient();
-    return useCreateHook(backendClient,'/backend/collaborations/getrandom','get',[]);
+    return useCreateHook(backendClient,'/backend/collaborations/getrandom','post',[]);
 }
 
 export function  useDeleteCollaboration() {

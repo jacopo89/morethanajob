@@ -83,15 +83,16 @@ export function ServiceDetail({service}){
 
 
 export function ServicePanelTitle({service}){
+    const {user} = useSelector(state=>state);
+    const isOwner = (user!==undefined) ? (user.profileName === profilename) : false;
     const [deleteService, deleteServiceHandler] = useRemoveOfferedService();
-    console.log("service", service);
 
     return <div style={{color:bordeaux, minHeight:40, backgroundColor:"whitesmoke", display: "flex", justifyContent: "space-evenly",alignItems: "center"}}>
         <div style={{flexGrow:3, paddingLeft:5, fontWeight: "bold", fontSize:20}}>
             {service.service.name}
         </div>
         <div>
-            <IconButton icon={<Icon icon="trash"/> } onClick={() => deleteServiceHandler(service.id)}/>
+            {isOwner && <IconButton icon={<Icon icon="trash"/> } onClick={() => deleteServiceHandler(service.id)}/>}
         </div>
     </div>
 }

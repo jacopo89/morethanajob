@@ -54,7 +54,7 @@ export const modalityData = [
     },
     {
         "label": "Face 2 face",
-        "value": "f2f",
+        "value": "Face-to-face",
     },
     {
         "label": "Both",

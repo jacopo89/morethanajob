@@ -238,11 +238,13 @@ class CollaborationController extends AbstractController
 
     /**
      * @Route("/getrandom", name="get_random_collaborations")
+     * @param Request $request
      * @return Response
      */
-    public function getRandom(){
+    public function getRandom(Request $request){
+        $language = $request->get('language');
 
-        $collaborations = $this->em->getRepository(Collaboration::class)->findAll();
+        $collaborations = $this->em->getRepository(Collaboration::class)->findBy(['language'=>$language]);
         shuffle($collaborations);
 
         $totalNumberCollaborations = sizeof($collaborations);

@@ -31,6 +31,7 @@ import ImageCropper from "../../ReusableComponents/ImageCropper";
 import {useHistory, useParams} from "react-router-dom";
 import * as Routes from "../../routes";
 import {useTranslation} from "react-i18next";
+import {PositionDescription} from "../Position/PositionDescription";
 export default function EditProject({isPortfolio=false}){
     const [formValue, setFormValue] = useState({positions: [], partners:[]});
 
@@ -266,7 +267,7 @@ function ListOrCreate({formValue, setFormValue}){
         <Button onClick={createHandler}>Crea posizione</Button>
         <List>
             {formValue.positions.map((position, index) => (
-                <PositionCreationDescription position={position} services={services} remover={remove} />
+                <PositionDescription position={position} services={services} remover={remove} />
             ))}
         </List>
 
@@ -481,55 +482,6 @@ function ExistingPartnerForm({item, updater, save, back, partnersList}){
         <Button onClick={save}>Salva</Button><Button onClick={back}>Cancella</Button>
     </>
 }
-
-
-
-export function PositionCreationDescription({position, services, remover}){
-
-    const servicePicture = services.filter((service)=> service.id === position.service)[0].picture;
-
-
-
-    const backgroundImage = (position && position.service && position.service.picture) ? "https://localhost:8000/"+position.service.picture  : "https://localhost:8000/uploads/users/7/society-5ed3a86ac6b2d.png";
-
-
-    return <>
-        <Panel header={
-            <PositionPanelTitle position={position} remover={remover}/>}>
-            <Row className="show-grid">
-                <Col xs={8}>
-                    <div style={{display: "flex", justifyContent: "center"}}>
-                        <div style={{
-                            backgroundImage: `url(${servicePicture})`,
-                            backgroundSize: "contain",
-                            width: 150,
-                            height: 150
-                        }}/>
-                    </div>
-                </Col>
-                <Col xs={16}>
-                    <div style={{height: 150, maxHeight: 150}}>{position.description}</div>
-                </Col>
-            </Row>
-        </Panel>
-    </>;
-
-}
-
-export function PositionPanelTitle({position, remover}){
-
-
-
-    return <div style={{backgroundColor:bordeaux, minHeight:40, color:"white", display: "flex", justifyContent: "space-evenly",alignItems: "center"}}>
-        <div style={{flexGrow:3, paddingLeft:5, fontWeight: "bold", fontSize:20}}>
-        </div>
-        <div style={{flexGrow:1}}>
-        </div>
-        <div><IconButton onClick={() => remover(position.id)} icon={<Icon icon="cross"/>}/></div>
-    </div>
-
-}
-
 
 const InfoBox =  styled.div`
 padding: 10px;`

@@ -44,6 +44,8 @@ export const translation = {
         "External Partners": "External Partners",
         "Change cover Button": "Change cover Button",
         //profile
-        "Edit profile":"Edit profile"
+        "Edit profile":"Edit profile",
+
+        "Rates": "Payment mode: free or paid service (if paid, please specify rates)"
     }
 }

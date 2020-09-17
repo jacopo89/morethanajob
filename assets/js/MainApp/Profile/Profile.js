@@ -88,7 +88,6 @@ export default function Profile(){
                 getUserInfoHandler(profilename, {successCallback: (data)=>dispatch(ActionTypes.updateUserInfo(data))})
             }});
     };
-
     const saveProfile = () =>{
         const formData = new FormData();
         formValue.email = userInfo.email;
@@ -98,8 +97,6 @@ export default function Profile(){
             }});
         setIsEdit(!isEdit);
     }
-
-
     const submitFiles = () => {
         const formData = new FormData();
         formData.append('email', userInfo.email);
@@ -108,7 +105,6 @@ export default function Profile(){
         loadFileHandler(formData);
 
     }
-
     const handleFileChange = (file) =>{
         setFormValue({
             ...formValue,
@@ -123,39 +119,44 @@ export default function Profile(){
                 website:data.website, address: data.address, telephone:data.telephone, language:data.language, email:data.email, facebook:data.facebook, twitter:data.twitter, linkedin:data.linkedin})}});
     },[]);
 
-    useEffect(()=>{
+
+    if(userInfo && !isEdit){
         const uploadCoverButton = <EditButton>{t('Change cover Button')}</EditButton>
         const editButton = (!isEdit) ?  <EditButton onClick={()=>setIsEdit(!isEdit)}> {t('Edit profile')} </EditButton> : <> <InverseButton onClick={()=>setIsEdit(!isEdit)}> {t('Go Back')} </InverseButton></>
-        if(userInfo && !isEdit){
 
-            setRender(
-                <>
-                    <div style={{height:281, width:"100%", marginBottom:10, backgroundColor:"black",position:"relative", backgroundImage: `url(${backgroundImage})`, backgroundSize:"auto", backgroundRepeat: "no-repeat"}}>
-                        <LinearGradient/>
-                        <h3 style={{position:"absolute", bottom:4, right:10, color:"white"}}><a target="_blank" href={userInfo && userInfo.website}>{userInfo && userInfo.website}</a></h3>
-                       {/* {social}*/}
-                        {isOwner  && editButton  }
-                    </div>
-                    <InfoBox>
-                        <Grid fluid>
-                            <Row className="show-grid" style={{padding:5, display:"flex", alignItems:"flex-start"}}>
-                                <Col xs={8}>
-                                    <div style={{display:"flex", justifyContent:"center"}}>
-                                        <div style={{backgroundImage:  `url(${profileImage})`, backgroundSize: "contain", width:200, height:200}}/>
-                                    </div>
-                                </Col>
-                                <Col xs={16}>
-                                    <h3 style={{color: bordeaux}}>{ userInfo.name}</h3>
-                                    <div>{userInfo.description}</div>
-                                </Col>
-                            </Row>
-                        </Grid>
-                    </InfoBox>
-                    <ProjectMenu society={userInfo} isOwner={isOwner}/>
-                </>)
-        }else if(userInfo && isEdit){
-            const uploaderButton = <Button style={{backgroundImage:  `url(${profileImage})`, backgroundSize: "auto", width:200, height:200}}> Upload</Button>;
-            setRender(<>
+        return (
+
+            <>
+            <div style={{height:281, width:"100%", marginBottom:10, backgroundColor:"black",position:"relative", backgroundImage: `url(${backgroundImage})`, backgroundSize:"auto", backgroundRepeat: "no-repeat"}}>
+                <LinearGradient/>
+                <h3 style={{position:"absolute", bottom:4, right:10, color:"white"}}><a target="_blank" href={userInfo && userInfo.website}>{userInfo && userInfo.website}</a></h3>
+                {/* {social}*/}
+                {isOwner  && editButton  }
+            </div>
+            <InfoBox>
+                <Grid fluid>
+                    <Row className="show-grid" style={{padding:5, display:"flex", alignItems:"flex-start"}}>
+                        <Col xs={8}>
+                            <div style={{display:"flex", justifyContent:"center"}}>
+                                <div style={{backgroundImage:  `url(${profileImage})`, backgroundSize: "contain", width:200, height:200}}/>
+                            </div>
+                        </Col>
+                        <Col xs={16}>
+                            <h3 style={{color: bordeaux}}>{ userInfo.name}</h3>
+                            <div>{userInfo.description}</div>
+                        </Col>
+                    </Row>
+                </Grid>
+            </InfoBox>
+            <ProjectMenu society={userInfo} isOwner={isOwner}/>
+        </>)
+    }else if(userInfo && isEdit){
+        const uploadCoverButton = <EditButton>{t('Change cover Button')}</EditButton>
+        const editButton = (!isEdit) ?  <EditButton onClick={()=>setIsEdit(!isEdit)}> {t('Edit profile')} </EditButton> : <> <InverseButton onClick={()=>setIsEdit(!isEdit)}> {t('Go Back')} </InverseButton></>
+
+        const uploaderButton = <Button style={{backgroundImage:  `url(${profileImage})`, backgroundSize: "auto", width:200, height:200}}> Upload</Button>;
+        return(
+            <>
                 <div style={{height:281, width:"100%", marginBottom:10, backgroundColor:"black",position:"relative", backgroundImage: `url(${backgroundImage})`, backgroundSize:"contain", backgroundRepeat: "no-repeat"}}>
                     <LinearGradient/>
                     <h3 style={{position:"absolute", bottom:4, right:10, color:"white"}}>{userInfo && userInfo.website}</h3>
@@ -182,55 +183,52 @@ export default function Profile(){
                             </div>
                         </Row>
                         <Row className="show-grid" style={{padding:5}}>
-                                <Form
-                                    fluid
-                                    autoComplete="off"
-                                    formValue={formValue}
-                                    onChange={setFormValue}>
-                                    <div style={{display:"flex", justifyContent:"space-around"}}>
-                                        <TextField style={{width:"90%"}} name="name" label={t('Society Name')} />
-                                        <TextField style={{width:"90%"}} name="language" label={t('Language')} accepter={SelectPicker} data={dataLanguage} />
-                                        <TextField style={{width:"90%"}} name="country" label={t('Country')} accepter={SelectPicker} data={dataCountry} />
-                                    </div>
-                                    <TextField style={{width:"90%"}} name="description" label={t('Society Description')} componentClass="textarea" />
-                                    <TextField label={t('Local Language description')} name="localDescription" componentClass="textarea" />
-                                    <div style={{display:"flex", justifyContent:"space-around"}}>
-                                        <TextField style={{width:"90%"}} name="website" label={t('Website')} />
-                                        <TextField style={{width:"90%"}} name="address" label={t('Address')} />
-                                    </div>
-                                    <div style={{display:"flex", justifyContent:"space-around"}}>
-                                        <TextField style={{width:"90%"}} name="telephone" label={t('Telephone')} />
-                                        <TextField style={{width:"90%"}} name="email" label={t('Email')} />
-                                    </div>
-                                    <div style={{display:"flex", justifyContent:"space-around"}}>
-                                        <TextField style={{width:"90%"}} name="facebook" label={t('Facebook')} />
-                                        <TextField style={{width:"90%"}} name="linkedin" label={t('Linkedin')} />
-                                        <TextField style={{width:"90%"}} name="twitter" label={t('Twitter')} />
-                                    </div>
-                                    <Uploader
-                                        action="//jsonplaceholder.typicode.com/posts/"
-                                        onChange={handleFileChange}
-                                        dragable  autoUpload={false} multiple={false}>
-                                        <div style={{lineHeight:10}}>{t('clickdrag')}</div>
-                                    </Uploader>
-                                    <Button onClick={submitFiles}>
-                                        {t('Start Upload')}
-                                    </Button>
+                            <Form
+                                fluid
+                                autoComplete="off"
+                                formValue={formValue}
+                                onChange={setFormValue}>
+                                <div style={{display:"flex", justifyContent:"space-around"}}>
+                                    <TextField style={{width:"90%"}} name="name" label={t('Society Name')} />
+                                    <TextField style={{width:"90%"}} name="language" label={t('Language')} accepter={SelectPicker} data={dataLanguage} />
+                                    <TextField style={{width:"90%"}} name="country" label={t('Country')} accepter={SelectPicker} data={dataCountry} />
+                                </div>
+                                <TextField style={{width:"90%"}} name="description" label={t('Society Description')} componentClass="textarea" />
+                                <TextField label={t('Local Language description')} name="localDescription" componentClass="textarea" />
+                                <div style={{display:"flex", justifyContent:"space-around"}}>
+                                    <TextField style={{width:"90%"}} name="website" label={t('Website')} />
+                                    <TextField style={{width:"90%"}} name="address" label={t('Address')} />
+                                </div>
+                                <div style={{display:"flex", justifyContent:"space-around"}}>
+                                    <TextField style={{width:"90%"}} name="telephone" label={t('Telephone')} />
+                                    <TextField style={{width:"90%"}} name="email" label={t('Email')} />
+                                </div>
+                                <div style={{display:"flex", justifyContent:"space-around"}}>
+                                    <TextField style={{width:"90%"}} name="facebook" label={t('Facebook')} />
+                                    <TextField style={{width:"90%"}} name="linkedin" label={t('Linkedin')} />
+                                    <TextField style={{width:"90%"}} name="twitter" label={t('Twitter')} />
+                                </div>
+                                <Uploader
+                                    action="//jsonplaceholder.typicode.com/posts/"
+                                    onChange={handleFileChange}
+                                    dragable  autoUpload={false} multiple={false}>
+                                    <div style={{lineHeight:10}}>{t('clickdrag')}</div>
+                                </Uploader>
+                                <Button onClick={submitFiles}>
+                                    {t('Start Upload')}
+                                </Button>
 
-                                    {isOwner && editButton}
-                                    <Button style={{float:"right", backgroundColor:bordeaux, color:"white"}} onClick={()=>saveProfile()}> {t('Save Profile')} </Button>
-                                </Form>
+                                {isOwner && editButton}
+                                <Button style={{float:"right", backgroundColor:bordeaux, color:"white"}} onClick={()=>saveProfile()}> {t('Save Profile')} </Button>
+                            </Form>
                         </Row>
                     </Grid>
                 </InfoBox>
-                </>
-
-            )
-        }
-    },[userInfo,isEdit, formValue, language])
-
-
-    return render;
+            </>
+        )
+    }else{
+        return <div></div>;
+    }
 }
 
 

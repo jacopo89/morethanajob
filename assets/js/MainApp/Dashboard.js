@@ -10,11 +10,13 @@ import {useGetRandomProfiles} from "../Backend/hooks/UserInfo";
 import {useGetRandomCollaborations} from "../Backend/hooks/useCollaborations";
 import {useTranslation} from "react-i18next";
 import CollaborationDetail from "./Profile/DetailCards/CollaborationDetail";
+import {useSelector} from "react-redux";
 
 export default function Dashboard(){
     const history = useHistory();
     const { t, i18n } = useTranslation();
     const [readMore, setReadMore] = useState(false);
+    const {language} = useSelector(state=>state);
 
     const panelStyle = {width: "85%", borderRadius:"20px", backgroundColor:"white", margin:"0 auto", padding:20, marginTop:20}
     const [profiles, getRandomProfilesHandler] = useGetRandomProfiles();
@@ -23,8 +25,13 @@ export default function Dashboard(){
 
     useEffect(()=>{
         getRandomProfilesHandler();
-        getRandomCollaborationsHandler();
     },[]);
+
+    useEffect(()=>{
+        const formData = new FormData();
+        formData.append('language', language);
+        getRandomCollaborationsHandler(formData);
+    },[language]);
 
     const profilePics = profiles.map((profile)=> <IconTextBox>
         {profile.profilePicture && <img width={75} src={profile.profilePicture.url}/>}
@@ -42,7 +49,7 @@ export default function Dashboard(){
                     </Nav.Item>
                     <Nav.Item href="#aboutUs"  eventKey="2">{t('The project')}</Nav.Item>
                     <Nav.Item onClick={()=>history.push(Routes.serviceSearchPage)}  eventKey="3">{t('Services and opportunities')}</Nav.Item>
-                    <Nav.Item href="#organisations"  eventKey="4">{t('Organisations')}</Nav.Item>
+                    <Nav.Item onClick={()=>history.push(Routes.searchUserPage)}  eventKey="4">{t('Organisations')}</Nav.Item>
                     {/*<Nav.Item href="#FAQ"  eventKey="5">FAQ</Nav.Item>*/}
 
                 </Nav>
