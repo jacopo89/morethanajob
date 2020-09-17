@@ -8,8 +8,8 @@ import TextField from "../Login/Components/TextField";
 import "./dashboard.css";
 import {useGetRandomProfiles} from "../Backend/hooks/UserInfo";
 import {useGetRandomCollaborations} from "../Backend/hooks/useCollaborations";
-import {CollaborationDetail} from "./Profile/submenus/SocietyCollaborations";
 import {useTranslation} from "react-i18next";
+import CollaborationDetail from "./Profile/DetailCards/CollaborationDetail";
 
 export default function Dashboard(){
     const history = useHistory();
@@ -41,7 +41,7 @@ export default function Dashboard(){
                         {t('Home')}
                     </Nav.Item>
                     <Nav.Item href="#aboutUs"  eventKey="2">{t('The project')}</Nav.Item>
-                    <Nav.Item onClick={()=>history.push(Routes.projectPage)}  eventKey="3">{t('Services and opportunities')}</Nav.Item>
+                    <Nav.Item onClick={()=>history.push(Routes.serviceSearchPage)}  eventKey="3">{t('Services and opportunities')}</Nav.Item>
                     <Nav.Item href="#organisations"  eventKey="4">{t('Organisations')}</Nav.Item>
                     {/*<Nav.Item href="#FAQ"  eventKey="5">FAQ</Nav.Item>*/}
 
@@ -63,7 +63,7 @@ export default function Dashboard(){
                             <p style={{margin:10}}>
                                 {t('Dashboard text')}
                             </p>
-                            <MainButton style={{float:"right", margin:10}} onClick={()=>history.push(Routes.projectPage)}>  {t('Dashboard button')}</MainButton>
+                            <MainButton style={{float:"right", margin:10}} onClick={()=>history.push(Routes.serviceSearchPage)}>  {t('Dashboard button')}</MainButton>
                         </Col>
                         <Col xs={12}>
                             <div style={{display:"flex", justifyContent:"center"}}>

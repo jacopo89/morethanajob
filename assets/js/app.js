@@ -34,7 +34,6 @@ import {useTranslation} from "react-i18next";
 import Test from "./Test";
 import UserManagement from "./MainApp/Administration/UserManagement";
 import CategoriesManagement from "./MainApp/Administration/CategoriesManagement";
-import ProjectPage from "./MainApp/Projects/ProjectsPage";
 import Project from "./MainApp/Projects/Project";
 import Profile from "./MainApp/Profile/Profile";
 import NewProject from "./MainApp/Projects/NewProject";
@@ -45,6 +44,7 @@ import Collaboration from "./MainApp/Collaborations/Collaboration";
 import EditCollaboration from "./MainApp/Collaborations/EditCollaboration";
 import ImmediateLogout from "./Login/ImmediateLogout";
 import SearchPartners from "./MainApp/Partners/SearchPartners";
+import ServiceSearch from "./MainApp/SearchEngines/ServiceSearch";
 
 function App(){
     const {authenticated, language} = useSelector(state=>state);
@@ -64,7 +64,7 @@ function App(){
     const recoverPage = <DashboardLayout page={<RecoverPasswordForm/>}/>;
     const profilePage = <MainPage page={<Profile/>}/>;
     const administrationPage = <MainPage page={<CategoriesManagement/>}/>;
-    const projectsPage = <MainPage page={<ProjectPage />}/>;
+    const serviceSearchPage = <MainPage page={<ServiceSearch />}/>;
     const searchUserPage = <MainPage page={<SearchPartners />}/>;
     const loginPage = <DashboardLayout page={<Login/>}/>;
     const projectDetailPage = <MainPage page={<Project/>}/>;
@@ -94,7 +94,7 @@ function App(){
                 <Route exact path={Routes.changePassword} children={changePasswordPage}/>
                 <Route path={Routes.passwordRecovery} children={recoverPage}/>
                 <Route path={Routes.routeProfile} children={profilePage}/>
-                <Route path={Routes.projectPage} children={projectsPage}/>
+                <Route path={Routes.serviceSearchPage} children={serviceSearchPage}/>
                 <Route path={Routes.searchUserPage} children={searchUserPage}/>
                 <Route path={Routes.collaborationDetailPage} children={collaborationDetailPage}/>
                 <Route path={Routes.dashboardPage} children={dashboardPage}/>
@@ -122,7 +122,7 @@ function App(){
                 <Route exact path={Routes.changePassword} children={changePasswordPage}/>
                 <Route path={Routes.passwordRecovery} children={recoverPage}/>
                 <Route path={Routes.routeProfile} children={profilePage}/>
-                <Route path={Routes.projectPage} children={projectsPage}/>
+                <Route path={Routes.serviceSearchPage} children={serviceSearchPage}/>
                 <Route path={Routes.searchUserPage} children={searchUserPage}/>
                 <Route path={Routes.collaborationDetailPage} children={collaborationDetailPage}/>
                 <Route path={Routes.dashboardPage} children={dashboardPage}/>

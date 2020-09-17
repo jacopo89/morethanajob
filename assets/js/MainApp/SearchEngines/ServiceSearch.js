@@ -25,43 +25,32 @@ import {PortfolioDetail} from "../Profile/submenus/SocietyPortfolio";
 import {dataCountry, dataLanguage} from "../../selectData";
 import {useGetUsers} from "../../Backend/hooks/useAdministration";
 import {ServiceDetail} from "../Profile/submenus/SocietyFornitures";
-import {CollaborationDetail} from "../Profile/submenus/SocietyCollaborations";
 import {useGetCategories} from "../../Backend/hooks/useCategories";
 import {useTranslation} from "react-i18next";
+import CollaborationDetail from "../Profile/DetailCards/CollaborationDetail";
 
-
-const FilterBox = styled.div`
-    border-color: gray;
-    border-width: 2px;
-    border-style: dashed;
-    border-radius: 10px;
-    padding: 10px;`
-;
-
-export default function ProjectPage(){
+export default function ServiceSearch(){
 
     const [projects, getProjectsHandler] = useSearchProjects();
     const [users, getUsersListHandler] = useGetUsers();
     const { t, i18n } = useTranslation();
 
-    const {user} = useSelector(state=>state);
+    const {user,language} = useSelector(state=>state);
 
     const [formValue, setFormValue] = useState();
 
     const onSubmitHandler = () => {
         const formData = new FormData();
-        console.log(formValue);
        // formData.append('isPortfolio', isPortFolioCheckboxChecked);
         Object.keys(formValue).forEach((key)=>  { formData.append(key,JSON.stringify(formValue[key]));});
         getProjectsHandler(formData);
     }
-    //const [projects, getProjectsHandler] = useGetLastProjects();
     const history = useHistory();
 
     useEffect(()=>{
         const formData = new FormData();
         if(user){
-            formData.append('language', user.language);
+            formData.append('language', language);
             getProjectsHandler(formData);
 
         }else{
@@ -73,7 +62,7 @@ export default function ProjectPage(){
             });
             } });
         return()=>{}
-        },[])
+        },[language])
 
 
     const projectPanels = projects.projects.map((project, index)=> {
@@ -91,7 +80,7 @@ export default function ProjectPage(){
         getServicesHandler();
         getCategoriesHandler();
     },[]);
-    let servicesTree = generateServiceTree(services)
+
     let categoriesTree = generateCategoriesTree(categories)
 
 

@@ -6,8 +6,9 @@ import {getCalendarFormat, getDayAndMonth} from "../../../ReusableComponents/Tim
 import {useHistory} from "react-router-dom";
 import * as Routes from '../../../routes';
 import NewProjectModal from "../../Projects/NewProjectModal";
-import {CollaborationDetail} from "./SocietyProjects";
+
 import {useTranslation} from "react-i18next";
+import CollaborationDetail from "../DetailCards/CollaborationDetail";
 
 export default function SocietyPortfolio({society}) {
     const [portfolioProjects, getPortfolioProjectsHandler] = useGetPortfolioProjects();
@@ -33,7 +34,7 @@ export default function SocietyPortfolio({society}) {
     const panels = portfolioProjects.map((project, item)=> <PortfolioDetail key={item} project={project}/>);
     const panelShow = panels.length > 0 ? panels : <div style={{height:100, margin:"0 auto", textAlign:"center", color:bordeaux}}> No portfolio projects </div>
 
-    const panelsCollaborations = portfolioProjectsCollaborations.map((project, item)=> <CollaborationDetail project={project}/>);
+    const panelsCollaborations = portfolioProjectsCollaborations.map((collaboration, item)=> <CollaborationDetail collaboration={collaboration}/>);
     const panelShowCollaborations = panelsCollaborations.length > 0 ? panelsCollaborations : <div style={{height:100, margin:"0 auto", textAlign:"center", color:bordeaux}}> No collaborations </div>
     return  <>
 
@@ -53,7 +54,7 @@ export function PortfolioDetail({project}){
     const backgroundImage = (project && project.projectLogo) ? project.projectLogo.url  : "/defaults/project_thumbnail.png";
 
         const existingPartners = project.projectPartnersRelations.map((projectPartnersRelation, index)=>{
-            let profileImage = (projectPartnersRelation.partner.profilePicture) ? "https://localhost:8000/"+projectPartnersRelation.partner.profilePicture.url : "";
+            let profileImage = (projectPartnersRelation.partner.profilePicture) ? projectPartnersRelation.partner.profilePicture.url : "";
             return <div key={index} style={{backgroundImage:  `url(${profileImage})`, backgroundSize: "contain", width:50, height:50}}/>
         });
         let list = <>

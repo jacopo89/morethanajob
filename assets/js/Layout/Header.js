@@ -48,7 +48,7 @@ function NavBarInstance({ onSelect, activeKey, ...props }){
                     <Nav.Item onClick={()=> history.push(Routes.dashboardPage)} eventKey="1" icon={<Icon icon="home" />}>
                         Home
                     </Nav.Item>
-                    <Nav.Item onClick={()=> history.push(Routes.projectPage)} eventKey="3">{t('Search projects')}</Nav.Item>
+                    <Nav.Item onClick={()=> history.push(Routes.serviceSearchPage)} eventKey="3">{t('Search projects')}</Nav.Item>
                     <Nav.Item onClick={()=> history.push(Routes.profile(user.profileName))} icon={<Icon icon="cog" />}>{t('Profile')}</Nav.Item>
                     <Nav.Item onClick={()=> history.push(Routes.administration)} icon={<Icon icon="cog" />}>{t('Administration')}</Nav.Item>
                 </Nav>

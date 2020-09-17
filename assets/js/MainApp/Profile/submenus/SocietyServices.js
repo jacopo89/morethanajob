@@ -1,8 +1,8 @@
 import {useGetCollaborations, useGetCollaborationServices} from "../../../Backend/hooks/useCollaborations";
 import React, {useEffect, useState} from "react";
 import {bordeaux} from "../../../styledComponents/CustomComponents";
-import {CollaborationDetail} from "./SocietyCollaborations";
 import {useHistory} from "react-router-dom";
+import CollaborationDetail from "../DetailCards/CollaborationDetail";
 
 export default function SocietyServices({society}) {
     const [collaborations, getCollaborationsHandler] = useGetCollaborationServices();

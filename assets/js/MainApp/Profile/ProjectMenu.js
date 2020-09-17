@@ -6,7 +6,6 @@ import SocietyFornitures, {NewServiceModal} from "./submenus/SocietyFornitures";
 import SocietyCollaborations from "./submenus/SocietyCollaborations";
 import {bordeaux, IconButtonTransparent} from "../../styledComponents/CustomComponents";
 import "./projectMenu.css";
-import SocietyProjects from "./submenus/SocietyProjects";
 import * as Routes from "../../routes";
 import {useHistory} from "react-router-dom";
 import SocietyServices from "./submenus/SocietyServices";
@@ -74,9 +73,6 @@ export function ProjectMenu({society, isOwner}){
             }
             case 'offerings':{
                 return <SocietyFornitures society={society} />
-            }
-            case 'projects':{
-                return <SocietyProjects society={society}/>
             }
             case 'collaborations':{
                 return <SocietyCollaborations society={society} />

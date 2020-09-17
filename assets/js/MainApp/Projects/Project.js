@@ -14,7 +14,8 @@ import * as Routes from "../../routes";
 import {GenericTable} from "../../ReusableComponents/GenericTable";
 import {getCalendarFormat} from "../../ReusableComponents/TimeManager";
 import {useTranslation} from "react-i18next";
-import {CollaborationDetail} from "../Profile/submenus/SocietyCollaborations";
+import CollaborationDetail from "../Profile/DetailCards/CollaborationDetail";
+
 
 
 export default function Project(){

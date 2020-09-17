@@ -7,7 +7,7 @@ export const changePassword = "/passwordchange";
 
 
 export const administration = "/administration";
-export const projectPage = "/projects";
+export const serviceSearchPage = "/services";
 export const searchUserPage = "/partners";
 export const dashboardPage = "/dashboard";
 export const newProjectPage = "/newproject";
