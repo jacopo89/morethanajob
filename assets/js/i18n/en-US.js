@@ -46,6 +46,8 @@ export const translation = {
         //profile
         "Edit profile":"Edit profile",
 
-        "Rates": "Payment mode: free or paid service (if paid, please specify rates)"
+        "Rates": "Payment mode: free or paid service (if paid, please specify rates)",
+
+        "WHAT WE OFFER": "EXPERTISE"
     }
 }

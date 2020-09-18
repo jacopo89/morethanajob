@@ -112,6 +112,7 @@ class CollaborationController extends AbstractController
             $localLanguageTitle = json_decode($request->get('localTitle'));
             $localLanguage = json_decode($request->get('language'));
             $localLanguageDescription = json_decode($request->get('localDescription'));
+            $localLanguageShortDescription = json_decode($request->get('localShortDescription'));
 
 
             $positions = json_decode($request->get('positions'), true);
@@ -132,6 +133,7 @@ class CollaborationController extends AbstractController
             $collaboration->setLocalLanguageDescription($localLanguageDescription);
             $collaboration->setLocalLanguage($localLanguage);
             $collaboration->setLanguage($localLanguage);
+            $collaboration->setLocalLanguageShortDescription($localLanguageShortDescription);
 
             $collaboration->setIsCollaboration(!$isService);
             $collaboration->setContacts($contacts);
@@ -201,11 +203,15 @@ class CollaborationController extends AbstractController
             $country = json_decode($request->get('country'));
             $localLanguageTitle = json_decode($request->get('localLanguageTitle'));
             $localLanguageDescription = json_decode($request->get('localLanguageDescription'));
+            $localLanguageShortDescription = json_decode($request->get('localShortDescription'));
+
 
             $collaboration->setShortDescription($shortDescription);
             $collaboration->setDescription($longDescription);
             $collaboration->setLocalLanguageTitle($localLanguageTitle);
             $collaboration->setLocalLanguageDescription($localLanguageDescription);
+            $collaboration->setLocalLanguageShortDescription($localLanguageShortDescription);
+
             if($categoryId) {
                 $category = $this->em->getRepository(Category::class)->find($categoryId);
                 if($category){

@@ -30,6 +30,7 @@ export default function SocietyContacts({society}){
        <div style={{display: "flex", justifyContent: "space-around", height:100}}>
            <IconSpan><a target="_blank" href={userInfo && userInfo.website}><Icon style={{color:bordeaux}} icon="globe" size="3x" /> {userInfo && userInfo.website}</a></IconSpan>
            <IconSpan><Icon style={{color:bordeaux}} icon="envelope" size="3x" /> {userInfo && userInfo.email}</IconSpan>
+           <IconSpan><Icon style={{color:bordeaux}} icon="phone-square" size="3x" /> {userInfo && userInfo.telephone}</IconSpan>
        </div>
        <div style={{display: "flex", justifyContent: "space-around", height:100}}>
            <IconSpan><a target="_blank" href={userInfo && userInfo.facebook}><Icon style={{color:bordeaux}} icon="facebook-square" size="3x"/>{userInfo && userInfo.facebook}</a ></IconSpan>

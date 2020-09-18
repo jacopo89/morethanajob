@@ -9,6 +9,8 @@
 namespace App\Controller;
 
 
+use App\Entity\Category;
+use App\Entity\Collaboration;
 use App\Entity\OfferedService;
 use App\Entity\Service;
 use App\Entity\User;
@@ -48,8 +50,12 @@ class PartnerController extends AbstractController
 
         $country = json_decode($request->get('country'));
         $services = json_decode($request->get('expertise'));
+        $categories = json_decode($request->get('category'));
+
+
 
         $trueServices = $this->em->getRepository(Service::class)->findBy(['id'=>$services]);
+        $trueCategories = $this->em->getRepository(Category::class)->findBy(['id'=>$categories]);
 
 
         $filters = [];
@@ -57,20 +63,36 @@ class PartnerController extends AbstractController
             $filters['country'] = $country;
         }
 
-        $userIds = [];
+        $collaborationUsersIds = [];
+        $serviceUserIds = [];
+        $uniqueUserIds = [];
 
         if($services){
-
             //ricerca con fornitura
             $offeredServices = $this->getDoctrine()->getRepository(OfferedService::class)->findBy(['service'=> $trueServices]);
             foreach($offeredServices as $offeredService){
-                $userIds[] = $offeredService->getUser()->getId();
+                $serviceUserIds[] = $offeredService->getUser()->getId();
             }
+            $uniqueUserIds = array_unique($serviceUserIds);
+
+        }
+        if($categories){
+            $collaborations = $this->getDoctrine()->getRepository(Collaboration::class)->findBy(['category'=>$trueCategories]);
+            foreach($collaborations as $collaboration){
+                $collaborationUsersIds[] = $collaboration->getUser()->getId();
+            }
+            $uniqueUserIds = array_unique($collaborationUsersIds);
+        }
+
+        if($services && $categories){
+            $uniqueServiceUserIds = array_unique($serviceUserIds);
+
+            $uniqueCollaborationUserIds = array_unique($collaborationUsersIds);
+            $uniqueUserIds = array_intersect($uniqueServiceUserIds,$uniqueCollaborationUserIds);
 
         }
 
-        $uniqueUserIds = array_unique($userIds);
-        if($uniqueUserIds){
+        if($services || $categories){
             $filters['id'] = $uniqueUserIds;
         }
 

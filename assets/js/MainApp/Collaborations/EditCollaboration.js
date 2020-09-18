@@ -106,6 +106,7 @@ export default function EditCollaboration({isService}) {
                     <TextField label={t('title')} name="title" type="text" />
                     <TextField label={t('Local Title')} name="localLanguageTitle" type="text" />
                     <TextField label={t('Short Description')} name="shortDescription" componentClass="textarea" />
+                    <TextField label={t('Local Language Short description')} name="localShortDescription" componentClass="textarea" />
                     <TextField label={t('Description')} name="description" componentClass="textarea" />
                     <TextField label={t('Local Language Detailed description')} name="localLanguageDescription" componentClass="textarea" />
                     <div style={{display:"flex", justifyContent:"space-around"}}>

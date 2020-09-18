@@ -15,7 +15,7 @@ export default function CollaborationDetail({collaboration}){
 
     const backgroundImage = (collaboration && collaboration.category && collaboration.category.picture) ? collaboration.category.picture  : "/defaults/project_thumbnail.png";
     const trueTitle  = (collaboration.localLanguage === language && collaboration.localLanguageTitle && collaboration.localLanguageTitle.length!==0) ? collaboration.localLanguageTitle : collaboration.title;
-    const trueDescription  = (collaboration.localLanguage === language && collaboration.localLanguageDescription && collaboration.localLanguageDescription.length!==0) ? collaboration.localLanguageDescription : collaboration.description;
+    const trueDescription  = (collaboration.localLanguage === language && collaboration.localLanguageShortDescription && collaboration.localLanguageShortDescription.length!==0) ? collaboration.localLanguageShortDescription : collaboration.description;
 
 
 

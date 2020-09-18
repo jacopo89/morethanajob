@@ -116,6 +116,11 @@ class Collaboration
      */
     private $localLanguage;
 
+    /**
+     * @ORM\Column(type="text", nullable=true)
+     */
+    private $localLanguageShortDescription;
+
 
     public function __construct()
     {
@@ -377,6 +382,18 @@ class Collaboration
     public function setLocalLanguage(?string $localLanguage): self
     {
         $this->localLanguage = $localLanguage;
+
+        return $this;
+    }
+
+    public function getLocalLanguageShortDescription(): ?string
+    {
+        return $this->localLanguageShortDescription;
+    }
+
+    public function setLocalLanguageShortDescription(?string $localLanguageShortDescription): self
+    {
+        $this->localLanguageShortDescription = $localLanguageShortDescription;
 
         return $this;
     }

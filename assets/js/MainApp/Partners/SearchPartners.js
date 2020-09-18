@@ -26,6 +26,7 @@ import {dataCountry, dataLanguage} from "../../selectData";
 import {useSearcbPartners} from "../../Backend/hooks/usePartners";
 import {bordeaux} from "../../styledComponents/CustomComponents";
 import {getCalendarFormat} from "../../ReusableComponents/TimeManager";
+import {useGetCategories} from "../../Backend/hooks/useCategories";
 
 
 export default function SearchPartners(){
@@ -60,12 +61,15 @@ export default function SearchPartners(){
 
 
     const [services, getServicesHandler] = useGetServices();
+    const [categories, getCategoriesHandler] = useGetCategories();
 
 
     useEffect(()=>{
         getServicesHandler();
+        getCategoriesHandler();
     },[]);
     let servicesTree = generateServiceTree(services)
+    let categoriesTree = generateCategoriesTree(categories)
 
 
     return <>
@@ -76,6 +80,7 @@ export default function SearchPartners(){
                 <div style={{display:"flex", justifyContent:"space-between"}}>
                     <TextField label="Country" name="country" data={dataCountry} accepter={SelectPicker} searchable={false} style={{width:"100%"}} />
                     <TextField label="Expertise" name="expertise" data={servicesTree} accepter={CheckTreePicker} searchable={false} style={{width:"100%"}} />
+                    <TextField label="Category" name="category" data={categoriesTree} accepter={CheckTreePicker} searchable={false} style={{width:"100%"}} />
                 </div>
 
                 <Button type="submit">Search</Button>
