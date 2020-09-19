@@ -2,8 +2,9 @@ import {Col, Icon, IconButton, Panel, Row} from "rsuite";
 import React from "react";
 import {bordeaux} from "../../styledComponents/CustomComponents";
 import {getCalendarFormat} from "../../ReusableComponents/TimeManager";
+import {useDeletePosition} from "../../Backend/hooks/usePositions";
 
-export function PositionDescription({position, services, remover, updater, setEdit, isEdit=false}){
+export function PositionDescription({position, services, remover, updater, setEdit, callback, isEdit=false}){
 
     console.log("services",services);
     console.log("position",position);
@@ -17,7 +18,7 @@ export function PositionDescription({position, services, remover, updater, setEd
 
     return <>
         <Panel header={
-            <PositionPanelTitle position={position}  remover={remover} setEdit={setEdit} isEdit={isEdit}/>}>
+            <PositionPanelTitle position={position}  remover={remover} setEdit={setEdit} isEdit={isEdit} callback={callback}/>}>
             <Row className="show-grid">
                 <Col xs={8}>
                     <div style={{display: "flex", justifyContent: "center"}}>
@@ -38,9 +39,13 @@ export function PositionDescription({position, services, remover, updater, setEd
 
 }
 
-function PositionPanelTitle({position, remover, updater, setEdit, isEdit=false}){
+function PositionPanelTitle({position, remover, updater, setEdit, callback, isEdit=false}){
 
-    const remoteRemover = {}; // funzione di rimozione dal db
+    const [remoteDeleteResponse, remotePositionHandler] = useDeletePosition(); // funzione di rimozione dal db
+
+    const remoteRemover = ()=> {
+        remotePositionHandler(position.id, {successCallback:callback});
+    }
 
     let removerButton = <></>;
     if(isEdit) {

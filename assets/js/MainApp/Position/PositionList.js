@@ -7,7 +7,7 @@ import {GenericTable} from "../../ReusableComponents/GenericTable";
 import {PositionDescription} from "./PositionDescription";
 import PositionForm from "./PositionForm";
 
-export default function PositionList({formValue, setFormValue, isEdit=false}){
+export default function PositionList({formValue, setFormValue, callback, isEdit=false}){
 
     const [services, getServicesHandler] = useGetServices();
 
@@ -23,7 +23,7 @@ export default function PositionList({formValue, setFormValue, isEdit=false}){
 
     const add = () => {
         const creationTime = Date.now();
-        const newElement = { id: creationTime, creationTimeFrontend:creationTime }
+        const newElement = { id: creationTime, creationTimeFrontend:creationTime, collaboration: formValue.id }
         const oldElements = formValue.positions;
         const newElements = oldElements.concat(newElement);
         const newFormValue = Object.assign({},formValue);
@@ -86,7 +86,7 @@ export default function PositionList({formValue, setFormValue, isEdit=false}){
 
     const createForm = <>
         <h5 style={{color:bordeaux}}>Need </h5>
-        <PositionForm item={element} updater={update} save={save} back={back} servicesTree={servicesTree}  />
+        <PositionForm item={element} updater={update} save={save} back={back} servicesTree={servicesTree} callback={callback}  />
     </>
 
     const actionRender= (rowData) => {
@@ -128,7 +128,7 @@ export default function PositionList({formValue, setFormValue, isEdit=false}){
         </div>
         <List>
             {formValue.positions.map((position, index) => (
-                <PositionDescription key={index} isEdit={isEdit} position={position} services={services} remover={remove} updater={update} setEdit={editHandler} />
+                <PositionDescription key={index} isEdit={isEdit} position={position} services={services} remover={remove} updater={update} setEdit={editHandler} callback={callback} />
             ))}
         </List>
 

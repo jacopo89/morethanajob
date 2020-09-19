@@ -33,19 +33,23 @@ export default function EditCollaboration({isService}) {
     const formRef = useRef();
     const [categories, getCategoriesHandler] = useGetCategories();
 
-    useEffect(()=>{
+
+    const getCollaborationFunction = () =>{
         getCollaborationHandler(id,{
-            dataManipulationFunction:(data) =>
-            {
-                const newData = {...data, startDate: getCalendarDate(data.startDate), endDate:getCalendarDate(data.endDate)}
-                console.log("premanipulation", newData);
-                return newData
-                } ,
             successCallback: (data)=> {
-                console.log("collaboration", data);
-                const formValue = {...data, category:data.category.value, startDate: getCalendarDate(data.startDate), endDate:getCalendarDate(data.endDate)};
+                let formValue = {...data, category:data.category.value};
+                if(data.startDate){
+                    formValue = {...data, startDate: new Date(data.startDate)}
+                }
+                if(data.endDate){
+                    formValue = {...data, endDate: new Date(data.endDate)}
+                }
                 setFormValue(formValue);
             }});
+    }
+
+    useEffect(()=>{
+        getCollaborationFunction();
     },[]);
 
     useEffect(()=>{
@@ -75,7 +79,9 @@ export default function EditCollaboration({isService}) {
         formData.append('email', user.email);
 
         if(formRef.current.check()){
+            console.log("End date", formValue.endDate);
             Object.keys(formValue).forEach((key)=>  { formData.append(key,JSON.stringify(formValue[key]));});
+
             createNewCollaborationHandler(formData, {successCallback: (data)=> history.push(Routes.collaboration(data)) });
         }
 
@@ -122,7 +128,7 @@ export default function EditCollaboration({isService}) {
                         <TextField style={{width:"100%"}} label={t('Language')} name="language" accepter={SelectPicker} data={dataLanguage} />
                     </div>
                     <HelpBlock>This content in available only in {formValue.language}</HelpBlock>
-                    {!isService && <PositionList isEdit={true} formValue={formValue} setFormValue={setFormValue} />}
+                    {!isService && <PositionList isEdit={true} formValue={formValue} setFormValue={setFormValue} callback={getCollaborationFunction} />}
 
 
                     <MainButton type="submit">{t('Save')}</MainButton>

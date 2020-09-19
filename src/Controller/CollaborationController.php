@@ -150,8 +150,8 @@ class CollaborationController extends AbstractController
                     $collaboration->setProject($project);
                 }
             }
-            $collaboration->setStartDate(new \DateTime($startDate));
-            $collaboration->setEndDate(new \DateTime($endDate));
+            $collaboration->setStartDate($startDate);
+            $collaboration->setEndDate($endDate);
 
 
             foreach ($positions as $position) {
@@ -161,7 +161,7 @@ class CollaborationController extends AbstractController
                 })->first();
                 $newPosition->setService($service);
                 $newPosition->setDescription($position["description"]);
-                $newPosition->setDeadline(new \DateTime($position["deadline"]));
+                $newPosition->setDeadline($position["deadline"]);
 
 
                 $newPosition->setIsOpen(true);
@@ -206,10 +206,9 @@ class CollaborationController extends AbstractController
             $localLanguageDescription = json_decode($request->get('localLanguageDescription'));
             $localLanguageShortDescription = json_decode($request->get('localShortDescription'));
 
-            var_dump($endDate);
-            $newEndDate = new \DateTime();
-            $newEndDate->setTimestamp($endDate*1000);
-            $collaboration->setEndDate($newEndDate);
+
+            $collaboration->setStartDate($startDate);
+            $collaboration->setEndDate($endDate);
             $collaboration->setShortDescription($shortDescription);
             $collaboration->setDescription($longDescription);
             $collaboration->setLocalLanguageTitle($localLanguageTitle);

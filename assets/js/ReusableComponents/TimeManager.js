@@ -15,16 +15,13 @@ export function changeTime(time) {
     }
 
 }
-export function getCalendarFormat(time) {
-    if(time!==undefined){
-        time = time.timestamp*1000;
-        const offset = new Date().getTimezoneOffset();
-        const tempoReset = (new Date(time).getTime() - offset*60*1000);
+export function getCalendarFormat(date) {
 
-        return dateFormat(tempoReset, "dd-mm-yyyy");
-        //const date = dateFormat(evt.target.value,"isoUtcDateTime");
+    if(date){
+        const newDate = new Date(date);
+        return newDate.getDate() + "-"+ (newDate.getMonth()+1) + "-" + newDate.getFullYear();
     }else{
-        return time;
+        return "Undefined";
     }
 
 }

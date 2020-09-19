@@ -45,7 +45,7 @@ class Position
     private $positionUserInterests;
 
     /**
-     * @ORM\Column(type="date", nullable=true)
+     * @ORM\Column(type="string", length=255, nullable=true)
      */
     private $deadline;
 
@@ -141,14 +141,12 @@ class Position
 
 
 
-
-
-    public function getDeadline(): ?\DateTimeInterface
+    public function getDeadline()
     {
         return $this->deadline;
     }
 
-    public function setDeadline(?\DateTimeInterface $deadline): self
+    public function setDeadline($deadline): self
     {
         $this->deadline = $deadline;
 

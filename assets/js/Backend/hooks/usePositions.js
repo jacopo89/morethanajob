@@ -14,3 +14,8 @@ export function useDeletePosition(){
     return useCreateHook(backendClient,'/backend/positions/delete','delete',null);
 }
 
+export function useNewPosition(){
+    const {accessToken} = useSelector(state=>state);
+    const backendClient = BackendClient(accessToken);
+    return useCreateHook(backendClient,'/backend/positions/new','post',null);
+}

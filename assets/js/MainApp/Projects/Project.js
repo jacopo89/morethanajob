@@ -11,7 +11,7 @@ import {
 } from "../../Backend/hooks/useProjects";
 import {
     bordeaux,
-    coverPicture,
+    coverPicture, FormBox,
     InverseButton,
     profilePicture,
     projectPicture
@@ -61,10 +61,10 @@ export default function Project(){
             let profileImage = (projectPartnersRelation.partner.profilePicture) ? projectPartnersRelation.partner.profilePicture.url : profilePicture ;
             let name = (projectPartnersRelation.partner.name);
             let profileName = (projectPartnersRelation.partner.profileName);
-            return (<>
+            return (<div style={{display: "flex", flexDirection:"column"}}>
                 <img key={index} src={profileImage} style={{ width:150, height:150 }} alt={profileName}/>
                 <a href={`/profile/${profileName}`} >{name}</a>
-            </>)
+            </div>)
         });
         const externalpartners =  project.externalPartners.map((externalPartner)=> <ExternalPartnerPanel partner={externalPartner}/>);
         list = <>
@@ -92,7 +92,7 @@ export default function Project(){
             }
 
         </div>
-        <InfoBox>
+        <FormBox>
             <Grid fluid style={{margin:10}}>
                 <Row className="show-grid" style={{padding:5, display:"flex", alignItems:"flex-start"}}>
                     <Col xs={8}>
@@ -112,8 +112,9 @@ export default function Project(){
 
 
             </Grid>
-        </InfoBox>
-        {list}
+            {list}
+        </FormBox>
+
     </>;
 }
 
@@ -206,10 +207,6 @@ export function RequestsModal({position, showModal, closeModal, callback}){
 
 
 
-
-const InfoBox =  styled.div`
-padding: 10px;`
-;
 
 const LinearGradient = styled.div`
 position: absolute;
