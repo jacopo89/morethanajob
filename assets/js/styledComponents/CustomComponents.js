@@ -46,6 +46,10 @@ export const InverseButton = styled(Button)`
     }
     `;
 
+export const SaveButton = styled(MainButton)`
+float:right;
+`
+
 export const IconButtonTransparent = styled(IconButton)`
     background-color:white;
     color:${bordeaux};
@@ -55,3 +59,22 @@ export const IconButtonTransparent = styled(IconButton)`
 export const profilePicture = "/defaults/profile_thumbnail.png";
 export const projectPicture = "/defaults/project_thumbnail.png";
 export const coverPicture = "/defaults/cover_thumbnail.png";
+
+export const FormBox = styled.div`
+padding: 10px;
+min-height:100vh`
+;
+
+export const CollaborationBox =  styled.div`
+width: 100%;
+margin-top:20px;
+min-height: 150px;
+background-color: ${bordeaux};
+color: white;
+font-size: 40px;
+font-weight: bolder;
+display: flex;
+align-items: center;    
+justify-content: flex-start;
+`
+;

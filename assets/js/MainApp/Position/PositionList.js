@@ -7,7 +7,7 @@ import {GenericTable} from "../../ReusableComponents/GenericTable";
 import {PositionDescription} from "./PositionDescription";
 import PositionForm from "./PositionForm";
 
-export default function PositionList({formValue, setFormValue}){
+export default function PositionList({formValue, setFormValue, isEdit=false}){
 
     const [services, getServicesHandler] = useGetServices();
 
@@ -128,7 +128,7 @@ export default function PositionList({formValue, setFormValue}){
         </div>
         <List>
             {formValue.positions.map((position, index) => (
-                <PositionDescription position={position} services={services} remover={remove} updater={update} setEdit={editHandler} />
+                <PositionDescription key={index} isEdit={isEdit} position={position} services={services} remover={remove} updater={update} setEdit={editHandler} />
             ))}
         </List>
 

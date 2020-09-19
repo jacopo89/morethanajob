@@ -52,6 +52,14 @@ export function useCreateOfferedService(){
     return useCreateHook(backendClient,'/backend/service/createUserService','post',null);
 }
 
+
+export function useEditOfferedService(){
+    const {accessToken} = useSelector(state=>state);
+    const backendClient = BackendClient(accessToken);
+    return useCreateHook(backendClient,'/backend/service/editUserService','post',null);
+}
+
+
 export function useRemoveOfferedService(){
     const {accessToken} = useSelector(state=>state);
     const backendClient = BackendClient(accessToken);

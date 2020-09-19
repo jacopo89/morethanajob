@@ -24,7 +24,6 @@ import {useHistory} from "react-router-dom";
 import {PortfolioDetail} from "../Profile/submenus/SocietyPortfolio";
 import {dataCountry, dataLanguage} from "../../selectData";
 import {useGetUsers} from "../../Backend/hooks/useAdministration";
-import {ServiceDetail} from "../Profile/submenus/SocietyFornitures";
 import {useGetCategories} from "../../Backend/hooks/useCategories";
 import {useTranslation} from "react-i18next";
 import CollaborationDetail from "../Profile/DetailCards/CollaborationDetail";

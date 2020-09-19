@@ -1,6 +1,16 @@
 export const translation = {
     translation: {
 
+        //REGISTRATION
+        "Organisation name": "Organisation name",
+        "Email":"Email",
+        "Password":"Password",
+        "Choose language": "Choose language",
+        "Submit":"Submit",
+        "Login":"Login",
+
+
+
         //DASHBOARD
         "MoreThanAJob Portal":"MoreThanAJob Portal",
         "Dashboard title": "An integrated offer of services for the well-being of the community",

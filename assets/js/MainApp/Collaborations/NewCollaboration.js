@@ -5,7 +5,7 @@ import TextField from "../../Login/Components/TextField";
 import {DatePicker, Form, SelectPicker, TreePicker} from "rsuite";
 import {dataCountry, dataLanguage, modalityData} from "../../selectData";
 import {generateCategoriesTree, generateServiceTree} from "../Administration/CategoriesManagement";
-import {bordeaux, InverseButton, MainButton} from "../../styledComponents/CustomComponents";
+import {bordeaux, FormBox, InverseButton, MainButton} from "../../styledComponents/CustomComponents";
 import styled from "styled-components";
 import {useHistory} from "react-router-dom";
 import * as Routes from "../../routes";
@@ -14,6 +14,7 @@ import {useGetCategories} from "../../Backend/hooks/useCategories";
 import {Schema} from 'rsuite';
 import {useTranslation} from "react-i18next";
 import PositionList from "../Position/PositionList";
+import {collaborationModel} from "../FormModels/models";
 
 export default function NewCollaboration({isService=false}){
     const [formValue, setFormValue] = useState({positions: []});
@@ -32,20 +33,7 @@ export default function NewCollaboration({isService=false}){
             }})
     },[]);
 
-    const { StringType, NumberType, ArrayType, DateType } = Schema.Types;
-
     const formRef = useRef();
-
-    const model = Schema.Model({
-        title: StringType().isRequired('This field is required.'),
-        shortDescription: StringType().isRequired('This field is required.').maxLength(500),
-        description: StringType().maxLength(500),
-        category: NumberType().isRequired('This field is required.'),
-        country: StringType().isRequired('This field is required.'),
-        language: StringType().isRequired('This field is required.'),
-        contacts: StringType().isEmail()
-
-    });
 
     const [categories, getCategoriesHandler] = useGetCategories();
 
@@ -74,9 +62,9 @@ export default function NewCollaboration({isService=false}){
     return (
         <>
             <TitleBox >{formValue.title}</TitleBox>
-            <InfoBox >
+            <FormBox >
                 <h5 style={{color:bordeaux}}>Info </h5>
-                <Form ref={formRef} model={model} fluid formValue={formValue} onChange={setFormValue} onSubmit={onSubmitHandler}>
+                <Form ref={formRef} model={collaborationModel} fluid formValue={formValue} onChange={setFormValue} onSubmit={onSubmitHandler}>
                     <TextField label={titleLabel} name="title" type="text" />
                     <TextField label={titleLocalLabel} name="localTitle" type="text" />
                     <TextField label={t('Short description')} name="shortDescription" componentClass="textarea" />
@@ -90,8 +78,8 @@ export default function NewCollaboration({isService=false}){
                     </div>
 
                     {isService && <div style={{display:"flex", justifyContent:"space-around"}}>
-                        <TextField label={t('Start Date')} name="startDate" accepter={DatePicker}  style={{width:"100%"}} />
-                        <TextField label={t('End Date')} name="endDate" accepter={DatePicker}  style={{width:"100%"}} />
+                        <TextField label={t('Start Date')} name="startDate" accepter={DatePicker} format="DD-MM-YYYY"  style={{width:"100%"}} />
+                        <TextField label={t('End Date')} name="endDate" accepter={DatePicker} format="DD-MM-YYYY"  style={{width:"100%"}} />
                     </div> }
 
                     {isService && <>
@@ -117,16 +105,11 @@ export default function NewCollaboration({isService=false}){
                     <MainButton style={{float:"right", margin:10}} type="submit">{t('Save')}</MainButton>
                 </Form>
 
-            </InfoBox>
+            </FormBox>
         </>);
 
 
 }
-
-const InfoBox =  styled.div`
-padding: 10px;`
-;
-
 
 const TitleBox =  styled.div`
 width: 100%;

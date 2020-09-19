@@ -16,11 +16,13 @@ import TextField from "./TextField";
 import {dataLanguage} from "../../selectData";
 import {useHistory} from "react-router-dom";
 import * as Routes from '../../routes';
+import {useTranslation} from "react-i18next";
 
 export default function RegistrationForm({registrationProps}){
     const { StringType } = Schema.Types;
 
     const history = useHistory();
+    const { t, i18n } = useTranslation();
 
 
     const model = Schema.Model({
@@ -45,14 +47,14 @@ export default function RegistrationForm({registrationProps}){
                 formValue={formValue}
                 onChange={setFormValue}
                 onSubmit={()=>submitHandler(formValue)}>
-                <TextField name="name" label="Society Name"  />
-                <TextField name="email" label="Email"  />
-                <TextField name="password" label="Password" type="password" />
-                <TextField name="language" label="Choose language" accepter={SelectPicker} data={dataLanguage} searchable={false} style={{width:"100%"}}/>
+                <TextField name="name" label={t('Organisation name')}  />
+                <TextField name="email" label={t('Email')}  />
+                <TextField name="password" label={t('Password')} type="password" />
+                <TextField name="language" label={t('Choose language')} accepter={SelectPicker} data={dataLanguage} searchable={false} style={{width:"100%"}}/>
 
                 <ButtonToolbar>
-                    <MainButton appearance="primary" onClick={()=>registrationProps.registrationHandler(formValue)}>Submit</MainButton>
-                    <SecondaryButton onClick={()=> history.push(Routes.login)}>Back to Login</SecondaryButton>
+                    <MainButton appearance="primary" onClick={()=>registrationProps.registrationHandler(formValue)}>{t('Submit')}</MainButton>
+                    <SecondaryButton onClick={()=> history.push(Routes.login)}>{t('Login')}</SecondaryButton>
                 </ButtonToolbar>
     </Form>
         </RegistrationBox>);

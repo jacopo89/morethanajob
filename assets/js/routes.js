@@ -14,6 +14,7 @@ export const newProjectPage = "/newproject";
 export const newPortfolioPage = "/newportfolio";
 export const newCollaborationPage = "/newcollaboration";
 export const newServicePage = "/newservice";
+export const newFurniturePage = "/new-furniture";
 export const collaborationDetailPage = "/collaboration/:id";
 export const routeProfile = "/profile/:profilename";
 export const routeProject = "/project/:id";
@@ -46,6 +47,11 @@ export function editCollaboration(id){
 export function editService(id){
     return "/editservice/"+id;
 }
+
+export function editFurniture(id){
+    return "/edit-furniture/"+id;
+}
+
 
 
 

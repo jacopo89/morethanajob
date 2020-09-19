@@ -8,6 +8,8 @@ export const UPDATE_USER_INFO = "UPDATE_USER_INFO";
 export const SWITCH_LANGUAGE = "SWITCH_LANGUAGE";
 export const LOGOUT = "LOGOUT";
 export const LOGIN = "LOGIN";
+export const UPDATE_SERVICES = "UPDATE_SERVICES";
+export const UPDATE_CATEGORIES = "UPDATE_CATEGORIES";
 
 export const cookiesOptions = {path: "/"};
 
@@ -78,3 +80,18 @@ export const logOut = () =>{
     }
 }
 
+
+export const updateCategories = (categories) => {
+    return {
+        type:UPDATE_CATEGORIES,
+        categories: categories
+    }
+}
+
+
+export const updateServices = (services) => {
+    return {
+        type:UPDATE_SERVICES,
+        services: services
+    }
+}

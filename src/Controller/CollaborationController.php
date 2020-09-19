@@ -157,10 +157,10 @@ class CollaborationController extends AbstractController
             foreach ($positions as $position) {
                 $newPosition = new Position();
                 $service = $services->filter(function (Service $service) use ($position) {
-                    return $service->getId() === intval($position["service"]);
+                    return $service->getId() === intval($position["furniture"]);
                 })->first();
                 $newPosition->setService($service);
-                $newPosition->setDescription($position["shortDescription"]);
+                $newPosition->setDescription($position["description"]);
                 $newPosition->setDeadline(new \DateTime($position["deadline"]));
 
 
@@ -187,13 +187,14 @@ class CollaborationController extends AbstractController
      * @return Response
      */
     public function editCollaboration(Request $request){
+        $services = new ArrayCollection($this->em->getRepository(Service::class)->findAll());
         $id = $request->get('id');
         $collaboration = $this->em->getRepository(Collaboration::class)->find($id);
         if($collaboration) {
             $shortDescription = json_decode($request->get('shortDescription'));
-            $longDescription = json_decode($request->get('longDescription'));
-            $startDate = json_decode($request->get('startTime'));
-            $endDate = json_decode($request->get('endTime'));
+            $longDescription = json_decode($request->get('description'));
+            $startDate = json_decode($request->get('startDate'));
+            $endDate = json_decode($request->get('endDate'));
             $categoryId = $request->get('category');
             $projectId = $request->get('project');
             $rates = json_decode($request->get('rates'));
@@ -205,7 +206,10 @@ class CollaborationController extends AbstractController
             $localLanguageDescription = json_decode($request->get('localLanguageDescription'));
             $localLanguageShortDescription = json_decode($request->get('localShortDescription'));
 
-
+            var_dump($endDate);
+            $newEndDate = new \DateTime();
+            $newEndDate->setTimestamp($endDate*1000);
+            $collaboration->setEndDate($newEndDate);
             $collaboration->setShortDescription($shortDescription);
             $collaboration->setDescription($longDescription);
             $collaboration->setLocalLanguageTitle($localLanguageTitle);
@@ -224,13 +228,14 @@ class CollaborationController extends AbstractController
                     $collaboration->setProject($project);
                 }
             }
-            $collaboration->setStartDate(new \DateTime($startDate));
-            $collaboration->setEndDate(new \DateTime($endDate));
+            //$collaboration->setStartDate(new \DateTime($startDate));
+            //$collaboration->setEndDate(new \DateTime($endDate));
             $collaboration->setRates($rates);
             $collaboration->setModality($modality);
             $collaboration->setMainBeneficiaries($mainBeneficiaries);
             $collaboration->setCountry($country);
             $collaboration->setContacts($contacts);
+
 
             $this->em->persist($collaboration);
             $this->em->flush();

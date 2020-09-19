@@ -5,7 +5,7 @@ const {accessToken, authenticated, user, language} = useCookies();
 
 console.log("UnEscaped user", unescape(user));
 const defaultLanguage = (language!==undefined) ? language : "en";
-const initialState = {authenticated:authenticated, accessToken:accessToken, user:(user), isLoading:false, language:defaultLanguage};
+const initialState = {authenticated:authenticated, accessToken:accessToken, user:(user), isLoading:false, language:defaultLanguage, services:[], categories:[]};
 
 const reducer = (state = initialState, action) => {
 
@@ -42,7 +42,19 @@ const reducer = (state = initialState, action) => {
                     ...state, authenticated: action.authenticated, accessToken: action.accessToken,
                 }
             }
+            case ActionTypes.UPDATE_SERVICES:{
+                return {
+                    ...state, services:action.services,
+                }
+            }
+            case ActionTypes.UPDATE_CATEGORIES:{
+                return {
+                    ...state, categories:action.categories,
+                }
+            }
             default: return state;
+
+
         }
     }
 

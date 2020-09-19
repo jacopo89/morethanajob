@@ -9,10 +9,10 @@
 import '../css/app.css';
 import 'rsuite/dist/styles/rsuite-default.min.css';
 import * as ReactDOM from "react-dom";
-import React from "react";
+import React,{useEffect} from "react";
 import {applyMiddleware, compose, createStore} from "redux";
 import thunk from 'redux-thunk';
-import {Provider, useSelector} from "react-redux";
+import {Provider, useDispatch, useSelector} from "react-redux";
 import Login from "./Login/Pages/Login";
 import {BrowserRouter, Redirect, Route, Switch, useLocation} from "react-router-dom";
 import reducer from "./Redux/reducer";
@@ -21,7 +21,7 @@ import Registration from "./Login/Pages/Registration";
 import RecoverPasswordForm from "./Login/Components/RecoverPasswordForm";
 import Dashboard from "./MainApp/Dashboard";
 import * as Routes from './routes';
-
+import * as ActionTypes from "./Redux/actions";
 import * as firebase from "firebase/app";
 import "firebase/auth";
 import "firebase/messaging";
@@ -33,7 +33,10 @@ import MainPage from "./Layout/MainPage";
 import {useTranslation} from "react-i18next";
 import Test from "./Test";
 import UserManagement from "./MainApp/Administration/UserManagement";
-import CategoriesManagement from "./MainApp/Administration/CategoriesManagement";
+import CategoriesManagement, {
+    generateCategoriesTree,
+    generateServiceTree
+} from "./MainApp/Administration/CategoriesManagement";
 import Project from "./MainApp/Projects/Project";
 import Profile from "./MainApp/Profile/Profile";
 import NewProject from "./MainApp/Projects/NewProject";
@@ -45,12 +48,21 @@ import EditCollaboration from "./MainApp/Collaborations/EditCollaboration";
 import ImmediateLogout from "./Login/ImmediateLogout";
 import SearchPartners from "./MainApp/Partners/SearchPartners";
 import ServiceSearch from "./MainApp/SearchEngines/ServiceSearch";
+import NewFurniture from "./MainApp/Furnitures/NewFurniture";
+import EditFurniture from "./MainApp/Furnitures/EditFurniture";
+import ScrollToTop from "./ReusableComponents/ScrollToTop";
+import {useGetServices} from "./Backend/hooks/useServices";
+import {useGetCategories} from "./Backend/hooks/useCategories";
 
 function App(){
     const {authenticated, language} = useSelector(state=>state);
     const {t,i18n} = useTranslation();
+    const [services, getServicesHandler] = useGetServices();
+    const [categories, getCategoriesHandler] = useGetCategories();
+    const dispatch = useDispatch();
 
     let location = useLocation();
+
 
 
 
@@ -77,6 +89,8 @@ function App(){
     const newServicePage = <MainPage page={<NewCollaboration isService={true} />} />
     const editCollaborationDetailPage = <MainPage page={<EditCollaboration isService={false} />} />
     const editServiceDetailPage = <MainPage page={<EditCollaboration isService={true} />} />
+    const newFurniturePage = <MainPage page={<NewFurniture  />} />
+    const editFurniturePage = <MainPage page={<EditFurniture  />} />
 
     const immediateLogoutPage = <ImmediateLogout />
     const {isLoading} = useSelector(state=>state);
@@ -101,6 +115,7 @@ function App(){
                 <Route path={Routes.newProjectPage} children={newProjectPage}/>
                 <Route path={Routes.newPortfolioPage} children={newPorfolioPage}/>
                 <Route path={Routes.newCollaborationPage} children={newCollaborationPage}/>
+                <Route path={Routes.newFurniturePage} children={newFurniturePage}/>
                 <Route path={Routes.newServicePage} children={newServicePage}/>
                 <Route path={Routes.routeEditProject} children={editProjectPage}/>
                 <Route path={Routes.administration} children={administrationPage}/>
@@ -125,6 +140,7 @@ function App(){
                 <Route path={Routes.serviceSearchPage} children={serviceSearchPage}/>
                 <Route path={Routes.searchUserPage} children={searchUserPage}/>
                 <Route path={Routes.collaborationDetailPage} children={collaborationDetailPage}/>
+                <Route path={Routes.newFurniturePage} children={newFurniturePage}/>
                 <Route path={Routes.dashboardPage} children={dashboardPage}/>
                 <Route path={Routes.newProjectPage} children={newProjectPage}/>
                 <Route path={Routes.newPortfolioPage} children={newPorfolioPage}/>
@@ -173,6 +189,7 @@ firebase.initializeApp(firebaseConfig);
 
 ReactDOM.render(  <Provider store={store}>
     <BrowserRouter>
+            <ScrollToTop />
             <App />
     </BrowserRouter>
 </Provider>, document.getElementById('root'));

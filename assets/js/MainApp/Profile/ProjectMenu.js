@@ -2,7 +2,7 @@ import {Button, ButtonGroup, Form, Icon, IconButton, Modal, Nav, SelectPicker, T
 import React, {useState} from "react";
 import SocietyPortfolio from "./submenus/SocietyPortfolio";
 import SocietyContacts from "./submenus/SocietyContacts";
-import SocietyFornitures, {NewServiceModal} from "./submenus/SocietyFornitures";
+import SocietyFornitures from "./submenus/SocietyFornitures";
 import SocietyCollaborations from "./submenus/SocietyCollaborations";
 import {bordeaux, IconButtonTransparent} from "../../styledComponents/CustomComponents";
 import "./projectMenu.css";
@@ -41,8 +41,7 @@ const CustomNav = ({ active, onSelect,isOwner, ...props }) => {
                 <ProjectModal show={showprojectModal} onHide={closeProjectModal}/>
             </Nav.Item>
             <Nav.Item renderItem={renderItemFunction} eventKey="offerings">  {t('WHAT WE OFFER')}
-                {isOwner && <IconButtonTransparent onClick={() => openModal()} icon={<Icon icon="plus"/>}/>}
-                <NewServiceModal show={show} onHide={closeModal} successCallback={closeModal}/>
+                {isOwner && <IconButtonTransparent onClick={() => history.push(Routes.newFurniturePage)} icon={<Icon icon="plus"/>}/>}
             </Nav.Item>
             <Nav.Item renderItem={renderItemFunction} eventKey="services">
                  {t('SERVICES AND OPPORTUNITIES')}

@@ -9,7 +9,7 @@ import {useGetCollaborationProjects, useGetUserProjects} from "../../Backend/hoo
 import {useGetCategories} from "../../Backend/hooks/useCategories";
 import {generateCategoriesTree} from "../Administration/CategoriesManagement";
 import * as Routes from "../../routes";
-import {bordeaux, InverseButton, MainButton} from "../../styledComponents/CustomComponents";
+import {bordeaux, CollaborationBox, FormBox, InverseButton, MainButton} from "../../styledComponents/CustomComponents";
 import {Button, DatePicker, Form, HelpBlock, Schema, SelectPicker, TreePicker} from "rsuite";
 import TextField from "../../Login/Components/TextField";
 import {dataCountry, dataLanguage} from "../../selectData";
@@ -18,6 +18,7 @@ import {useHistory, useParams} from "react-router-dom";
 import {getCalendarDate} from "../../ReusableComponents/TimeManager";
 import {useTranslation} from "react-i18next";
 import PositionList from "../Position/PositionList";
+import {collaborationModel} from "../FormModels/models";
 
 export default function EditCollaboration({isService}) {
     const [formValue, setFormValue] = useState({positions: []});
@@ -79,38 +80,28 @@ export default function EditCollaboration({isService}) {
         }
 
     }
-    const { StringType, NumberType } = Schema.Types;
-
 
     const categoryLabel = (isService) ? "Macro category of the service" : "Macro category of the collaboration" ;
 
-    const model = Schema.Model({
-        title: StringType().isRequired('This field is required.'),
-        shortDescription: StringType().isRequired('This field is required.').maxLength(500),
-        description: StringType().maxLength(500),
-        category: NumberType().isRequired('This field is required.'),
-        country: StringType().isRequired('This field is required.'),
-        language: StringType().isRequired('This field is required.'),
-        contacts: StringType().isEmail()
-    });
-
+    const categoryImage = formValue && formValue.category && formValue.category.picture;
 
         return (
         <>
-            <div style={{border:`2px solid ${bordeaux}`, height:100, width:"100%", textAlign:"center"}}>
+            <CollaborationBox>
+                <div style={{height: 150, width: 150, backgroundImage: `url(${categoryImage})`, backgroundColor: "white", backgroundSize: "contain", flex:"none", marginLeft:10, marginRight:10}}/>
                 {formValue.title}
-            </div>
-            <InfoBox >
+            </CollaborationBox>
+            <FormBox >
                 <h5 style={{color:bordeaux}}>Info </h5>
-                <Form ref={formRef} model={model} fluid formValue={formValue} onChange={setFormValue} onSubmit={onSubmitHandler}>
+                <Form ref={formRef} model={collaborationModel} fluid formValue={formValue} onChange={setFormValue} onSubmit={onSubmitHandler}>
                     <TextField label={t('title')} name="title" type="text" />
                     <TextField label={t('Local Title')} name="localLanguageTitle" type="text" />
                     <TextField label={t('Short Description')} name="shortDescription" componentClass="textarea" />
                     <TextField label={t('Local Language Short description')} name="localShortDescription" componentClass="textarea" />
                     <TextField label={t('Description')} name="description" componentClass="textarea" />
-                    <TextField label={t('Local Language Detailed description')} name="localLanguageDescription" componentClass="textarea" />
+                    <TextField label={t('Local Language Detailed description')} name="localDescription" componentClass="textarea" />
                     <div style={{display:"flex", justifyContent:"space-around"}}>
-                        <TextField style={{width:"100%"}} label={t('Start Date')} name="startDate" accepter={DatePicker} />
+                        <TextField style={{width:"100%"}} label={t('Start Date')} name="startDate" format="DD-MM-YYYY" accepter={DatePicker} />
                         <TextField style={{width:"100%"}}  label={t('End Date')} name="endDate" accepter={DatePicker} format="DD-MM-YYYY" placement="topEnd" /> </div>
 
                     <div style={{display:"flex", justifyContent:"space-around"}}>
@@ -131,7 +122,7 @@ export default function EditCollaboration({isService}) {
                         <TextField style={{width:"100%"}} label={t('Language')} name="language" accepter={SelectPicker} data={dataLanguage} />
                     </div>
                     <HelpBlock>This content in available only in {formValue.language}</HelpBlock>
-                    {!isService && <PositionList formValue={formValue} setFormValue={setFormValue} />}
+                    {!isService && <PositionList isEdit={true} formValue={formValue} setFormValue={setFormValue} />}
 
 
                     <MainButton type="submit">{t('Save')}</MainButton>
@@ -139,13 +130,8 @@ export default function EditCollaboration({isService}) {
 
                 </Form>
 
-            </InfoBox>
+            </FormBox>
         </>);
 
 
 }
-
-
-const InfoBox =  styled.div`
-padding: 10px;`
-;

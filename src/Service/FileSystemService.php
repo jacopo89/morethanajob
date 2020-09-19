@@ -35,9 +35,8 @@ class FileSystemService extends AbstractController
 
     public function createProjectFolder($projectIdentifier){
         $projectFolderPath = $this->getParameter('kernel.project_dir').'/public/uploads/projects';
-        $isCreated = mkdir($projectFolderPath."/".$projectIdentifier);
-        if(!$isCreated){
-
+        if(!is_dir($projectFolderPath."/".$projectIdentifier)){
+            $isCreated = mkdir($projectFolderPath."/".$projectIdentifier);
         }
     }
 

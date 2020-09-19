@@ -234,6 +234,45 @@ class ServiceController extends AbstractController
     }
 
     /**
+     * @Route("/editUserService")
+     * @param Request $request
+     * @return Response
+     */
+    public function editOfferedService(Request $request){
+        $id = $request->get('id');
+        $email = $request->get('email');
+        $serviceId = $request->get('service');
+        $description = json_decode($request->get('description'));
+        $country = json_decode($request->get('country'));
+
+        $user = $this->em->getRepository(User::class)->findOneBy(['email'=>$email]);
+        $service = $this->em->getRepository(Service::class)->find($serviceId);
+
+        $offeredService = $this->em->getRepository(OfferedService::class)->find($id);
+
+        if($user && $service && $offeredService){
+
+            $offeredService->setUser($user);
+            $offeredService->setService($service);
+            $offeredService->setDescription($description);
+            $offeredService->setCountry($country);
+
+            $this->em->persist($offeredService);
+            $this->em->flush();
+
+            $message = "";
+            $status = Response::HTTP_OK;
+        }else{
+            $message = "user or service not found". $email . $serviceId;
+            $status = Response::HTTP_BAD_REQUEST;
+        }
+
+        return new Response($message, $status);
+
+
+    }
+
+    /**
      * @Route("/removeUserService/{id}")
      * @param OfferedService $offeredService
      * @return Response

@@ -9,12 +9,20 @@ import {
     useGetProject,
     usePostApplication
 } from "../../Backend/hooks/useProjects";
-import {bordeaux, coverPicture, InverseButton, projectPicture} from "../../styledComponents/CustomComponents";
+import {
+    bordeaux,
+    coverPicture,
+    InverseButton,
+    profilePicture,
+    projectPicture
+} from "../../styledComponents/CustomComponents";
 import * as Routes from "../../routes";
 import {GenericTable} from "../../ReusableComponents/GenericTable";
 import {getCalendarFormat} from "../../ReusableComponents/TimeManager";
 import {useTranslation} from "react-i18next";
 import CollaborationDetail from "../Profile/DetailCards/CollaborationDetail";
+import {profile} from "../../routes";
+import {IconSpan} from "../Profile/submenus/SocietyContacts";
 
 
 
@@ -49,15 +57,21 @@ export default function Project(){
     let list;
 
     if(project.isPortfolio){
-        const existingPartners = project.projectPartnersRelations.map((projectPartnersRelation)=>{
-            let profileImage = (projectPartnersRelation.partner.profilePicture) ? projectPartnersRelation.partner.profilePicture.url : "" ;
-            return <div style={{backgroundImage:  `url(${profileImage})`, backgroundSize: "auto", width:150, height:150}}/>
+        const existingPartners = project.projectPartnersRelations.map((projectPartnersRelation, index)=>{
+            let profileImage = (projectPartnersRelation.partner.profilePicture) ? projectPartnersRelation.partner.profilePicture.url : profilePicture ;
+            let name = (projectPartnersRelation.partner.name);
+            let profileName = (projectPartnersRelation.partner.profileName);
+            return (<>
+                <img key={index} src={profileImage} style={{ width:150, height:150 }} alt={profileName}/>
+                <a href={`/profile/${profileName}`} >{name}</a>
+            </>)
         });
         const externalpartners =  project.externalPartners.map((externalPartner)=> <ExternalPartnerPanel partner={externalPartner}/>);
         list = <>
-            <h4 style={{color:bordeaux, margin:"0 auto"}}>{t('Platform Partners')}</h4>
+            <h4 style={{color:bordeaux}}>{t('Platform Partners')}</h4>
             <div style={{display:"flex", justifyContent:"space-around", flexWrap:"wrap"}}>{existingPartners}</div>
-            <h4 style={{color:bordeaux, margin:"0 auto"}}>{t('External Partners')}</h4>
+
+            {externalpartners.length!==0 && <><Icon style={{color:bordeaux}} icon="people-group" size="3x" /> <h4 style={{color:bordeaux}}>{t('External Partners')}</h4></> }
             {externalpartners}
         </>
 
@@ -65,7 +79,7 @@ export default function Project(){
         list = project.collaborations.map((collaboration)=> <CollaborationDetail collaboration={collaboration} />);
     }
 
-    const projectLogostyle = {backgroundImage:  `url(${backgroundImage})`, backgroundSize: "auto", width:150, height:150}
+    const projectLogostyle = {backgroundImage:  `url(${backgroundImage})`, backgroundSize: "contain", width:150, height:150}
 
     const projectLogo = <div style={projectLogostyle}/>
     return <>
@@ -79,7 +93,7 @@ export default function Project(){
 
         </div>
         <InfoBox>
-            <Grid fluid>
+            <Grid fluid style={{margin:10}}>
                 <Row className="show-grid" style={{padding:5, display:"flex", alignItems:"flex-start"}}>
                     <Col xs={8}>
                         <div style={{display:"flex", justifyContent:"center"}}>
@@ -89,8 +103,13 @@ export default function Project(){
                     <Col xs={16}>
                         <h3 style={{color: bordeaux}}>{project && project.title}</h3>
                         <div>{ project && project.longDescription}</div>
+
+                            <IconSpan><Icon style={{color:bordeaux}} icon="external-link-square" size="3x" /> {project && project.links}</IconSpan>
+                            <IconSpan><Icon style={{color:bordeaux}} icon="envelope" size="3x" /> {project && project.contacts}</IconSpan>
+
                     </Col>
                 </Row>
+
 
             </Grid>
         </InfoBox>

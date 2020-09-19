@@ -40,11 +40,6 @@ export default function Profile(){
 
     const { t, i18n } = useTranslation();
 
-    useEffect(()=>{
-        console.log("Language has changed", language);
-        console.log("Language in i18n",i18n.language);
-    },[language]);
-
     const isOwner = (user!==undefined) ? (user.profileName === profilename) : false;
     const [response, uploadPictureHandler] = useUploadPictures();
     const [userInfo, getUserInfoHandler]= useGetUserInfo();
@@ -93,9 +88,14 @@ export default function Profile(){
         formValue.email = userInfo.email;
         Object.keys(formValue).forEach((key)=>  { formData.append(key,JSON.stringify(formValue[key]));});
         saveProfileHandler(formData, {successCallback: ()=>{
-                getUserInfoHandler(profilename, {successCallback: (data)=>dispatch(ActionTypes.updateUserInfo(data))})
+                getUserInfoHandler(profilename, {successCallback: (data)=>
+                    {
+                        dispatch(ActionTypes.updateUserInfo(data));
+                        setIsEdit(!isEdit);
+                    }
+                })
             }});
-        setIsEdit(!isEdit);
+
     }
     const submitFiles = () => {
         const formData = new FormData();
@@ -127,7 +127,7 @@ export default function Profile(){
         return (
 
             <>
-            <div style={{height:281, width:"100%", marginBottom:10, backgroundColor:"black",position:"relative", backgroundImage: `url(${backgroundImage})`, backgroundSize:"auto", backgroundRepeat: "no-repeat"}}>
+            <div style={{height:281, width:"100%", marginBottom:10, backgroundColor:"black",position:"relative", backgroundImage: `url(${backgroundImage})`, backgroundSize:"contain", backgroundRepeat: "no-repeat"}}>
                 <LinearGradient/>
                 <h3 style={{position:"absolute", bottom:4, right:10, color:"white"}}><a target="_blank" href={userInfo && userInfo.website}>{userInfo && userInfo.website}</a></h3>
                 {/* {social}*/}
@@ -154,7 +154,7 @@ export default function Profile(){
         const uploadCoverButton = <EditButton>{t('Change cover Button')}</EditButton>
         const editButton = (!isEdit) ?  <EditButton onClick={()=>setIsEdit(!isEdit)}> {t('Edit profile')} </EditButton> : <> <InverseButton onClick={()=>setIsEdit(!isEdit)}> {t('Go Back')} </InverseButton></>
 
-        const uploaderButton = <Button style={{backgroundImage:  `url(${profileImage})`, backgroundSize: "auto", width:200, height:200}}> Upload</Button>;
+        const uploaderProfileButton = <Button style={{backgroundImage:  `url(${profileImage})`, backgroundSize: "contain", width:200, height:200}}> Upload</Button>;
         return(
             <>
                 <div style={{height:281, width:"100%", marginBottom:10, backgroundColor:"black",position:"relative", backgroundImage: `url(${backgroundImage})`, backgroundSize:"contain", backgroundRepeat: "no-repeat"}}>
@@ -172,28 +172,30 @@ export default function Profile(){
                 <InfoBox>
                     <Grid fluid>
                         <Row>
-                            <div  style={{display:"flex", justifyContent:"center"}}>
-                                <ImageCropper button={uploaderButton} propCrop={{
-                                    unit: 'px', // default, can be 'px' or '%'
-                                    x: 0,
-                                    y: 0,
-                                    width: 200,
-                                    aspect:1
-                                }}  keyField="projectImage" onChange={onChangeProfileHandler}/>
-                            </div>
+                            <Col xs={12}>
+                                <div  style={{display:"flex", justifyContent:"center"}}>
+                                    <ImageCropper button={uploaderProfileButton} propCrop={{
+                                        unit: 'px', // default, can be 'px' or '%'
+                                        x: 0,
+                                        y: 0,
+                                        width: 200,
+                                        aspect:1
+                                    }}  keyField="projectImage" onChange={onChangeProfileHandler}/>
+                                </div>
+                            </Col>
+                            <Col xs={12}>
+
+                            </Col>
+
                         </Row>
                         <Row className="show-grid" style={{padding:5}}>
-                            <Form
-                                fluid
-                                autoComplete="off"
-                                formValue={formValue}
-                                onChange={setFormValue}>
+                            <Form fluid autoComplete="off" formValue={formValue} onChange={setFormValue}>
                                 <div style={{display:"flex", justifyContent:"space-around"}}>
-                                    <TextField style={{width:"90%"}} name="name" label={t('Society Name')} />
+                                    <TextField style={{margin:5}} name="name" label={t('Society Name')} />
                                     <TextField style={{width:"90%"}} name="language" label={t('Language')} accepter={SelectPicker} data={dataLanguage} />
                                     <TextField style={{width:"90%"}} name="country" label={t('Country')} accepter={SelectPicker} data={dataCountry} />
                                 </div>
-                                <TextField style={{width:"90%"}} name="description" label={t('Society Description')} componentClass="textarea" />
+                                <TextField  name="description" label={t('Society Description')} componentClass="textarea" />
                                 <TextField label={t('Local Language description')} name="localDescription" componentClass="textarea" />
                                 <div style={{display:"flex", justifyContent:"space-around"}}>
                                     <TextField style={{width:"90%"}} name="website" label={t('Website')} />

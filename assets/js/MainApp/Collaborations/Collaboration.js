@@ -1,7 +1,7 @@
 import React, {useEffect, useState} from "react";
 import {useHistory, useParams} from "react-router-dom";
 import {Button, Col, Form, Grid, Icon, Modal, Panel, Row} from "rsuite";
-import {bordeaux, InverseButton, MainButton} from "../../styledComponents/CustomComponents";
+import {bordeaux, CollaborationBox, InverseButton, MainButton} from "../../styledComponents/CustomComponents";
 import {useGetCollaboration, useSendMessage} from "../../Backend/hooks/useCollaborations";
 import {getCalendarFormat} from "../../ReusableComponents/TimeManager";
 import {useSelector} from "react-redux";
@@ -32,18 +32,18 @@ export default function Collaboration(){
 
     const title = (collaboration && collaboration.localLanguage === language && collaboration.localLanguageTitle && collaboration.localLanguageTitle.length!==0) ? collaboration && collaboration.localLanguageTitle  : collaboration && collaboration.title ;
     const description = (collaboration && collaboration.localLanguage === language && collaboration.localLanguageDescription && collaboration.localLanguageDescription.length!==0) ? collaboration && collaboration.localLanguageDescription  : collaboration && collaboration.description ;
-    const isLocalAvailable = collaboration && collaboration.localLanguageDescription && collaboration.localLanguageDescription.length!==0;
+    const isDescriptionOnlyInEnglish = (collaboration && collaboration.localLanguageDescription && collaboration.localLanguageDescription.length==0);
 
-    const languageMessage = (isLocalAvailable) ? "" : "This content is available only in English";
+    const languageMessage = (isDescriptionOnlyInEnglish) ? "" : "This content is available only in English";
 
     const serviceBox = <ServiceFormBox collaboration={collaboration}/>;
 
     return (<>
         <div style={{width:"100%", backgroundColor:bordeaux}}>
-            <TitleBox>
-                <div style={{height: 150, width: 150, backgroundImage: `url(${categoryImage})`, backgroundColor: "white", backgroundSize: "contain"}}/>
+            <CollaborationBox>
+                <div style={{height: 150, width: 150, backgroundImage: `url(${categoryImage})`, backgroundColor: "white", backgroundSize: "contain", flex:"none", marginLeft:10, marginRight:10}}/>
                 {title}
-            </TitleBox>
+            </CollaborationBox>
             {isOwner&& (isCollaborationClosed ? <Button style={{backgroundColor:"white", color:bordeaux, margin:10}} onClick={()=>history.push(Routes.editService(id))}>Edit Service</Button> : <Button style={{backgroundColor:"white", color:bordeaux, margin:10}} onClick={()=>history.push(Routes.editCollaboration(id))}>Edit Collaboration</Button> )}
         </div>
 
@@ -316,19 +316,6 @@ export function IconWithText({icon, label, value}){
 
 
 
-const TitleBox =  styled.div`
-width: 100%;
-margin-top:20px;
-height:150px;
-background-color: ${bordeaux};
-color: white;
-font-size: 40px;
-font-weight: bolder;
-display: flex;
-align-items: center;    
-justify-content: center;
-`
-;
 
 const Title =  styled.div`
 color: ${bordeaux};

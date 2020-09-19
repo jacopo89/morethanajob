@@ -3,7 +3,7 @@ import React from "react";
 import {bordeaux} from "../../styledComponents/CustomComponents";
 import {getCalendarFormat} from "../../ReusableComponents/TimeManager";
 
-export function PositionDescription({position, services, remover, updater, setEdit}){
+export function PositionDescription({position, services, remover, updater, setEdit, isEdit=false}){
 
     console.log("services",services);
     console.log("position",position);
@@ -17,7 +17,7 @@ export function PositionDescription({position, services, remover, updater, setEd
 
     return <>
         <Panel header={
-            <PositionPanelTitle position={position}  remover={remover} setEdit={setEdit}/>}>
+            <PositionPanelTitle position={position}  remover={remover} setEdit={setEdit} isEdit={isEdit}/>}>
             <Row className="show-grid">
                 <Col xs={8}>
                     <div style={{display: "flex", justifyContent: "center"}}>
@@ -38,8 +38,16 @@ export function PositionDescription({position, services, remover, updater, setEd
 
 }
 
-function PositionPanelTitle({position, remover, updater, setEdit}){
+function PositionPanelTitle({position, remover, updater, setEdit, isEdit=false}){
 
+    const remoteRemover = {}; // funzione di rimozione dal db
+
+    let removerButton = <></>;
+    if(isEdit) {
+        const removerFunction = (position.creationTimeFrontend === position.id) ? remover : remoteRemover;
+        removerButton = <><IconButton onClick={() => setEdit(position)} icon={<Icon icon="edit2"/>}/><IconButton
+            onClick={() => removerFunction(position.id)} icon={<Icon icon="trash"/>}/></>
+    }
 
 
     return <div style={{backgroundColor:bordeaux, minHeight:40, color:"white", display: "flex", justifyContent: "space-evenly",alignItems: "center"}}>
@@ -47,9 +55,9 @@ function PositionPanelTitle({position, remover, updater, setEdit}){
             {position.service && position.service.label}
         </div>
         <div style={{flexGrow:1}}>
-            <Icon icon="calendar-o"/> From {getCalendarFormat(position.startDate)} to {getCalendarFormat(position.endDate)}
+            <Icon icon="calendar-o"/> Deadline {getCalendarFormat(position.deadline)}
         </div>
-        <div><IconButton onClick={() => setEdit(position)} icon={<Icon icon="edit2"/>}/><IconButton onClick={() => remover(position.id)} icon={<Icon icon="trash"/>}/></div>
+        {removerButton}
     </div>
 
 }
