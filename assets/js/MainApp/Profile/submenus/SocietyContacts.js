@@ -1,7 +1,7 @@
 import React, {useEffect} from "react";
-import {Button, Icon} from "rsuite";
+import {Grid, Col, Button, Icon, Row} from "rsuite";
 import styled from "styled-components";
-import {bordeaux} from "../../../styledComponents/CustomComponents";
+import {bordeaux, IconSpan} from "../../../styledComponents/CustomComponents";
 import {useGetUserInfo, useGetUserInfoByEmail} from "../../../Backend/hooks/UserInfo";
 import {GenericTable} from "../../../ReusableComponents/GenericTable";
 
@@ -27,25 +27,64 @@ export default function SocietyContacts({society}){
     const table = userInfo ? <GenericTable rowKey="id" modelData={modelData} propData={userInfo.files} /> :<div></div>
 
    return <>
-       <div style={{display: "flex", justifyContent: "space-around", height:100}}>
-           <IconSpan><a target="_blank" href={userInfo && userInfo.website}><Icon style={{color:bordeaux}} icon="globe" size="3x" /> {userInfo && userInfo.website}</a></IconSpan>
-           <IconSpan><Icon style={{color:bordeaux}} icon="envelope" size="3x" /> {userInfo && userInfo.email}</IconSpan>
-           <IconSpan><Icon style={{color:bordeaux}} icon="phone-square" size="3x" /> {userInfo && userInfo.telephone}</IconSpan>
-       </div>
-       <div style={{display: "flex", justifyContent: "space-around", height:100}}>
-           <IconSpan><a target="_blank" href={userInfo && userInfo.facebook}><Icon style={{color:bordeaux}} icon="facebook-square" size="3x"/>{userInfo && userInfo.facebook}</a ></IconSpan>
-           <IconSpan><a target="_blank" href={userInfo && userInfo.linkedin}><Icon style={{color:bordeaux}} icon="linkedin-square" size="3x"/> {userInfo && userInfo.linkedin}</a></IconSpan>
-           <IconSpan><a target="_blank" href={userInfo && userInfo.twitter}><Icon style={{color:bordeaux}} icon="twitter-square" size="3x" />{userInfo && userInfo.twitter}</a></IconSpan> </div>
+       <Grid>
+           <Row>
+               <Col xs={2}><Icon style={iconStyle} icon="globe" size="3x" /></Col>
+               <Col xs={6}>
+                   <div style={iconStyle}>
+                       <a target="_blank" href={userInfo && userInfo.website}> {userInfo && userInfo.website}</a>
+                   </div>
+
+               </Col>
+               <Col xs={2}><Icon style={iconStyle} icon="envelope" size="3x" /></Col>
+               <Col xs={6}>
+                   <div style={textStyle}>
+                       {userInfo && userInfo.email}
+                   </div>
+
+               </Col>
+               <Col xs={2}><Icon style={iconStyle} icon="phone-square" size="3x" /></Col>
+               <Col xs={6}>
+                   <div style={textStyle}>
+                       {userInfo && userInfo.telephone}
+                   </div>
+               </Col>
+           </Row>
+           <Row>
+               <Col xs={2}><Icon style={iconStyle} icon="facebook-square" size="3x" /></Col>
+               <Col xs={6}>
+                   <div style={textStyle}>
+                       {userInfo && userInfo.facebook}
+                   </div>
+               </Col>
+               <Col xs={2}><Icon style={iconStyle} icon="linkedin-square" size="3x" /></Col>
+               <Col xs={6}>
+                   <div style={textStyle}>
+                       {userInfo && userInfo.linkedin}
+                   </div>
+               </Col>
+               <Col xs={2}><Icon style={iconStyle} icon="twitter-square" size="3x" /></Col>
+               <Col xs={6}>
+                   <div style={textStyle}>
+                       {userInfo && userInfo.twitter}
+                   </div>
+               </Col>
+           </Row>
+       </Grid>
        {table}
    </>
 }
 
+const iconStyle = {
+    color:bordeaux, justifyContent:"center", display:"flex", height:100, alignItems:"center"
+}
 
-export const IconSpan = styled.span`
-    display: flex;
-    align-items: center;
-    width: 35%;
-    justify-content: space-evenly;`;
+const textStyle = {
+    justifyContent:"start", display:"flex", height:100, alignItems:"center"
+}
+
+
+
 
 
 

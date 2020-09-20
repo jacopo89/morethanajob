@@ -2,7 +2,7 @@ import React, {useEffect, useState} from "react";
 import {Button, ButtonToolbar, Form, Grid, Icon, Row, SelectPicker, Tree} from "rsuite";
 import {useDeleteService, useGetServices, useUploadPicture} from "../../Backend/hooks/useServices";
 import TextField from "../../Login/Components/TextField";
-import {MainButton, SecondaryButton} from "../../styledComponents/CustomComponents";
+import {FormBox, MainButton, SecondaryButton} from "../../styledComponents/CustomComponents";
 import ImageCropper from "../../ReusableComponents/ImageCropper";
 import * as ActionTypes from "../../Redux/actions";
 import {useCategoryUploadPicture, useGetCategories} from "../../Backend/hooks/useCategories";
@@ -50,7 +50,7 @@ export default function CategoriesManagement(){
         return filteredServiceArray[0];
     }
 
-    return (<>
+    return (<FormBox>
         <Grid>
             <Row>
                 <Tree defaultExpandAll={true} data={servicesTree} onSelect={
@@ -80,7 +80,7 @@ export default function CategoriesManagement(){
             </Row>
         </Grid>
 
-    </>)
+    </FormBox>)
 }
 
 

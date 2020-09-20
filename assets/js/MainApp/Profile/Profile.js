@@ -173,6 +173,7 @@ export default function Profile(){
                     <Grid fluid>
                         <Row>
                             <Col xs={12}>
+                                Profile Image
                                 <div  style={{display:"flex", justifyContent:"center"}}>
                                     <ImageCropper button={uploaderProfileButton} propCrop={{
                                         unit: 'px', // default, can be 'px' or '%'
@@ -188,28 +189,44 @@ export default function Profile(){
                             </Col>
 
                         </Row>
-                        <Row className="show-grid" style={{padding:5}}>
-                            <Form fluid autoComplete="off" formValue={formValue} onChange={setFormValue}>
-                                <div style={{display:"flex", justifyContent:"space-around"}}>
-                                    <TextField style={{margin:5}} name="name" label={t('Society Name')} />
-                                    <TextField style={{width:"90%"}} name="language" label={t('Language')} accepter={SelectPicker} data={dataLanguage} />
-                                    <TextField style={{width:"90%"}} name="country" label={t('Country')} accepter={SelectPicker} data={dataCountry} />
-                                </div>
+                    </Grid>
+                    <Form fluid autoComplete="off" formValue={formValue} onChange={setFormValue}>
+                    <Grid fluid>
+                        <Row className="show-grid">
+                            <Col xs={24}> <TextField name="name" label={t('Society Name')} /></Col>
+                        </Row>
+                        <Row>
+                            <Col xs={12}>
+                                <TextField style={{width:"100%"}} name="language" label={t('Language')} accepter={SelectPicker} data={dataLanguage} />
+                            </Col>
+                            <Col xs={12}>
+                                <TextField style={{width:"100%"}} name="country" label={t('Country')} accepter={SelectPicker} data={dataCountry} />
+                            </Col>
+                        </Row>
+                        <Row>
+                            <Col xs={24}>
                                 <TextField  name="description" label={t('Society Description')} componentClass="textarea" />
+                            </Col>
+                            <Col xs={24}>
                                 <TextField label={t('Local Language description')} name="localDescription" componentClass="textarea" />
-                                <div style={{display:"flex", justifyContent:"space-around"}}>
-                                    <TextField style={{width:"90%"}} name="website" label={t('Website')} />
-                                    <TextField style={{width:"90%"}} name="address" label={t('Address')} />
-                                </div>
-                                <div style={{display:"flex", justifyContent:"space-around"}}>
-                                    <TextField style={{width:"90%"}} name="telephone" label={t('Telephone')} />
-                                    <TextField style={{width:"90%"}} name="email" label={t('Email')} />
-                                </div>
-                                <div style={{display:"flex", justifyContent:"space-around"}}>
-                                    <TextField style={{width:"90%"}} name="facebook" label={t('Facebook')} />
-                                    <TextField style={{width:"90%"}} name="linkedin" label={t('Linkedin')} />
-                                    <TextField style={{width:"90%"}} name="twitter" label={t('Twitter')} />
-                                </div>
+                            </Col>
+                        </Row>
+                        <Row>
+                            <Col xs={12}> <TextField style={{width:"100%"}} name="website" label={t('Website')} /></Col>
+                            <Col xs={12}><TextField style={{width:"100%"}} name="address" label={t('Address')} /></Col>
+                        </Row>
+                        <Row>
+                            <Col xs={12} ><TextField style={{width:"100%"}} name="telephone" label={t('Telephone')} /></Col>
+                            <Col xs={12} ><TextField style={{width:"100%"}} name="email" label={t('Email')} /></Col>
+                        </Row>
+                        <Row>
+                            <Col xs={8} ><TextField style={{width:"100%"}} name="facebook" label={t('Facebook')} /></Col>
+                            <Col xs={8} > <TextField style={{width:"100%"}} name="linkedin" label={t('Linkedin')} /></Col>
+                            <Col xs={8} ><TextField style={{width:"100%"}} name="twitter" label={t('Twitter')} /></Col>
+                        </Row>
+                        <Row>
+                            <Col xs={24}>
+                                Documents
                                 <Uploader
                                     action="//jsonplaceholder.typicode.com/posts/"
                                     onChange={handleFileChange}
@@ -219,12 +236,13 @@ export default function Profile(){
                                 <Button onClick={submitFiles}>
                                     {t('Start Upload')}
                                 </Button>
-
-                                {isOwner && editButton}
-                                <Button style={{float:"right", backgroundColor:bordeaux, color:"white"}} onClick={()=>saveProfile()}> {t('Save Profile')} </Button>
-                            </Form>
+                            </Col>
                         </Row>
                     </Grid>
+                    {isOwner && editButton}
+                    <Button style={{float:"right", backgroundColor:bordeaux, color:"white"}} onClick={()=>saveProfile()}> {t('Save Profile')} </Button>
+                    </Form>
+
                 </InfoBox>
             </>
         )
@@ -251,3 +269,10 @@ const LinearGradient = styled.div`
     background-image: linear-gradient(to top, black, white);
     opacity:33%;
     `
+
+
+const textFieldStyle = {
+    width:"100%",
+    marginLeft:5,
+    marginRight:5
+}

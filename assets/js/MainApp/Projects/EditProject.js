@@ -25,13 +25,15 @@ import {dataCountry, dataLanguage, modalityData} from "../../selectData";
 import {useGetServices} from "../../Backend/hooks/useServices";
 import {generateServiceTree} from "../Administration/CategoriesManagement";
 import {GenericTable} from "../../ReusableComponents/GenericTable";
-import {bordeaux, InverseButton, MainButton} from "../../styledComponents/CustomComponents";
+import {bordeaux, InverseButton, MainButton, SaveButton} from "../../styledComponents/CustomComponents";
 import styled from "styled-components";
 import ImageCropper from "../../ReusableComponents/ImageCropper";
 import {useHistory, useParams} from "react-router-dom";
 import * as Routes from "../../routes";
 import {useTranslation} from "react-i18next";
 import {PositionDescription} from "../Position/PositionDescription";
+import PartnersList from "./Partners/PartnersList";
+import {projectModel} from "../FormModels/models";
 export default function EditProject({isPortfolio=false}){
     const [formValue, setFormValue] = useState({positions: [], partners:[]});
 
@@ -101,7 +103,7 @@ export default function EditProject({isPortfolio=false}){
     const backgrounCoverdImage = (project && project.projectPicture) ? project.projectPicture.url  : "";
 
 
-    const listElements = (formValue) => {return (isPortfolio)  ? <PartnerListOrCreate formValue={formValue} setFormValue={setFormValue} /> : <ListOrCreate formValue={formValue} setFormValue={setFormValue} /> };
+    const listElements = (formValue) => {return (isPortfolio)  ? <PartnersList formValue={formValue} setFormValue={setFormValue} /> : <ListOrCreate formValue={formValue} setFormValue={setFormValue} /> };
 
     const uploadCoverButton = <InverseButton>Upload Cover Button</InverseButton>;
     const uploadLogoButton = <InverseButton>Upload Logo Button</InverseButton>;
@@ -119,16 +121,12 @@ export default function EditProject({isPortfolio=false}){
                 }} keyField="projectImage" onChange={handleFileChange}/>
             </div>
             <InfoBox >
-                <Form fluid formValue={formValue} onChange={setFormValue} onSubmit={onSubmitHandler}>
+                <Form fluid model={projectModel} formValue={formValue} onChange={setFormValue} onSubmit={onSubmitHandler}>
                     <TextField label={t('Title')} name="title" type="text" />
                     <TextField label={t('Short Description')} name="shortDescription" componentClass="textarea" />
                     <TextField label={t('Description')} name="longDescription" componentClass="textarea" />
                     <TextField label={t('Links')} name="links" componentClass="textarea" />
                     <TextField label={t('Contacts')} name="contacts" componentClass="textarea" />
-                    <div style={{display:"flex", justifyContent:"space-around"}}>
-                    {/*    <TextField style={{width:"100%"}} label="Data di inizio progetto" name="startTime" accepter={DatePicker} format="DD-MM-YYYY" />
-                        <TextField style={{width:"100%"}}  label="Data di fine progetto" name="endTime" accepter={DatePicker} format="DD-MM-YYYY" placement="topEnd" />*/}
-                    </div>
 
 
                     <ImageCropper button={uploadLogoButton} propCrop={{
@@ -139,9 +137,8 @@ export default function EditProject({isPortfolio=false}){
                         height: 250
                     }} keyField="projectImage" onChange={handleProjectLogoChange}/>
 
-                   { /*<h2>Posizioni </h2>  <ListOrCreate formValue={formValue} setFormValue={setFormValue} />*/}
 
-                    <MainButton type="submit">{t('Save')}</MainButton>
+                    <SaveButton type="submit">{t('Save')}</SaveButton>
                 </Form>
                 <Button onClick={()=>removeProject(formValue.id)} >{t('Delete')}</Button>
 
@@ -151,337 +148,9 @@ export default function EditProject({isPortfolio=false}){
 
 }
 
-function ListOrCreate({formValue, setFormValue}){
-
-    const [services, getServicesHandler] = useGetServices();
-    useEffect(()=>{
-        getServicesHandler();
-    },[]);
-
-    let servicesTree = generateServiceTree(services)
-
-
-    const [create, setCreate] = useState(false);
-    const [element, setElement] = useState(null);
-
-    const add = () => {
-        const creationTime = Date.now();
-        const newElement = { id: creationTime, creationTimeFrontend:creationTime }
-        const oldElements = formValue.positions;
-        const newElements = oldElements.concat(newElement);
-        const newFormValue = Object.assign({},formValue);
-        newFormValue.positions = newElements;
-        setFormValue(newFormValue);
-        return newElement;
-    };
-
-    const remove = (id) => {
-        const newElements = formValue.positions.filter((element)=> element.id !== id);
-        const newFormValue = Object.assign({},formValue);
-        newFormValue.positions = newElements;
-        setFormValue(newFormValue);
-
-    };
-
-    const update = (id, elementFormValue) => {
-        const newElements = formValue.positions.map((element) =>  {
-            if(element.id===id){
-                return {id: element.id, creationTimeFrontend: element.creationTimeFrontend,...elementFormValue};
-            }else{
-                return element;
-            }
-        })
-        const newFormValue = Object.assign({},formValue);
-        newFormValue.positions = newElements;
-        setFormValue(newFormValue);
-    }
-
-    const removeIds = (formValue) =>{
-        const oldElements = formValue.positions;
-        const newElements = oldElements.map((element) => {
-            let newElement = Object.assign({}, element);
-            if(element.id === element.creationTimeFrontend){
-                delete newElement.id;
-            }
-            return newElement;
-        })
-        const newFormValue = Object.assign({},formValue);
-        newFormValue.positions = newElements;
-        return newFormValue;
-    }
-
-
-    const createHandler = () => {
-        let newElement = add();
-        setElement(newElement);
-        setCreate(true);
-    }
-
-    const back= (id)=>{
-        remove(id);
-        setCreate(false);
-    }
-
-    const save= ()=>{
-        setCreate(false);
-    }
-
-
-    const createForm = <>
-        <IncludableForm item={element} updater={update} save={save} back={back} servicesTree={servicesTree}  />
-    </>
-
-    const actionRender= (rowData) => {
-        console.log("RowData", rowData)
-
-        const editHandler = ()=>{
-            setElement(rowData);
-            setCreate(true);
-        }
-
-        const removeHandler = () => {
-            remove(rowData.id);
-        }
-
-        function handleAction() {
-            alert(`id:${rowData.id}`);
-        }
-        return (
-            <span>
-                    <a onClick={editHandler}> Edit </a> |{' '}
-                <a onClick={removeHandler}> Remove </a>
-                  </span>
-        );
-    }
-    const modelData = [
-        {label:"id",dataKey: "id"},
-        {label:"servizio", dataKey: "service"},
-        {label:"actions", render:actionRender}
-    ]
-
-    const table = <>
-        <Button onClick={createHandler}>Crea</Button>
-        <GenericTable rowKey="id" modelData={modelData} propData={formValue.positions} />
-    </>
-    const list = <>
-        <Button onClick={createHandler}>Crea posizione</Button>
-        <List>
-            {formValue.positions.map((position, index) => (
-                <PositionDescription position={position} services={services} remover={remove} />
-            ))}
-        </List>
-
-    </>
-
-    return (create) ? createForm : list;
-}
-
-function IncludableForm({item, updater, save, remover, back, servicesTree}){
-
-    const [formValue, setFormValue] = useState(item);
-
-
-    useEffect(()=>{
-        updater(item.id, formValue);
-    },[formValue])
-
-    return <>
-        <Form formValue={formValue}  onChange={setFormValue}>
-            <div style={{display:"flex", justifyContent:"space-around"}}>
-                <TextField name="service" label="Servizio" accepter={TreePicker} data={servicesTree} style={{width:"100%"}} />
-                <TextField name="modality" label="modality" accepter={SelectPicker} data={modalityData} style={{width:"100%"}} searchable={false}/>
-            </div>
-            <TextField name="shortDescription" label="Short Description" componentClass="textarea"/>
-            <TextField name="description" label="Description" componentClass="textarea"/>
-
-            <TextField name="address" label="address"/>
-            <div style={{display:"flex", justifyContent:"space-around"}}>
-                <TextField name="startDate" accepter={DatePicker} label="Data di inizio" format="DD-MM-YYYY" style={{width:"100%"}}/>
-                <TextField name="endDate" accepter={DatePicker} label="Data di fine" format="DD-MM-YYYY" style={{width:"100%"}}/>
-            </div>
-            <TextField name="mainBeneficiaries" label="Beneficiaries" componentClass="textarea"/>
-            <TextField name="rates" label="Rates" componentClass="textarea"/>
-        </Form>
-        <Button onClick={save}>Salva</Button><Button onClick={()=>back(item.id)}>Cancella</Button>
-    </>
-}
-
-
-function PartnerListOrCreate({formValue, setFormValue}){
-
-    const [services, getServicesHandler] = useGetServices();
-    useEffect(()=>{
-        getServicesHandler();
-    },[]);
-
-    let servicesTree = generateServiceTree(services)
-
-    const [create, setCreate] = useState(false);
-    const [existingPartner, setExistingPartner] = useState(false);
-    const [element, setElement] = useState(null);
-
-    const add = () => {
-        const creationTime = Date.now();
-        const newElement = { id: creationTime, creationTimeFrontend:creationTime }
-        const oldElements = formValue.partners;
-        const newElements = oldElements.concat(newElement);
-        const newFormValue = Object.assign({},formValue);
-        newFormValue.partners = newElements;
-        setFormValue(newFormValue);
-        return newElement;
-    };
-
-    const remove = (id) => {
-        const newElements = formValue.partners.filter((element)=> element.id !== id);
-        const newFormValue = Object.assign({},formValue);
-        newFormValue.partners = newElements;
-        setFormValue(newFormValue);
-
-    };
-
-    const update = (id, elementFormValue) => {
-        const newElements = formValue.partners.map((element) =>  {
-            if(element.id===id){
-                return {id: element.id, creationTimeFrontend: element.creationTimeFrontend,...elementFormValue};
-            }else{
-                return element;
-            }
-        })
-        const newFormValue = Object.assign({},formValue);
-        newFormValue.partners = newElements;
-        setFormValue(newFormValue);
-    }
-
-    const removeIds = (formValue) =>{
-        const oldElements = formValue.partners;
-        const newElements = oldElements.map((element) => {
-            let newElement = Object.assign({}, element);
-            if(element.id === element.creationTimeFrontend){
-                delete newElement.id;
-            }
-            return newElement;
-        })
-        const newFormValue = Object.assign({},formValue);
-        newFormValue.partners = newElements;
-        return newFormValue;
-    }
-
-
-    const createHandler = () => {
-        let newElement = add();
-        newElement.type = "new";
-        setElement(newElement);
-        setExistingPartner(false);
-        setCreate(true);
-    }
-    const createHandlerExistingPartner = () => {
-        let newElement = add();
-        newElement.type = "old";
-        setElement(newElement);
-        setExistingPartner(true);
-        setCreate(true);
-    }
-
-    const back= (id)=>{
-        remove(id);
-        setCreate(false);
-    }
-
-    const save= ()=>{
-        setCreate(false);
-    }
 
 
 
-    const createForm = (!existingPartner) ?  <><PartnerForm item={element} updater={update} save={save} back={()=>back(element.id)} servicesTree={servicesTree}  /></> :  <><ExistingPartnerForm item={element} updater={update} save={save} back={()=>back(element.id)} servicesTree={servicesTree}  /></>
-
-    const actionRender= (rowData) => {
-        //console.log("RowData", rowData)
-
-        const editHandler = (rowData)=>{
-            if(rowData.type==="old"){
-                setExistingPartner(false)
-            }else{
-                setExistingPartner(true)
-            }
-            setElement(rowData);
-            setCreate(true);
-        }
-
-        const removeHandler = () => {
-            remove(rowData.id);
-        }
-
-        function handleAction() {
-            alert(`id:${rowData.id}`);
-        }
-        return (
-            <span>
-                    <a onClick={()=> editHandler(rowData)}> Edit </a> |{' '}
-                <a onClick={removeHandler}> Remove </a>
-                  </span>
-        );
-    }
-    const modelData = [
-        {label:"id",dataKey: "id"},
-        {label:"Email", dataKey: "email"},
-        {label:"actions", render:actionRender}
-    ]
-
-    const table = <>
-        <Button onClick={createHandlerExistingPartner}>Insert existing partner</Button>
-        <Button onClick={createHandler}>Create new partner</Button>
-        <GenericTable rowKey="id" modelData={modelData} propData={formValue.partners} />
-    </>
-    const list = <>
-        <List>
-            {formValue.partners.map((item, index) => (
-                <List.Item key={index} index={index}>
-                    {item.service}
-                </List.Item>
-            ))}
-        </List>
-        <Button onClick={createHandler}>Crea</Button>
-    </>
-
-    return (create) ? createForm : table;
-}
-
-function PartnerForm({item, updater, save, back, servicesTree}){
-
-    const [formValue, setFormValue] = useState(item);
-
-    useEffect(()=>{
-        updater(item.id, formValue);
-    },[formValue])
-
-    return <>
-        <Form formValue={formValue}  onChange={setFormValue}>
-            <TextField name="email" label="Email"  />
-            <TextField name="name" label="Society Name"  />
-            <TextField name="website" label="Website"  />
-
-        </Form>
-        <Button onClick={save}>Salva</Button><Button onClick={back}>Cancella</Button>
-    </>
-}
-
-function ExistingPartnerForm({item, updater, save, back, partnersList}){
-
-    const [formValue, setFormValue] = useState(item);
-
-    useEffect(()=>{
-        updater(item.id, formValue);
-    },[formValue])
-
-    return <>
-        <Form formValue={formValue}  onChange={setFormValue}>
-            <TextField name="email" label="Partner Esistente"/>
-
-        </Form>
-        <Button onClick={save}>Salva</Button><Button onClick={back}>Cancella</Button>
-    </>
-}
 
 const InfoBox =  styled.div`
 padding: 10px;`

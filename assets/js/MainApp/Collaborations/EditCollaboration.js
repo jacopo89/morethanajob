@@ -9,8 +9,15 @@ import {useGetCollaborationProjects, useGetUserProjects} from "../../Backend/hoo
 import {useGetCategories} from "../../Backend/hooks/useCategories";
 import {generateCategoriesTree} from "../Administration/CategoriesManagement";
 import * as Routes from "../../routes";
-import {bordeaux, CollaborationBox, FormBox, InverseButton, MainButton} from "../../styledComponents/CustomComponents";
-import {Button, DatePicker, Form, HelpBlock, Schema, SelectPicker, TreePicker} from "rsuite";
+import {
+    bordeaux,
+    CollaborationBox,
+    FormBox,
+    InverseButton,
+    MainButton,
+    SecondaryButton
+} from "../../styledComponents/CustomComponents";
+import Modal, {Button, DatePicker, Form, HelpBlock, Schema, SelectPicker, TreePicker} from "rsuite";
 import TextField from "../../Login/Components/TextField";
 import {dataCountry, dataLanguage} from "../../selectData";
 import styled from "styled-components";
@@ -19,6 +26,7 @@ import {getCalendarDate} from "../../ReusableComponents/TimeManager";
 import {useTranslation} from "react-i18next";
 import PositionList from "../Position/PositionList";
 import {collaborationModel} from "../FormModels/models";
+import DeleteButton from "../../ReusableComponents/DeleteButton";
 
 export default function EditCollaboration({isService}) {
     const [formValue, setFormValue] = useState({positions: []});
@@ -89,6 +97,7 @@ export default function EditCollaboration({isService}) {
 
     const categoryLabel = (isService) ? "Macro category of the service" : "Macro category of the collaboration" ;
 
+    const [show, setShow] = useState(false);
     const categoryImage = formValue && formValue.category && formValue.category.picture;
 
         return (
@@ -103,9 +112,9 @@ export default function EditCollaboration({isService}) {
                     <TextField label={t('title')} name="title" type="text" />
                     <TextField label={t('Local Title')} name="localLanguageTitle" type="text" />
                     <TextField label={t('Short Description')} name="shortDescription" componentClass="textarea" />
-                    <TextField label={t('Local Language Short description')} name="localShortDescription" componentClass="textarea" />
+                    <TextField label={t('Local Language Short description')} name="localLanguageShortDescription" componentClass="textarea" />
                     <TextField label={t('Description')} name="description" componentClass="textarea" />
-                    <TextField label={t('Local Language Detailed description')} name="localDescription" componentClass="textarea" />
+                    <TextField label={t('Local Language Detailed description')} name="localLanguageDescription" componentClass="textarea" />
                     <div style={{display:"flex", justifyContent:"space-around"}}>
                         <TextField style={{width:"100%"}} label={t('Start Date')} name="startDate" format="DD-MM-YYYY" accepter={DatePicker} />
                         <TextField style={{width:"100%"}}  label={t('End Date')} name="endDate" accepter={DatePicker} format="DD-MM-YYYY" placement="topEnd" /> </div>
@@ -132,12 +141,34 @@ export default function EditCollaboration({isService}) {
 
 
                     <MainButton type="submit">{t('Save')}</MainButton>
-                    <Button onClick={()=>deleteHandler(formValue.id)}>Delete</Button>
+                    <DeleteButton onClickHandler={() => deleteHandler(formValue.id)}/>
 
                 </Form>
 
             </FormBox>
+
         </>);
 
 
+}
+
+
+function DeleteModal2({showModal, closeModal}){
+    return (
+        <Modal overflow={true} show={showModal}>
+        <Modal.Header>
+            <Modal.Title>Modal Title</Modal.Title>
+        </Modal.Header>
+        <Modal.Body>
+
+        </Modal.Body>
+        <Modal.Footer>
+            <Button onClick={closeModal} appearance="primary">
+                Ok
+            </Button>
+            <Button onClick={closeModal} appearance="subtle">
+                Cancel
+            </Button>
+        </Modal.Footer>
+    </Modal>)
 }

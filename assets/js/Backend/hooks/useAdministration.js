@@ -17,4 +17,15 @@ export function  useChangeUserRole() {
 }
 
 
+export function  useGetAllCollaborations() {
+
+    const backendClient = BackendClient();
+    return useCreateHook(backendClient,'/backend/collaborations/getall','get',[]);
+}
+
+export function  useGetAllProjects() {
+
+    const backendClient = BackendClient();
+    return useCreateHook(backendClient,'/backend/project/getall','get',[]);
+}
 

@@ -25,7 +25,7 @@ export default function Collaboration(){
         getCollaborationHandler(id);
     }, []);
 
-    const positionPanels = collaboration && collaboration.positions.map((position, index)=><PositionDescription key={index} isOwnerOfProject={isOwner} position={position} /> );
+    const positionPanels = collaboration && collaboration.positions.map((position, index)=><PositionShowDescription key={index} isOwnerOfProject={isOwner} position={position} /> );
     const categoryImage = collaboration && collaboration.category && collaboration.category.picture;
 
     const isCollaborationClosed =  collaboration && collaboration.positions.filter((position)=>!position.isOpen).length === collaboration.positions.length;
@@ -38,27 +38,26 @@ export default function Collaboration(){
 
     const serviceBox = <ServiceFormBox collaboration={collaboration}/>;
 
+    const editButton = isCollaborationClosed ? <Button style={{backgroundColor:"white", color:bordeaux, margin:10, bottom:10, right:10}} onClick={()=>history.push(Routes.editService(id))}>Edit Service</Button> : <Button style={{backgroundColor:"white", color:bordeaux, margin:10, bottom:10, right:10}} onClick={()=>history.push(Routes.editCollaboration(id))}>Edit Collaboration</Button>
+
     return (<>
         <div style={{width:"100%", backgroundColor:bordeaux}}>
-            <CollaborationBox>
-                <div style={{height: 150, width: 150, backgroundImage: `url(${categoryImage})`, backgroundColor: "white", backgroundSize: "contain", flex:"none", marginLeft:10, marginRight:10}}/>
-                {title}
-            </CollaborationBox>
-            {isOwner&& (isCollaborationClosed ? <Button style={{backgroundColor:"white", color:bordeaux, margin:10}} onClick={()=>history.push(Routes.editService(id))}>Edit Service</Button> : <Button style={{backgroundColor:"white", color:bordeaux, margin:10}} onClick={()=>history.push(Routes.editCollaboration(id))}>Edit Collaboration</Button> )}
+            <div>
+                <CollaborationBox>
+                    <div style={{height: 150, width: 150, backgroundImage: `url(${categoryImage})`, backgroundColor: "white", backgroundSize: "contain", flex:"none", margin:10}}/>
+                    {title}
+
+                </CollaborationBox>
+                {isOwner && editButton}
+            </div>
+
+
         </div>
 
-        <div>{description}</div>
+        <div style={{padding:10}}>{description}</div>
         <p>{languageMessage}</p>
         <InfoBox>
             <Grid style={{width:"100%"}}>
-                <Row className="show-grid" style={{padding:5}}>
-                    <Col xs={12}>
-                        <IconWithText icon="user" label={t('Modality')} value={collaboration && collaboration.modality}/>
-                    </Col>
-                    <Col xs={12}>
-                        <IconWithText icon="map-marker" label={t('Address')} value={collaboration && collaboration.address}/>
-                    </Col>
-                </Row>
                 <Row className="show-grid" style={{padding:5}}>
                     <Col xs={12}>
                         <IconWithText icon="calendar-o" label={t('Start date')} value={collaboration && getCalendarFormat(collaboration.startDate)}/>
@@ -85,6 +84,11 @@ export default function Collaboration(){
                     </Col>
 
                 </Row>
+                <Row className="show-grid" style={{padding:5}}>
+                    <Col xs={12}>
+                        <IconWithText icon="user" label={t('Modality')} value={collaboration && collaboration.modality}/>
+                    </Col>
+                </Row>
 
             </Grid>
         </InfoBox>
@@ -96,7 +100,7 @@ export default function Collaboration(){
 
 }
 
-export function PositionDescription({isOwnerOfProject, position}){
+export function PositionShowDescription({isOwnerOfProject, position}){
     const history = useHistory();
     const {user} = useSelector(state=>state);
 
@@ -176,6 +180,12 @@ export function PositionDescription({isOwnerOfProject, position}){
 
 export function PositionPanelTitle({position}){
 
+    const {t, i18n} = useTranslation();
+
+    const today = new Date();
+    const deadlineDate = new Date(position.deadline);
+
+    const timeMessage = (position.deadline && today > deadlineDate) ? t('Position closed') : t('Deadline') + getCalendarFormat(position.deadline);
 
 
     return <div style={{backgroundColor:"whitesmoke", minHeight:40, color:bordeaux, display: "flex", justifyContent: "space-evenly",alignItems: "center"}}>
@@ -183,7 +193,7 @@ export function PositionPanelTitle({position}){
             {position.service.label}
         </div>
         <div style={{flexGrow:1}}>
-            <Icon icon="calendar-o"/> From {getCalendarFormat(position.startDate)} to {getCalendarFormat(position.endDate)}
+            <Icon icon="calendar-o"/> {timeMessage}
         </div>
     </div>
 
@@ -304,9 +314,9 @@ export function ServiceFormBox({collaboration}) {
 }
 
 export function IconWithText({icon, label, value}){
-    return (<div style={{display:"flex", alignItems:"center"}}>
+    return (<div style={{display:"flex", alignItems:"center", marginLeft:5, marginRight:5}}>
         <Icon size="2x" style={{margin:5, color:bordeaux, width:40}} icon={icon}/>
-        <div style={{borderBottom:`1px solid ${bordeaux}`, display:"flex", alignItems:"center", width:"90%"}}>
+        <div style={{borderBottom:`1px solid ${bordeaux}`, display:"flex", alignItems:"center", width:"100%"}}>
             <div style={{fontSize:"18px", width:150, fontWeight:"bold", color:bordeaux}}>{label}: </div>
             <div style={{fontSize:"18px", marginLeft:20}}>{value}</div>
         </div>

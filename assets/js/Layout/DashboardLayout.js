@@ -11,27 +11,6 @@ export default function DashboardLayout({page}) {
     return (
         <DesktopDiv>
         <div style={{backgroundColor: "white", minHeight:"100vh"}}>
-
-            {/*<Navbar appearance="subtle">
-                <Navbar.Header>
-                    <a href="#" className="navbar-brand logo">
-                        LOGO ENI
-                    </a>
-                    <a href="#" className="navbar-brand logo">
-                        LOGO UE
-                    </a>
-                    <a href="#" className="navbar-brand logo">
-                        LOGO SARDEGNA
-                    </a>
-                </Navbar.Header>
-                <Navbar.Body>
-
-                    <Nav pullRight>
-                        <Nav.Item onClick={()=>history.push(Routes.dashboardPage)}>MORE THAN A JOB</Nav.Item>
-                        <Nav.Item onClick={()=>history.push(Routes.registration)} icon={<Icon icon="cog" />}>Register</Nav.Item>
-                    </Nav>
-                </Navbar.Body>
-            </Navbar>*/}
             <FinalHeader />
 
 

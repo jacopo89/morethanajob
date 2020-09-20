@@ -111,8 +111,10 @@ class CollaborationController extends AbstractController
             $isService = json_decode($request->get('isService'));
             $localLanguageTitle = json_decode($request->get('localTitle'));
             $localLanguage = json_decode($request->get('language'));
-            $localLanguageDescription = json_decode($request->get('localDescription'));
-            $localLanguageShortDescription = json_decode($request->get('localShortDescription'));
+
+
+            $localLanguageDescription = json_decode($request->get('localLanguageDescription'));
+            $localLanguageShortDescription = json_decode($request->get('localLanguageShortDescription'));
 
 
             $positions = json_decode($request->get('positions'), true);
@@ -204,7 +206,7 @@ class CollaborationController extends AbstractController
             $country = json_decode($request->get('country'));
             $localLanguageTitle = json_decode($request->get('localLanguageTitle'));
             $localLanguageDescription = json_decode($request->get('localLanguageDescription'));
-            $localLanguageShortDescription = json_decode($request->get('localShortDescription'));
+            $localLanguageShortDescription = json_decode($request->get('localLanguageShortDescription'));
 
 
             $collaboration->setStartDate($startDate);
@@ -333,4 +335,14 @@ class CollaborationController extends AbstractController
         return new Response($response, $status);
     }
 
+
+    /**
+     * @Route("/getall")
+     */
+    public function getAll(){
+        $projects = $this->em->getRepository(Collaboration::class)->findAll();
+
+        return new Response($this->serializer->serialize($projects,'json'));
+
+    }
 }

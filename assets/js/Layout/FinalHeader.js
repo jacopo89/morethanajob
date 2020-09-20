@@ -34,14 +34,18 @@ export default function FinalHeader(){
     );
 
     const CustomDropdown = ({ ...props }) => (
-        <Dropdown {...props}>
+        <Dropdown placement="leftStart" {...props}>
             <Dropdown.Item onClick={()=> history.push(Routes.dashboardPage)} eventKey="1" icon={<Icon icon="home" />}>
                 Home
             </Dropdown.Item>
             <Dropdown.Item onClick={()=> history.push(Routes.serviceSearchPage)} eventKey="3">{t('Search projects')}</Dropdown.Item>
             <Dropdown.Item onClick={()=> history.push(Routes.searchUserPage)} eventKey="4">{t('Search organisations')}</Dropdown.Item>
             <Dropdown.Item onClick={()=> history.push(Routes.profile(user.profileName))} >{t('Profile')}</Dropdown.Item>
-            {false && <Dropdown.Item onClick={()=> history.push(Routes.administration)} >{t('Administration')}</Dropdown.Item>}
+            {true && <Dropdown.Menu  title={t('Administration')} >
+                <Dropdown.Item onClick={()=> history.push(Routes.administration)} eventKey="e-1">Management</Dropdown.Item>
+                <Dropdown.Item onClick={()=> history.push(Routes.administrationProjects)} eventKey="e-2">Projects</Dropdown.Item>
+                <Dropdown.Item onClick={()=> history.push(Routes.administrationCollaborations)} eventKey="e-3">Services and collaborations</Dropdown.Item>
+            </Dropdown.Menu>}
             <Dropdown.Item onClick={()=>signOut()} >{t('Logout')}</Dropdown.Item>
         </Dropdown>
     );

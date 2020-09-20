@@ -47,7 +47,10 @@ export const InverseButton = styled(Button)`
     `;
 
 export const SaveButton = styled(MainButton)`
-float:right;
+    float:right;
+    position:relative;
+    right:10;
+    bottom:10;
 `
 
 export const IconButtonTransparent = styled(IconButton)`
@@ -78,3 +81,15 @@ align-items: center;
 justify-content: flex-start;
 `
 ;
+
+export const IconSpan = styled.span`
+    display: flex;
+    align-items: center;
+    width: 35%;
+    justify-content: space-evenly;`;
+
+export const IconSpanProject = styled.span`
+    display: flex;
+    align-items: center;
+    width: 100%;
+    justify-content: space-between;`;

@@ -2,7 +2,12 @@ import {Schema} from "rsuite";
 
 const { StringType, NumberType } = Schema.Types;
 
-export const projectModel = {};
+export const projectModel = Schema.Model({
+    title: StringType().isRequired("This field is required"),
+    shortDescription:StringType().isRequired("This field is required")
+
+});
+
 export const collaborationModel = Schema.Model({
     title: StringType().isRequired('This field is required.'),
     shortDescription: StringType().isRequired('This field is required.').maxLength(500),

@@ -68,9 +68,9 @@ export default function NewCollaboration({isService=false}){
                     <TextField label={titleLabel} name="title" type="text" />
                     <TextField label={titleLocalLabel} name="localTitle" type="text" />
                     <TextField label={t('Short description')} name="shortDescription" componentClass="textarea" />
-                    <TextField label={t('Local Language Short description')} name="localShortDescription" componentClass="textarea" />
+                    <TextField label={t('Local Language Short description')} name="localLanguageShortDescription" componentClass="textarea" />
                     <TextField label={t('Detailed description')} name="description" componentClass="textarea" />
-                    <TextField label={t('Local Language Detailed description')} name="localDescription" componentClass="textarea" />
+                    <TextField label={t('Local Language Detailed description')} name="localLanguageDescription" componentClass="textarea" />
 
                     <div style={{display:"flex", justifyContent:"space-around"}}>
                         <TextField style={{width:"100%"}} label={t('Country')} name="country" accepter={SelectPicker} data={dataCountry} />

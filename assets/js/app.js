@@ -53,6 +53,8 @@ import EditFurniture from "./MainApp/Furnitures/EditFurniture";
 import ScrollToTop from "./ReusableComponents/ScrollToTop";
 import {useGetServices} from "./Backend/hooks/useServices";
 import {useGetCategories} from "./Backend/hooks/useCategories";
+import CollaborationManagement from "./MainApp/Administration/CollaborationManagement";
+import ProjectManagement from "./MainApp/Administration/ProjectManagement";
 
 function App(){
     const {authenticated, language} = useSelector(state=>state);
@@ -76,6 +78,8 @@ function App(){
     const recoverPage = <DashboardLayout page={<RecoverPasswordForm/>}/>;
     const profilePage = <MainPage page={<Profile/>}/>;
     const administrationPage = <MainPage page={<CategoriesManagement/>}/>;
+    const administrationProjectPage = <MainPage page={<ProjectManagement/>}/>;
+    const administrationCollaborationsPage = <MainPage page={<CollaborationManagement/>}/>;
     const serviceSearchPage = <MainPage page={<ServiceSearch />}/>;
     const searchUserPage = <MainPage page={<SearchPartners />}/>;
     const loginPage = <DashboardLayout page={<Login/>}/>;
@@ -119,6 +123,8 @@ function App(){
                 <Route path={Routes.newServicePage} children={newServicePage}/>
                 <Route path={Routes.routeEditProject} children={editProjectPage}/>
                 <Route path={Routes.administration} children={administrationPage}/>
+                <Route path={Routes.administrationCollaborations} children={administrationCollaborationsPage}/>
+                <Route path={Routes.administrationProjects} children={administrationProjectPage}/>
                 <Route path={Routes.routeProject} children={projectDetailPage}/>
                 <Route path={Routes.immediateLogout} children={immediateLogoutPage}/>
                 <Route path={Routes.main} children={dashboardPage}/>
@@ -149,6 +155,8 @@ function App(){
                 <Route path={Routes.routeEditProject} children={editProjectPage}/>
                 <Route path={Routes.administration} children={administrationPage}/>
                 <Route path={Routes.routeProject} children={projectDetailPage}/>
+                <Route path={Routes.administrationCollaborations} children={administrationCollaborationsPage}/>
+                <Route path={Routes.administrationProjects} children={administrationProjectPage}/>
                 <Route path={Routes.immediateLogout} children={immediateLogoutPage}/>
                 <Route path={Routes.main} children={dashboardPage}/>
                 <Route path="/">

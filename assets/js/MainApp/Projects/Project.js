@@ -11,7 +11,7 @@ import {
 } from "../../Backend/hooks/useProjects";
 import {
     bordeaux,
-    coverPicture, FormBox,
+    coverPicture, FormBox, IconSpanProject,
     InverseButton,
     profilePicture,
     projectPicture
@@ -50,7 +50,6 @@ export default function Project(){
     }).length>0;
 
 
-
     const backgroundImage = (project && project.projectLogo) ? project.projectLogo.url  : projectPicture;
     const backgrounCoverdImage = (project && project.projectPicture) ? project.projectPicture.url  : coverPicture;
 
@@ -58,13 +57,9 @@ export default function Project(){
 
     if(project.isPortfolio){
         const existingPartners = project.projectPartnersRelations.map((projectPartnersRelation, index)=>{
-            let profileImage = (projectPartnersRelation.partner.profilePicture) ? projectPartnersRelation.partner.profilePicture.url : profilePicture ;
-            let name = (projectPartnersRelation.partner.name);
-            let profileName = (projectPartnersRelation.partner.profileName);
-            return (<div style={{display: "flex", flexDirection:"column"}}>
-                <img key={index} src={profileImage} style={{ width:150, height:150 }} alt={profileName}/>
-                <a href={`/profile/${profileName}`} >{name}</a>
-            </div>)
+            const partner = projectPartnersRelation.partner;
+            return <PlatformPartnerPanel partner={partner} key={index} />
+
         });
         const externalpartners =  project.externalPartners.map((externalPartner)=> <ExternalPartnerPanel partner={externalPartner}/>);
         list = <>
@@ -80,8 +75,8 @@ export default function Project(){
     }
 
     const projectLogostyle = {backgroundImage:  `url(${backgroundImage})`, backgroundSize: "contain", width:150, height:150}
-
     const projectLogo = <div style={projectLogostyle}/>
+
     return <>
 
         <div style={{height:250, width:"100%", marginBottom:10, backgroundColor:"black",position:"relative", backgroundImage: `url(${backgrounCoverdImage})`}}>
@@ -99,17 +94,24 @@ export default function Project(){
                         <div style={{display:"flex", justifyContent:"center"}}>
                             {projectLogo}
                         </div>
+                        <Grid fluid>
+                            <Row>
+                                <Col xs={8} style={{display:"flex",justifyContent:"center", marginBottom:5}}><Icon style={{color:bordeaux}} icon="external-link-square" size="3x" /></Col>
+                                <Col xs={16}>{project && project.links}</Col>
+                            </Row>
+                            <Row>
+                                <Col xs={8} style={{display:"flex",justifyContent:"center", marginBottom:5}}><Icon style={{color:bordeaux}} icon="envelope" size="3x" /></Col>
+                                <Col xs={16}>{project && project.contacts}</Col>
+                            </Row>
+                        </Grid>
                     </Col>
                     <Col xs={16}>
                         <h3 style={{color: bordeaux}}>{project && project.title}</h3>
                         <div>{ project && project.longDescription}</div>
 
-                            <IconSpan><Icon style={{color:bordeaux}} icon="external-link-square" size="3x" /> {project && project.links}</IconSpan>
-                            <IconSpan><Icon style={{color:bordeaux}} icon="envelope" size="3x" /> {project && project.contacts}</IconSpan>
 
                     </Col>
                 </Row>
-
 
             </Grid>
             {list}
@@ -127,81 +129,16 @@ export function ExternalPartnerPanel({partner}){
         </>
 }
 
+export function PlatformPartnerPanel({partner}){
 
-
-
-export function RequestsModal({position, showModal, closeModal, callback}){
-
-
-    const [positionRequests, getPositionRequestsHandler] = useGetApplications();
-    const [confirmCollaborationResponse, confirmCollaborationHandler] = useConfirmApplication();
-    const history = useHistory();
-
-    const confirmCollaboration = (rowData) =>{
-        console.log("Confirm Collaboration", rowData)
-        const formData = new FormData();
-        formData.append('user', rowData.user.email);
-        formData.append('position',position.id );
-        confirmCollaborationHandler(formData);
-    };
-
-
-
-    const actionRender= (rowData) => {
-
-
-        return (
-            <span>
-                    <a onClick={() => approveHandler(rowData)}> Approve </a> |{' '}
-                <a onClick={()=>seeHandler(rowData)}> See </a>
-                  </span>
-        );
-    }
-
-    const approveHandler = (rowData)=>{
-        console.log("rowdata approvehandler", rowData);
-        confirmCollaboration(rowData, {successCallback: callback});
-    }
-
-    const seeHandler = (rowData) => {
-        console.log("Rowdata profilename", rowData);
-        history.push(Routes.profile(rowData.user.profileName));
-    }
-
-    const timeRender = (rowData) => {
-        return getCalendarFormat(rowData.creationTime);
-    }
-    const nameRender = (rowData) => {
-        return rowData.user.name;
-    }
-
-
-    const model = [
-        {label:t('Society Name'), render:nameRender},
-        {label:"Time", render:timeRender},
-        {label:"actions", render:actionRender}
-    ];
-    const table = <GenericTable modelData={model} propData={positionRequests} />
-    useEffect(()=>{
-        getPositionRequestsHandler(position.id);
-    },[position]);
-
-    return (<Modal overflow={true} show={showModal}  >
-        <Modal.Header>
-            <Modal.Title></Modal.Title>
-        </Modal.Header>
-        <Modal.Body>
-            {table}
-        </Modal.Body>
-        <Modal.Footer>
-            <Button onClick={closeModal} appearance="primary">
-                Ok
-            </Button>
-            <Button onClick={closeModal} appearance="subtle">
-                Cancel
-            </Button>
-        </Modal.Footer>
-    </Modal>)
+    let profileImage = (partner.profilePicture) ? partner.profilePicture.url : profilePicture ;
+    let name = (partner.name);
+    let profileName = (partner.profileName);
+    return (
+        <div style={{display: "flex", flexDirection:"column", marginLeft:10, marginRight:10}}>
+            <img src={profileImage} style={{ width:150, height:150 }} alt={profileName}/>
+            <a href={`/profile/${profileName}`} >{name}</a>
+        </div>)
 }
 
 

@@ -776,4 +776,14 @@ class ProjectController extends AbstractController
         $this->getDoctrine()->getManager()->flush();
     }
 
+
+    /**
+     * @Route("/getall")
+     */
+    public function getAll(){
+        $projects = $this->em->getRepository(Project::class)->findAll();
+
+        return new Response($this->serializer->serialize($projects,'json'));
+
+    }
 }

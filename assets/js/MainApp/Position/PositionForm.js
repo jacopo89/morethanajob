@@ -5,7 +5,7 @@ import {Button, DatePicker, Form, TreePicker} from "rsuite";
 import TextField from "../../Login/Components/TextField";
 import {useDeletePosition, useEditPosition, useNewPosition} from "../../Backend/hooks/usePositions";
 
-export default function PositionForm({item, updater, save, back, remover, callback, servicesTree}){
+export default function PositionForm({item, updater, save, back, remover, isEdit, callback, servicesTree}){
     item.furniture = item.service && item.service.value;
     const [formValue, setFormValue] = useState(item);
     const { t, i18n } = useTranslation();
@@ -31,9 +31,14 @@ export default function PositionForm({item, updater, save, back, remover, callba
     }
 
     const saveRemoteFunction = () => {
-        const formData = new FormData();
-        Object.keys(formValue).forEach((key)=>  { formData.append(key,JSON.stringify(formValue[key]));});
-        saveRemoteHandler(formData, {successCallback:successCallbackEdit});
+        if(isEdit){
+            const formData = new FormData();
+            Object.keys(formValue).forEach((key)=>  { formData.append(key,JSON.stringify(formValue[key]));});
+            saveRemoteHandler(formData, {successCallback:successCallbackEdit});
+        }else{
+            save();
+        }
+
 
     }
 

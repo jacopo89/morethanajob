@@ -6,9 +6,6 @@ import {useDeletePosition} from "../../Backend/hooks/usePositions";
 
 export function PositionDescription({position, services, remover, updater, setEdit, callback, isEdit=false}){
 
-    console.log("services",services);
-    console.log("position",position);
-
     const correctService = services.filter((service)=> service.id === position.service);
     const servicePicture = (correctService.length!==0) ? correctService[0].picture : "";
 

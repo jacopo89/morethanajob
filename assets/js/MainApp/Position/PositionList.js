@@ -86,7 +86,7 @@ export default function PositionList({formValue, setFormValue, callback, isEdit=
 
     const createForm = <>
         <h5 style={{color:bordeaux}}>Need </h5>
-        <PositionForm item={element} updater={update} save={save} back={back} servicesTree={servicesTree} callback={callback}  />
+        <PositionForm isEdit={isEdit} item={element} updater={update} save={save} back={back} servicesTree={servicesTree} callback={callback}  />
     </>
 
     const actionRender= (rowData) => {

@@ -1,7 +1,5 @@
 import {Body, bordeaux, gray} from "../styledComponents/CustomComponents";
 import React from 'react'
-import {Navbar, Nav, Dropdown, Icon} from 'rsuite';
-import Header from "./Header";
 import styled from 'styled-components';
 import FinalHeader from "./FinalHeader";
 import Footer from "./Footer";
