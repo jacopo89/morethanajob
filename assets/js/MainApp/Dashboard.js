@@ -1,6 +1,6 @@
 import React, {useEffect, useState} from "react";
 import {Button, Col, Form, Grid, Icon, Nav, Navbar, Panel, PanelGroup, Row} from "rsuite";
-import {useHistory} from "react-router-dom";
+import {Link, useHistory} from "react-router-dom";
 import * as Routes from '../routes'
 import {Body, bordeaux, gray, MainButton} from "../styledComponents/CustomComponents";
 import styled from "styled-components";
@@ -11,10 +11,14 @@ import {useGetRandomCollaborations} from "../Backend/hooks/useCollaborations";
 import {useTranslation} from "react-i18next";
 import CollaborationDetail from "./Profile/DetailCards/CollaborationDetail";
 import {useSelector} from "react-redux";
+import {useGetCategories} from "../Backend/hooks/useCategories";
 
 export default function Dashboard(){
     const history = useHistory();
     const { t, i18n } = useTranslation();
+
+    const [categories, getCategories] = useGetCategories();
+
     const [readMore, setReadMore] = useState(false);
     const {language} = useSelector(state=>state);
 
@@ -25,7 +29,10 @@ export default function Dashboard(){
 
     useEffect(()=>{
         getRandomProfilesHandler();
+        getCategories();
     },[]);
+
+    const categoriesPanels = categories.map((category, index)=> <CategoryPanel key={index} category={category} /> )
 
     useEffect(()=>{
         const formData = new FormData();
@@ -141,26 +148,7 @@ export default function Dashboard(){
             <Panel shaded style={panelStyle}>
                 <Title>Categories</Title>
                 <div style={{display:"flex", justifyContent:"space-around"}}>
-                    <IconTextBox>
-                        <img width={75} src="/icons/ico1.png"/>
-                        <p>{t('categoryFamily')}</p>
-                    </IconTextBox>
-                    <IconTextBox>
-                        <img width={75} src="/icons/ico2.png"/>
-                        <p>{t('categoryCounseling')}</p>
-                    </IconTextBox>
-                    <IconTextBox>
-                        <img width={75} src="/icons/ico3.png"/>
-                        <p>{t('categoryEducation')}</p>
-                    </IconTextBox>
-                    <IconTextBox>
-                        <img width={75} src="/icons/ico4.png"/>
-                        <p>{t('categoryCarrier')}</p>
-                    </IconTextBox>
-                    <IconTextBox>
-                        <img width={75} src="/icons/ico5.png"/>
-                        <p>{t('categoryCulture')}</p>
-                    </IconTextBox>
+                    {categoriesPanels}
 
                 </div>
 
@@ -211,6 +199,17 @@ export default function Dashboard(){
         </Body>
     </>
 
+}
+
+function CategoryPanel({category}){
+    const {t, i18n} = useTranslation();
+   return <IconTextBox>
+        <img width={75} src={category.picture}/>
+        <Link to={{
+            pathname: Routes.serviceSearchPage,
+            state: { category: category.value }
+        }} >{t(category.name)}</Link>
+    </IconTextBox>
 }
 
 

@@ -228,7 +228,8 @@ class ProjectController extends AbstractController
     public function getProjectByMail(User $user){
         $projects = $user->getProjectsRelations()->filter(function(ProjectPartner $projectPartner){
             return $projectPartner->getIsLeader()===true;
-        })->map(function(ProjectPartner $projectPartner){ return $projectPartner->getProject();});
+        })->map(function(ProjectPartner $projectPartner){ return $projectPartner->getProject();})
+            ->filter(function(Project $project){return $project->getIsPortfolio()===false;});
 
         $arrayProjects = [];
         foreach ($projects as $project){

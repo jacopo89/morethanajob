@@ -20,7 +20,7 @@ import {useCreateNewProject, useGetLastProjects, useSearchProjects} from "../../
 import styled from "styled-components";
 import {useSelector} from "react-redux";
 import * as Routes from '../../routes';
-import {useHistory} from "react-router-dom";
+import {useHistory, useLocation} from "react-router-dom";
 import {PortfolioDetail} from "../Profile/submenus/SocietyPortfolio";
 import {dataCountry, dataLanguage} from "../../selectData";
 import {useGetUsers} from "../../Backend/hooks/useAdministration";
@@ -45,9 +45,16 @@ export default function ServiceSearch(){
         getProjectsHandler(formData);
     }
     const history = useHistory();
+    const location = useLocation();
+
+
 
     useEffect(()=>{
         const formData = new FormData();
+        if(location.state.category){
+            console.log("Appending category")
+            formData.append('category', [].push(location.state.category));
+        }
         if(user){
             formData.append('language', language);
             getProjectsHandler(formData);

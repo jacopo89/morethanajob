@@ -23,7 +23,7 @@ import {Link, useParams} from "react-router-dom";
 import {
     bordeaux,
     coverPicture,
-    InverseButton,
+    InverseButton, LinearGradient,
     MainButton, profilePicture,
     SecondaryButton
 } from "../../styledComponents/CustomComponents";
@@ -121,13 +121,12 @@ export default function Profile(){
 
 
     if(userInfo && !isEdit){
-        const uploadCoverButton = <EditButton>{t('Change cover Button')}</EditButton>
-        const editButton = (!isEdit) ?  <EditButton onClick={()=>setIsEdit(!isEdit)}> {t('Edit profile')} </EditButton> : <> <InverseButton onClick={()=>setIsEdit(!isEdit)}> {t('Go Back')} </InverseButton></>
+        const editButton = (!isEdit) ?  <InverseButton style={{position: "absolute", bottom:5}} onClick={()=>setIsEdit(!isEdit)}> {t('Edit profile')} </InverseButton> : <> <InverseButton onClick={()=>setIsEdit(!isEdit)}> {t('Go Back')} </InverseButton></>
 
         return (
 
             <>
-            <div style={{height:281, width:"100%", marginBottom:10, backgroundColor:"black",position:"relative", backgroundImage: `url(${backgroundImage})`, backgroundSize:"contain", backgroundRepeat: "no-repeat"}}>
+            <div style={{...coverStyle, backgroundImage: `url(${backgroundImage})`}}>
                 <LinearGradient/>
                 <h3 style={{position:"absolute", bottom:4, right:10, color:"white"}}><a target="_blank" href={userInfo && userInfo.website}>{userInfo && userInfo.website}</a></h3>
                 {/* {social}*/}
@@ -151,17 +150,17 @@ export default function Profile(){
             <ProjectMenu society={userInfo} isOwner={isOwner}/>
         </>)
     }else if(userInfo && isEdit){
-        const uploadCoverButton = <EditButton>{t('Change cover Button')}</EditButton>
-        const editButton = (!isEdit) ?  <EditButton onClick={()=>setIsEdit(!isEdit)}> {t('Edit profile')} </EditButton> : <> <InverseButton onClick={()=>setIsEdit(!isEdit)}> {t('Go Back')} </InverseButton></>
+        const uploadCoverButton = <InverseButton style={{position: "absolute", top:0}}>{t('Change cover Button')}</InverseButton>
+        const editButton = (!isEdit) ?  <InverseButton onClick={()=>setIsEdit(!isEdit)}> {t('Edit profile')} </InverseButton> : <> <InverseButton onClick={()=>setIsEdit(!isEdit)}> {t('Go Back')} </InverseButton></>
 
         const uploaderProfileButton = <Button style={{backgroundImage:  `url(${profileImage})`, backgroundSize: "contain", width:200, height:200}}> Upload</Button>;
         return(
             <>
-                <div style={{height:281, width:"100%", marginBottom:10, backgroundColor:"black",position:"relative", backgroundImage: `url(${backgroundImage})`, backgroundSize:"contain", backgroundRepeat: "no-repeat"}}>
+                <div style={{...coverStyle, backgroundImage: `url(${backgroundImage})`}}>
                     <LinearGradient/>
                     <h3 style={{position:"absolute", bottom:4, right:10, color:"white"}}>{userInfo && userInfo.website}</h3>
                     {/*{social}*/}
-                    <ImageCropper button={uploadCoverButton} propCrop={{
+                    <ImageCropper button={uploadCoverButton}  propCrop={{
                         unit: 'px', // default, can be 'px' or '%'
                         x: 0,
                         y: 0,
@@ -257,22 +256,11 @@ const InfoBox =  styled.div`
 ;
 
 
-const EditButton = styled(InverseButton)`
-    position: absolute;
-    bottom: 4;
-    left: 4;`;
-
-const LinearGradient = styled.div`
-    position: absolute;
-    width: 100%;
-    height: 100%;
-    background-image: linear-gradient(to top, black, white);
-    opacity:33%;
-    `
-
 
 const textFieldStyle = {
     width:"100%",
     marginLeft:5,
     marginRight:5
 }
+
+const coverStyle = {height:0, paddingTop:"27.83964365256125%", width:"100%", marginBottom:10, backgroundColor:"black",position:"relative", backgroundSize:"contain", backgroundRepeat: "no-repeat"}

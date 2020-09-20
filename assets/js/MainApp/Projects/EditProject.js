@@ -34,6 +34,7 @@ import {useTranslation} from "react-i18next";
 import {PositionDescription} from "../Position/PositionDescription";
 import PartnersList from "./Partners/PartnersList";
 import {projectModel} from "../FormModels/models";
+import DeleteButton from "../../ReusableComponents/DeleteButton";
 export default function EditProject({isPortfolio=false}){
     const [formValue, setFormValue] = useState({positions: [], partners:[]});
 
@@ -140,7 +141,7 @@ export default function EditProject({isPortfolio=false}){
 
                     <SaveButton type="submit">{t('Save')}</SaveButton>
                 </Form>
-                <Button onClick={()=>removeProject(formValue.id)} >{t('Delete')}</Button>
+                <DeleteButton onClickHandler={()=>removeProject(formValue.id)} >{t('Delete')}</DeleteButton>
 
             </InfoBox>
         </>);

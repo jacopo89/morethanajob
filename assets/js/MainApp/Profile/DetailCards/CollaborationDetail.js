@@ -46,16 +46,30 @@ export function CollaborationPanelTitle({collaboration, title}){
     const openPositions = collaboration.positions.filter((position) => position.isOpen === true).length;
     const { t, i18n } = useTranslation();
 
+    let collaborationOpen = true;
+
+    if(collaboration.endDate){
+        const today = new Date();
+        const endD = new Date(collaboration.endDate);
+
+        collaborationOpen = (today <= endD);
+
+    }
+
+    const positionMessage = (collaborationOpen) ? t('Open positions') + ": " + openPositions : "Closed";
+
+    const timeMessage = (collaboration.startDate && collaboration.endDate) ? t('From')+ " " + getCalendarFormat(collaboration.startDate) + " " + t('To') + " " + getCalendarFormat(collaboration.endDate)  : "";
+
 
     return <div style={{color:bordeaux, minHeight:40, backgroundColor:"whitesmoke", display: "flex", justifyContent: "space-evenly",alignItems: "center"}}>
         <div style={{flexGrow:3, paddingLeft:10, fontWeight: "bold", fontSize:20}}>
             {title}
         </div>
         <div style={{flexGrow:1, fontSize:12}}>
-            <Icon icon="calendar-o"/> {t('From')} {getCalendarFormat(collaboration.startDate)} {t('To')} {getCalendarFormat(collaboration.endDate)}
+            <Icon icon="calendar-o"/>  {timeMessage}
         </div>
         <div style={{flexGrow:1, fontSize:12}}>
-            <Icon icon="suitcase" /> {t('Open positions')}: {openPositions}
+            <Icon icon="suitcase" /> {positionMessage}
         </div>
     </div>
 }

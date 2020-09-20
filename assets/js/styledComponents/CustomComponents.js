@@ -93,3 +93,13 @@ export const IconSpanProject = styled.span`
     align-items: center;
     width: 100%;
     justify-content: space-between;`;
+
+export const LinearGradient = styled.div`
+    position: absolute;
+    width: 100%;
+    height: 0;
+    padding-top: 27.83964365256125%;
+    top: 0;
+    background-image: linear-gradient(to top, black, white);
+    opacity:33%;
+    `
