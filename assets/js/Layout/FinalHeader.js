@@ -26,10 +26,10 @@ export default function FinalHeader(){
 
     const LanguageDropdown = ({ ...props }) => (
         <Dropdown {...props}>
-            <Dropdown.Item onClick={() => changeLanguage('it')} > Italian</Dropdown.Item>
-            <Dropdown.Item onClick={() => changeLanguage('en')} > English</Dropdown.Item>
-            <Dropdown.Item onClick={() => changeLanguage('ar')} > Arabic</Dropdown.Item>
-            <Dropdown.Item onClick={() => changeLanguage('gr')} > Greek</Dropdown.Item>
+            <Dropdown.Item onClick={() => changeLanguage('it')} > {t('Italian')}</Dropdown.Item>
+            <Dropdown.Item onClick={() => changeLanguage('en')} > {t('English')}</Dropdown.Item>
+            <Dropdown.Item onClick={() => changeLanguage('ar')} > {t('Arabic')}</Dropdown.Item>
+            <Dropdown.Item onClick={() => changeLanguage('gr')} > {t('Greek')}</Dropdown.Item>
         </Dropdown>
     );
 

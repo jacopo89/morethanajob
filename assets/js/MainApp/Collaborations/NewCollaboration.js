@@ -50,7 +50,7 @@ export default function NewCollaboration({isService=false}){
     }
     const titleLabel = (isService) ? t('Title of the service') : t('Title of the collaboration');
     const titleLocalLabel = (isService) ? t('Title of the service in local language') : t('Title of the collaboration in local language');
-    const categoryLabel = (isService) ? "Macro category of the service" : "Macro category of the collaboration" ;
+    const categoryLabel = (isService) ? t('Macro category of the service') : t('Macro category of the collaboration') ;
 
     const selectedCategoryPicture = (formValue.category) ? categories.filter((category)=> category.id === formValue.category)[0] : "";
 
@@ -65,9 +65,9 @@ export default function NewCollaboration({isService=false}){
                 <Form ref={formRef} model={collaborationModel} fluid formValue={formValue} onChange={setFormValue} onSubmit={onSubmitHandler}>
                     <TextField label={titleLabel} name="title" type="text" />
                     <TextField label={titleLocalLabel} name="localTitle" type="text" />
-                    <TextField label={t('Short description')} name="shortDescription" componentClass="textarea" />
+                    <TextField label={t('Short Description')} name="shortDescription" componentClass="textarea" />
                     <TextField label={t('Local Language Short description')} name="localLanguageShortDescription" componentClass="textarea" />
-                    <TextField label={t('Detailed description')} name="description" componentClass="textarea" />
+                    <TextField label={t('Description')} name="description" componentClass="textarea" />
                     <TextField label={t('Local Language Detailed description')} name="localLanguageDescription" componentClass="textarea" />
 
                     <div style={{display:"flex", justifyContent:"space-around"}}>
@@ -76,8 +76,8 @@ export default function NewCollaboration({isService=false}){
                     </div>
 
                     {isService && <div style={{display:"flex", justifyContent:"space-around"}}>
-                        <TextField label={t('Start Date')} name="startDate" accepter={DatePicker} format="DD-MM-YYYY"  style={{width:"100%"}} />
-                        <TextField label={t('End Date')} name="endDate" accepter={DatePicker} format="DD-MM-YYYY"  style={{width:"100%"}} />
+                        <TextField label={t('Start date')} name="startDate" accepter={DatePicker} format="DD-MM-YYYY"  style={{width:"100%"}} />
+                        <TextField label={t('End date')} name="endDate" accepter={DatePicker} format="DD-MM-YYYY"  style={{width:"100%"}} />
                     </div> }
 
                     {isService && <>

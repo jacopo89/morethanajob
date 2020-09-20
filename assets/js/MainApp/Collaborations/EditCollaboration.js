@@ -93,7 +93,7 @@ export default function EditCollaboration({isService}) {
 
     const categoryLabel = (isService) ? "Macro category of the service" : "Macro category of the collaboration" ;
 
-    const [show, setShow] = useState(false);
+
     const categoryImage = formValue && formValue.category && formValue.category.picture;
 
         return (
@@ -105,15 +105,15 @@ export default function EditCollaboration({isService}) {
             <FormBox >
                 <h5 style={{color:bordeaux}}>Info </h5>
                 <Form ref={formRef} model={collaborationModel} fluid formValue={formValue} onChange={setFormValue} onSubmit={onSubmitHandler}>
-                    <TextField label={t('title')} name="title" type="text" />
+                    <TextField label={t('Title')} name="title" type="text" />
                     <TextField label={t('Local Title')} name="localLanguageTitle" type="text" />
                     <TextField label={t('Short Description')} name="shortDescription" componentClass="textarea" />
                     <TextField label={t('Local Language Short description')} name="localLanguageShortDescription" componentClass="textarea" />
                     <TextField label={t('Description')} name="description" componentClass="textarea" />
                     <TextField label={t('Local Language Detailed description')} name="localLanguageDescription" componentClass="textarea" />
                     <div style={{display:"flex", justifyContent:"space-around"}}>
-                        <TextField style={{width:"100%"}} label={t('Start Date')} name="startDate" format="DD-MM-YYYY" accepter={DatePicker} />
-                        <TextField style={{width:"100%"}}  label={t('End Date')} name="endDate" accepter={DatePicker} format="DD-MM-YYYY" placement="topEnd" /> </div>
+                        <TextField style={{width:"100%"}} label={t('Start date')} name="startDate" format="DD-MM-YYYY" accepter={DatePicker} />
+                        <TextField style={{width:"100%"}}  label={t('End date')} name="endDate" accepter={DatePicker} format="DD-MM-YYYY" placement="topEnd" /> </div>
 
                     <div style={{display:"flex", justifyContent:"space-around"}}>
                         <TextField style={{width:"100%"}} label={t('Project')} name="project" accepter={SelectPicker} data={projects} />

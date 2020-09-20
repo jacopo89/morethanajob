@@ -82,7 +82,7 @@ export default function Project(){
         <div style={{...coverStyle, backgroundImage: `url(${backgrounCoverdImage})`}}>
             <LinearGradient/>
             {isOwner && <>
-                <InverseButton style={{position: "absolute", bottom:5}} onClick={()=>history.push(Routes.editProject(id))}>{t('Edit project')}</InverseButton>
+                <InverseButton style={{position: "absolute", left:5, bottom:5}} onClick={()=>history.push(Routes.editProject(id))}>{t('Edit project')}</InverseButton>
             </>
             }
 

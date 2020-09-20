@@ -8,6 +8,42 @@ export const translation = {
         "Choose language": "Choose language",
         "Submit":"Submit",
         "Login":"Login",
+        "language":"Language",
+
+        //MANCANTI
+        "Homepage":"Homepage",
+        "The project":"The project",
+        "Services and opportunities": "Services and opportunities",
+        "Organisations":"Organisations",
+        "Read more": "Read more",
+        "Categories": "Categories",
+        "Delete":"Delete",
+        "Title":"Title",
+        "Description":"Description",
+        "Short Description": "Short Description",
+        "Links": "Links",
+        "Upload Cover Button":"Upload cover ",
+        "Upload Logo Button":"Upload logo",
+        "Closed":"Closed",
+        "Details":"Details",
+        "Local Language Short description":"Short description in local language",
+        "Local Title": "Title in local language",
+        "Local Language Detailed description": "Description in local language",
+        "Title of the service":"Service title",
+        "Title of the collaboration":"Collaboration title",
+        "Title of the service in local language":"Service title in local language",
+        "Title of the collaboration in local language":"Collaboration title in local language",
+        "English":"English",
+        "Italian":"Italian",
+        "Arabic":"Arabic",
+        "Greek":"Greek",
+        "Search organisations":"Search organisations",
+        "Proposed by":"Proposed by",
+        "Category": "Category",
+        "All": "All",
+        "Collaborations":"Collaborations",
+        "Documents":"Documenti",
+
 
 
 
@@ -25,8 +61,8 @@ export const translation = {
             "MoreThanAJob will bring a change in the way SSE actors and public institutions work together for services provision to vulnerable groups through the development of a framework of new social pilot schemes as well as the development of policy briefs and suggestions improving the planning of policies adapted to the needs of the target groups. \n" +
             "The project is funded by the ENI CBC Programme 2014-2020 and involves partners from five different countries: Palestine, Jordan, Lebanon, Greece and Italy. \n",
         "projectSSE":"Social and Solidarity Economy",
-        "projectSSEText":"Social and Solidarity Economy",
-        "projectPartners":"The expression Social and Solidarity Economy is increasingly being used to refer to a broad range of organisations that are distinguished from conventional economy actors by two core features: they have explicit economic and social objectives and they involve varying forms of co-operative, associative and solidarity relations. They include, for example, NGOs, cooperatives, mutual societies, foundations, social enterprises, fair trade organisations or other similar companies and organisations.",
+        "projectSSEText":"The expression Social and Solidarity Economy is increasingly being used to refer to a broad range of organisations that are distinguished from conventional economy actors by two core features: they have explicit economic and social objectives and they involve varying forms of co-operative, associative and solidarity relations. They include, for example, NGOs, cooperatives, mutual societies, foundations, social enterprises, fair trade organisations or other similar companies and organisations.",
+        "projectPartners":"Partners",
         "partner1":"Coordinator\n" +
             "                                        An-Najah National University – Palestine\n" +
             "                                        https://www.najah.edu/ar/",

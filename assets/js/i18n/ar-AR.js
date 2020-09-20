@@ -7,6 +7,43 @@ export const translation = {
 
         "language":"تم تسجيل الدخول",
 
+        //DASHBOARD BAR
+
+        //MANCANTI
+        //MANCANTI
+        "Homepage":"Homepage",
+        "The project":"The project",
+        "Services and opportunities": "Services and opportunities",
+        "Organisations":"Organisations",
+        "Read more": "Read more",
+        "Categories": "Categories",
+        "Delete":"Delete",
+        "Title":"Title",
+        "Description":"Description",
+        "Short Description": "Short Description",
+        "Links": "Links",
+        "Upload Cover Button":"Upload cover ",
+        "Upload Logo Button":"Upload logo",
+        "Closed":"Closed",
+        "Details":"Details",
+        "Local Language Short description":"Short description in local language",
+        "Local Title": "Title in local language",
+        "Local Language Detailed description": "Description in local language",
+        "Title of the service":"Service title",
+        "Title of the collaboration":"Collaboration title",
+        "Title of the service in local language":"Service title in local language",
+        "Title of the collaboration in local language":"Collaboration title in local language",
+        "English":"English",
+        "Italian":"Italian",
+        "Arabic":"Arabic",
+        "Greek":"Greek",
+        "Search organisations":"Search organisations",
+        "Proposed by":"Proposed by",
+        "Category": "Category",
+        "All": "All",
+        "Collaborations":"Collaborations",
+        "Documents":"Documenti",
+
 
         //DASHBOARD
         "MoreThanAJob Portal":"MoreThanAJob البوابة الالكترونية لمشروع",

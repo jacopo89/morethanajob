@@ -63,7 +63,7 @@ export default function Dashboard(){
             <Navbar.Body>
                 <Nav>
                     <Nav.Item href="#home" eventKey="1" icon={<Icon icon="home" />}>
-                        {t('Home')}
+                        {t('Homepage')}
                     </Nav.Item>
                     <Nav.Item href="#aboutUs"  eventKey="2">{t('The project')}</Nav.Item>
                     <Nav.Item onClick={()=>history.push(Routes.serviceSearchPage)}  eventKey="3">{t('Services and opportunities')}</Nav.Item>
@@ -114,7 +114,7 @@ export default function Dashboard(){
                             <p>
                                 {t('projectPre')}
                             </p>
-                            <MainButton style={{float:"right", margin:10}} onClick={()=>setReadMore(!readMore)}>Read more</MainButton>
+                            <MainButton style={{float:"right", margin:10}} onClick={()=>setReadMore(!readMore)}>{t('Read more')}</MainButton>
                         </Col>
                     </Row>
                     <Row style={{marginTop: 20}} className="show-grid">
@@ -157,7 +157,7 @@ export default function Dashboard(){
             </Panel>
 
             <Panel shaded style={panelStyle}>
-                <Title>Categories</Title>
+                <Title>{t('Categories')}</Title>
                 <div style={{display:"flex", justifyContent:"space-around"}}>
                     {categoriesPanels}
 
@@ -165,7 +165,7 @@ export default function Dashboard(){
 
             </Panel>
             <Panel shaded style={panelStyle}>
-                <Title>Organisations</Title>
+                <Title>{t('Organisations')}</Title>
                 <Anchor id="organisations"/>
                 <div style={{display:"flex", justifyContent:"space-around"}}>
                     {profilePics}
@@ -175,7 +175,7 @@ export default function Dashboard(){
             </Panel>
 
             <Panel shaded style={panelStyle}>
-                <Title id="services">Services and opportunities</Title>
+                <Title id="services">{t('Services and opportunities')}</Title>
                 {collaborationBlocks}
 
             </Panel>

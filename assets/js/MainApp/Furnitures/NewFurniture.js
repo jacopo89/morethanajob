@@ -13,7 +13,7 @@ import * as Routes from "../../routes";
 export default function NewFurniture(){
 
     const [formValue, setFormValue] = useState();
-    const {user} = useSelector(state=>state);
+    const {user, services} = useSelector(state=>state);
     const [createOfferedService, createOfferedServiceHandler] = useCreateOfferedService();
     const { t, i18n } = useTranslation();
     const history = useHistory();
@@ -34,10 +34,7 @@ export default function NewFurniture(){
 
     };
 
-    const [services, getServicesHandler] = useGetServices();
-    useEffect(()=>{
-        getServicesHandler();
-    },[]);
+
 
     let servicesTree = generateServiceTree(services);
 
@@ -54,8 +51,8 @@ export default function NewFurniture(){
             <Form ref={formRef} model={model} fluid formValue={formValue} onChange={setFormValue} onSubmit={onSubmitHandler}  >
 
                     <TextField name="service" label={t('Field of expertise')} accepter={TreePicker} data={servicesTree} style={{width:"100%"}} />
-                    <TextField name="description" label={t('description')} componentClass="textarea"/>
-                    <TextField name="country" label={t('Country')} accepter={SelectPicker} data={dataCountry}/>
+                    <TextField name="description" label={t('Description')} componentClass="textarea"/>
+                    <TextField name="country" style={{width:"100%"}} label={t('Country')} accepter={SelectPicker} data={dataCountry}/>
                     <SaveButton type="submit">
                         {t('Save')}
                     </SaveButton>

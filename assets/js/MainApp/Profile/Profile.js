@@ -49,6 +49,8 @@ export default function Profile(){
     const dispatch = useDispatch();
     const [isEdit, setIsEdit] = useState(false);
 
+    const [fileList, setFileList] = useState([]);
+
     const [formValue, setFormValue] = useState({name:"", description:""});
 
     const onChangeHandler = (file) => {
@@ -100,7 +102,12 @@ export default function Profile(){
         formData.append('email', userInfo.email);
         formData.append('file', formValue.file);
         formData.append('title', formValue.title);
-        loadFileHandler(formData);
+
+        loadFileHandler(formData, {successCallback: ()=>{
+            setFormValue({...formValue, file:null, title:null});
+            setFileList([]);
+
+            }});
 
     }
     const handleFileChange = (file) =>{
@@ -109,11 +116,12 @@ export default function Profile(){
             file: file[0].blobFile,
             title: file[0].name
         })
+        setFileList([...fileList, file[0].blobFile]);
     };
     useEffect(()=>{
         getUserInfoHandler(profilename, {successCallback: (data)=>{setFormValue({name:data.name, description:data.description,
                 website:data.website, address: data.address, telephone:data.telephone, language:data.language, email:data.email, facebook:data.facebook, twitter:data.twitter, linkedin:data.linkedin})}});
-    },[]);
+    },[profilename]);
 
 
     if(userInfo && !isEdit){
@@ -221,10 +229,11 @@ export default function Profile(){
                         </Row>
                         <Row>
                             <Col xs={24}>
-                                Documents
+                                {t('Documents')}
                                 <Uploader
                                     action="//jsonplaceholder.typicode.com/posts/"
                                     onChange={handleFileChange}
+                                    fileList={fileList}
                                     dragable  autoUpload={false} multiple={false}>
                                     <div style={{lineHeight:10}}>{t('clickdrag')}</div>
                                 </Uploader>

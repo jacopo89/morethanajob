@@ -226,6 +226,14 @@ class ProfileController extends AbstractController
         $description = json_decode($request->get('description'),true);
         $localDescription = json_decode($request->get('localDescription'),true);
         $website = json_decode($request->get('website'),true);
+
+        if($this->startsWith($website, "http:\\\\")||$this->startsWith($website, "https:\\\\")){
+
+        }else{
+            $website = "https:\\\\".$website;
+        }
+
+
         $address = json_decode($request->get('address'),true);
         $telephone = json_decode($request->get('telephone'),true);
         $language = json_decode($request->get('language'),true);
@@ -256,4 +264,9 @@ class ProfileController extends AbstractController
     }
 
 
+    private function startsWith ($string, $startString)
+    {
+        $len = strlen($startString);
+        return (substr($string, 0, $len) === $startString);
+    }
 }

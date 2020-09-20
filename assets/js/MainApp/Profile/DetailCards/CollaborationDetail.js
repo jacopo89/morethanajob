@@ -64,7 +64,7 @@ export function CollaborationPanelTitle({collaboration, title}){
 
     }
 
-    const positionMessage = (collaborationOpen) ? t('Open positions') + ": " + openPositions : "Closed";
+    const positionMessage = (collaborationOpen) ? t('Open positions') + ": " + openPositions : t('Closed');
 
     const timeMessage = (collaboration.startDate && collaboration.endDate) ? t('From')+ " " + getCalendarFormat(collaboration.startDate) + " " + t('To') + " " + getCalendarFormat(collaboration.endDate)  : "";
 

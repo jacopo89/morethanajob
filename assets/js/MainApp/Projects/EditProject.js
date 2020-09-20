@@ -113,8 +113,8 @@ export default function EditProject({isPortfolio=false}){
 
     const listElements = (formValue) => {return (isPortfolio)  ? <PartnersList formValue={formValue} setFormValue={setFormValue} /> : <ListOrCreate formValue={formValue} setFormValue={setFormValue} /> };
 
-    const uploadCoverButton = <InverseButton style={{position: "absolute", top:5, left:5}}>Upload Cover Button</InverseButton>;
-    const uploadLogoButton = <InverseButton>Upload Logo Button</InverseButton>;
+    const uploadCoverButton = <InverseButton style={{position: "absolute", top:5, left:5}}>{t('Upload Cover Button')}</InverseButton>;
+    const uploadLogoButton = <InverseButton>{t('Upload Logo Button')}</InverseButton>;
 
 
     return (

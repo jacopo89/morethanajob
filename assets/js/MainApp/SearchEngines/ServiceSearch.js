@@ -100,7 +100,7 @@ export default function ServiceSearch(){
             <Form fluid formValue={formValue} onChange={setFormValue} onSubmit={onSubmitHandler}>
                 <Grid fluid>
                     <Row>
-                        <TextField label="Proposed by" name="user" data={users} accepter={SelectPicker} searchable={true} style={{width:"100%"}} />
+                        <TextField label={t('Proposed by')} name="user" data={users} accepter={SelectPicker} searchable={true} style={{width:"100%"}} />
                     </Row>
                     <Row>
                         <TextField label={t('Deadline')} name="to" accepter={DatePicker}  style={{width:"100%"}} />
@@ -128,9 +128,9 @@ export default function ServiceSearch(){
                         name="radio"
                         accepter={RadioGroup}
                     >
-                        <Radio defaultChecked value="all">All</Radio>
-                        <Radio value="services">Services and opportunities</Radio>
-                        <Radio value="collaborations">Collaborations</Radio>
+                        <Radio defaultChecked value="all">{t('All')}</Radio>
+                        <Radio value="services">{t('Services and opportunities')}</Radio>
+                        <Radio value="collaborations">{t('Collaborations')}</Radio>
                     </FormControl>
                 </FormGroup>
 
