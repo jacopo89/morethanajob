@@ -42,16 +42,11 @@ export default function Collaboration(){
 
     return (<>
         <div style={{width:"100%", backgroundColor:bordeaux}}>
-            <div>
-                <CollaborationBox>
-                    <div style={{height: 150, width: 150, backgroundImage: `url(${categoryImage})`, backgroundColor: "white", backgroundSize: "contain", flex:"none", margin:10}}/>
-                    {title}
-
-                </CollaborationBox>
-                {isOwner && editButton}
-            </div>
-
-
+            <CollaborationBox>
+                <div style={{height: 150, width: 150, backgroundImage: `url(${categoryImage})`, backgroundColor: "white", backgroundSize: "contain", flex:"none", margin:10}}/>
+                {title}
+            </CollaborationBox>
+            {isOwner && editButton}
         </div>
 
         <div style={{padding:10}}>{description}</div>
@@ -302,7 +297,7 @@ export function ServiceFormBox({collaboration}) {
         (!messageResponse) ?
         <div style={{width:"100%", display:"flex", justifyContent:"center", alignItems:"center", margin:5, height:300}}>
             {(!apply) ? <MainButton style={{width:200}}  onClick={()=>setApply(true)}>{t('Apply')}</MainButton> :
-                <Form fluid formValue={formValue} onChange={setFormValue} onSubmit={onSubmit}>
+                <Form  fluid formValue={formValue} onChange={setFormValue} onSubmit={onSubmit}>
                     <TextField name="message" label={t('Message')} componentClass="textarea" />
                     <MainButton style={{width:100}} type="submit">Send</MainButton>
                 </Form>}
@@ -324,15 +319,6 @@ export function IconWithText({icon, label, value}){
     </div>);
 }
 
-
-
-
-const Title =  styled.div`
-color: ${bordeaux};
-font-size: 18px;
-font-weight: bolder;
-`
-;
 
 
 const InfoBox =  styled.div`

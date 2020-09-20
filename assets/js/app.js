@@ -63,6 +63,16 @@ function App(){
     const [categories, getCategoriesHandler] = useGetCategories();
     const dispatch = useDispatch();
 
+    useEffect(()=>{
+        getServicesHandler();
+        getCategoriesHandler();
+    },[]);
+
+    useEffect(()=>{
+        dispatch(ActionTypes.updateServices(services));
+        dispatch(ActionTypes.updateCategories(categories));
+    },[categories, services])
+
     let location = useLocation();
 
 

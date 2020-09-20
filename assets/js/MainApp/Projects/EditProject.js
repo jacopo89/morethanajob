@@ -25,7 +25,14 @@ import {dataCountry, dataLanguage, modalityData} from "../../selectData";
 import {useGetServices} from "../../Backend/hooks/useServices";
 import {generateServiceTree} from "../Administration/CategoriesManagement";
 import {GenericTable} from "../../ReusableComponents/GenericTable";
-import {bordeaux, InverseButton, MainButton, SaveButton} from "../../styledComponents/CustomComponents";
+import {
+    bordeaux,
+    coverPicture,
+    coverStyle,
+    InverseButton,
+    MainButton,
+    SaveButton
+} from "../../styledComponents/CustomComponents";
 import styled from "styled-components";
 import ImageCropper from "../../ReusableComponents/ImageCropper";
 import {useHistory, useParams} from "react-router-dom";
@@ -101,18 +108,18 @@ export default function EditProject({isPortfolio=false}){
     }
 
     const backgroundImage = (project && project.projectLogo) ? project.projectLogo.url  : "";
-    const backgrounCoverdImage = (project && project.projectPicture) ? project.projectPicture.url  : "";
+    const backgrounCoverdImage = (project && project.projectPicture) ? project.projectPicture.url  : coverPicture;
 
 
     const listElements = (formValue) => {return (isPortfolio)  ? <PartnersList formValue={formValue} setFormValue={setFormValue} /> : <ListOrCreate formValue={formValue} setFormValue={setFormValue} /> };
 
-    const uploadCoverButton = <InverseButton>Upload Cover Button</InverseButton>;
+    const uploadCoverButton = <InverseButton style={{position: "absolute", top:5, left:5}}>Upload Cover Button</InverseButton>;
     const uploadLogoButton = <InverseButton>Upload Logo Button</InverseButton>;
 
 
     return (
         <>
-            <div style={{height:250, width:"100%", marginBottom:10, backgroundColor:"black", position:"relative", backgroundImage:`url(${backgrounCoverdImage})`}}>
+            <div style={{...coverStyle, backgroundImage:`url(${backgrounCoverdImage})`}}>
                 <ImageCropper button={uploadCoverButton} propCrop={{
                     unit: 'px', // default, can be 'px' or '%'
                     x: 0,

@@ -5,7 +5,7 @@ import TextField from "../../Login/Components/TextField";
 import {DatePicker, Form, SelectPicker, TreePicker} from "rsuite";
 import {dataCountry, dataLanguage, modalityData} from "../../selectData";
 import {generateCategoriesTree, generateServiceTree} from "../Administration/CategoriesManagement";
-import {bordeaux, FormBox, InverseButton, MainButton} from "../../styledComponents/CustomComponents";
+import {bordeaux, CollaborationBox, FormBox, InverseButton, MainButton} from "../../styledComponents/CustomComponents";
 import styled from "styled-components";
 import {useHistory} from "react-router-dom";
 import * as Routes from "../../routes";
@@ -18,7 +18,7 @@ import {collaborationModel} from "../FormModels/models";
 
 export default function NewCollaboration({isService=false}){
     const [formValue, setFormValue] = useState({positions: []});
-    const {user} = useSelector(state=>state);
+    const {user, categories} = useSelector(state=>state);
     const [response, createNewProjectHandler] = useCreateNewCollaboration();
     const [projects, getProjectsHandler] = useGetUserProjects();
     const history = useHistory();
@@ -34,13 +34,6 @@ export default function NewCollaboration({isService=false}){
     },[]);
 
     const formRef = useRef();
-
-    const [categories, getCategoriesHandler] = useGetCategories();
-
-    useEffect(()=>{
-        getCategoriesHandler();
-    },[]);
-
     let categoriesTree = generateCategoriesTree(categories)
 
     const onSubmitHandler = () =>{
@@ -59,9 +52,14 @@ export default function NewCollaboration({isService=false}){
     const titleLocalLabel = (isService) ? t('Title of the service in local language') : t('Title of the collaboration in local language');
     const categoryLabel = (isService) ? "Macro category of the service" : "Macro category of the collaboration" ;
 
+    const selectedCategoryPicture = (formValue.category) ? categories.filter((category)=> category.id === formValue.category)[0] : "";
+
     return (
         <>
-            <TitleBox >{formValue.title}</TitleBox>
+            <CollaborationBox>
+                <div style={{height: 150, width: 150, backgroundImage: `url(${selectedCategoryPicture})`, backgroundColor: "white", backgroundSize: "contain", flex:"none", margin:10}}/>
+                {formValue.title}
+            </CollaborationBox>
             <FormBox >
                 <h5 style={{color:bordeaux}}>Info </h5>
                 <Form ref={formRef} model={collaborationModel} fluid formValue={formValue} onChange={setFormValue} onSubmit={onSubmitHandler}>
@@ -110,16 +108,3 @@ export default function NewCollaboration({isService=false}){
 
 
 }
-
-const TitleBox =  styled.div`
-width: 100%;
-height:200px;
-background-color: ${bordeaux};
-color: white;
-font-size: 40px;
-font-weight: bolder;
-display: flex;
-align-items: center;    
-justify-content: center;
-`
-;

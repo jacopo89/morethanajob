@@ -1,6 +1,6 @@
 import {
+    Grid, Row,Col,
     Button,
-    ButtonGroup, Checkbox, CheckboxGroup,
     CheckTreePicker, ControlLabel,
     DatePicker,
     Form, FormControl, FormGroup, Icon,
@@ -27,6 +27,8 @@ import {useGetUsers} from "../../Backend/hooks/useAdministration";
 import {useGetCategories} from "../../Backend/hooks/useCategories";
 import {useTranslation} from "react-i18next";
 import CollaborationDetail from "../Profile/DetailCards/CollaborationDetail";
+import {FormBox} from "../../styledComponents/CustomComponents";
+
 
 export default function ServiceSearch(){
 
@@ -51,7 +53,8 @@ export default function ServiceSearch(){
 
     useEffect(()=>{
         const formData = new FormData();
-        if(location.state.category){
+        console.log("Location", location);
+        if(location.state && location.state.category){
             console.log("Appending category")
             formData.append('category', [].push(location.state.category));
         }
@@ -93,19 +96,32 @@ export default function ServiceSearch(){
 
     const finalPanels = [...projectPanels, ...servicePanels];
     return <>
-
-        <Panel header={t('Filters')} bordered>
-
+        <FormBox>
             <Form fluid formValue={formValue} onChange={setFormValue} onSubmit={onSubmitHandler}>
+                <Grid fluid>
+                    <Row>
+                        <TextField label="Proposed by" name="user" data={users} accepter={SelectPicker} searchable={true} style={{width:"100%"}} />
+                    </Row>
+                    <Row>
+                        <TextField label={t('Deadline')} name="to" accepter={DatePicker}  style={{width:"100%"}} />
+                    </Row>
+                    <Row>
+                        <Col xs={12}>
+                            <TextField label={t('Country')} name="country" data={dataCountry} accepter={SelectPicker} searchable={false} style={{width:"100%"}} />
+                        </Col>
+                        <Col xs={12}>
+                            <TextField label={t('Category')} name="category" data={categoriesTree} accepter={CheckTreePicker} style={{width:"100%"}}  />
+                        </Col>
+
+
+                    </Row>
+                </Grid>
+
                 <div style={{display:"flex", justifyContent:"space-between"}}>
-                    <TextField label="Proposed by" name="user" data={users} accepter={SelectPicker} searchable={true} style={{width:"100%"}} />
+
                 </div>
                 <div style={{display:"flex", justifyContent:"space-between"}}>
-                    <TextField label={t('Deadline')} name="to" accepter={DatePicker}  style={{width:"100%"}} />
-                </div>
-                <div style={{display:"flex", justifyContent:"space-between"}}>
-                    <TextField label={t('Country')} name="country" data={dataCountry} accepter={SelectPicker} searchable={false} style={{width:"100%"}} />
-                    <TextField label={t('Category')} name="category" data={categoriesTree} accepter={CheckTreePicker} style={{width:"100%"}} cascade={false} />
+
                 </div>
                 <FormGroup>
                     <FormControl
@@ -120,9 +136,9 @@ export default function ServiceSearch(){
 
                 <Button type="submit">{t('Search')}</Button>
             </Form>
-        </Panel>
 
         {finalPanels}
+        </FormBox>
         </>
 }
 

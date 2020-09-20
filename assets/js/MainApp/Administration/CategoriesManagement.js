@@ -17,7 +17,6 @@ export default function CategoriesManagement(){
     const [selectedCategoryRef, setSelectedCategoryRef] = useState(null);
 
 
-
     const [services, getServicesHandler] = useGetServices();
     const [categories, getCategoriesHandler] = useGetCategories();
 
@@ -50,10 +49,10 @@ export default function CategoriesManagement(){
         return filteredServiceArray[0];
     }
 
-    return (<FormBox>
-        <Grid>
+    return (<FormBox style={{width:"100%"}}>
+        <Grid fluid>
             <Row>
-                <Tree defaultExpandAll={true} data={servicesTree} onSelect={
+                <Tree style={{width:"100%"}} defaultExpandAll={true} data={servicesTree} onSelect={
                     (e) => {
                         console.log(e);
                         setSelectedServiceNode(e.value);
@@ -156,12 +155,12 @@ function ServiceDetail({service, refreshHandler}){
     const uploaderButton = <Button>Upload </Button>;
     const serviceImage = (service && service.picture) ? "https://localhost:8000"+ service.picture : null;
 
-    return (<Form
+    return (<Form fluid
         formValue={formValue}
         onChange={setFormValue}
     //    onSubmit={()=>submitHandler(formValue)}
     >
-        <TextField name="label" label="Nome società"  />
+        <TextField style={{width:"100%"}} name="label" label="Nome società"  />
         {service && service.picture && <img src={`url("${serviceImage}")`} width="100%" height="100%" />}
 
         <ImageCropper button={uploaderButton} propCrop={{
@@ -199,11 +198,12 @@ function CategoryDetail({category, refreshHandler}){
     const serviceImage = (category && category.picture) ? category.picture : null;
 
     return (<Form
+        fluid
         formValue={formValue}
         onChange={setFormValue}
         //    onSubmit={()=>submitHandler(formValue)}
     >
-        <TextField name="label" label="Nome società"  />
+        <TextField style={{width:"100%"}} name="label" label="Nome società"  />
         {category && category.picture && <img src={`url("${serviceImage}")`} width="100%" height="100%" />}
 
         <ImageCropper button={uploaderButton} propCrop={{

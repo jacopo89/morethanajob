@@ -34,9 +34,17 @@ export default function CollaborationDetail({collaboration}){
                     <div style={{width:"100%", flexGrow:1}} >{trueDescription}</div>
                     {collaborationPositions}
                 </div>
+            </Col>
+        </Row>
+        <Row className="show-grid">
+            <Col xs={8}>
+
+            </Col>
+            <Col xs={16}>
                 <Button style={{float:"right", color:"white", backgroundColor: bordeaux}} onClick={()=> history.push(Routes.collaboration(collaboration.id))}>{t('Details')}</Button>
             </Col>
         </Row>
+
     </Panel>
 
 }
@@ -61,8 +69,8 @@ export function CollaborationPanelTitle({collaboration, title}){
     const timeMessage = (collaboration.startDate && collaboration.endDate) ? t('From')+ " " + getCalendarFormat(collaboration.startDate) + " " + t('To') + " " + getCalendarFormat(collaboration.endDate)  : "";
 
 
-    return <div style={{color:bordeaux, minHeight:40, backgroundColor:"whitesmoke", display: "flex", justifyContent: "space-evenly",alignItems: "center"}}>
-        <div style={{flexGrow:3, paddingLeft:10, fontWeight: "bold", fontSize:20}}>
+    return <div style={{color:bordeaux, padding:5, minHeight:40, backgroundColor:"whitesmoke", display: "flex", justifyContent: "space-evenly",alignItems: "center"}}>
+        <div style={{flexGrow:3, maxWidth:700, paddingLeft:10, fontWeight: "bold", fontSize:20}}>
             {title}
         </div>
         <div style={{flexGrow:1, fontSize:12}}>

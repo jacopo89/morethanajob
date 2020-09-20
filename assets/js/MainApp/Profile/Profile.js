@@ -22,7 +22,7 @@ import {ProjectMenu} from "./../Profile/ProjectMenu";
 import {Link, useParams} from "react-router-dom";
 import {
     bordeaux,
-    coverPicture,
+    coverPicture, coverStyle,
     InverseButton, LinearGradient,
     MainButton, profilePicture,
     SecondaryButton
@@ -47,11 +47,9 @@ export default function Profile(){
     const [loadFileResponse, loadFileHandler] = useLoadFiles();
     const [saveProfileResponse, saveProfileHandler] = useSaveProfile();
     const dispatch = useDispatch();
-    const [render, setRender] = useState(null);
     const [isEdit, setIsEdit] = useState(false);
 
     const [formValue, setFormValue] = useState({name:"", description:""});
-    const [fileFormValue, setFileFormValue] = useState({});
 
     const onChangeHandler = (file) => {
         let data = {};
@@ -112,8 +110,6 @@ export default function Profile(){
             title: file[0].name
         })
     };
-
-
     useEffect(()=>{
         getUserInfoHandler(profilename, {successCallback: (data)=>{setFormValue({name:data.name, description:data.description,
                 website:data.website, address: data.address, telephone:data.telephone, language:data.language, email:data.email, facebook:data.facebook, twitter:data.twitter, linkedin:data.linkedin})}});
@@ -121,7 +117,7 @@ export default function Profile(){
 
 
     if(userInfo && !isEdit){
-        const editButton = (!isEdit) ?  <InverseButton style={{position: "absolute", bottom:5}} onClick={()=>setIsEdit(!isEdit)}> {t('Edit profile')} </InverseButton> : <> <InverseButton onClick={()=>setIsEdit(!isEdit)}> {t('Go Back')} </InverseButton></>
+        const editButton = (!isEdit) ?  <InverseButton style={{position: "absolute", left:5, bottom:5}} onClick={()=>setIsEdit(!isEdit)}> {t('Edit profile')} </InverseButton> : <> <InverseButton onClick={()=>setIsEdit(!isEdit)}> {t('Go Back')} </InverseButton></>
 
         return (
 
@@ -263,4 +259,3 @@ const textFieldStyle = {
     marginRight:5
 }
 
-const coverStyle = {height:0, paddingTop:"27.83964365256125%", width:"100%", marginBottom:10, backgroundColor:"black",position:"relative", backgroundSize:"contain", backgroundRepeat: "no-repeat"}

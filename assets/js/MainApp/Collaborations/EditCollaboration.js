@@ -14,7 +14,7 @@ import {
     CollaborationBox,
     FormBox,
     InverseButton,
-    MainButton,
+    MainButton, SaveButton,
     SecondaryButton
 } from "../../styledComponents/CustomComponents";
 import Modal, {Button, DatePicker, Form, HelpBlock, Schema, SelectPicker, TreePicker} from "rsuite";
@@ -30,7 +30,7 @@ import DeleteButton from "../../ReusableComponents/DeleteButton";
 
 export default function EditCollaboration({isService}) {
     const [formValue, setFormValue] = useState({positions: []});
-    const {user} = useSelector(state=>state);
+    const {user, categories} = useSelector(state=>state);
     const [getResponse, getCollaborationHandler] = useGetCollaboration();
     const [response, createNewCollaborationHandler] = useEditCollaboration();
     const [projects, getProjectsHandler] = useGetCollaborationProjects();
@@ -39,7 +39,7 @@ export default function EditCollaboration({isService}) {
     const history = useHistory();
     const {id} = useParams();
     const formRef = useRef();
-    const [categories, getCategoriesHandler] = useGetCategories();
+
 
 
     const getCollaborationFunction = () =>{
@@ -70,9 +70,6 @@ export default function EditCollaboration({isService}) {
             }})
     },[]);
 
-    useEffect(()=>{
-        getCategoriesHandler();
-    },[]);
 
     let categoriesTree = generateCategoriesTree(categories)
 
@@ -87,7 +84,6 @@ export default function EditCollaboration({isService}) {
         formData.append('email', user.email);
 
         if(formRef.current.check()){
-            console.log("End date", formValue.endDate);
             Object.keys(formValue).forEach((key)=>  { formData.append(key,JSON.stringify(formValue[key]));});
 
             createNewCollaborationHandler(formData, {successCallback: (data)=> history.push(Routes.collaboration(data)) });
@@ -103,7 +99,7 @@ export default function EditCollaboration({isService}) {
         return (
         <>
             <CollaborationBox>
-                <div style={{height: 150, width: 150, backgroundImage: `url(${categoryImage})`, backgroundColor: "white", backgroundSize: "contain", flex:"none", marginLeft:10, marginRight:10}}/>
+                <div style={{height: 150, width: 150, backgroundImage: `url(${categoryImage})`, backgroundColor: "white", backgroundSize: "contain", flex:"none", margin:10}}/>
                 {formValue.title}
             </CollaborationBox>
             <FormBox >
@@ -136,11 +132,11 @@ export default function EditCollaboration({isService}) {
                     <div style={{display:"flex", justifyContent:"space-around"}}>
                         <TextField style={{width:"100%"}} label={t('Language')} name="language" accepter={SelectPicker} data={dataLanguage} />
                     </div>
-                    <HelpBlock>This content in available only in {formValue.language}</HelpBlock>
+
                     {!isService && <PositionList isEdit={true} formValue={formValue} setFormValue={setFormValue} callback={getCollaborationFunction} />}
 
 
-                    <MainButton type="submit">{t('Save')}</MainButton>
+                    <SaveButton type="submit">{t('Save')}</SaveButton>
                     <DeleteButton onClickHandler={() => deleteHandler(formValue.id)}/>
 
                 </Form>
@@ -150,25 +146,4 @@ export default function EditCollaboration({isService}) {
         </>);
 
 
-}
-
-
-function DeleteModal2({showModal, closeModal}){
-    return (
-        <Modal overflow={true} show={showModal}>
-        <Modal.Header>
-            <Modal.Title>Modal Title</Modal.Title>
-        </Modal.Header>
-        <Modal.Body>
-
-        </Modal.Body>
-        <Modal.Footer>
-            <Button onClick={closeModal} appearance="primary">
-                Ok
-            </Button>
-            <Button onClick={closeModal} appearance="subtle">
-                Cancel
-            </Button>
-        </Modal.Footer>
-    </Modal>)
 }

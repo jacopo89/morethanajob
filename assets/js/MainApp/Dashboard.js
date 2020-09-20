@@ -2,7 +2,14 @@ import React, {useEffect, useState} from "react";
 import {Button, Col, Form, Grid, Icon, Nav, Navbar, Panel, PanelGroup, Row} from "rsuite";
 import {Link, useHistory} from "react-router-dom";
 import * as Routes from '../routes'
-import {Body, bordeaux, gray, MainButton} from "../styledComponents/CustomComponents";
+import {
+    Body,
+    bordeaux,
+    gray,
+    MainButton,
+    noProfilePicture,
+    noProjectPicture
+} from "../styledComponents/CustomComponents";
 import styled from "styled-components";
 import TextField from "../Login/Components/TextField";
 import "./dashboard.css";
@@ -40,10 +47,14 @@ export default function Dashboard(){
         getRandomCollaborationsHandler(formData);
     },[language]);
 
-    const profilePics = profiles.map((profile)=> <IconTextBox>
-        {profile.profilePicture && <img width={75} src={profile.profilePicture.url}/>}
-        <a href={`/profile/${profile.profileName}`} >{profile.name}</a>
-    </IconTextBox> );
+    const profilePics = profiles.map((profile)=>
+    {
+        const picture = profile.profilePicture ? profile.profilePicture.url : noProfilePicture;
+        return (<IconTextBox>
+            <img width={75} src={picture}/>
+            <a href={`/profile/${profile.profileName}`} >{profile.name}</a>
+        </IconTextBox>)
+    } );
 
     const collaborationBlocks = collaborations.map(collaboration=><CollaborationDetail collaboration={collaboration} />)
 
@@ -185,16 +196,7 @@ export default function Dashboard(){
                     </Panel>
                 </PanelGroup>
             </Panel>*/}
-            {false && <Panel shaded style={panelStyle}>
-                <Title>Contattaci</Title>
-                <Form fluid>
-                    <TextField name="name" placeHolder="Name" />
-                    <TextField name="surname" placeHolder="Surname" />
-                    <TextField name="message" placeHolder="Message" componentClass="textarea" />
-                    <Button style={{float:"right", backgroundColor:bordeaux, color:"white"}}>Submit message </Button>
 
-                </Form>
-            </Panel>}
 
         </Body>
     </>
@@ -203,8 +205,11 @@ export default function Dashboard(){
 
 function CategoryPanel({category}){
     const {t, i18n} = useTranslation();
+
+    const picture = (category.picture) ? category.picture : noProjectPicture;
+
    return <IconTextBox>
-        <img width={75} src={category.picture}/>
+        <img width={75} src={picture}/>
         <Link to={{
             pathname: Routes.serviceSearchPage,
             state: { category: category.value }

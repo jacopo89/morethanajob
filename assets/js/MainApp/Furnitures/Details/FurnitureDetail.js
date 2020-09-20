@@ -1,9 +1,11 @@
 import {Col, Icon, IconButton, Panel, Row} from "rsuite";
 import {ServicePanelTitle} from "../../Profile/submenus/SocietyFornitures";
 import {useSelector} from "react-redux";
+import {useHistory} from 'react-router-dom';
 import {useRemoveOfferedService} from "../../../Backend/hooks/useServices";
 import {bordeaux} from "../../../styledComponents/CustomComponents";
 import React from "react";
+import * as Routes from "../../../routes";
 
 export default function FurnitureDetail({furniture}){
     const furnitureImage = (furniture && furniture.service) ? furniture.service.picture  : "";
@@ -27,6 +29,9 @@ export default function FurnitureDetail({furniture}){
 
 export function FurniturePanelTitle({furniture}){
     const {user} = useSelector(state=>state);
+
+    const history = useHistory();
+
     const isOwner = (user!==undefined) ? true : false;
     const [deleteService, deleteServiceHandler] = useRemoveOfferedService();
 
@@ -35,7 +40,7 @@ export function FurniturePanelTitle({furniture}){
             {furniture.service.name}
         </div>
         <div>
-            {isOwner && <IconButton icon={<Icon icon="trash"/> } onClick={() => deleteServiceHandler(furniture.id)}/>}
+            {isOwner && <IconButton icon={<Icon icon="trash"/> } onClick={() => deleteServiceHandler(furniture.id, {successCallback: ()=>history.push(Routes.dashboardPage)})}/>}
         </div>
     </div>
 }

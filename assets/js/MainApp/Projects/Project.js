@@ -11,8 +11,8 @@ import {
 } from "../../Backend/hooks/useProjects";
 import {
     bordeaux,
-    coverPicture, FormBox, IconSpanProject,
-    InverseButton,
+    coverPicture, coverStyle, FormBox, IconSpanProject,
+    InverseButton, LinearGradient,
     profilePicture,
     projectPicture
 } from "../../styledComponents/CustomComponents";
@@ -79,10 +79,10 @@ export default function Project(){
 
     return <>
 
-        <div style={{height:250, width:"100%", marginBottom:10, backgroundColor:"black",position:"relative", backgroundImage: `url(${backgrounCoverdImage})`}}>
+        <div style={{...coverStyle, backgroundImage: `url(${backgrounCoverdImage})`}}>
             <LinearGradient/>
             {isOwner && <>
-                <InverseButton onClick={()=>history.push(Routes.editProject(id))}>Edit project</InverseButton>
+                <InverseButton style={{position: "absolute", bottom:5}} onClick={()=>history.push(Routes.editProject(id))}>{t('Edit project')}</InverseButton>
             </>
             }
 
@@ -108,8 +108,6 @@ export default function Project(){
                     <Col xs={16}>
                         <h3 style={{color: bordeaux}}>{project && project.title}</h3>
                         <div>{ project && project.longDescription}</div>
-
-
                     </Col>
                 </Row>
 
@@ -145,10 +143,3 @@ export function PlatformPartnerPanel({partner}){
 
 
 
-const LinearGradient = styled.div`
-position: absolute;
-width: 100%;
-height: 100%;
-background-image: linear-gradient(to top, black, white);
-opacity:33%;
-`;

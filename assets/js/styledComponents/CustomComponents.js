@@ -42,7 +42,7 @@ export const InverseButton = styled(Button)`
     color:${bordeaux}!important;
     border: 1px solid ${bordeaux}!important;
     &:hover {
-        background-color: white;
+        background-color: white!important;
     }
     `;
 
@@ -62,6 +62,8 @@ export const IconButtonTransparent = styled(IconButton)`
 export const profilePicture = "/defaults/profile_thumbnail.png";
 export const projectPicture = "/defaults/project_thumbnail.png";
 export const coverPicture = "/defaults/cover_thumbnail.png";
+export const noProfilePicture = "/defaults/no-image.png";
+export const noProjectPicture = "/defaults/no-image.png";
 
 export const FormBox = styled.div`
 padding: 10px;
@@ -70,7 +72,6 @@ min-height:100vh`
 
 export const CollaborationBox =  styled.div`
 width: 100%;
-margin-top:20px;
 min-height: 150px;
 background-color: ${bordeaux};
 color: white;
@@ -103,3 +104,5 @@ export const LinearGradient = styled.div`
     background-image: linear-gradient(to top, black, white);
     opacity:33%;
     `
+
+export const coverStyle = {height:0, paddingTop:"27.83964365256125%", width:"100%", marginBottom:10, backgroundColor:"black",position:"relative", backgroundSize:"contain"}
