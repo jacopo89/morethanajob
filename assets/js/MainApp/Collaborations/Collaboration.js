@@ -35,7 +35,7 @@ export default function Collaboration(){
     const isDescriptionOnlyInEnglish = (collaboration && collaboration.localLanguageDescription && collaboration.localLanguageDescription.length===0);
 
     console.log("Is only english",collaboration && collaboration.localLanguage===language);
-    const languageMessage = (isDescriptionOnlyInEnglish) ? "" : "This content is available only in English";
+    const languageMessage = (isDescriptionOnlyInEnglish) ? "This content is available only in English" : "";
 
     const serviceBox = <ServiceFormBox collaboration={collaboration}/>;
 
