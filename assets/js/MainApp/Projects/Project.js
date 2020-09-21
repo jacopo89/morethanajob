@@ -32,7 +32,7 @@ export default function Project(){
     const { t, i18n } = useTranslation();
 
     //Logged user
-    const {user} = useSelector(state=>state);
+    const {user, language} = useSelector(state=>state);
 
     //project Id
     const {id} = useParams();
