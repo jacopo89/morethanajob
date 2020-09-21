@@ -1,6 +1,6 @@
 import React, {useEffect, useState} from "react";
 import {useHistory, useParams} from "react-router-dom";
-import {Button, Col, Form, Grid, Icon, Modal, Panel, Row} from "rsuite";
+import {HelpBlock, Button, Col, Form, Grid, Icon, Modal, Panel, Row} from "rsuite";
 import {bordeaux, CollaborationBox, InverseButton, MainButton} from "../../styledComponents/CustomComponents";
 import {useGetCollaboration, useSendMessage} from "../../Backend/hooks/useCollaborations";
 import {getCalendarFormat} from "../../ReusableComponents/TimeManager";
@@ -32,7 +32,7 @@ export default function Collaboration(){
 
     const title = (collaboration && collaboration.localLanguage === language && collaboration.localLanguageTitle && collaboration.localLanguageTitle.length!==0) ? collaboration && collaboration.localLanguageTitle  : collaboration && collaboration.title ;
     const description = (collaboration && collaboration.localLanguage === language && collaboration.localLanguageDescription && collaboration.localLanguageDescription.length!==0) ? collaboration && collaboration.localLanguageDescription  : collaboration && collaboration.description ;
-    const isDescriptionOnlyInEnglish = (collaboration && collaboration.localLanguage === language  && collaboration.localLanguageDescription && collaboration.localLanguageDescription.length==0);
+    const isDescriptionOnlyInEnglish = (collaboration && collaboration.localLanguageDescription && collaboration.localLanguageDescription.length===0);
 
     console.log("Is only english",collaboration && collaboration.localLanguage===language);
     const languageMessage = (isDescriptionOnlyInEnglish) ? "" : "This content is available only in English";
@@ -51,7 +51,7 @@ export default function Collaboration(){
         </div>
 
         <div style={{padding:10}}>{description}</div>
-        <p>{languageMessage}</p>
+        <HelpBlock>{languageMessage}</HelpBlock>
         <InfoBox>
             <Grid style={{width:"100%"}}>
                 <Row className="show-grid" style={{padding:5}}>
