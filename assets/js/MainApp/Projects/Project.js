@@ -79,7 +79,7 @@ export default function Project(){
 
     const title = (project && project.language === language && project.localTitle && project.localTitle.length!==0) ? project && project.localTitle  : project && project.title ;
     const description = (project && project.language === language && project.localLongDescription && project.localLongDescription.length!==0) ? project && project.localLongDescription  : project && project.description ;
-    const isDescriptionOnlyInEnglish = (project && project.localLongDescription && project.localDescription.length==0);
+    const isDescriptionOnlyInEnglish = (project && project.language === language && project.localLongDescription && project.localDescription.length==0);
 
     const languageMessage = (isDescriptionOnlyInEnglish) ? "" : "This content is available only in English";
 
