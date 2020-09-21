@@ -120,8 +120,12 @@ export default function NewProject({isPortfolio=false}){
                 <div style={{margin:5}}>
                     <Form ref={formRef} fluid formValue={formValue} model={projectModel} onChange={setFormValue} onSubmit={onSubmitHandler}>
                         <TextField label={t('Title')} name="title" type="text" />
+                        <TextField style={{width:"100%"}} label={t('Language')} name="language" accepter={SelectPicker} data={dataLanguage} />
+                        <TextField label={t('Local Title')} name="localTitle" type="text" />
                         <TextField label={t('Short Description')} name="shortDescription" componentClass="textarea" />
+                        <TextField label={t('Local Short Description')} name="LocalShortDescription" componentClass="textarea" />
                         <TextField label={t('Description')} name="longDescription" componentClass="textarea" />
+                        <TextField label={t('Local Description')} name="localLongDescription" componentClass="textarea" />
                         <TextField label={t('Links')} name="links" componentClass="textarea" />
                         <TextField label={t('Contacts')} name="contacts" componentClass="textarea" />
                         <Grid>

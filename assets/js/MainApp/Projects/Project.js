@@ -1,6 +1,6 @@
 import React, {useEffect, useState} from "react";
 import {useSelector} from "react-redux";
-import {Button, Col, Grid, Icon, Modal, Panel, Row} from "rsuite";
+import {Button, Col, Grid, Icon, Modal, Panel, Row, HelpBlock} from "rsuite";
 import styled from "styled-components";
 import {useHistory, useParams} from "react-router-dom";
 import {
@@ -77,6 +77,17 @@ export default function Project(){
     const projectLogostyle = {backgroundImage:  `url(${backgroundImage})`, backgroundSize: "contain", width:150, height:150}
     const projectLogo = <div style={projectLogostyle}/>
 
+    const title = (project && project.language === language && project.localTitle && project.localTitle.length!==0) ? project && project.localTitle  : project && project.title ;
+    const description = (project && project.language === language && project.localLongDescription && project.localLongDescription.length!==0) ? project && project.localLongDescription  : project && project.description ;
+    const isDescriptionOnlyInEnglish = (project && project.localLongDescription && project.localDescription.length==0);
+
+    const languageMessage = (isDescriptionOnlyInEnglish) ? "" : "This content is available only in English";
+
+
+
+
+
+
     return <>
 
         <div style={{...coverStyle, backgroundImage: `url(${backgrounCoverdImage})`}}>
@@ -85,6 +96,8 @@ export default function Project(){
                 <InverseButton style={{position: "absolute", left:5, bottom:5}} onClick={()=>history.push(Routes.editProject(id))}>{t('Edit project')}</InverseButton>
             </>
             }
+
+
 
         </div>
         <FormBox>
@@ -106,8 +119,9 @@ export default function Project(){
                         </Grid>
                     </Col>
                     <Col xs={16}>
-                        <h3 style={{color: bordeaux}}>{project && project.title}</h3>
-                        <div>{ project && project.longDescription}</div>
+                        <h3 style={{color: bordeaux}}>{title}</h3>
+                        <div>{description}</div>
+                        <HelpBlock>{languageMessage}</HelpBlock>
                     </Col>
                 </Row>
 

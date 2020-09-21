@@ -186,7 +186,14 @@ class ProjectController extends AbstractController
 
         if($to){
             $timeRecords = array_filter($newRecords, function(Collaboration $collaboration)use($deadline){
-                return $collaboration->getEndDate() >= $deadline;
+                $format = "Y-m-d\TH:i:s.v\Z";
+                $endDateS = $collaboration->getEndDate();
+                if($endDateS){
+                    $endDate = \DateTime::createFromFormat($format, $endDateS);
+                    return ($endDate >=$deadline);
+                }else{
+                    return true;
+                }
             });
             $finalRecords = [];
             foreach($timeRecords as $timeRecord){
@@ -196,6 +203,22 @@ class ProjectController extends AbstractController
             $finalRecords = $newRecords;
         }
 
+        //filter by date
+        array_filter($finalRecords, function(Collaboration $collaboration){
+            $today = new \DateTime();
+            $format = "Y-m-d\TH:i:s.v\Z";
+
+            $endDateS = $collaboration->getEndDate();
+
+            if($endDateS){
+                $endDate = \DateTime::createFromFormat($format, $endDateS);
+                if($today> $endDate){
+                    return false;
+                }
+            }
+            return true;
+
+        });
 
 
         $results["services"] = [];
@@ -254,10 +277,20 @@ class ProjectController extends AbstractController
             $shortDescription = json_decode($request->get('shortDescription'));
             $longDescription = json_decode($request->get('longDescription'));
             $links = json_decode($request->get('links'));
+            $localTitle = json_decode($request->get('localTitle'));
+            $shortLocalDescription = json_decode($request->get('localShortDescription'));
+            $longLocalDescription = json_decode($request->get('longDescription'));
             $contacts = json_decode($request->get('contacts'));
+            $language = json_decode($request->get('language'));
+            $project->setLanguage($language);
             $project->setTitle($title);
             $project->setShortDescription($shortDescription);
             $project->setLongDescription($longDescription);
+            $project->setLocalTitle($localTitle);
+            $project->setLocalLongDescription($longLocalDescription);
+            $project->setLocalShortDescription($shortLocalDescription);
+
+
             $project->setLinks($links);
             $project->setContacts($contacts);
             $this->em->persist($project);
@@ -279,16 +312,27 @@ class ProjectController extends AbstractController
         $user = $this->em->getRepository(User::class)->findOneBy(['email'=>$email]);
         if($user){
             $title = json_decode($request->get('title'));
+            $localTitle = json_decode($request->get('localTitle'));
             $isPortfolio = json_decode($request->get('isPortfolio'));
             $shortDescription = json_decode($request->get('shortDescription'));
-            $longDescription = json_decode($request->get('longDescription'));
+            $shortLocalDescription = json_decode($request->get('localShortDescription'));
+            $longLocalDescription = json_decode($request->get('longDescription'));
+            $longDescription = json_decode($request->get('localLongDescription'));
             $links = json_decode($request->get('links'));
             $contacts = json_decode($request->get('contacts'));
             $positions = json_decode($request->get('positions'),true);
             $partners = json_decode($request->get('partners'),true);
 
+            $language = json_decode($request->get('language'));
+
+
+
             $project = new Project();
+            $project->setLanguage($language);
             $project->setTitle($title);
+            $project->setLocalTitle($localTitle);
+            $project->setLocalLongDescription($longLocalDescription);
+            $project->setLocalShortDescription($shortLocalDescription);
             $project->setShortDescription($shortDescription);
             $project->setLongDescription($longDescription);
             $project->setIsPortfolio($isPortfolio);

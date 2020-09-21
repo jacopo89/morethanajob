@@ -26,7 +26,9 @@ export default function SocietyFornitures({society}){
         getServicesHandler(society.email);
     }
 
-    const panels = societyServices.map((furniture, index) => <FurnitureDetail key={index} furniture={furniture}/>)
+    const isOwner = (user!== undefined && society.email === user.email);
+
+    const panels = societyServices.map((furniture, index) => <FurnitureDetail key={index} furniture={furniture} isOwner={isOwner}/>)
     const panelShow = panels.length > 0 ? panels : <div style={{height:100, margin:"0 auto", textAlign:"center", color:bordeaux}}> No offered services </div>
 
     return <>

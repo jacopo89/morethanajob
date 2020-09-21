@@ -84,6 +84,26 @@ class Project
      * @ORM\OneToMany(targetEntity="App\Entity\Collaboration", mappedBy="project")
      */
     private $collaborations;
+
+    /**
+     * @ORM\Column(type="string", length=255, nullable=true)
+     */
+    private $localTitle;
+
+    /**
+     * @ORM\Column(type="text", nullable=true)
+     */
+    private $localShortDescription;
+
+    /**
+     * @ORM\Column(type="text", nullable=true)
+     */
+    private $localLongDescription;
+
+    /**
+     * @ORM\Column(type="string", length=255)
+     */
+    private $language;
     
 
     public function __construct()
@@ -307,6 +327,54 @@ class Project
                 $collaboration->setProject(null);
             }
         }
+
+        return $this;
+    }
+
+    public function getLocalTitle(): ?string
+    {
+        return $this->localTitle;
+    }
+
+    public function setLocalTitle(?string $localTitle): self
+    {
+        $this->localTitle = $localTitle;
+
+        return $this;
+    }
+
+    public function getLocalShortDescription(): ?string
+    {
+        return $this->localShortDescription;
+    }
+
+    public function setLocalShortDescription(?string $localShortDescription): self
+    {
+        $this->localShortDescription = $localShortDescription;
+
+        return $this;
+    }
+
+    public function getLocalLongDescription(): ?string
+    {
+        return $this->localLongDescription;
+    }
+
+    public function setLocalLongDescription(?string $localLongDescription): self
+    {
+        $this->localLongDescription = $localLongDescription;
+
+        return $this;
+    }
+
+    public function getLanguage(): ?string
+    {
+        return $this->language;
+    }
+
+    public function setLanguage(string $language): self
+    {
+        $this->language = $language;
 
         return $this;
     }

@@ -45,7 +45,8 @@ export default function EditCollaboration({isService}) {
     const getCollaborationFunction = () =>{
         getCollaborationHandler(id,{
             successCallback: (data)=> {
-                let formValue = {...data, category:data.category.value};
+                console.log("Data in get collaboration",data);
+                let formValue = {...data, category:data.category.value, project: data.project.id};
                 if(data.startDate){
                     formValue = {...data, startDate: new Date(data.startDate)}
                 }

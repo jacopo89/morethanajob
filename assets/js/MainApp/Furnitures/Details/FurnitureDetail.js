@@ -7,11 +7,11 @@ import {bordeaux} from "../../../styledComponents/CustomComponents";
 import React from "react";
 import * as Routes from "../../../routes";
 
-export default function FurnitureDetail({furniture}){
+export default function FurnitureDetail({furniture, isOwner}){
     const furnitureImage = (furniture && furniture.service) ? furniture.service.picture  : "";
 
     return <Panel header={
-        <FurniturePanelTitle furniture={furniture} />}>
+        <FurniturePanelTitle furniture={furniture} isOwner={isOwner} />}>
         <Row className="show-grid">
             <Col xs={8}>
                 <div style={{display:"flex", justifyContent:"center"}}>
@@ -27,12 +27,12 @@ export default function FurnitureDetail({furniture}){
 }
 
 
-export function FurniturePanelTitle({furniture}){
+export function FurniturePanelTitle({furniture, isOwner}){
     const {user} = useSelector(state=>state);
 
     const history = useHistory();
 
-    const isOwner = (user!==undefined) ? true : false;
+
     const [deleteService, deleteServiceHandler] = useRemoveOfferedService();
 
     return <div style={{color:bordeaux, minHeight:40, backgroundColor:"whitesmoke", display: "flex", justifyContent: "space-evenly",alignItems: "center"}}>
