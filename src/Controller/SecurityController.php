@@ -159,9 +159,9 @@ class SecurityController extends AbstractController
             $this->em->persist($user);
             $this->em->flush();
 
-            $this->recoveryPasswordMail($user->getEmail(), $newRecoveryKey);
+            $recipients = $this->recoveryPasswordMail($user->getEmail(), $newRecoveryKey);
 
-            $content = true;
+            $content = $recipients;
             $status = Response::HTTP_OK;
 
         }else{
@@ -256,7 +256,7 @@ class SecurityController extends AbstractController
             )
         ;
 
-        $this->mailer->send($message);
+        return $this->mailer->send($message);
 
     }
 
