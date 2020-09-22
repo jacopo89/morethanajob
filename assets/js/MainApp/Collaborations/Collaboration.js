@@ -62,18 +62,22 @@ export default function Collaboration(){
                         <IconWithText icon="calendar-o" label={t('End date')} value={collaboration && getCalendarFormat(collaboration.endDate)}/>
                         </Col>
                 </Row>
-                <Row className="show-grid" style={{padding:5}}>
+                {isCollaborationClosed && <>
+                <Row className="show-grid" style={{padding: 5}}>
                     <Col xs={24}>
-                        <IconWithText icon="calendar-o" label={t('Main beneficiaries')} value={collaboration && collaboration.mainBeneficiaries}/>
+                        <IconWithText icon="calendar-o" label={t('Main beneficiaries')}
+                                      value={collaboration && collaboration.mainBeneficiaries}/>
                     </Col>
 
                 </Row>
-                <Row className="show-grid" style={{padding:5}}>
+                    <Row className="show-grid" style={{padding: 5}}>
                     <Col xs={24}>
-                        <IconWithText icon="calendar-o" label={t('Payment mode')} value={collaboration && collaboration.rates}/>
+                    <IconWithText icon="calendar-o" label={t('Payment mode')} value={collaboration && collaboration.rates}/>
                     </Col>
 
                 </Row>
+                </>
+                }
                 <Row className="show-grid" style={{padding:5}}>
                     <Col xs={24}>
                         <IconWithText icon="calendar-o" label={t('Contacts')} value={collaboration && collaboration.contacts}/>

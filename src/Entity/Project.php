@@ -81,7 +81,7 @@ class Project
     private $category;
 
     /**
-     * @ORM\OneToMany(targetEntity="App\Entity\Collaboration", mappedBy="project")
+     * @ORM\OneToMany(targetEntity="App\Entity\Collaboration", mappedBy="project", cascade={"persist","remove"})
      */
     private $collaborations;
 
