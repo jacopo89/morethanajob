@@ -30,7 +30,7 @@ import DeleteButton from "../../ReusableComponents/DeleteButton";
 
 export default function EditCollaboration({isService}) {
     const [formValue, setFormValue] = useState({positions: []});
-    const {user, categories} = useSelector(state=>state);
+    const {user} = useSelector(state=>state);
     const [getResponse, getCollaborationHandler] = useGetCollaboration();
     const [response, createNewCollaborationHandler] = useEditCollaboration();
     const [projects, getProjectsHandler] = useGetCollaborationProjects();
@@ -39,6 +39,9 @@ export default function EditCollaboration({isService}) {
     const history = useHistory();
     const {id} = useParams();
     const formRef = useRef();
+
+    const [categories, getCategories] = useGetCategories();
+
 
 
 
@@ -58,8 +61,12 @@ export default function EditCollaboration({isService}) {
     }
 
     useEffect(()=>{
+        getCategories();
         getCollaborationFunction();
     },[]);
+
+
+    let categoriesTree = generateCategoriesTree(categories)
 
     useEffect(()=>{
         getProjectsHandler(user.email, {dataManipulationFunction:(data)=>{
@@ -72,7 +79,7 @@ export default function EditCollaboration({isService}) {
     },[]);
 
 
-    let categoriesTree = generateCategoriesTree(categories)
+
 
     const deleteHandler = (id) => {
         deleteCollaborationHandler(id, {successCallback:()=>{
