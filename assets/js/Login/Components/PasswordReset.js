@@ -5,6 +5,7 @@ import TextField from "./TextField";
 import {useTranslation} from "react-i18next";
 import {useChangePassword} from "../../Backend/useBackend";
 import * as Routes from '../../routes';
+import {MainButton} from "../../styledComponents/CustomComponents";
 
 export default function PasswordReset(){
 
@@ -38,5 +39,6 @@ export default function PasswordReset(){
     return <Form model={model} formValue={formValue} onChange={setFormValue} onSubmit={onSubmitHandler}>
         <TextField name="recoveryKey" label="Insert code" />
         <TextField name="password" label="Insert new password" />
+        <MainButton type="submit">{t('Submit')}</MainButton>
     </Form>
 }
