@@ -2,7 +2,7 @@ export const main = "/";
 export const registration = "/registration";
 export const login = "/login";
 export const passwordRecovery = "/recover";
-export const changePassword = "/passwordchange";
+export const changePassword = "/password-change";
 
 
 

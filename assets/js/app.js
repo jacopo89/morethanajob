@@ -55,6 +55,7 @@ import {useGetServices} from "./Backend/hooks/useServices";
 import {useGetCategories} from "./Backend/hooks/useCategories";
 import CollaborationManagement from "./MainApp/Administration/CollaborationManagement";
 import ProjectManagement from "./MainApp/Administration/ProjectManagement";
+import PasswordReset from "./Login/Components/PasswordReset";
 
 function App(){
     const {authenticated, language} = useSelector(state=>state);
@@ -84,7 +85,7 @@ function App(){
     }
 
     const registrationPage = <DashboardLayout page={<Registration/>}/>;
-    const changePasswordPage = <DashboardLayout page={<ChangePassword/>}/>;
+    const changePasswordPage = <DashboardLayout page={<PasswordReset/>}/>;
     const recoverPage = <DashboardLayout page={<RecoverPasswordForm/>}/>;
     const profilePage = <MainPage page={<Profile/>}/>;
     const administrationPage = <MainPage page={<CategoriesManagement/>}/>;
@@ -116,10 +117,10 @@ function App(){
         (<>
             <Switch>
                 <Route path={Routes.login} children={loginPage}/>
+                <Route path={Routes.changePassword} children={changePasswordPage} />
                 <Route path={Routes.routeEditCollaboration} children={editCollaborationDetailPage}/>
                 <Route path={Routes.routeEditService} children={editServiceDetailPage}/>
                 <Route path={Routes.registration} children={registrationPage}/>
-                <Route exact path={Routes.changePassword} children={changePasswordPage}/>
                 <Route path={Routes.passwordRecovery} children={recoverPage}/>
                 <Route path={Routes.routeProfile} children={profilePage}/>
                 <Route path={Routes.serviceSearchPage} children={serviceSearchPage}/>
@@ -150,7 +151,7 @@ function App(){
                 <Route path={Routes.routeEditCollaboration} children={editCollaborationDetailPage}/>
                 <Route path={Routes.routeEditService} children={editServiceDetailPage}/>
                 <Route path={Routes.registration} children={registrationPage}/>
-                <Route exact path={Routes.changePassword} children={changePasswordPage}/>
+                <Route path={Routes.changePassword} children={changePasswordPage}/>
                 <Route path={Routes.passwordRecovery} children={recoverPage}/>
                 <Route path={Routes.routeProfile} children={profilePage}/>
                 <Route path={Routes.serviceSearchPage} children={serviceSearchPage}/>

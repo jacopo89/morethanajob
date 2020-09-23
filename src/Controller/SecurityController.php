@@ -175,24 +175,23 @@ class SecurityController extends AbstractController
     }
 
     /**
-     * @Route("/passwordchange", name="app_logout")
+     * @Route("/passwordchange", name="app_password_change")
      * @param Request $request
      * @param UserPasswordEncoderInterface $encoder
      * @return Response
      */
-    public function changePassword(Request $request, UserPasswordEncoderInterface $encoder)
+    public function passwordChange(Request $request, UserPasswordEncoderInterface $encoder)
     {
-        $email = $request->get('email');
+        $recoveryKey = $request->get('recoveryKey');
         $password = $request->get('password');
-        $user = $this->em->getRepository(User::class)->findOneBy(['email'=> $email]);
+        $user = $this->em->getRepository(User::class)->findOneBy(['recoveryKey'=> $recoveryKey]);
         if($user){
             $encodedPassword = $encoder->encodePassword($user,$password);
             $user->setPassword($encodedPassword);
-
+            $user->setRecoveryKey(null);
             $this->em->persist($user);
             $this->em->flush();
 
-            $content = true;
             $status = Response::HTTP_OK;
 
         }else{
@@ -204,6 +203,7 @@ class SecurityController extends AbstractController
         return new Response($this->serializer->serialize($content, 'json'), $status);
 
     }
+
 
 
 
