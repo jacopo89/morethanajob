@@ -68,7 +68,7 @@ class ProjectController extends AbstractController
     public function getFiltered(Request $request){
 
         $country = json_decode($request->get('country'));
-        $language = json_decode($request->get('language'));
+        $language = $request->get('language');
         $services = json_decode($request->get('service'));
         $categories = json_decode($request->get('category'));
         $userMail = json_decode($request->get('user'));
