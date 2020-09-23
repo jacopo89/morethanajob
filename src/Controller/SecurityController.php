@@ -188,7 +188,7 @@ class SecurityController extends AbstractController
         if($user){
             $encodedPassword = $encoder->encodePassword($user,$password);
             $user->setPassword($encodedPassword);
-            $user->setRecoveryKey(null);
+
             $this->em->persist($user);
             $this->em->flush();
 
