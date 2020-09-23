@@ -42,8 +42,10 @@ export default function ServiceSearch(){
 
     const onSubmitHandler = () => {
         const formData = new FormData();
+
        // formData.append('isPortfolio', isPortFolioCheckboxChecked);
         Object.keys(formValue).forEach((key)=>  { formData.append(key,JSON.stringify(formValue[key]));});
+        formData.append('language', language);
         getProjectsHandler(formData);
     }
     const history = useHistory();
@@ -56,6 +58,7 @@ export default function ServiceSearch(){
         console.log("Location", location);
         if(location.state && location.state.category){
             console.log("Appending category")
+            formData.append('language', language);
             formData.append('category', [].push(location.state.category));
         }
         if(user){
