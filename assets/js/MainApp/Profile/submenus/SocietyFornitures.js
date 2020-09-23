@@ -5,6 +5,7 @@ import {
 import {bordeaux} from "../../../styledComponents/CustomComponents";
 import {useTranslation} from "react-i18next";
 import FurnitureDetail from "../../Furnitures/Details/FurnitureDetail";
+import {useSelector} from "react-redux";
 
 export default function SocietyFornitures({society}){
 
@@ -17,6 +18,7 @@ export default function SocietyFornitures({society}){
     },[]);
 
     const [show, setShow] = useState(false);
+    const {user} = useSelector(state=>state);
     const openModal = ()=>setShow(true);
     const closeModal = ()=>setShow(false);
     const { t, i18n } = useTranslation();
