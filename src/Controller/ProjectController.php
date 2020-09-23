@@ -204,7 +204,7 @@ class ProjectController extends AbstractController
         }
 
         //filter by date
-        $newFinalRecords = array_filter($finalRecords, function(Collaboration $collaboration){
+        array_filter($finalRecords, function(Collaboration $collaboration){
             $today = new \DateTime();
             $format = "Y-m-d\TH:i:s.v\Z";
 
@@ -222,7 +222,7 @@ class ProjectController extends AbstractController
 
 
         $results["services"] = [];
-        $results["projects"] = $newFinalRecords;
+        $results["projects"] = $finalRecords;
 
 
         return new Response($this->serializer->serialize($results, 'json'));

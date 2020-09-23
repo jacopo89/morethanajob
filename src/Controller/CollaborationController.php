@@ -267,7 +267,7 @@ class CollaborationController extends AbstractController
             $finalCollaborations[] = $collaboration;
         }
 
-        $newFinalRecords= array_filter($finalCollaborations, function(Collaboration $collaboration){
+        array_filter($finalCollaborations, function(Collaboration $collaboration){
             $today = new \DateTime();
             $format = "Y-m-d\TH:i:s.v\Z";
 
@@ -284,7 +284,7 @@ class CollaborationController extends AbstractController
         });
 
 
-        return new Response($this->serializer->serialize($newFinalRecords, 'json'), Response::HTTP_OK);
+        return new Response($this->serializer->serialize($finalCollaborations, 'json'), Response::HTTP_OK);
     }
 
     /**
