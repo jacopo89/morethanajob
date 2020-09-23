@@ -192,15 +192,15 @@ class SecurityController extends AbstractController
             $this->em->persist($user);
             $this->em->flush();
 
+
             $status = Response::HTTP_OK;
 
         }else{
-            $content = false;
             $status = Response::HTTP_BAD_REQUEST;
 
         }
 
-        return new Response($this->serializer->serialize($content, 'json'), $status);
+        return new Response(null, $status);
 
     }
 
