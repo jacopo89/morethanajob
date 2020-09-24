@@ -38,7 +38,9 @@ export default function ServiceSearch(){
 
     const {user,language} = useSelector(state=>state);
 
-    const [formValue, setFormValue] = useState();
+    const [formValue, setFormValue] = useState({category:[]});
+
+    console.log("FormValue",formValue);
 
     const onSubmitHandler = () => {
         const formData = new FormData();
@@ -51,7 +53,13 @@ export default function ServiceSearch(){
     const history = useHistory();
     const location = useLocation();
 
-
+    useEffect(()=>{
+        if(location.state && location.state.category){
+            console.log("Trying to push ",location.state.category);
+            const categoriesArray = [location.state.category];
+            setFormValue( {...formValue,  category: categoriesArray});
+        }
+    },[])
 
     useEffect(()=>{
         const formData = new FormData();

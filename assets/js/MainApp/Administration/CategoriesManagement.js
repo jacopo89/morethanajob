@@ -1,5 +1,5 @@
 import React, {useEffect, useState} from "react";
-import {Button, ButtonToolbar, Form, Grid, Icon, Row, SelectPicker, Tree} from "rsuite";
+import {Button, ButtonToolbar,Col, Form, Grid, Icon, Row, SelectPicker, Tree} from "rsuite";
 import {useDeleteService, useGetServices, useUploadPicture} from "../../Backend/hooks/useServices";
 import TextField from "../../Login/Components/TextField";
 import {FormBox, MainButton, SecondaryButton} from "../../styledComponents/CustomComponents";
@@ -52,30 +52,44 @@ export default function CategoriesManagement(){
     return (<FormBox style={{width:"100%"}}>
         <Grid fluid>
             <Row>
-                <Tree style={{width:"100%"}} defaultExpandAll={true} data={servicesTree} onSelect={
-                    (e) => {
-                        console.log(e);
-                        setSelectedServiceNode(e.value);
-                        setSelectedServiceRef(e.refKey);
-                    }
-                } />
-                <ServiceDetail service={getService(selectedServiceNode)} refreshHandler={getServicesHandler} />
-                <Button onClick={handleShowGroup}>Aggiungi servizio</Button>
-                <Button onClick={()=>deleteServiceHandler(selectedServiceNode,deleteCallbacks )}>Cancella Servizio</Button>
+                <h3>Expertise Management</h3>
+                <Col xs={12}>
+                    <Tree style={{width:"100%"}} defaultExpandAll={true} data={servicesTree} onSelect={
+                        (e) => {
+                            console.log(e);
+                            setSelectedServiceNode(e.value);
+                            setSelectedServiceRef(e.refKey);
+                        }
+                    } />
+                </Col>
+                <Col xs={12}>
+                    <ServiceDetail service={getService(selectedServiceNode)} refreshHandler={getServicesHandler} />
+                    <Button onClick={handleShowGroup}>Aggiungi servizio</Button>
+                    <Button onClick={()=>deleteServiceHandler(selectedServiceNode,deleteCallbacks )}>Cancella Servizio</Button>
+                </Col>
+
+
             </Row>
 
 
             <Row>
-                <Tree defaultExpandAll={true} data={categoriesTree} onSelect={
-                    (e) => {
-                        console.log(e);
-                        setSelectedCategoryNode(e.value);
-                        setSelectedCategoryRef(e.refKey);
-                    }
-                } />
-                <CategoryDetail category={getCategory(selectedCategoryNode)} refreshHandler={getServicesHandler} />
-                <Button onClick={handleShowGroup}>Aggiungi Categoria</Button>
-                <Button onClick={()=>deleteServiceHandler(selectedCategoryNode,deleteCallbacks )}>Cancella categoria</Button>
+                <h3>Category Management</h3>
+                <Col xs={12}>
+                    <Tree defaultExpandAll={true} data={categoriesTree} onSelect={
+                        (e) => {
+                            console.log(e);
+                            setSelectedCategoryNode(e.value);
+                            setSelectedCategoryRef(e.refKey);
+                        }
+                    } />
+                </Col>
+                <Col xs={12}>
+                    <CategoryDetail category={getCategory(selectedCategoryNode)} refreshHandler={getServicesHandler} />
+                    <Button onClick={handleShowGroup}>Aggiungi Categoria</Button>
+                    <Button onClick={()=>deleteServiceHandler(selectedCategoryNode,deleteCallbacks )}>Cancella categoria</Button>
+                </Col>
+
+
             </Row>
         </Grid>
 
@@ -152,8 +166,9 @@ function ServiceDetail({service, refreshHandler}){
 
     useEffect(()=>{setFormValue(service)},[service]);
 
+    console.log("service selezionata", service);
     const uploaderButton = <Button>Upload </Button>;
-    const serviceImage = (service && service.picture) ? "https://localhost:8000"+ service.picture : null;
+    const serviceImage = (service && service.picture) ? service.picture : null;
 
     return (<Form fluid
         formValue={formValue}
@@ -161,7 +176,9 @@ function ServiceDetail({service, refreshHandler}){
     //    onSubmit={()=>submitHandler(formValue)}
     >
         <TextField style={{width:"100%"}} name="label" label="Nome società"  />
-        {service && service.picture && <img src={`url("${serviceImage}")`} width="100%" height="100%" />}
+        <div style={{display:"flex", justifyContent:"center"}}>
+            {service && service.picture && <img src={serviceImage} width="200" height="200" />}
+        </div>
 
         <ImageCropper button={uploaderButton} propCrop={{
             unit: 'px', // default, can be 'px' or '%'
@@ -177,8 +194,6 @@ function ServiceDetail({service, refreshHandler}){
 
 function CategoryDetail({category, refreshHandler}){
 
-
-    console.log("Category detail", category);
     const [response, uploadPictureHandler ] = useCategoryUploadPicture();
     const [formValue, setFormValue] = useState(category);
     const onChangeProfileHandler = (file) => {
@@ -197,6 +212,8 @@ function CategoryDetail({category, refreshHandler}){
     const uploaderButton = <Button>Upload </Button>;
     const serviceImage = (category && category.picture) ? category.picture : null;
 
+    console.log("Categoria selezionata", category);
+
     return (<Form
         fluid
         formValue={formValue}
@@ -204,7 +221,10 @@ function CategoryDetail({category, refreshHandler}){
         //    onSubmit={()=>submitHandler(formValue)}
     >
         <TextField style={{width:"100%"}} name="label" label="Nome società"  />
-        {category && category.picture && <img src={`url("${serviceImage}")`} width="100%" height="100%" />}
+        <div style={{display:"flex", justifyContent:"center"}}>
+            {category && category.picture && <img src={serviceImage} width="200" height="200" />}
+        </div>
+
 
         <ImageCropper button={uploaderButton} propCrop={{
             unit: 'px', // default, can be 'px' or '%'

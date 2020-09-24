@@ -2,8 +2,9 @@
 import React, {PureComponent, useState} from 'react';
 import ReactCrop from 'react-image-crop';
 import 'react-image-crop/dist/ReactCrop.css';
-import {Button, Modal, Uploader} from "rsuite";
+import {Grid, Col, Row, Button, Modal, Uploader} from "rsuite";
 import dataUrlToBlob from 'dataurl-to-blob';
+
 
 const defaultCrop = {
     unit: '%',
@@ -129,26 +130,36 @@ function CropperModal({src, crop, show,croppedImageUrl, onModalClose, onSave, on
                     <Modal.Title>Cambia la immagine</Modal.Title>
                 </Modal.Header>
                 <Modal.Body>
-                    <h5>Original Image </h5>
 
-                    {src && (
-                        <ReactCrop
-                            style={{maxWidth:400, maxHeight:200}}
-                            src={src}
-                            crop={crop}
-                            locked={locked}
-                            ruleOfThirds
-                            onImageLoaded={onImageLoaded}
-                            onComplete={onCropComplete}
-                            onChange={onCropChange}
-                        />
-                    )}
-                    <h5>Resized Image </h5>
-                    <div style={{display:"flex", justifyContent:"center",maxWidth:400, maxHeight:200}}>
-                        {croppedImageUrl && (
-                            <img alt="Crop" style={{ maxWidth: '100%' }} src={croppedImageUrl} />
-                        )}
-                    </div>
+                    <Grid style={{width:"100%"}}>
+                        <Row>
+                            <Col xs={12}>
+                                <h5>Original Image </h5>
+                                {src && (
+                                    <ReactCrop
+                                        style={{maxWidth:250, maxHeight:250}}
+                                        src={src}
+                                        crop={crop}
+                                        locked={locked}
+                                        ruleOfThirds
+                                        onImageLoaded={onImageLoaded}
+                                        onComplete={onCropComplete}
+                                        onChange={onCropChange}
+                                    />
+                                )}
+                            </Col>
+                            <Col xs={12}>
+                                <h5>Resized Image </h5>
+                                <div style={{display:"flex", justifyContent:"center",maxWidth:250, maxHeight:250}}>
+                                    {croppedImageUrl && (
+                                        <img alt="Crop" style={{ maxWidth: '100%' }} src={croppedImageUrl} />
+                                    )}
+                                </div>
+                            </Col>
+                        </Row>
+                    </Grid>
+
+
                 </Modal.Body>
                 <Modal.Footer>
                     <Button onClick={onSave}>Conferma</Button>
