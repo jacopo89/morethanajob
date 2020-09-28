@@ -10,6 +10,7 @@ export const translation = {
         "Login":"Login",
         "language":"Language",
 
+
         //MANCANTI
         "Homepage":"Homepage",
         "The project":"The project",
@@ -18,9 +19,9 @@ export const translation = {
         "Read more": "Read more",
         "Categories": "Categories",
         "Delete":"Delete",
-        "Title":"Title",
-        "Description":"Description",
-        "Short Description": "Short Description",
+        "Title":"Title in english",
+        "Description":"Description in english",
+        "Short Description": "Short Description in english",
         "Links": "Links",
         "Upload Cover Button":"Upload cover ",
         "Upload Logo Button":"Upload logo",

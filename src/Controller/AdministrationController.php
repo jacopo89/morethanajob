@@ -51,11 +51,19 @@ class AdministrationController extends AbstractController
      */
     public function changeRole(Request $request){
         $email = $request->get('email');
-        $roles = json_decode($request->get('roles'),true);
+        $isAdmin = $request->get('isAdmin');
         $status = Response::HTTP_BAD_REQUEST;
 
         $user = $this->em->getRepository(User::class)->findOneBy(['email'=>$email]);
         if($user){
+            $roles =  $user->getRoles();
+            if($isAdmin){
+               $roles[] = "ROLE_ADMIN";
+            }else{
+                if(in_array("ROLE_ADMIN", $roles)){
+                    //TODO va rimosso
+                }
+            }
             $user->setRoles($roles);
             $this->em->persist($user);
             $this->em->flush();

@@ -10,7 +10,6 @@ export default function CollaborationManagement(){
 
     const actionRender= (rowData) => {
 
-        console.log("Rowdata", rowData);
 
         return (
             <span>

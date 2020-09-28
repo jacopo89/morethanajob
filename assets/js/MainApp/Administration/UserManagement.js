@@ -1,8 +1,13 @@
-import React, {useEffect} from 'react'
-import {useGetUsers} from "../../Backend/hooks/useAdministration";
+import React, {useEffect, useState} from 'react'
+import {useChangeUserRole, useGetUsers} from "../../Backend/hooks/useAdministration";
 import {TablePanelDetail} from "../../ReusableComponents/TablePanelDetail";
 import HorizontalStepForm from "../../ReusableComponents/HorizontalStepForm";
 import UserDetail from "./UserDetail";
+import * as Routes from "../../routes";
+import {Form, CheckPicker, SelectPicker} from "rsuite";
+import TextField from "../../Login/Components/TextField";
+import {GenericTable} from "../../ReusableComponents/GenericTable";
+import DeleteButton from "../../ReusableComponents/DeleteButton";
 
 export default function UserManagement(){
 
@@ -10,26 +15,64 @@ export default function UserManagement(){
 
     useEffect(()=>{getUsersHandler(); return ()=>{}},[]);
 
-    /*useEffect(()=>{
-        const dataManipulationFunction = (data) => data.map((item)=>{return {...item,
-            startTime:defaultDate(item.startTime), endTime:defaultDate(item.endTime),
-            startTimeValue: defaultDateToStringTime(item.startTime), endTimeValue:defaultDateToStringTime(item.endTime)}}) ;
-        getLecturesHandler(code, {dataManipulationFunction:dataManipulationFunction})},[])
-    */
+    const roles = [{
+        label:"User",
+        value:"ROLE_USER",
+    }, {
+        label:"Admin",
+        value:"ROLE_ADMIN"
+    }]
+
+
+
+    const actionRender = (rowData) => {
+        return (
+            <span>
+                <DeleteButton onClickHandler={() => console.log("Delete User")}/>
+            </span>)
+    }
+
+    const roleRender= (rowData) => <RolePicker roles={roles} rowData={rowData} />
 
     const modelData = [
         {label:"id",dataKey: "id"},
         {label:"Email", dataKey: "email"},
-        {label:"Ruoli",dataKey: "roles"}
+        {label:"Ruoli",render:roleRender},
+        {label:"Actions", render:actionRender}
     ]
 
-    const labels = ["Dettaglio utente"];
 
+    return <GenericTable rowKey="id" propData={users} modelData={modelData} />
+}
 
-    const components  = (data) => [<UserDetail user={data} />];
+function RolePicker({rowData, roles}){
+    const selectRoles = (rowData.roles.includes("ROLE_ADMIN") ? "ROLE_ADMIN" : "ROLE_USER" );
 
+    const [formValue, setFormValue] = useState({roles:selectRoles});
 
-    const stepForm = (data)=> <HorizontalStepForm labels={labels} components={components(data)} />
+    const [changeUserRoleResponse, changeUserRoleHandler] = useChangeUserRole();
 
-    return <TablePanelDetail rowKey="id" data={users} modelData={modelData} panelDetail={()=>console.log("dettaglio utente")} />
+    const changeUserRole = () => {
+        const formData = new FormData();
+        const isAdmin = selectRoles==="ROLE_ADMIN";
+        formData.append("id", rowData.id);
+        formData.append("admin", isAdmin.toString());
+        changeUserRoleHandler(formData);
+
+    }
+
+    const customSetFormValue = (value) => {
+        setFormValue(state => {
+            if(value.roles!==state.roles){
+                changeUserRole();
+            }
+            return value;
+        });
+    }
+
+    return (
+        <Form formValue={formValue} onChange={customSetFormValue}>
+            <TextField accepter={SelectPicker} name="roles" data={roles} searchable={false}  />
+        </Form>
+    );
 }

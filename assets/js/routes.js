@@ -9,6 +9,7 @@ export const changePassword = "/password-change";
 export const administration = "/administration";
 export const administrationProjects = "/administration-projects";
 export const administrationCollaborations = "/administration-collaborations";
+export const administrationUsers = "/administration-users";
 export const serviceSearchPage = "/services";
 export const searchUserPage = "/partners";
 export const dashboardPage = "/dashboard";

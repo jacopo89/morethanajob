@@ -91,6 +91,8 @@ function App(){
     const administrationPage = <MainPage page={<CategoriesManagement/>}/>;
     const administrationProjectPage = <MainPage page={<ProjectManagement/>}/>;
     const administrationCollaborationsPage = <MainPage page={<CollaborationManagement/>}/>;
+    const administrationUserPage = <MainPage page={<UserManagement />} />
+
     const serviceSearchPage = <MainPage page={<ServiceSearch />}/>;
     const searchUserPage = <MainPage page={<SearchPartners />}/>;
     const loginPage = <DashboardLayout page={<Login/>}/>;
@@ -136,6 +138,7 @@ function App(){
                 <Route path={Routes.administration} children={administrationPage}/>
                 <Route path={Routes.administrationCollaborations} children={administrationCollaborationsPage}/>
                 <Route path={Routes.administrationProjects} children={administrationProjectPage}/>
+                <Route path={Routes.administrationUsers} children={administrationUserPage}/>
                 <Route path={Routes.routeProject} children={projectDetailPage}/>
                 <Route path={Routes.immediateLogout} children={immediateLogoutPage}/>
                 <Route path={Routes.main} children={dashboardPage}/>
@@ -200,7 +203,7 @@ const  firebaseConfig = {
 };
 
 // Initialize Firebase
-firebase.initializeApp(firebaseConfig);
+//firebase.initializeApp(firebaseConfig);
 //const messaging = firebase.messaging();
 //messaging.usePublicVapidKey("BJ2vLwEXdwyrGarVrA8BlhuBKHIcjWNIAE4T9uNUoc2xoxEgAiTfpdVp86gVDkL9TPULDd9LkT5L4Uh9bqKTTKo");
 

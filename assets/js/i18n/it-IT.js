@@ -15,6 +15,39 @@ export const translation = {
         //MANCANTI
 
         "Homepage":"Homepage",
+        "The project": "Il progetto",
+        "Services and opportunities": "Servizi e opportunità",
+        "Organisations": "Organizzazioni",
+        "Read more": "Più informazioni",
+    "Categories": "Categorie",
+    "Delete":"Cancella",
+    "Title":"Titolo in inglese",
+    "Description":"Descrizione in inglese",
+    "Short Description": "Descrizione breve in inglese",
+    "Links": "Link",
+    "Upload Cover Button":"Upload cover ",
+    "Upload Logo Button":"Upload logo",
+    "Closed":"Chiuso",
+    "Details":"Dettagli",
+    "Local Language Short description":"Descrizione breve in lingua nazionale",
+    "Local Title": "Titolo in lingua nazionale",
+    "Local Language Detailed description": "Descrizione in lingua nazionale",
+    "Title of the service":"Nome del servizio",
+    "Title of the collaboration":"Nome della collaborazione",
+    "Title of the service in local language":"Nome del servizio in lingua nazionale",
+    "Title of the collaboration in local language":"Nome della collaborazione in lingua nazionale",
+    "English":"Inglese",
+    "Italian":"Italiano",
+    "Arabic":"Arabo",
+    "Greek":"Greco",
+    "Search organisations":"Cerca organizzazioni",
+    "Proposed by":"Propososto da",
+    "Category": "Categoria",
+    "All": "Tutti",
+    "Collaborations":"Collaborazioni",
+    "Documents":"Documenti",
+/*
+        "Homepage":"Homepage",
         "The project":"Il progetto",
         "Services and opportunities": "Servizi e opportunità",
         "Organisations":"Organizzazioni",
@@ -45,10 +78,7 @@ export const translation = {
         "Category": "Macrocategoria",
         "All": "Tutti",
         "Collaborations":"Collaborazioni",
-        "Documents":"Documenti",
-
-
-
+        "Documents":"Documenti",*/
 
 
         //DASHBOARD MAIN
@@ -60,7 +90,7 @@ export const translation = {
         "Dashboard button": "Trova servizi e opportunità",
         //THE PROJECT
         "projectTitle":"IL PROGETTO",
-        "projectPre":"Il portale è stato sviluppato all’interno del progetto “MoreThanAJob - Reinforcing social and solidarity economy for the unemployed, uneducated and refugees”, finanziato dal programma ENI CBC MED, che mira a promuovere l’inclusione sociale e lavorativa dei soggetti vulnerabili attraverso una migliore cooperazione tra gli attori dell’economia sociale e solidale e la pubblica amministrazione.",
+        "projectPre":"Il portale è stato sviluppato all’interno del progetto ”MoreThanAJob - Reinforcing social and solidarity economy for the unemployed, uneducated and refugees”, finanziato dal programma ENI CBC MED, che mira a promuovere l’inclusione sociale e lavorativa dei soggetti vulnerabili attraverso una migliore cooperazione tra gli attori dell’economia sociale e solidale e la pubblica amministrazione.",
         "projectMore":"Il progetto MoreThanAJob promuove lo sviluppo di meccanismi di cooperazione tra attori dell’Economia Sociale e Solidale e la pubblica amministrazione per migliorare l’erogazione di servizi di welfare per soggetti vulnerabili al fine di migliorare le loro opportunità di inclusione socio-lavorativa.\n" +
             "Migliorare la cooperazione tra questi due attori e le loro diverse realtà migliorerà lo sviluppo di servizi innovativi e più efficienti che siano in grado di rispondere alle sfide attuali delle nostre società, in particolar modo a seguito dell’emergenza legata alla diffusione del Covid-19. Questa emergenza ha, infatti, evidenziato come un solido sistema di welfare sia essenziale per proteggere le fasce più deboli, garantire società più eque e assicurare che ogni cittadino abbia gli stessi diritti e opportunità.\n" +
             "MoreThanAJob cambierà il modo in cui gli attori dell'Economia Sociale e Solidale e le pubbliche amministrazioni collaborano per l’erogazione di servizi a soggetti vulnerabili attraverso lo sviluppo di un modello di nuove iniziative pilota di welfare, nonché lo sviluppo di policy briefs e raccomandazioni politiche per migliorare la pianificazione di politiche adattate ai bisogni dei beneficiari.\n" +
