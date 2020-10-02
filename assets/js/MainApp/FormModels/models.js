@@ -4,6 +4,7 @@ const { StringType, NumberType } = Schema.Types;
 
 export const projectModel = Schema.Model({
     title: StringType().isRequired("This field is required"),
+    language: StringType().isRequired("This field is required"),
     shortDescription:StringType().isRequired("This field is required")
 
 });
