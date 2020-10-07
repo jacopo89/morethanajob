@@ -51,10 +51,10 @@ export default function EditCollaboration({isService}) {
                 console.log("Data in get collaboration",data);
                 let formValue = {...data, category:data.category.value, project: (data.project)? data.project.id :null};
                 if(data.startDate){
-                    formValue = {...data, startDate: new Date(data.startDate)}
+                    formValue = {...formValue, startDate: new Date(data.startDate)}
                 }
                 if(data.endDate){
-                    formValue = {...data, endDate: new Date(data.endDate)}
+                    formValue = {...formValue, endDate: new Date(data.endDate)}
                 }
                 setFormValue(formValue);
             }});
