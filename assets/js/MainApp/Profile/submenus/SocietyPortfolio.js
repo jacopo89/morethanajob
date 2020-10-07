@@ -1,5 +1,5 @@
 import React, {useEffect, useState} from "react";
-import {Button, Col, Icon, IconButton, Panel, PanelGroup, Row} from "rsuite";
+import {Button, Col, HelpBlock, Icon, IconButton, Panel, PanelGroup, Row} from "rsuite";
 import {useGetCollaborationProjects, useGetPortfolioProjects} from "../../../Backend/hooks/useProjects";
 import {bordeaux} from "../../../styledComponents/CustomComponents";
 import {getCalendarFormat, getDayAndMonth} from "../../../ReusableComponents/TimeManager";
@@ -9,6 +9,8 @@ import NewProjectModal from "../../Projects/NewProjectModal";
 
 import {useTranslation} from "react-i18next";
 import CollaborationDetail from "../DetailCards/CollaborationDetail";
+import NoElementsFound from "./NoElementsFound";
+import {useSelector} from "react-redux";
 
 export default function SocietyPortfolio({society}) {
     const [portfolioProjects, getPortfolioProjectsHandler] = useGetPortfolioProjects();
@@ -32,7 +34,7 @@ export default function SocietyPortfolio({society}) {
     }
 
     const panels = portfolioProjects.map((project, item)=> <PortfolioDetail key={item} project={project}/>);
-    const panelShow = panels.length > 0 ? panels : <div style={{height:100, margin:"0 auto", textAlign:"center", color:bordeaux}}> No portfolio projects </div>
+    const panelShow = panels.length > 0 ? panels : <NoElementsFound message="No portfolio projects" />
 
     const panelsCollaborations = portfolioProjectsCollaborations.map((project, item)=> <PortfolioDetail project={project}/>);
     const panelShowCollaborations = panelsCollaborations.length > 0 ? panelsCollaborations : <div style={{height:100, margin:"0 auto", textAlign:"center", color:bordeaux}}> No collaborations </div>
@@ -50,6 +52,17 @@ export function PortfolioDetail({project}){
 
     const history = useHistory();
     const { t, i18n } = useTranslation();
+    const {language} = useSelector(state=>state);
+    const title = (project && project.language === language && project.localTitle!==null && project.localTitle.length!==0) ? project && project.localTitle  : project && project.title ;
+    const description = (project && project.language === language && project.localShortDescription!==null && project.localShortDescription.length!==0) ? project && project.localShortDescription  : project && project.shortDescription ;
+
+    const isDescriptionInEnglish = (
+        project &&
+        project.localLanguage === language &&
+        project.localShortDescription===null ||
+        ( project && project.localShortDescription !==undefined && project.localShortDescription.length===0)
+    );
+    const message = isDescriptionInEnglish ? "This content is available only in English" :"";
 
     const backgroundImage = (project && project.projectLogo) ? project.projectLogo.url  : "/defaults/project_thumbnail.png";
 
@@ -63,7 +76,7 @@ export function PortfolioDetail({project}){
 
 
         return <Panel header={
-        <PortfolioPanelTitle project={project} />}>
+        <PortfolioPanelTitle title={title} project={project} />}>
         <Row className="show-grid">
             <Col xs={8}>
                 <div style={{display:"flex", justifyContent:"center"}}>
@@ -72,7 +85,8 @@ export function PortfolioDetail({project}){
             </Col>
             <Col xs={16}>
                 <div style={{display:"flex", flexDirection:"column", flexWrap:"wrap", justifyContent:"space-around"}}>
-                    <div style={{width:"100%", flexGrow:1}} >{project.shortDescription}</div>
+                    <div style={{width:"100%", flexGrow:1}} >{description}</div>
+                    <HelpBlock>{message}</HelpBlock>
                     {list}
                 </div>
 
@@ -90,11 +104,11 @@ export function PortfolioDetail({project}){
 
 }
 
-export function PortfolioPanelTitle({project}){
+export function PortfolioPanelTitle({project, title}){
     const { t, i18n } = useTranslation();
     return <div style={{backgroundColor:bordeaux, minHeight:40, color:"white", display: "flex", justifyContent: "space-evenly",alignItems: "center"}}>
         <div style={{flexGrow:3, paddingLeft:5, fontWeight: "bold", fontSize:20}}>
-            {project.title}
+            {title}
         </div>
 
     </div>

@@ -63,7 +63,6 @@ export default function ServiceSearch(){
         const formData = new FormData();
         console.log("Location", location);
         if(location.state && location.state.category){
-            console.log("Appending category")
             formData.append('language', language);
             formData.append('category', [].push(location.state.category));
         }

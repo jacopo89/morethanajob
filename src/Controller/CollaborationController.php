@@ -193,6 +193,7 @@ class CollaborationController extends AbstractController
         $id = $request->get('id');
         $collaboration = $this->em->getRepository(Collaboration::class)->find($id);
         if($collaboration) {
+            $title = json_decode($request->get('title'));
             $shortDescription = json_decode($request->get('shortDescription'));
             $longDescription = json_decode($request->get('description'));
             $startDate = json_decode($request->get('startDate'));
@@ -209,6 +210,7 @@ class CollaborationController extends AbstractController
             $localLanguageShortDescription = json_decode($request->get('localLanguageShortDescription'));
 
 
+            $collaboration->setTitle($title);
             $collaboration->setStartDate($startDate);
             $collaboration->setEndDate($endDate);
             $collaboration->setShortDescription($shortDescription);

@@ -32,10 +32,15 @@ export default function Collaboration(){
 
     const title = (collaboration && collaboration.localLanguage === language && collaboration.localLanguageTitle && collaboration.localLanguageTitle.length!==0) ? collaboration && collaboration.localLanguageTitle  : collaboration && collaboration.title ;
     const description = (collaboration && collaboration.localLanguage === language && collaboration.localLanguageDescription && collaboration.localLanguageDescription.length!==0) ? collaboration && collaboration.localLanguageDescription  : collaboration && collaboration.description ;
-    const isDescriptionOnlyInEnglish = (collaboration && collaboration.localLanguageDescription!==null && collaboration.localLanguageDescription.length===0);
+    const isDescriptionInEnglish = (
+        collaboration &&
+        collaboration.localLanguage === language &&
+        collaboration.localLanguageShortDescription===null ||
+        ( collaboration && collaboration.localLanguageShortDescription !==null && collaboration.localLanguageShortDescription.length===0)
+    );
 
-    console.log("Is only english",isDescriptionOnlyInEnglish);
-    const languageMessage = (isDescriptionOnlyInEnglish) ? "This content is available only in English" : "";
+
+    const languageMessage = (isDescriptionInEnglish) ? "This content is available only in English" : "";
 
     const serviceBox = <ServiceFormBox collaboration={collaboration}/>;
 

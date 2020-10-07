@@ -119,6 +119,17 @@ class UserController extends AbstractController
         return new Response($this->serializer->serialize($finalUsers, 'json'), Response::HTTP_OK);
     }
 
+    /**
+     * @Route("/remove/{email}")
+     * @param User $user
+     * @return Response
+     */
+    public function removeUser(User $user){
+        $this->em->remove($user);
+        $this->em->flush();
+
+        return new Response(null,200);
+    }
 
 
 

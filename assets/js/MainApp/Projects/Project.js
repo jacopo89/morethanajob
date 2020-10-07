@@ -77,11 +77,19 @@ export default function Project(){
     const projectLogostyle = {backgroundImage:  `url(${backgroundImage})`, backgroundSize: "contain", width:150, height:150}
     const projectLogo = <div style={projectLogostyle}/>
 
-    const title = (project && project.language === language && project.localTitle && project.localTitle.length!==0) ? project && project.localTitle  : project && project.title ;
-    const description = (project && project.language === language && project.localLongDescription && project.localLongDescription.length!==0) ? project && project.localLongDescription  : project && project.description ;
-    const isDescriptionOnlyInEnglish = (project && project.language === language && project.localLongDescription && project.localDescription.length==0);
+    const title = (project && project.language === language && project.localTitle!==null && project.localTitle.length!==0) ? project && project.localTitle  : project && project.title ;
+    const description = (project && project.language === language && project.localLongDescription!==null && project.localLongDescription.length!==0) ? project && project.localLongDescription  : project && project.longDescription ;
 
-    const languageMessage = (isDescriptionOnlyInEnglish) ? "" : "This content is available only in English";
+    console.log("PRoject", project)
+    const isDescriptionInEnglish = (
+        project &&
+        project.localLanguage === language &&
+        project.localLongDescription===null ||
+        ( project && project.localLongDescription !==undefined && project.localLongDescription.length===0)
+    );
+
+
+    const languageMessage = (isDescriptionInEnglish) ? "This content is available only in English" :"";
 
 
 

@@ -132,7 +132,7 @@ export default function Profile(){
             <>
             <div style={{...coverStyle, backgroundImage: `url(${backgroundImage})`}}>
                 <LinearGradient/>
-                <h3 style={{position:"absolute", bottom:4, right:10, color:"white"}}><a target="_blank" href={userInfo && userInfo.website}>{userInfo && userInfo.website}</a></h3>
+                <h3 style={{position:"absolute", bottom:4, right:10, color:"white"}}><a target="_blank" href={userInfo && manipulateWebsite(userInfo.website)}>{userInfo && userInfo.website}</a></h3>
                 {/* {social}*/}
                 {isOwner  && editButton  }
             </div>
@@ -253,6 +253,17 @@ export default function Profile(){
     }else{
         return <div></div>;
     }
+}
+
+function manipulateWebsite(website){
+    if(website){
+        if(website.startsWith("http")){
+            return website;
+        }else{
+            return "https://"+website;
+        }
+    }
+
 }
 
 

@@ -1,6 +1,6 @@
 import {useHistory} from "react-router-dom";
 import {useTranslation} from "react-i18next";
-import {Button, Col, Icon, Panel, Row} from "rsuite";
+import {Button, Col, HelpBlock, Icon, Panel, Row} from "rsuite";
 import {bordeaux} from "../../../styledComponents/CustomComponents";
 import * as Routes from "../../../routes";
 import {getCalendarFormat} from "../../../ReusableComponents/TimeManager";
@@ -13,9 +13,21 @@ export default function CollaborationDetail({collaboration}){
     const {language} = useSelector(state=>state);
     const { t, i18n } = useTranslation();
 
+    const isDescriptionInEnglish = (
+        collaboration.localLanguage === language &&
+        collaboration.localLanguageShortDescription===null ||
+        (collaboration.localLanguageShortDescription !==null && collaboration.localLanguageShortDescription.length===0)
+    );
+
+
+
     const backgroundImage = (collaboration && collaboration.category && collaboration.category.picture) ? collaboration.category.picture  : "/defaults/project_thumbnail.png";
     const trueTitle  = (collaboration.localLanguage === language && collaboration.localLanguageTitle && collaboration.localLanguageTitle.length!==0) ? collaboration.localLanguageTitle : collaboration.title;
     const trueDescription  = (collaboration.localLanguage === language && collaboration.localLanguageShortDescription && collaboration.localLanguageShortDescription.length!==0) ? collaboration.localLanguageShortDescription : collaboration.description;
+
+
+    const message= (isDescriptionInEnglish) ? "This content is available only in English" : "";
+
 
 
 
@@ -32,6 +44,7 @@ export default function CollaborationDetail({collaboration}){
             <Col xs={16}>
                 <div style={{display:"flex", flexDirection:"column", flexWrap:"wrap", justifyContent:"space-around"}}>
                     <div style={{width:"100%", flexGrow:1}} >{trueDescription}</div>
+                    <HelpBlock>{message}</HelpBlock>
                     {collaborationPositions}
                 </div>
             </Col>

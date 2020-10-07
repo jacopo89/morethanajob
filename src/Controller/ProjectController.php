@@ -279,7 +279,7 @@ class ProjectController extends AbstractController
             $links = json_decode($request->get('links'));
             $localTitle = json_decode($request->get('localTitle'));
             $shortLocalDescription = json_decode($request->get('localShortDescription'));
-            $longLocalDescription = json_decode($request->get('longDescription'));
+            $longLocalDescription = json_decode($request->get('localLongDescription'));
             $contacts = json_decode($request->get('contacts'));
             $language = json_decode($request->get('language'));
             $project->setLanguage($language);
