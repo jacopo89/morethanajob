@@ -40,8 +40,6 @@ export default function ServiceSearch(){
 
     const [formValue, setFormValue] = useState({category:[]});
 
-    console.log("FormValue",formValue);
-
     const onSubmitHandler = () => {
         const formData = new FormData();
 
@@ -74,7 +72,8 @@ export default function ServiceSearch(){
             getProjectsHandler(formData);
 
         }else{
-            getProjectsHandler();
+            formData.append('language', language);
+            getProjectsHandler(formData);
         }
         getUsersListHandler(null, {dataManipulationFunction: (data)=>{
             return data.map((user)=> {

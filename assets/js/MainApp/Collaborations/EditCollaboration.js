@@ -102,7 +102,7 @@ export default function EditCollaboration({isService}) {
     const categoryLabel = (isService) ? "Macro category of the service" : "Macro category of the collaboration" ;
 
 
-    const categoryImage = formValue && formValue.category && formValue.category.picture;
+    const categoryImage = formValue && formValue.category && categories.find(category=>category.id===formValue.category);
 
         return (
         <>
