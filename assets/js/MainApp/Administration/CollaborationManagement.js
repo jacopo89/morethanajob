@@ -4,6 +4,7 @@ import * as Routes from "../../routes";
 
 import {useGetAllCollaborations} from "../../Backend/hooks/useAdministration";
 import {useHistory} from "react-router-dom";
+import {Container} from "rsuite";
 
 export default function CollaborationManagement(){
     const history = useHistory();
@@ -21,7 +22,7 @@ export default function CollaborationManagement(){
 
     const model = [
         {label:"id", dataKey:"id"},
-        {label:"name", dataKey:"name"},
+        {label:"title", dataKey:"title"},
         {label:"actions", render:actionRender}
     ];
 
@@ -31,6 +32,9 @@ export default function CollaborationManagement(){
         getCollaborations();
     },[]);
 
+    return <Container style={{padding:10}}>
+        <h2>Collaborations Management</h2>
+        <GenericTable sortable={true} filterable={true} resizable={true}  modelData={model} propData={collaborations} rowKey="id" />
+    </Container>
 
-    return <GenericTable modelData={model} propData={collaborations} rowKey="id" />;
 }

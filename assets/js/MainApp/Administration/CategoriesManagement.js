@@ -1,11 +1,11 @@
 import React, {useEffect, useState} from "react";
 import {Button, ButtonToolbar,Col, Form, Grid, Icon, Row, SelectPicker, Tree} from "rsuite";
-import {useDeleteService, useGetServices, useUploadPicture} from "../../Backend/hooks/useServices";
+import {useDeleteService, useEditExpertise, useGetServices, useUploadPicture} from "../../Backend/hooks/useServices";
 import TextField from "../../Login/Components/TextField";
 import {FormBox, MainButton, SecondaryButton} from "../../styledComponents/CustomComponents";
 import ImageCropper from "../../ReusableComponents/ImageCropper";
 import * as ActionTypes from "../../Redux/actions";
-import {useCategoryUploadPicture, useGetCategories} from "../../Backend/hooks/useCategories";
+import {useCategoryUploadPicture, useEditCategory, useGetCategories} from "../../Backend/hooks/useCategories";
 import {useTranslation} from "react-i18next";
 
 export default function CategoriesManagement(){
@@ -45,7 +45,6 @@ export default function CategoriesManagement(){
     const getCategory = (categoryId) =>{
         let filteredServiceArray = categories.filter((category)=> category.value === categoryId);
 
-        console.log("selected category", filteredServiceArray[0]);
         return filteredServiceArray[0];
     }
 
@@ -53,6 +52,7 @@ export default function CategoriesManagement(){
         <Grid fluid>
             <Row>
                 <h3>Expertise Management</h3>
+                <p>Please select one element from the tree to edit its property</p>
                 <Col xs={12}>
                     <Tree style={{width:"100%"}} defaultExpandAll={true} data={servicesTree} onSelect={
                         (e) => {
@@ -64,8 +64,8 @@ export default function CategoriesManagement(){
                 </Col>
                 <Col xs={12}>
                     <ServiceDetail service={getService(selectedServiceNode)} refreshHandler={getServicesHandler} />
-                    <Button onClick={handleShowGroup}>Aggiungi servizio</Button>
-                    <Button onClick={()=>deleteServiceHandler(selectedServiceNode,deleteCallbacks )}>Cancella Servizio</Button>
+                {false &&    <Button onClick={handleShowGroup}>Add expertise</Button>}
+                    <Button onClick={()=>deleteServiceHandler(selectedServiceNode,deleteCallbacks )}>Remove expertise</Button>
                 </Col>
 
 
@@ -74,6 +74,7 @@ export default function CategoriesManagement(){
 
             <Row>
                 <h3>Category Management</h3>
+                <p>Please select one element from the tree to edit its property</p>
                 <Col xs={12}>
                     <Tree defaultExpandAll={true} data={categoriesTree} onSelect={
                         (e) => {
@@ -84,9 +85,9 @@ export default function CategoriesManagement(){
                     } />
                 </Col>
                 <Col xs={12}>
-                    <CategoryDetail category={getCategory(selectedCategoryNode)} refreshHandler={getServicesHandler} />
-                    <Button onClick={handleShowGroup}>Aggiungi Categoria</Button>
-                    <Button onClick={()=>deleteServiceHandler(selectedCategoryNode,deleteCallbacks )}>Cancella categoria</Button>
+                    <CategoryDetail category={getCategory(selectedCategoryNode)} refreshHandler={getCategoriesHandler} />
+                    {false && <Button onClick={handleShowGroup}>Aggiungi Categoria</Button>}
+                    <Button onClick={()=>deleteServiceHandler(selectedCategoryNode,deleteCallbacks )}>Remove category</Button>
                 </Col>
 
 
@@ -164,18 +165,28 @@ function ServiceDetail({service, refreshHandler}){
             }});
     };
 
+    const [editExpResp, editExpertiseHandler] = useEditExpertise();
+
+    const saveExpertise = ()=>{
+        const formData = new FormData();
+        formData.append('id', formValue.id);
+        formData.append('value', formValue.label);
+        editExpertiseHandler(formData,{successCallback:refreshHandler});
+    }
+
     useEffect(()=>{setFormValue(service)},[service]);
 
     console.log("service selezionata", service);
-    const uploaderButton = <Button>Upload </Button>;
+    const uploaderButton = <Button>Upload image </Button>;
     const serviceImage = (service && service.picture) ? service.picture : null;
 
     return (<Form fluid
         formValue={formValue}
         onChange={setFormValue}
+                  onSubmit={saveExpertise}
     //    onSubmit={()=>submitHandler(formValue)}
     >
-        <TextField style={{width:"100%"}} name="label" label="Nome società"  />
+        <TextField style={{width:"100%"}} name="label" label="Expertise"  />
         <div style={{display:"flex", justifyContent:"center"}}>
             {service && service.picture && <img src={serviceImage} width="200" height="200" />}
         </div>
@@ -187,6 +198,7 @@ function ServiceDetail({service, refreshHandler}){
             width: 200,
             height: 200
         }} keyField="servicePicture" onChange={onChangeProfileHandler}/>
+        <Button type="submit">Save</Button>
     </Form>)
 
 }
@@ -207,9 +219,18 @@ function CategoryDetail({category, refreshHandler}){
             }});
     };
 
+    const [editCategoryResp, editCategoryHandler] = useEditCategory();
+
+    const saveCategory = ()=>{
+        const formData = new FormData();
+        formData.append('id', formValue.id);
+        formData.append('value', formValue.label);
+        editCategoryHandler(formData,{successCallback:refreshHandler});
+    }
+
     useEffect(()=>{setFormValue(category)},[category]);
 
-    const uploaderButton = <Button>Upload </Button>;
+    const uploaderButton = <Button>Upload image </Button>;
     const serviceImage = (category && category.picture) ? category.picture : null;
 
     console.log("Categoria selezionata", category);
@@ -218,9 +239,10 @@ function CategoryDetail({category, refreshHandler}){
         fluid
         formValue={formValue}
         onChange={setFormValue}
+        onSubmit={saveCategory}
         //    onSubmit={()=>submitHandler(formValue)}
     >
-        <TextField style={{width:"100%"}} name="label" label="Nome società"  />
+        <TextField style={{width:"100%"}} name="label" label="Category"  />
         <div style={{display:"flex", justifyContent:"center"}}>
             {category && category.picture && <img src={serviceImage} width="200" height="200" />}
         </div>
@@ -233,6 +255,7 @@ function CategoryDetail({category, refreshHandler}){
             width: 200,
             height: 200
         }} keyField="servicePicture" onChange={onChangeProfileHandler}/>
+        <Button type="submit">Save</Button>
     </Form>)
 
 }

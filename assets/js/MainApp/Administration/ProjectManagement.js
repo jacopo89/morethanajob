@@ -4,6 +4,7 @@ import * as Routes from "../../routes";
 
 import {useGetAllCollaborations, useGetAllProjects} from "../../Backend/hooks/useAdministration";
 import {useHistory} from "react-router-dom";
+import {Container} from "rsuite";
 
 export default function ProjectManagement(){
     const history = useHistory();
@@ -33,5 +34,8 @@ export default function ProjectManagement(){
     },[]);
 
 
-    return <GenericTable modelData={model} propData={projects} rowKey="id" />;
+    return <Container style={{padding:10}}>
+        <h2>Projects Management</h2>
+        <GenericTable filterable={true} resizable={true} modelData={model} propData={projects} rowKey="id" />
+    </Container>
 }

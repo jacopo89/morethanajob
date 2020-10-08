@@ -42,7 +42,7 @@ export default function UserManagement(){
     return <>
         <Container style={{padding:10}}>
             <h2>User Management</h2>
-            <GenericTable modelData={model} propData={users} rowKey="id" />
+            <GenericTable filterable={true} resizable={true} modelData={model} propData={users} rowKey="id" />
         </Container>
 
     </>;

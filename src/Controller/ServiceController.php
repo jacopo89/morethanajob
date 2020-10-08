@@ -284,5 +284,25 @@ class ServiceController extends AbstractController
     }
 
 
+    /**
+     * @Route("/editExpertise")
+     * @param Request $request
+     * @return Response
+     */
+    public function editExpertise(Request $request){
+        $id = $request->get('id');
+        $value = $request->get('value');
+        $category = $this->em->getRepository(Service::class)->find($id);
 
+        $status = Response::HTTP_NOT_FOUND;
+
+        if($category){
+            $category->setName($value);
+            $this->em->persist($category);
+            $this->em->flush();
+            $status = Response::HTTP_OK;
+        }
+
+        return new Response(null, $status);
+    }
 }

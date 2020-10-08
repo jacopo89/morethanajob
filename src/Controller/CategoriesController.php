@@ -91,4 +91,26 @@ class CategoriesController extends AbstractController
         $categories = $this->em->getRepository(Category::class)->findAll();
         return new Response($this->serializer->serialize($categories, 'json'), Response::HTTP_OK);
     }
+
+    /**
+     * @param Request $request
+     * @return Response
+     * @Route("/edit")
+     */
+    public function edit(Request $request){
+        $id = $request->get('id');
+        $value = $request->get('value');
+        $category = $this->em->getRepository(Category::class)->find($id);
+
+        $status = Response::HTTP_NOT_FOUND;
+
+        if($category){
+            $category->setName($value);
+            $this->em->persist($category);
+            $this->em->flush();
+            $status = Response::HTTP_OK;
+        }
+
+        return new Response(null, $status);
+    }
 }

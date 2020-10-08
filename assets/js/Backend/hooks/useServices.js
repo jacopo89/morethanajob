@@ -65,3 +65,9 @@ export function useRemoveOfferedService(){
     const backendClient = BackendClient(accessToken);
     return useCreateHook(backendClient,'/backend/service/removeUserService','get',null);
 }
+
+export function useEditExpertise(){
+    const {accessToken} = useSelector(state=>state);
+    const backendClient = BackendClient(accessToken);
+    return useCreateHook(backendClient,'/backend/service/editExpertise','post',null);
+}
