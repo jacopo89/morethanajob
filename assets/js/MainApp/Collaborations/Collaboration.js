@@ -91,7 +91,7 @@ export default function Collaboration(){
                 </Row>
                 <Row className="show-grid" style={{padding:5}}>
                     <Col xs={12}>
-                        <IconWithText icon="user" label={t('Modality')} value={collaboration && collaboration.modality}/>
+                        <IconWithText icon="user" label={t('Modality')} value={collaboration && collaboration.modality}/> //TODO f2f
                     </Col>
                 </Row>
 

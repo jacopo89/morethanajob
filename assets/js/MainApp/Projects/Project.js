@@ -78,7 +78,7 @@ export default function Project(){
     const projectLogo = <div style={projectLogostyle}/>
 
     const title = (project && project.language === language && project.localTitle!==null && project.localTitle.length!==0) ? project && project.localTitle  : project && project.title ;
-    const description = (project && project.language === language && project.localLongDescription!==null && project.localLongDescription.length!==0) ? project && project.localLongDescription  : project && project.longDescription ;
+    const description = (project && project.language === language && project.localLongDescription!==undefined && project.localLongDescription.length!==0) ? project && project.localLongDescription  : project && project.longDescription ;
 
     console.log("PRoject", project)
     const isDescriptionInEnglish = (
