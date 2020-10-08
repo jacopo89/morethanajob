@@ -45,7 +45,7 @@ export default function FinalHeader(){
                 <Dropdown.Item onClick={()=> history.push(Routes.administration)} eventKey="e-1">Management</Dropdown.Item>
                 <Dropdown.Item onClick={()=> history.push(Routes.administrationProjects)} eventKey="e-2">Projects</Dropdown.Item>
                 <Dropdown.Item onClick={()=> history.push(Routes.administrationCollaborations)} eventKey="e-3">Services and collaborations</Dropdown.Item>
-                <Dropdown.Item onClick={()=> history.push(Routes.administrationUsers)} eventKey="e-3">Users</Dropdown.Item>
+                <Dropdown.Item onClick={()=> history.push(Routes.administrationUsers)} eventKey="e-4">Users</Dropdown.Item>
             </Dropdown.Menu>}
             {authenticated && <Dropdown.Item onClick={()=>signOut()} >{t('Logout')}</Dropdown.Item>}
         </Dropdown>

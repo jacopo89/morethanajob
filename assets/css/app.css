@@ -33,3 +33,7 @@ body {
     border-color: #b45860;
     border-radius: 0;
 }
+
+.rs-nav-subtle.rs-nav-horizontal .rs-nav-item>.rs-nav-item-content:before {
+    background-color: #b45860;
+}
