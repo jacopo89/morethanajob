@@ -27,12 +27,13 @@ import {useSearcbPartners} from "../../Backend/hooks/usePartners";
 import {bordeaux} from "../../styledComponents/CustomComponents";
 import {getCalendarFormat} from "../../ReusableComponents/TimeManager";
 import {useGetCategories} from "../../Backend/hooks/useCategories";
+import {useTranslation} from "react-i18next";
 
 
 export default function SearchPartners(){
 
     const [partners, getPartnersHandler] = useSearcbPartners();
-
+    const {t, i18n} = useTranslation();
     const {user} = useSelector(state=>state);
 
     const [formValue, setFormValue] = useState();
@@ -78,9 +79,9 @@ export default function SearchPartners(){
 
             <Form fluid formValue={formValue} onChange={setFormValue} onSubmit={onSubmitHandler}>
                 <div style={{display:"flex", justifyContent:"space-between"}}>
-                    <TextField label="Country" name="country" data={dataCountry} accepter={SelectPicker} searchable={false} style={{width:"100%"}} />
-                    <TextField label="Expertise" name="expertise" data={servicesTree} accepter={CheckTreePicker} searchable={false} style={{width:"100%"}} />
-                    <TextField label="Category" name="category" data={categoriesTree} accepter={CheckTreePicker} searchable={false} style={{width:"100%"}} />
+                    <TextField label={t('Country')} name="country" data={dataCountry} accepter={SelectPicker} searchable={false} style={{width:"100%"}} />
+                    <TextField label={t('Expertise')} name="expertise" data={servicesTree} accepter={CheckTreePicker} searchable={false} style={{width:"100%"}} />
+                    <TextField label={t('Category')} name="category" data={categoriesTree} accepter={CheckTreePicker} searchable={false} style={{width:"100%"}} />
                 </div>
 
                 <Button type="submit">Search</Button>

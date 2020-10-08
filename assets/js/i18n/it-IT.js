@@ -41,7 +41,7 @@ export const translation = {
     "Arabic":"Arabo",
     "Greek":"Greco",
     "Search organisations":"Cerca organizzazioni",
-    "Proposed by":"Propososto da",
+    "Proposed by":"Proposto da",
     "Category": "Categoria",
     "All": "Tutti",
     "Collaborations":"Collaborazioni",

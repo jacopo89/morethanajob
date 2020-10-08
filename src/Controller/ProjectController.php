@@ -316,8 +316,8 @@ class ProjectController extends AbstractController
             $isPortfolio = json_decode($request->get('isPortfolio'));
             $shortDescription = json_decode($request->get('shortDescription'));
             $shortLocalDescription = json_decode($request->get('localShortDescription'));
-            $longLocalDescription = json_decode($request->get('longDescription'));
-            $longDescription = json_decode($request->get('localLongDescription'));
+            $longLocalDescription = json_decode($request->get('localLongDescription'));
+            $longDescription = json_decode($request->get('longDescription'));
             $links = json_decode($request->get('links'));
             $contacts = json_decode($request->get('contacts'));
             $positions = json_decode($request->get('positions'),true);

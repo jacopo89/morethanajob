@@ -91,7 +91,7 @@ export default function Collaboration(){
                 </Row>
                 <Row className="show-grid" style={{padding:5}}>
                     <Col xs={12}>
-                        <IconWithText icon="user" label={t('Modality')} value={collaboration && collaboration.modality}/> //TODO f2f
+                        <IconWithText icon="user" label={t('Modality')} value={collaboration && collaboration.modality}/> 
                     </Col>
                 </Row>
 
@@ -112,6 +112,8 @@ export function PositionShowDescription({isOwnerOfProject, position}){
     const [showModal, setShowModal] = useState(false);
     const openModal = ()=>setShowModal(true);
     const closeModal = ()=>setShowModal(false);
+
+    const {t, i18n} = useTranslation();
 
     const [applyResponse, postApplicationHandler] = usePostApplication();
 
@@ -150,8 +152,8 @@ export function PositionShowDescription({isOwnerOfProject, position}){
                     </Col>
                     <Col xs={16}>
                         <div style={{height:150, maxHeight:150}}>{position.description}</div>
-                        {isOwnerOfProject && <Button onClick={openModal} >Check requests!</Button> }
-                        {position.isOpen && !alreadyApplied && !isOwnerOfProject && <Button style={{float:"right"}} onClick={()=>postApplicationFunction()}>Apply!</Button> }
+                        {false && isOwnerOfProject && <Button onClick={openModal} >Check requests!</Button> } //TODO should be done
+                        {position.isOpen && !alreadyApplied && !isOwnerOfProject && <Button style={{float:"right"}} onClick={()=>postApplicationFunction()}>{t('Apply')}</Button> }
                     </Col>
                 </Row>
             </Panel>
@@ -309,7 +311,7 @@ export function ServiceFormBox({collaboration}) {
             {(!apply) ? <MainButton style={{width:200}}  onClick={()=>setApply(true)}>{t('Apply')}</MainButton> :
                 <Form  fluid formValue={formValue} onChange={setFormValue} onSubmit={onSubmit}>
                     <TextField name="message" label={t('Message')} componentClass="textarea" />
-                    <MainButton style={{width:100}} type="submit">Send</MainButton>
+                    <MainButton style={{width:100}} type="submit">{t('Send')}</MainButton>
                 </Form>}
         </div> : <div>Message correctly sent!</div>
     )

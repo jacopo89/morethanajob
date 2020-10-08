@@ -1,6 +1,7 @@
 import {BackendClient} from "../axios-client";
 import {useCreateHook} from "../useHook";
 import {useSelector} from "react-redux";
+import {projectEmptyModel} from "../../MainApp/FormModels/models";
 
 export function  useGetProjects() {
 
@@ -67,7 +68,7 @@ export function  useGetProject() {
 
     const {accessToken} = useSelector(state=>state);
     const backendClient = BackendClient(accessToken);
-    return useCreateHook(backendClient,'/backend/project/get','get',{positions:[],projectPartnersRelations:[], collaborations:[]});
+    return useCreateHook(backendClient,'/backend/project/get','get',projectEmptyModel);
 }
 
 

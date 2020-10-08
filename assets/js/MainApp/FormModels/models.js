@@ -1,4 +1,7 @@
-import {Schema} from "rsuite";
+import {Form, Schema, SelectPicker} from "rsuite";
+import TextField from "../../Login/Components/TextField";
+import {dataLanguage} from "../../selectData";
+import React from "react";
 
 const { StringType, NumberType } = Schema.Types;
 
@@ -21,3 +24,18 @@ export const collaborationModel = Schema.Model({
 
 
 export const furnitureModel = {};
+
+
+export const projectEmptyModel = {
+    title:"",
+    localTitle:"",
+    localShortDescription:"",
+    shortDescription:"",
+    longDescription:"",
+    localLongDescription:"",
+    links:"",
+    contacts:"",
+    positions:[],
+    projectPartnersRelations:[],
+    collaborations:[]
+}

@@ -54,7 +54,7 @@ export function PortfolioDetail({project}){
     const { t, i18n } = useTranslation();
     const {language} = useSelector(state=>state);
     const title = (project && project.language === language && project.localTitle!==null && project.localTitle.length!==0) ? project && project.localTitle  : project && project.title ;
-    const description = (project && project.language === language && project.localShortDescription!==undefined && project.localShortDescription.length!==0) ? project && project.localShortDescription  : project && project.shortDescription ;
+    const description = (project && project.language === language && project.localShortDescription!==null && project.localShortDescription.length!==0) ? project && project.localShortDescription  : project && project.shortDescription ;
 
 
     //TODO check length
@@ -62,7 +62,7 @@ export function PortfolioDetail({project}){
         project &&
         project.localLanguage === language &&
         project.localShortDescription===null ||
-        ( project && project.localShortDescription !==undefined && project.localShortDescription.length===0)
+        ( project && project.localShortDescription !==null && project.localShortDescription.length===0)
     );
     const message = isDescriptionInEnglish ? "This content is available only in English" :"";
 

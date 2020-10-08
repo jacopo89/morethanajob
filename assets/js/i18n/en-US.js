@@ -1,6 +1,12 @@
 export const translation = {
     translation: {
 
+
+        "Apply":"Apply!",
+        "Send":"Send",
+        "Message":"Message",
+
+
         //REGISTRATION
         "Organisation name": "Organisation name",
         "Email":"Email",
