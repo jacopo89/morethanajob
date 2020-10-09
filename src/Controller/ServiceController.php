@@ -292,12 +292,21 @@ class ServiceController extends AbstractController
     public function editExpertise(Request $request){
         $id = $request->get('id');
         $value = $request->get('value');
+        $en = $request->get('en');
+        $it = $request->get('it');
+        $ar = $request->get('ar');
+        $gr = $request->get('gr');
+
         $category = $this->em->getRepository(Service::class)->find($id);
 
         $status = Response::HTTP_NOT_FOUND;
 
         if($category){
             $category->setName($value);
+            $category->setAr($ar);
+            $category->setEn($en);
+            $category->setGr($gr);
+            $category->setIt($it);
             $this->em->persist($category);
             $this->em->flush();
             $status = Response::HTTP_OK;
@@ -305,4 +314,6 @@ class ServiceController extends AbstractController
 
         return new Response(null, $status);
     }
+
+
 }

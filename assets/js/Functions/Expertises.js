@@ -1,7 +1,7 @@
 import {useSelector} from "react-redux";
 import {useEffect, useState} from 'react';
 
-function generateServiceTree(items){
+export function generateServiceTree(items){
 
     items = items.map((item)=>{return {...item, label: item.label, value: item.id }});
 

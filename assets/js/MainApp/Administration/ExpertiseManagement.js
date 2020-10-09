@@ -1,10 +1,11 @@
 import React, {useEffect, useState} from "react";
-import {Button, Col, Form, Grid, Row, Tree} from "rsuite";
-import {useDeleteService, useEditExpertise, useGetServices, useUploadPicture} from "../../Backend/hooks/useServices";
+import {Button, ButtonGroup, Col, Form, Grid, Modal, Row, Tree} from "rsuite";
+import {useEditExpertise, useGetServices, useUploadPicture} from "../../Backend/hooks/useServices";
 import TextField from "../../Login/Components/TextField";
 import {FormBox} from "../../styledComponents/CustomComponents";
 import ImageCropper from "../../ReusableComponents/ImageCropper";
-import {expertisesTreeByLanguage} from "../../Functions/Expertises";
+import {expertisesTreeByLanguage, generateServiceTree} from "../../Functions/Expertises";
+import {useCreateExpertise, useDeleteExpertise} from "../../Backend/hooks/useExpertise";
 
 export default function ExpertiseManagement(){
 
@@ -18,26 +19,45 @@ export default function ExpertiseManagement(){
     const [showGroup, setShowGroup] = useState(false);
     const handleCloseGroup = () => setShowGroup(false);
     const handleShowGroup = () => setShowGroup(true);
-    const [response, deleteServiceHandler] = useDeleteService();
+    const [response, deleteServiceHandler] = useDeleteExpertise();
 
-    const deleteCallbacks = {
-        successCallback: ()=> getServicesHandler()
-    }
 
     useEffect(()=>{
         getServicesHandler();
     },[]);
 
-    let servicesTree = expertisesTreeByLanguage();
+    let servicesTree = generateServiceTree(services);
 
     const getService = (serviceId) => services.find((service)=> service.value === serviceId);
 
 
+    const addRootExpertise = ()=>{
+       setSelectedServiceNode(null);
+        setShowGroup(true);
+    }
+
+
+    const successCallbackCreation = ()=> {
+        setShowGroup(false);
+        getServicesHandler();
+
+    }
+
     return (<FormBox style={{width:"100%"}}>
+        <h3>Expertise Management</h3>
+        <p>Please select one element from the tree to edit its property</p>
+
         <Grid fluid>
             <Row>
-                <h3>Expertise Management</h3>
-                <p>Please select one element from the tree to edit its property</p>
+                <Col xs={12}>
+                    <ButtonGroup>
+                        <Button onClick={()=>deleteServiceHandler(selectedServiceNode,{successCallback: getServicesHandler} )}>Remove Expertise</Button>
+                        <Button onClick={addRootExpertise}>Create root expertise</Button>
+                    </ButtonGroup>
+                </Col>
+                <Col xs={12}></Col>
+            </Row>
+            <Row>
                 <Col xs={12}>
                     <Tree style={{width:"100%"}} defaultExpandAll={true} data={servicesTree} onSelect={
                         (e) => {
@@ -48,9 +68,14 @@ export default function ExpertiseManagement(){
                     } />
                 </Col>
                 <Col xs={12}>
-                    <ServiceDetail service={getService(selectedServiceNode)} refreshHandler={getServicesHandler} />
-                    {false &&    <Button onClick={handleShowGroup}>Add expertise</Button>}
-                    <Button onClick={()=>deleteServiceHandler(selectedServiceNode,deleteCallbacks )}>Remove expertise</Button>
+                    {selectedServiceNode !== null &&
+                    <>
+                        <ServiceDetail service={getService(selectedServiceNode)} refreshHandler={getServicesHandler}/>
+                        <Button onClick={handleShowGroup}>Add expertise</Button>
+
+                    </>}
+                    <ServiceModal parentId={selectedServiceNode} onHide={() => setShowGroup(false)} show={showGroup}
+                                  successCallback={successCallbackCreation}/>
                 </Col>
 
 
@@ -86,6 +111,10 @@ function ServiceDetail({service, refreshHandler}){
         const formData = new FormData();
         formData.append('id', formValue.id);
         formData.append('value', formValue.label);
+        formData.append('ar', formValue.ar);
+        formData.append('en', formValue.en);
+        formData.append('it', formValue.it);
+        formData.append('gr', formValue.gr);
         editExpertiseHandler(formData,{successCallback:refreshHandler});
     }
 
@@ -102,6 +131,10 @@ function ServiceDetail({service, refreshHandler}){
         //    onSubmit={()=>submitHandler(formValue)}
     >
         <TextField style={{width:"100%"}} name="label" label="Expertise"  />
+        <TextField style={{width:"100%"}} name="en" label="English"  />
+        <TextField style={{width:"100%"}} name="it" label="Italian"  />
+        <TextField style={{width:"100%"}} name="ar" label="Arabic"  />
+        <TextField style={{width:"100%"}} name="gr" label="Greek"  />
         <div style={{display:"flex", justifyContent:"center"}}>
             {service && service.picture && <img src={serviceImage} width="200" height="200" />}
         </div>
@@ -119,3 +152,45 @@ function ServiceDetail({service, refreshHandler}){
 }
 
 
+export function ServiceModal({show, onHide, successCallback = ()=>{}, parentId}){
+
+    const [formValue, setFormValue] = useState();
+    const [response, createExpertiseHandler] = useCreateExpertise();
+
+    const onSubmitHandler = () =>{
+        const formData = new FormData();
+        formData.append('parentId', parentId);
+        formData.append('value', formValue.value);
+        formData.append('ar', formValue.ar);
+        formData.append('en', formValue.en);
+        formData.append('it', formValue.it);
+        formData.append('gr', formValue.gr);
+        createExpertiseHandler(formData, {successCallback: successCallback });
+    }
+
+
+
+    return  <Modal show={show} onHide={onHide} centered>
+        <Modal.Header closeButton>
+            New expertise
+        </Modal.Header>
+        <Form fluid formValue={formValue} onChange={setFormValue} onSubmit={onSubmitHandler}  >
+            <Modal.Body >
+                <TextField style={{width:"100%"}} name="value" label="Name"/>
+                <TextField style={{width:"100%"}} name="en" label="English"  />
+                <TextField style={{width:"100%"}} name="it" label="Italian"  />
+                <TextField style={{width:"100%"}} name="ar" label="Arabic"  />
+                <TextField style={{width:"100%"}} name="gr" label="Greek"  />
+            </Modal.Body>
+
+            <Modal.Footer>
+                <ButtonGroup>
+                    <Button type="submit" style={{float:'right'}}>
+                        Save
+                    </Button>
+                </ButtonGroup>
+            </Modal.Footer>
+        </Form>
+    </Modal>
+
+}
