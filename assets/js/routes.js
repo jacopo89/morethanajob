@@ -6,7 +6,8 @@ export const changePassword = "/password-change";
 
 
 
-export const administration = "/administration";
+export const administrationCategories = "/administration-categories";
+export const administrationExpertise = "/administration-expertise";
 export const administrationProjects = "/administration-projects";
 export const administrationCollaborations = "/administration-collaborations";
 export const administrationUsers = "/administration-users";

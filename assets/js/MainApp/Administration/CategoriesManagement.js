@@ -1,80 +1,70 @@
 import React, {useEffect, useState} from "react";
-import {Button, ButtonToolbar,Col, Form, Grid, Icon, Row, SelectPicker, Tree} from "rsuite";
+import {Button, ButtonGroup, ButtonToolbar, Col, Form, Grid, Icon, Modal, Row, SelectPicker, Tree} from "rsuite";
 import {useDeleteService, useEditExpertise, useGetServices, useUploadPicture} from "../../Backend/hooks/useServices";
 import TextField from "../../Login/Components/TextField";
 import {FormBox, MainButton, SecondaryButton} from "../../styledComponents/CustomComponents";
 import ImageCropper from "../../ReusableComponents/ImageCropper";
 import * as ActionTypes from "../../Redux/actions";
-import {useCategoryUploadPicture, useEditCategory, useGetCategories} from "../../Backend/hooks/useCategories";
+import {
+    useCategoryUploadPicture,
+    useCreateCategory, useDeleteCategory,
+    useEditCategory,
+    useGetCategories
+} from "../../Backend/hooks/useCategories";
 import {useTranslation} from "react-i18next";
 
 export default function CategoriesManagement(){
 
 
-    const [selectedServiceNode, setSelectedServiceNode] = useState(null);
     const [selectedCategoryNode, setSelectedCategoryNode] = useState(null);
-    const [selectedServiceRef, setSelectedServiceRef] = useState(null);
     const [selectedCategoryRef, setSelectedCategoryRef] = useState(null);
 
 
-    const [services, getServicesHandler] = useGetServices();
     const [categories, getCategoriesHandler] = useGetCategories();
+    const [delResponse, deleteCategoryHandler] = useDeleteCategory();
 
     const [showGroup, setShowGroup] = useState(false);
     const handleCloseGroup = () => setShowGroup(false);
     const handleShowGroup = () => setShowGroup(true);
-    const [response, deleteServiceHandler] = useDeleteService();
 
-    const deleteCallbacks = {
-        successCallback: ()=> getServicesHandler()
-    }
 
     useEffect(()=>{
-        getServicesHandler();
         getCategoriesHandler();
     },[]);
 
-    let servicesTree = generateServiceTree(services)
-    let categoriesTree = generateCategoriesTree(categories)
+    let categoriesTree = generateCategoriesTree(categories);
 
-    const getService = (serviceId) =>{
-        let filteredServiceArray = services.filter((service)=> service.value === serviceId);
-        return filteredServiceArray[0];
+
+    const addRootCategory = ()=>{
+        setSelectedCategoryNode(null);
+        setShowGroup(true);
     }
 
-    const getCategory = (categoryId) =>{
-        let filteredServiceArray = categories.filter((category)=> category.value === categoryId);
+    const getCategory = (categoryId) => categories.find((category)=> category.value === categoryId);
 
-        return filteredServiceArray[0];
+
+    const successCallbackCreation = ()=> {
+        setShowGroup(false);
+        getCategoriesHandler();
+
     }
 
-    return (<FormBox style={{width:"100%"}}>
-        <Grid fluid>
+    return (
+        <FormBox style={{width:"100%"}}>
+            <h3>Category Management</h3>
+            <p>Please select one element from the tree to edit its property</p>
+
+            <Grid fluid>
             <Row>
-                <h3>Expertise Management</h3>
-                <p>Please select one element from the tree to edit its property</p>
                 <Col xs={12}>
-                    <Tree style={{width:"100%"}} defaultExpandAll={true} data={servicesTree} onSelect={
-                        (e) => {
-                            console.log(e);
-                            setSelectedServiceNode(e.value);
-                            setSelectedServiceRef(e.refKey);
-                        }
-                    } />
+                    <ButtonGroup>
+                        <Button onClick={()=>deleteCategoryHandler(selectedCategoryNode,{successCallback: getCategoriesHandler} )}>Remove category</Button>
+                        <Button onClick={addRootCategory}>Create root category</Button>
+                    </ButtonGroup>
                 </Col>
-                <Col xs={12}>
-                    <ServiceDetail service={getService(selectedServiceNode)} refreshHandler={getServicesHandler} />
-                {false &&    <Button onClick={handleShowGroup}>Add expertise</Button>}
-                    <Button onClick={()=>deleteServiceHandler(selectedServiceNode,deleteCallbacks )}>Remove expertise</Button>
-                </Col>
-
-
+                <Col xs={12}></Col>
             </Row>
-
-
             <Row>
-                <h3>Category Management</h3>
-                <p>Please select one element from the tree to edit its property</p>
                 <Col xs={12}>
                     <Tree defaultExpandAll={true} data={categoriesTree} onSelect={
                         (e) => {
@@ -85,14 +75,20 @@ export default function CategoriesManagement(){
                     } />
                 </Col>
                 <Col xs={12}>
-                    <CategoryDetail category={getCategory(selectedCategoryNode)} refreshHandler={getCategoriesHandler} />
-                    {false && <Button onClick={handleShowGroup}>Aggiungi Categoria</Button>}
-                    <Button onClick={()=>deleteServiceHandler(selectedCategoryNode,deleteCallbacks )}>Remove category</Button>
+                    {selectedCategoryNode!==null &&
+                    <><CategoryDetail category={getCategory(selectedCategoryNode)} refreshHandler={getCategoriesHandler} />
+                        <ButtonGroup>
+                            <Button onClick={handleShowGroup}>Add child category</Button>
+
+                        </ButtonGroup>
+                    </>}
+                    <CategoryModal parentId={selectedCategoryNode} onHide={()=>setShowGroup(false)} show={showGroup} successCallback={successCallbackCreation} />
                 </Col>
 
-
             </Row>
+
         </Grid>
+
 
     </FormBox>)
 }
@@ -144,68 +140,9 @@ export function generateCategoriesTree(items){
 }
 
 
-
-
-
-
-
-function ServiceDetail({service, refreshHandler}){
-
-
-    const [response, uploadPictureHandler ] = useUploadPicture();
-    const [formValue, setFormValue] = useState(service);
-    const onChangeProfileHandler = (file) => {
-        let data = {};
-        const formData = new FormData();
-        formData.append('file', file);
-        data.id = service.id;
-        Object.keys(data).forEach((key)=>  { formData.append(key,JSON.stringify(data[key]));});
-        uploadPictureHandler(formData, {successCallback: ()=>{
-                refreshHandler();
-            }});
-    };
-
-    const [editExpResp, editExpertiseHandler] = useEditExpertise();
-
-    const saveExpertise = ()=>{
-        const formData = new FormData();
-        formData.append('id', formValue.id);
-        formData.append('value', formValue.label);
-        editExpertiseHandler(formData,{successCallback:refreshHandler});
-    }
-
-    useEffect(()=>{setFormValue(service)},[service]);
-
-    console.log("service selezionata", service);
-    const uploaderButton = <Button>Upload image </Button>;
-    const serviceImage = (service && service.picture) ? service.picture : null;
-
-    return (<Form fluid
-        formValue={formValue}
-        onChange={setFormValue}
-                  onSubmit={saveExpertise}
-    //    onSubmit={()=>submitHandler(formValue)}
-    >
-        <TextField style={{width:"100%"}} name="label" label="Expertise"  />
-        <div style={{display:"flex", justifyContent:"center"}}>
-            {service && service.picture && <img src={serviceImage} width="200" height="200" />}
-        </div>
-
-        <ImageCropper button={uploaderButton} propCrop={{
-            unit: 'px', // default, can be 'px' or '%'
-            x: 130,
-            y: 50,
-            width: 200,
-            height: 200
-        }} keyField="servicePicture" onChange={onChangeProfileHandler}/>
-        <Button type="submit">Save</Button>
-    </Form>)
-
-}
-
-
 function CategoryDetail({category, refreshHandler}){
 
+    console.log("changed to category", category);
     const [response, uploadPictureHandler ] = useCategoryUploadPicture();
     const [formValue, setFormValue] = useState(category);
     const onChangeProfileHandler = (file) => {
@@ -225,6 +162,10 @@ function CategoryDetail({category, refreshHandler}){
         const formData = new FormData();
         formData.append('id', formValue.id);
         formData.append('value', formValue.label);
+        formData.append('ar', formValue.ar);
+        formData.append('en', formValue.en);
+        formData.append('it', formValue.it);
+        formData.append('gr', formValue.gr);
         editCategoryHandler(formData,{successCallback:refreshHandler});
     }
 
@@ -232,8 +173,6 @@ function CategoryDetail({category, refreshHandler}){
 
     const uploaderButton = <Button>Upload image </Button>;
     const serviceImage = (category && category.picture) ? category.picture : null;
-
-    console.log("Categoria selezionata", category);
 
     return (<Form
         fluid
@@ -243,19 +182,70 @@ function CategoryDetail({category, refreshHandler}){
         //    onSubmit={()=>submitHandler(formValue)}
     >
         <TextField style={{width:"100%"}} name="label" label="Category"  />
+        <TextField style={{width:"100%"}} name="en" label="English"  />
+        <TextField style={{width:"100%"}} name="it" label="Italian"  />
+        <TextField style={{width:"100%"}} name="ar" label="Arabic"  />
+        <TextField style={{width:"100%"}} name="gr" label="Greek"  />
         <div style={{display:"flex", justifyContent:"center"}}>
             {category && category.picture && <img src={serviceImage} width="200" height="200" />}
         </div>
 
 
-        <ImageCropper button={uploaderButton} propCrop={{
-            unit: 'px', // default, can be 'px' or '%'
-            x: 130,
-            y: 50,
-            width: 200,
-            height: 200
-        }} keyField="servicePicture" onChange={onChangeProfileHandler}/>
-        <Button type="submit">Save</Button>
+        <div style={{display:"flex", justifyContent:"space-around"}}>
+            <ImageCropper button={uploaderButton} propCrop={{
+                unit: 'px', // default, can be 'px' or '%'
+                x: 130,
+                y: 50,
+                width: 200,
+                height: 200
+            }} keyField="servicePicture" onChange={onChangeProfileHandler}/>
+            <Button type="submit">Save</Button>
+        </div>
+
     </Form>)
+
+}
+
+
+export function CategoryModal({show, onHide, successCallback = ()=>{}, parentId}){
+
+    const [formValue, setFormValue] = useState();
+    const [response, createCategoryHandler] = useCreateCategory();
+
+    const onSubmitHandler = () =>{
+        const formData = new FormData();
+        formData.append('parentId', parentId);
+        formData.append('value', formValue.value);
+        formData.append('ar', formValue.ar);
+        formData.append('en', formValue.en);
+        formData.append('it', formValue.it);
+        formData.append('gr', formValue.gr);
+        createCategoryHandler(formData, {successCallback: successCallback });
+    }
+
+
+
+    return  <Modal show={show} onHide={onHide} centered>
+        <Modal.Header closeButton>
+            New category
+        </Modal.Header>
+        <Form fluid formValue={formValue} onChange={setFormValue} onSubmit={onSubmitHandler}  >
+            <Modal.Body >
+                    <TextField style={{width:"100%"}} name="value" label="Name"/>
+                <TextField style={{width:"100%"}} name="en" label="English"  />
+                <TextField style={{width:"100%"}} name="it" label="Italian"  />
+                <TextField style={{width:"100%"}} name="ar" label="Arabic"  />
+                <TextField style={{width:"100%"}} name="gr" label="Greek"  />
+            </Modal.Body>
+
+            <Modal.Footer>
+                <ButtonGroup>
+                    <Button type="submit" style={{float:'right'}}>
+                        Save
+                    </Button>
+                </ButtonGroup>
+            </Modal.Footer>
+        </Form>
+    </Modal>
 
 }

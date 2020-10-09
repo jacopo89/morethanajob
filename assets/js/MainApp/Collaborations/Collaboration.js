@@ -91,7 +91,7 @@ export default function Collaboration(){
                 </Row>
                 <Row className="show-grid" style={{padding:5}}>
                     <Col xs={12}>
-                        <IconWithText icon="user" label={t('Modality')} value={collaboration && collaboration.modality}/> 
+                        <IconWithText icon="user" label={t('Modality')} value={collaboration && collaboration.modality}/>
                     </Col>
                 </Row>
 
@@ -308,9 +308,11 @@ export function ServiceFormBox({collaboration}) {
     return(
         (!messageResponse) ?
         <div style={{width:"100%", display:"flex", justifyContent:"center", alignItems:"center", margin:5, height:300}}>
-            {(!apply) ? <MainButton style={{width:200}}  onClick={()=>setApply(true)}>{t('Apply')}</MainButton> :
-                <Form  fluid formValue={formValue} onChange={setFormValue} onSubmit={onSubmit}>
-                    <TextField name="message" label={t('Message')} componentClass="textarea" />
+            {(!apply) ?
+                <MainButton style={{width:200}}  onClick={()=>setApply(true)}>{t('Apply')}</MainButton>
+                :
+                <Form fluid style={{width:"100%", padding:40}} formValue={formValue} onChange={setFormValue} onSubmit={onSubmit}>
+                    <TextField style={{width:"100%"}} name="message" label={t('Message')} componentClass="textarea" />
                     <MainButton style={{width:100}} type="submit">{t('Send')}</MainButton>
                 </Form>}
         </div> : <div>Message correctly sent!</div>

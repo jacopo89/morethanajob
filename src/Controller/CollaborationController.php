@@ -269,7 +269,7 @@ class CollaborationController extends AbstractController
             $finalCollaborations[] = $collaboration;
         }
 
-        array_filter($finalCollaborations, function(Collaboration $collaboration){
+        $openRecords = array_filter($finalCollaborations, function(Collaboration $collaboration){
             $today = new \DateTime();
             $format = "Y-m-d\TH:i:s.v\Z";
 
@@ -285,8 +285,13 @@ class CollaborationController extends AbstractController
 
         });
 
+        $sentRecords = [];
+        foreach($openRecords as $openRecord){
+            $sentRecords[] = $openRecord;
+        }
 
-        return new Response($this->serializer->serialize($finalCollaborations, 'json'), Response::HTTP_OK);
+
+        return new Response($this->serializer->serialize($sentRecords, 'json'), Response::HTTP_OK);
     }
 
     /**

@@ -255,7 +255,7 @@ export default function Profile(){
     }
 }
 
-function manipulateWebsite(website){
+export function manipulateWebsite(website){
     if(website){
         if(website.startsWith("http")){
             return website;

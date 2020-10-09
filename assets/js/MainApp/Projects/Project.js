@@ -1,6 +1,6 @@
 import React, {useEffect, useState} from "react";
 import {useSelector} from "react-redux";
-import {Button, Col, Grid, Icon, Modal, Panel, Row, HelpBlock} from "rsuite";
+import {Button, Col, Grid, Icon, Modal, Panel, Row, HelpBlock, Divider} from "rsuite";
 import styled from "styled-components";
 import {useHistory, useParams} from "react-router-dom";
 import {
@@ -134,6 +134,7 @@ export default function Project(){
                 </Row>
 
             </Grid>
+            <Divider />
             {list}
         </FormBox>
 

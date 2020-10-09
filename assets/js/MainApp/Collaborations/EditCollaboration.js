@@ -27,10 +27,11 @@ import {useTranslation} from "react-i18next";
 import PositionList from "../Position/PositionList";
 import {collaborationModel} from "../FormModels/models";
 import DeleteButton from "../../ReusableComponents/DeleteButton";
+import {categoriesTreeByLanguage} from "../../Functions/Categories";
 
 export default function EditCollaboration({isService}) {
     const [formValue, setFormValue] = useState({positions: []});
-    const {user} = useSelector(state=>state);
+    const {user,language} = useSelector(state=>state);
     const [getResponse, getCollaborationHandler] = useGetCollaboration();
     const [response, createNewCollaborationHandler] = useEditCollaboration();
     const [projects, getProjectsHandler] = useGetCollaborationProjects();
@@ -40,7 +41,12 @@ export default function EditCollaboration({isService}) {
     const {id} = useParams();
     const formRef = useRef();
 
-    const [categories, getCategories] = useGetCategories();
+    const {categories} = useSelector(state=>state);
+
+    let categoriesTree = categoriesTreeByLanguage();
+
+
+
 
 
 
@@ -61,12 +67,10 @@ export default function EditCollaboration({isService}) {
     }
 
     useEffect(()=>{
-        getCategories();
         getCollaborationFunction();
     },[]);
 
 
-    let categoriesTree = generateCategoriesTree(categories)
 
     useEffect(()=>{
         getProjectsHandler(user.email, {dataManipulationFunction:(data)=>{
@@ -103,11 +107,13 @@ export default function EditCollaboration({isService}) {
 
 
     const categoryImage = formValue && formValue.category && categories.find(category=>category.id===formValue.category);
+    const categoryImageUrl = categoryImage && categoryImage.picture;
+
 
         return (
         <>
             <CollaborationBox>
-                <div style={{height: 150, width: 150, backgroundImage: `url(${categoryImage})`, backgroundColor: "white", backgroundSize: "contain", flex:"none", margin:10}}/>
+                <div style={{height: 150, width: 150, backgroundImage: `url(${categoryImageUrl})`, backgroundColor: "white", backgroundSize: "contain", flex:"none", margin:10}}/>
                 {formValue.title}
             </CollaborationBox>
             <FormBox >

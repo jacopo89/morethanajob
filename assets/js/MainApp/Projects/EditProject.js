@@ -85,7 +85,8 @@ export default function EditProject({isPortfolio=false}){
     };
 
     const handleProjectLogoChange = (file) =>{
-
+        console.log("File logo", file);
+        let data = {};
         if(file){
             const formData = new FormData();
             formData.append('file', file);
@@ -147,7 +148,7 @@ export default function EditProject({isPortfolio=false}){
                         y: 0,
                         width: 250,
                         height: 250
-                    }} keyField="projectImage" onChange={handleProjectLogoChange}/>
+                    }} keyField="projectLogoImage" onChange={handleProjectLogoChange}/>
 
 
                     <SaveButton type="submit">{t('Save')}</SaveButton>

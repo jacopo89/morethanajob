@@ -70,27 +70,28 @@ export const translation = {
         "projectSSE":"Social and Solidarity Economy",
         "projectSSEText":"The expression Social and Solidarity Economy is increasingly being used to refer to a broad range of organisations that are distinguished from conventional economy actors by two core features: they have explicit economic and social objectives and they involve varying forms of co-operative, associative and solidarity relations. They include, for example, NGOs, cooperatives, mutual societies, foundations, social enterprises, fair trade organisations or other similar companies and organisations.",
         "projectPartners":"Partners",
-        "partner1":"Coordinator\n" +
-            "                                        An-Najah National University – Palestine\n" +
-            "                                        https://www.najah.edu/ar/",
-        "partner2":"Nablus chamber of commerce and industry – Palestine\n" +
-            "                                        http://nablus-chamber.org/",
+        "partner1": "                                        An-Najah National University – Palestine\n",
+        "partner2":"Nablus chamber of commerce and industry – Palestine\n",
         "partner3":"Ministry of Public Works & Housing – Jordan\n" +
             "                                        Mutah University – Jordan\n" +
-            "                                        https://mutah.edu.jo/Home.aspx",
-        "partner4":"Business Consultancy and Training Services – Lebanon\n" +
-            "                                        http://bctslb.com/",
-        "partner5":"CESIE – Italy\n" +
-            "                                        www.cesie.org",
-        "partner6":"Eurotraining Educational Organization SA – Greece\n" +
-            "                                        https://www.eurotraining.gr/",
+            "                                        ",
+        "partner4":"Business Consultancy and Training Services – Lebanon\n",
+        "partner5":"CESIE – Italy\n",
+        "partner6":"Eurotraining Educational Organization SA – Greece\n",
+
+
         "categoryFamily":"Family and income support",
         "categoryCounseling":"Health and counselling services",
         "categoryEducation":"Education and training",
         "categoryCarrier":"Career guidance and employment support",
         "categoryCulture":"Culture and participation",
 
-
+        "linkpartner1": "https://www.najah.edu/ar/",
+        "linkpartner2": "http://nablus-chamber.org/",
+        "linkpartner3":"https://mutah.edu.jo/Home.aspx",
+        "linkpartner4":"http://bctslb.com/",
+        "linkpartner5":"http://www.cesie.org",
+        "linkpartner6":"https://www.eurotraining.gr/",
 
         //project
         "Platform Partners": "Platform Partners",

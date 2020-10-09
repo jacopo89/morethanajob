@@ -28,6 +28,7 @@ import {useGetCategories} from "../../Backend/hooks/useCategories";
 import {useTranslation} from "react-i18next";
 import CollaborationDetail from "../Profile/DetailCards/CollaborationDetail";
 import {FormBox} from "../../styledComponents/CustomComponents";
+import {categoriesTreeByLanguage} from "../../Functions/Categories";
 
 
 export default function ServiceSearch(){
@@ -92,14 +93,12 @@ export default function ServiceSearch(){
 
 
     const [services, getServicesHandler] = useGetServices();
-    const [categories, getCategoriesHandler] = useGetCategories();
 
     useEffect(()=>{
         getServicesHandler();
-        getCategoriesHandler();
     },[]);
 
-    let categoriesTree = generateCategoriesTree(categories)
+    let categoriesTree = categoriesTreeByLanguage();
 
 
 
@@ -146,7 +145,7 @@ export default function ServiceSearch(){
                 <Button type="submit">{t('Search')}</Button>
             </Form>
 
-        {finalPanels}
+        {finalPanels.length===0 ?<div>No results found</div> : finalPanels }
         </FormBox>
         </>
 }

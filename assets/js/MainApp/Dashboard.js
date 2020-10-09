@@ -132,22 +132,22 @@ export default function Dashboard(){
                                 <SmallTitle>{t('projectPartners')}</SmallTitle>
                                 <ul>
                                     <li>
-                                        {t('partner1')}
+                                        {t('partner1')} <a target="_blank" href={t('linkpartner1')}>{t('linkpartner1')}</a>
                                     </li>
                                     <li>
-                                        {t('partner2')}
+                                        {t('partner2')} <a target="_blank" href={t('linkpartner2')}>{t('linkpartner2')}</a>
                                     </li>
                                     <li>
-                                        {t('partner3')}
+                                        {t('partner3')} <a target="_blank" href={t('linkpartner3')}>{t('linkpartner3')}</a>
                                     </li>
                                     <li>
-                                        {t('partner4')}
+                                        {t('partner4')} <a target="_blank" href={t('linkpartner4')}>{t('linkpartner4')}</a>
                                     </li>
                                     <li>
-                                        {t('partner5')}
+                                        {t('partner5')} <a target="_blank" href={t('linkpartner5')}>{t('linkpartner5')}</a>
                                     </li>
                                     <li>
-                                        {t('partner6')}
+                                        {t('partner6')} <a target="_blank" href={t('linkpartner6')}>{t('linkpartner6')}</a>
                                     </li>
                                 </ul>
                             </>}
@@ -205,15 +205,15 @@ export default function Dashboard(){
 
 function CategoryPanel({category}){
     const {t, i18n} = useTranslation();
+    const {language} = useSelector(state=>state);
 
     const picture = (category.picture) ? category.picture : noProjectPicture;
-
    return <IconTextBox>
         <img width={75} src={picture}/>
         <Link to={{
             pathname: Routes.serviceSearchPage,
             state: { category: category.value }
-        }} >{t(category.name)}</Link>
+        }} >{t(category[language])}</Link>
     </IconTextBox>
 }
 

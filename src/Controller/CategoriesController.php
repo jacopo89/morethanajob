@@ -100,12 +100,21 @@ class CategoriesController extends AbstractController
     public function edit(Request $request){
         $id = $request->get('id');
         $value = $request->get('value');
+        $en = $request->get('en');
+        $it = $request->get('it');
+        $ar = $request->get('ar');
+        $gr = $request->get('gr');
+
         $category = $this->em->getRepository(Category::class)->find($id);
 
         $status = Response::HTTP_NOT_FOUND;
 
         if($category){
             $category->setName($value);
+            $category->setAr($ar);
+            $category->setEn($en);
+            $category->setGr($gr);
+            $category->setIt($it);
             $this->em->persist($category);
             $this->em->flush();
             $status = Response::HTTP_OK;
@@ -113,4 +122,55 @@ class CategoriesController extends AbstractController
 
         return new Response(null, $status);
     }
+
+
+    /**
+     * @param Request $request
+     * @return Response
+     * @Route("/add")
+     */
+    public function add(Request $request){
+        $id = $request->get('parentId');
+        $value = $request->get('value');
+        $en = $request->get('en');
+        $it = $request->get('it');
+        $ar = $request->get('ar');
+        $gr = $request->get('gr');
+        $categoryParent = $this->em->getRepository(Category::class)->find($id);
+
+
+        $category = new Category();
+        $category->setName($value);
+        $category->setAr($ar);
+        $category->setEn($en);
+        $category->setGr($gr);
+        $category->setIt($it);
+
+
+        if($categoryParent){
+            $category->setParentCategory($categoryParent);
+        }else{
+            $category->setParentCategory(null);
+        }
+        $this->em->persist($category);
+        $this->em->flush();
+        $status = Response::HTTP_OK;
+
+
+        return new Response(null, $status);
+    }
+
+
+    /**
+     * @param Category $category
+     * @Route("/delete/{id}")
+     * @return Response
+     */
+    public function remove(Category $category){
+        $this->em->remove($category);
+        $this->em->flush();
+        return new Response(null, Response::HTTP_OK);
+    }
+
+
 }

@@ -56,6 +56,9 @@ import {useGetCategories} from "./Backend/hooks/useCategories";
 import CollaborationManagement from "./MainApp/Administration/CollaborationManagement";
 import ProjectManagement from "./MainApp/Administration/ProjectManagement";
 import PasswordReset from "./Login/Components/PasswordReset";
+import SidebarPage from "./Layout/SidebarPage";
+import AdministrationLayout from "./Layout/AdministrationLayout";
+import ExpertiseManagement from "./MainApp/Administration/ExpertiseManagement";
 
 function App(){
     const {authenticated, language} = useSelector(state=>state);
@@ -88,10 +91,11 @@ function App(){
     const changePasswordPage = <DashboardLayout page={<PasswordReset/>}/>;
     const recoverPage = <DashboardLayout page={<RecoverPasswordForm/>}/>;
     const profilePage = <MainPage page={<Profile/>}/>;
-    const administrationPage = <MainPage page={<CategoriesManagement/>}/>;
-    const administrationProjectPage = <MainPage page={<ProjectManagement/>}/>;
-    const administrationCollaborationsPage = <MainPage page={<CollaborationManagement/>}/>;
-    const administrationUserPage = <MainPage page={<UserManagement />} />
+    const administrationCategoriesPage = <AdministrationLayout page={<CategoriesManagement/>}/>;
+    const administrationProjectPage = <AdministrationLayout page={<ProjectManagement/>}/>;
+    const administrationCollaborationsPage = <AdministrationLayout page={<CollaborationManagement/>}/>;
+    const administrationUserPage = <AdministrationLayout page={<UserManagement />} />
+    const administrationExpertisePage = <AdministrationLayout page={<ExpertiseManagement />} />
 
     const serviceSearchPage = <MainPage page={<ServiceSearch />}/>;
     const searchUserPage = <MainPage page={<SearchPartners />}/>;
@@ -135,7 +139,8 @@ function App(){
                 <Route path={Routes.newFurniturePage} children={newFurniturePage}/>
                 <Route path={Routes.newServicePage} children={newServicePage}/>
                 <Route path={Routes.routeEditProject} children={editProjectPage}/>
-                <Route path={Routes.administration} children={administrationPage}/>
+                <Route path={Routes.administrationCategories} children={administrationCategoriesPage}/>
+                <Route path={Routes.administrationExpertise} children={administrationExpertisePage}/>
                 <Route path={Routes.administrationCollaborations} children={administrationCollaborationsPage}/>
                 <Route path={Routes.administrationProjects} children={administrationProjectPage}/>
                 <Route path={Routes.administrationUsers} children={administrationUserPage}/>
@@ -167,7 +172,8 @@ function App(){
                 <Route path={Routes.newCollaborationPage} children={newCollaborationPage}/>
                 <Route path={Routes.newServicePage} children={newServicePage}/>
                 <Route path={Routes.routeEditProject} children={editProjectPage}/>
-                <Route path={Routes.administration} children={administrationPage}/>
+                <Route path={Routes.administrationCategories} children={administrationCategoriesPage}/>
+                <Route path={Routes.administrationExpertise} children={administrationExpertisePage}/>
                 <Route path={Routes.routeProject} children={projectDetailPage}/>
                 <Route path={Routes.administrationCollaborations} children={administrationCollaborationsPage}/>
                 <Route path={Routes.administrationProjects} children={administrationProjectPage}/>

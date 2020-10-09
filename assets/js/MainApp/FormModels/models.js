@@ -3,7 +3,7 @@ import TextField from "../../Login/Components/TextField";
 import {dataLanguage} from "../../selectData";
 import React from "react";
 
-const { StringType, NumberType } = Schema.Types;
+const { StringType, NumberType, DateType } = Schema.Types;
 
 export const projectModel = Schema.Model({
     title: StringType().isRequired("This field is required"),
@@ -14,12 +14,12 @@ export const projectModel = Schema.Model({
 
 export const collaborationModel = Schema.Model({
     title: StringType().isRequired('This field is required.'),
-    shortDescription: StringType().isRequired('This field is required.').maxLength(500),
-    description: StringType().isRequired('This field is required.').maxLength(500),
+    shortDescription: StringType().isRequired('This field is required.').maxLength(500,"No more than 500 characters"),
+    description: StringType().isRequired('This field is required.').maxLength(500, "No more than 500 characters"),
     category: NumberType().isRequired('This field is required.'),
     country: StringType().isRequired('This field is required.'),
     language: StringType().isRequired('This field is required.'),
-    contacts: StringType().isEmail().isRequired('This field is required.')
+    contacts: StringType().isEmail().isRequired('This field is required.'),
 });
 
 

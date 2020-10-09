@@ -101,19 +101,13 @@ export const translation = {
         "projectPartners":"Partner",
 
         "partner1":"Coordinator\n" +
-            "                                        An-Najah National University – Palestine\n" +
-            "                                        https://www.najah.edu/ar/",
-        "partner2":"Nablus chamber of commerce and industry – Palestine\n" +
-            "                                        http://nablus-chamber.org/",
+            "                                        An-Najah National University – Palestine\n",
+        "partner2":"Nablus chamber of commerce and industry – Palestine\n",
         "partner3":"Ministry of Public Works & Housing – Jordan\n" +
-            "                                        Mutah University – Jordan\n" +
-            "                                        https://mutah.edu.jo/Home.aspx",
-        "partner4":"Business Consultancy and Training Services – Lebanon\n" +
-            "                                        http://bctslb.com/",
-        "partner5":"CESIE – Italy\n" +
-            "                                        www.cesie.org",
-        "partner6":"Eurotraining Educational Organization SA – Greece\n" +
-            "                                        https://www.eurotraining.gr/",
+            "                                        Mutah University – Jordan\n",
+        "partner4":"Business Consultancy and Training Services – Lebanon\n",
+        "partner5":"CESIE – Italy\n",
+        "partner6":"Eurotraining Educational Organization SA – Greece\n",
 
         "categoryFamily":"Family and income support",
         "categoryCounseling":"Health and counselling services",

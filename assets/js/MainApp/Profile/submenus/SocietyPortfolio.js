@@ -36,7 +36,7 @@ export default function SocietyPortfolio({society}) {
     const panels = portfolioProjects.map((project, item)=> <PortfolioDetail key={item} project={project}/>);
     const panelShow = panels.length > 0 ? panels : <NoElementsFound message="No portfolio projects" />
 
-    const panelsCollaborations = portfolioProjectsCollaborations.map((project, item)=> <PortfolioDetail project={project}/>);
+    const panelsCollaborations = portfolioProjectsCollaborations.map((project, item)=> <PortfolioDetail key={item} project={project}/>);
     const panelShowCollaborations = panelsCollaborations.length > 0 ? panelsCollaborations : <div style={{height:100, margin:"0 auto", textAlign:"center", color:bordeaux}}> No collaborations </div>
     return  <>
 

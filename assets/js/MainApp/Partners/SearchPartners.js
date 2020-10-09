@@ -28,6 +28,7 @@ import {bordeaux} from "../../styledComponents/CustomComponents";
 import {getCalendarFormat} from "../../ReusableComponents/TimeManager";
 import {useGetCategories} from "../../Backend/hooks/useCategories";
 import {useTranslation} from "react-i18next";
+import {categoriesTreeByLanguage} from "../../Functions/Categories";
 
 
 export default function SearchPartners(){
@@ -40,7 +41,6 @@ export default function SearchPartners(){
 
     const onSubmitHandler = () => {
         const formData = new FormData();
-        console.log(formValue);
         // formData.append('isPortfolio', isPortFolioCheckboxChecked);
         Object.keys(formValue).forEach((key)=>  { formData.append(key,JSON.stringify(formValue[key]));});
         getPartnersHandler(formData);
@@ -62,15 +62,13 @@ export default function SearchPartners(){
 
 
     const [services, getServicesHandler] = useGetServices();
-    const [categories, getCategoriesHandler] = useGetCategories();
 
 
     useEffect(()=>{
         getServicesHandler();
-        getCategoriesHandler();
-    },[]);
+        },[]);
     let servicesTree = generateServiceTree(services)
-    let categoriesTree = generateCategoriesTree(categories)
+    let categoriesTree = categoriesTreeByLanguage();
 
 
     return <>

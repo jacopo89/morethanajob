@@ -94,7 +94,7 @@ class ProjectController extends AbstractController
         if($country){
             $projectFilters['country'] = $country;
         }
-        if($language){
+        if($language && $language!=="en"){
             $projectFilters['language'] = $language;
         }
         if($categories){
@@ -204,7 +204,7 @@ class ProjectController extends AbstractController
         }
 
         //filter by date
-        array_filter($finalRecords, function(Collaboration $collaboration){
+        $openRecords = array_filter($finalRecords, function(Collaboration $collaboration){
             $today = new \DateTime();
             $format = "Y-m-d\TH:i:s.v\Z";
 
@@ -220,9 +220,14 @@ class ProjectController extends AbstractController
 
         });
 
+        $sentRecords = [];
+        foreach($openRecords as $openRecord){
+            $sentRecords[] = $openRecord;
+        }
+
 
         $results["services"] = [];
-        $results["projects"] = $finalRecords;
+        $results["projects"] = $sentRecords;
 
 
         return new Response($this->serializer->serialize($results, 'json'));

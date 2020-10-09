@@ -20,19 +20,13 @@ export const translation = {
             "Find out more –http://www.enicbcmed.eu/projects/morethanajob",
         "projectPartners":"Εταίροι ",
         "partner1":"Συντονιστής \n" +
-            "                                        Εθνικό Πανεπιστήμιο Αλ Νατζάα της Ναμπλούς  – Παλαιστίνη \n" +
-            "                                        https://www.najah.edu/ar/",
-        "partner2":"Εμπορικό και Βιομηχανικό Επιμελητήριο της Ναμπλούς – Παλαιστίνη\n" +
-            "                                        http://nablus-chamber.org/",
+            "                                        Εθνικό Πανεπιστήμιο Αλ Νατζάα της Ναμπλούς  – Παλαιστίνη \n",
+        "partner2":"Εμπορικό και Βιομηχανικό Επιμελητήριο της Ναμπλούς – Παλαιστίνη\n",
         "partner3":"Υπουργείο Δημοσίων Έργων και Στέγασης – Ιορδανία \n" +
-            "                                        Πανεπιστήμιο Μουταχ – Ιορδανία\n" +
-            "                                        https://mutah.edu.jo/Home.aspx",
-        "partner4":"Συμβουλευτική Επιχειρήσεων και Υπηρεσίες Κατάρτισης (BCTS) – Λίβανος \n" +
-            "                                        http://bctslb.com/",
-        "partner5":"CESIE – Ιταλία\n" +
-            "                                        www.cesie.org",
-        "partner6":"Εκπαιδευτικός Οργανισμός EUROTraining – Ελλάδα\n" +
-            "                                        https://www.eurotraining.gr/",
+            "                                        Πανεπιστήμιο Μουταχ – Ιορδανία\n",
+        "partner4":"Συμβουλευτική Επιχειρήσεων και Υπηρεσίες Κατάρτισης (BCTS) – Λίβανος \n",
+        "partner5":"CESIE – Ιταλία\n",
+        "partner6":"Εκπαιδευτικός Οργανισμός EUROTraining – Ελλάδα\n",
         "categoryFamily":"Οικογενειακή και εισοδηματική υποστήριξη",
         "categoryCounseling":"Υγεία και συμβουλευτικές υπηρεσίες",
         "categoryEducation":"Εκπαίδευση και κατάρτιση",

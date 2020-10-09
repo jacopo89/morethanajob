@@ -19,3 +19,13 @@ export function useCategoryUploadPicture() {
     return useCreateHook(backendClient,'/backend/categories/uploadPicture','post',null);
 }
 
+export function useCreateCategory() {
+    const backendClient = BackendClient();
+    return useCreateHook(backendClient,'/backend/categories/add','post',null);
+}
+
+
+export function useDeleteCategory() {
+    const backendClient = BackendClient();
+    return useCreateHook(backendClient,'/backend/categories/delete','delete',null);
+}

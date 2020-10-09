@@ -29,7 +29,7 @@ class Category
     private $parentCategory;
 
     /**
-     * @ORM\OneToMany(targetEntity="App\Entity\Category", mappedBy="parentCategory")
+     * @ORM\OneToMany(targetEntity="App\Entity\Category", mappedBy="parentCategory", cascade={"persist","remove"})
      */
     private $childrenCategories;
 
@@ -47,6 +47,26 @@ class Category
      * @ORM\OneToMany(targetEntity="App\Entity\Project", mappedBy="category")
      */
     private $projects;
+
+    /**
+     * @ORM\Column(type="string", length=255, nullable=true)
+     */
+    private $en;
+
+    /**
+     * @ORM\Column(type="string", length=255, nullable=true)
+     */
+    private $it;
+
+    /**
+     * @ORM\Column(type="string", length=255, nullable=true)
+     */
+    private $ar;
+
+    /**
+     * @ORM\Column(type="string", length=255, nullable=true)
+     */
+    private $gr;
 
     public function __construct()
     {
@@ -188,4 +208,54 @@ class Category
 
         return $this;
     }
+
+    public function getEn(): ?string
+    {
+        return $this->en;
+    }
+
+    public function setEn(?string $en): self
+    {
+        $this->en = $en;
+
+        return $this;
+    }
+
+    public function getIt(): ?string
+    {
+        return $this->it;
+    }
+
+    public function setIt(?string $it): self
+    {
+        $this->it = $it;
+
+        return $this;
+    }
+
+    public function getAr(): ?string
+    {
+        return $this->ar;
+    }
+
+    public function setAr(?string $ar): self
+    {
+        $this->ar = $ar;
+
+        return $this;
+    }
+
+    public function getGr(): ?string
+    {
+        return $this->gr;
+    }
+
+    public function setGr(?string $gr): self
+    {
+        $this->gr = $gr;
+
+        return $this;
+    }
+
+
 }

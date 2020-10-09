@@ -15,14 +15,17 @@ import {Schema} from 'rsuite';
 import {useTranslation} from "react-i18next";
 import PositionList from "../Position/PositionList";
 import {collaborationModel} from "../FormModels/models";
+import {categoriesTreeByLanguage} from "../../Functions/Categories";
 
 export default function NewCollaboration({isService=false}){
     const [formValue, setFormValue] = useState({positions: []});
-    const {user, categories} = useSelector(state=>state);
+    const {user, categories, language} = useSelector(state=>state);
     const [response, createNewProjectHandler] = useCreateNewCollaboration();
     const [projects, getProjectsHandler] = useGetUserProjects();
     const history = useHistory();
     const { t, i18n } = useTranslation();
+
+    let categoriesTree = categoriesTreeByLanguage();
 
     useEffect(()=>{
         getProjectsHandler(user.email, {dataManipulationFunction:(data)=>{
@@ -33,8 +36,11 @@ export default function NewCollaboration({isService=false}){
             }})
     },[]);
 
+
+
+
     const formRef = useRef();
-    let categoriesTree = generateCategoriesTree(categories)
+
 
     const onSubmitHandler = () =>{
         const formData = new FormData();
@@ -52,12 +58,13 @@ export default function NewCollaboration({isService=false}){
     const titleLocalLabel = (isService) ? t('Title of the service in local language') : t('Title of the collaboration in local language');
     const categoryLabel = (isService) ? t('Macro category of the service') : t('Macro category of the collaboration') ;
 
-    const selectedCategoryPicture = (formValue.category) ? categories.filter((category)=> category.id === formValue.category)[0] : "";
+    const categoryImage = formValue && formValue.category && categories.find(category=>category.id===formValue.category);
+    const categoryImageUrl = categoryImage && categoryImage.picture;
 
     return (
         <>
             <CollaborationBox>
-                <div style={{height: 150, width: 150, backgroundImage: `url(${selectedCategoryPicture})`, backgroundColor: "white", backgroundSize: "contain", flex:"none", margin:10}}/>
+                <div style={{height: 150, width: 150, backgroundImage: `url(${categoryImageUrl})`, backgroundColor: "white", backgroundSize: "contain", flex:"none", margin:10}}/>
                 {formValue.title}
             </CollaborationBox>
             <FormBox >
