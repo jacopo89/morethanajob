@@ -1,13 +1,12 @@
 import React, {useEffect, useState} from "react";
-import {Button, ButtonGroup, ButtonToolbar, Col, Form, Grid, Icon, Modal, Row, SelectPicker, Tree} from "rsuite";
-import {useDeleteService, useEditExpertise, useGetServices, useUploadPicture} from "../../Backend/hooks/useServices";
+import {Button, ButtonGroup, Col, Form, Grid, Modal, Row, Tree} from "rsuite";
 import TextField from "../../Login/Components/TextField";
-import {FormBox, MainButton, SecondaryButton} from "../../styledComponents/CustomComponents";
+import {FormBox} from "../../styledComponents/CustomComponents";
 import ImageCropper from "../../ReusableComponents/ImageCropper";
-import * as ActionTypes from "../../Redux/actions";
 import {
     useCategoryUploadPicture,
-    useCreateCategory, useDeleteCategory,
+    useCreateCategory,
+    useDeleteCategory,
     useEditCategory,
     useGetCategories
 } from "../../Backend/hooks/useCategories";
@@ -94,28 +93,6 @@ export default function CategoriesManagement(){
 }
 
 
-
-export function generateServiceTree(items){
-
-    items = items.map((item)=>{return {...item, label: item.label, value: item.id }});
-
-//    console.log("generate tree", items);
-    let rootItems = items.filter((item)=> item.parentServiceId ===null);
-
-
-    while(rootItems.length !==items.length){
-
-        let lastItems = items.filter((module)=> {return (items.findIndex((item)=> (item.parentServiceId) ? item.parentServiceId ===module.id : false ) ===-1) && module.parentServiceId!==null});
-        let lastItemsId = lastItems.map((item)=>item.id);
-        items = items.filter((module)=> !lastItemsId.includes(module.id) );
-        items = items.map((module)=>{
-            return {...module, children: lastItems.filter((item)=>  (item.parentServiceId) ? module.id===item.parentServiceId : false)}
-        });
-    }
-
-   // console.log("tree", items);
-    return items;
-}
 
 export function generateCategoriesTree(items){
     const { t, i18n } = useTranslation();

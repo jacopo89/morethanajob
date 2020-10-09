@@ -1,13 +1,10 @@
 import React, {useEffect, useState} from "react";
-import {Button, ButtonToolbar,Col, Form, Grid, Icon, Row, SelectPicker, Tree} from "rsuite";
+import {Button, Col, Form, Grid, Row, Tree} from "rsuite";
 import {useDeleteService, useEditExpertise, useGetServices, useUploadPicture} from "../../Backend/hooks/useServices";
 import TextField from "../../Login/Components/TextField";
-import {FormBox, MainButton, SecondaryButton} from "../../styledComponents/CustomComponents";
+import {FormBox} from "../../styledComponents/CustomComponents";
 import ImageCropper from "../../ReusableComponents/ImageCropper";
-import * as ActionTypes from "../../Redux/actions";
-import {useCategoryUploadPicture, useEditCategory, useGetCategories} from "../../Backend/hooks/useCategories";
-import {useTranslation} from "react-i18next";
-import {generateServiceTree} from "./CategoriesManagement";
+import {expertisesTreeByLanguage} from "../../Functions/Expertises";
 
 export default function ExpertiseManagement(){
 
@@ -31,12 +28,9 @@ export default function ExpertiseManagement(){
         getServicesHandler();
     },[]);
 
-    let servicesTree = generateServiceTree(services)
+    let servicesTree = expertisesTreeByLanguage();
 
-    const getService = (serviceId) =>{
-        let filteredServiceArray = services.filter((service)=> service.value === serviceId);
-        return filteredServiceArray[0];
-    }
+    const getService = (serviceId) => services.find((service)=> service.value === serviceId);
 
 
     return (<FormBox style={{width:"100%"}}>

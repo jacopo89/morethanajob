@@ -9,34 +9,27 @@
 import '../css/app.css';
 import 'rsuite/dist/styles/rsuite-default.min.css';
 import * as ReactDOM from "react-dom";
-import React,{useEffect} from "react";
+import React, {useEffect} from "react";
 import {applyMiddleware, compose, createStore} from "redux";
 import thunk from 'redux-thunk';
 import {Provider, useDispatch, useSelector} from "react-redux";
 import Login from "./Login/Pages/Login";
 import {BrowserRouter, Redirect, Route, Switch, useLocation} from "react-router-dom";
 import reducer from "./Redux/reducer";
-import Layout from "./Layout/Layout";
 import Registration from "./Login/Pages/Registration";
 import RecoverPasswordForm from "./Login/Components/RecoverPasswordForm";
 import Dashboard from "./MainApp/Dashboard";
 import * as Routes from './routes';
 import * as ActionTypes from "./Redux/actions";
-import * as firebase from "firebase/app";
 import "firebase/auth";
 import "firebase/messaging";
 
 import './i18n';
-import ChangePassword from "./Login/Components/ChangePassword";
 import Loading from "./Layout/Loading";
 import MainPage from "./Layout/MainPage";
 import {useTranslation} from "react-i18next";
-import Test from "./Test";
 import UserManagement from "./MainApp/Administration/UserManagement";
-import CategoriesManagement, {
-    generateCategoriesTree,
-    generateServiceTree
-} from "./MainApp/Administration/CategoriesManagement";
+import CategoriesManagement from "./MainApp/Administration/CategoriesManagement";
 import Project from "./MainApp/Projects/Project";
 import Profile from "./MainApp/Profile/Profile";
 import NewProject from "./MainApp/Projects/NewProject";
@@ -56,7 +49,6 @@ import {useGetCategories} from "./Backend/hooks/useCategories";
 import CollaborationManagement from "./MainApp/Administration/CollaborationManagement";
 import ProjectManagement from "./MainApp/Administration/ProjectManagement";
 import PasswordReset from "./Login/Components/PasswordReset";
-import SidebarPage from "./Layout/SidebarPage";
 import AdministrationLayout from "./Layout/AdministrationLayout";
 import ExpertiseManagement from "./MainApp/Administration/ExpertiseManagement";
 

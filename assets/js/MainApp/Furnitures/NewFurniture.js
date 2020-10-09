@@ -1,19 +1,19 @@
-import React, {useEffect, useState, useRef} from "react";
+import React, {useRef, useState} from "react";
 import {useSelector} from "react-redux";
-import {useCreateOfferedService, useGetServices} from "../../Backend/hooks/useServices";
+import {useCreateOfferedService} from "../../Backend/hooks/useServices";
 import {useTranslation} from "react-i18next";
-import {generateServiceTree} from "../Administration/CategoriesManagement";
-import {Button, ButtonGroup, Form, Modal, Schema, SelectPicker, TreePicker} from "rsuite";
+import {Form, Schema, SelectPicker, TreePicker} from "rsuite";
 import TextField from "../../Login/Components/TextField";
 import {dataCountry} from "../../selectData";
-import {bordeaux, FormBox, SaveButton} from "../../styledComponents/CustomComponents";
+import {FormBox, SaveButton} from "../../styledComponents/CustomComponents";
 import {useHistory} from "react-router-dom";
 import * as Routes from "../../routes";
+import {expertisesTreeByLanguage} from "../../Functions/Expertises";
 
 export default function NewFurniture(){
 
     const [formValue, setFormValue] = useState();
-    const {user, services} = useSelector(state=>state);
+    const {user} = useSelector(state=>state);
     const [createOfferedService, createOfferedServiceHandler] = useCreateOfferedService();
     const { t, i18n } = useTranslation();
     const history = useHistory();
@@ -36,7 +36,7 @@ export default function NewFurniture(){
 
 
 
-    let servicesTree = generateServiceTree(services);
+    let servicesTree = expertisesTreeByLanguage();
 
 
     const { NumberType } = Schema.Types;

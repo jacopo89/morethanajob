@@ -1,47 +1,25 @@
 import React, {useEffect, useState} from "react";
 import {useSelector} from "react-redux";
 import {
-    useCreateNewProject, useDeleteProject, useEditProject,
+    useDeleteProject,
+    useEditProject,
     useGetProject,
     useUploadProjectCover,
     useUploadProjectLogo
 } from "../../Backend/hooks/useProjects";
 import TextField from "../../Login/Components/TextField";
-import {
-    Button,
-    Col,
-    DatePicker,
-    Form,
-    Icon,
-    IconButton,
-    List,
-    Panel,
-    Row,
-    SelectPicker,
-    TreePicker,
-    Uploader
-} from "rsuite";
-import {dataCountry, dataLanguage, modalityData} from "../../selectData";
-import {useGetServices} from "../../Backend/hooks/useServices";
-import {generateServiceTree} from "../Administration/CategoriesManagement";
-import {GenericTable} from "../../ReusableComponents/GenericTable";
-import {
-    bordeaux,
-    coverPicture,
-    coverStyle,
-    InverseButton,
-    MainButton,
-    SaveButton
-} from "../../styledComponents/CustomComponents";
+import {Form, SelectPicker} from "rsuite";
+import {dataLanguage} from "../../selectData";
+import {coverPicture, coverStyle, InverseButton, SaveButton} from "../../styledComponents/CustomComponents";
 import styled from "styled-components";
 import ImageCropper from "../../ReusableComponents/ImageCropper";
 import {useHistory, useParams} from "react-router-dom";
 import * as Routes from "../../routes";
 import {useTranslation} from "react-i18next";
-import {PositionDescription} from "../Position/PositionDescription";
 import PartnersList from "./Partners/PartnersList";
 import {projectModel} from "../FormModels/models";
 import DeleteButton from "../../ReusableComponents/DeleteButton";
+
 export default function EditProject({isPortfolio=false}){
     const [formValue, setFormValue] = useState({positions: [], partners:[]});
 

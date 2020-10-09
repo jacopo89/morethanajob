@@ -1,17 +1,9 @@
 import React, {useEffect, useState} from "react";
-import {Button, Col, Form, Grid, Icon, Nav, Navbar, Panel, PanelGroup, Row} from "rsuite";
+import {Col, Grid, Icon, Nav, Navbar, Panel, Row} from "rsuite";
 import {Link, useHistory} from "react-router-dom";
 import * as Routes from '../routes'
-import {
-    Body,
-    bordeaux,
-    gray,
-    MainButton,
-    noProfilePicture,
-    noProjectPicture
-} from "../styledComponents/CustomComponents";
+import {Body, bordeaux, MainButton, noProfilePicture, noProjectPicture} from "../styledComponents/CustomComponents";
 import styled from "styled-components";
-import TextField from "../Login/Components/TextField";
 import "./dashboard.css";
 import {useGetRandomProfiles} from "../Backend/hooks/UserInfo";
 import {useGetRandomCollaborations} from "../Backend/hooks/useCollaborations";

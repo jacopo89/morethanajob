@@ -1,30 +1,25 @@
 import {
-    Grid, Row,Col,
     Button,
-    CheckTreePicker, ControlLabel,
+    CheckTreePicker,
+    Col,
     DatePicker,
-    Form, FormControl, FormGroup, Icon,
-    List,
-    Modal,
-    Panel, Radio, RadioGroup,
-    SelectPicker,
-    TreePicker, Uploader
+    Form,
+    FormControl,
+    FormGroup,
+    Grid,
+    Radio,
+    RadioGroup,
+    Row,
+    SelectPicker
 } from "rsuite";
 import React, {useEffect, useState} from "react";
 import TextField from "../../Login/Components/TextField";
-import HorizontalStepForm from "../../ReusableComponents/HorizontalStepForm";
 import {useGetServices} from "../../Backend/hooks/useServices";
-import {generateCategoriesTree, generateServiceTree} from "../Administration/CategoriesManagement";
-import {GenericTable} from "../../ReusableComponents/GenericTable";
-import {useCreateNewProject, useGetLastProjects, useSearchProjects} from "../../Backend/hooks/useProjects";
-import styled from "styled-components";
+import {useSearchProjects} from "../../Backend/hooks/useProjects";
 import {useSelector} from "react-redux";
-import * as Routes from '../../routes';
 import {useHistory, useLocation} from "react-router-dom";
-import {PortfolioDetail} from "../Profile/submenus/SocietyPortfolio";
-import {dataCountry, dataLanguage} from "../../selectData";
+import {dataCountry} from "../../selectData";
 import {useGetUsers} from "../../Backend/hooks/useAdministration";
-import {useGetCategories} from "../../Backend/hooks/useCategories";
 import {useTranslation} from "react-i18next";
 import CollaborationDetail from "../Profile/DetailCards/CollaborationDetail";
 import {FormBox} from "../../styledComponents/CustomComponents";

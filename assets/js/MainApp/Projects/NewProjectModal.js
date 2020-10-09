@@ -4,10 +4,9 @@ import {useCreateNewProject} from "../../Backend/hooks/useProjects";
 import TextField from "../../Login/Components/TextField";
 import {Button, ButtonGroup, DatePicker, Form, Icon, List, Modal, SelectPicker, TreePicker, Uploader} from "rsuite";
 import HorizontalStepForm from "../../ReusableComponents/HorizontalStepForm";
-import {useGetServices} from "../../Backend/hooks/useServices";
-import {generateServiceTree} from "../Administration/CategoriesManagement";
 import {GenericTable} from "../../ReusableComponents/GenericTable";
 import {dataCountry, dataLanguage} from "../../selectData";
+import {expertisesTreeByLanguage} from "../../Functions/Expertises";
 
 export default function NewProjectModal({show, onHide, successCallback = ()=>{},  isPortfolio=false}){
 
@@ -88,12 +87,7 @@ export default function NewProjectModal({show, onHide, successCallback = ()=>{},
 
 function ListOrCreate({formValue, setFormValue}){
 
-    const [services, getServicesHandler] = useGetServices();
-    useEffect(()=>{
-        getServicesHandler();
-    },[]);
-
-    let servicesTree = generateServiceTree(services)
+    let servicesTree = expertisesTreeByLanguage();
 
 
     const [create, setCreate] = useState(false);
@@ -235,12 +229,7 @@ function IncludableForm({item, updater, remover, back, servicesTree}){
 
 function PartnerListOrCreate({formValue, setFormValue}){
 
-    const [services, getServicesHandler] = useGetServices();
-    useEffect(()=>{
-        getServicesHandler();
-    },[]);
-
-    let servicesTree = generateServiceTree(services)
+    let servicesTree = expertisesTreeByLanguage();
 
     const [create, setCreate] = useState(false);
     const [existingPartner, setExistingPartner] = useState(false);

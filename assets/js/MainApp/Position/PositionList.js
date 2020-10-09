@@ -1,11 +1,10 @@
 import {useGetServices} from "../../Backend/hooks/useServices";
 import React, {useEffect, useState} from "react";
-import {generateServiceTree} from "../Administration/CategoriesManagement";
 import {bordeaux, InverseButton} from "../../styledComponents/CustomComponents";
-import {Button, List} from "rsuite";
-import {GenericTable} from "../../ReusableComponents/GenericTable";
+import {List} from "rsuite";
 import {PositionDescription} from "./PositionDescription";
 import PositionForm from "./PositionForm";
+import {expertisesTreeByLanguage} from "../../Functions/Expertises";
 
 export default function PositionList({formValue, setFormValue, callback, isEdit=false}){
 
@@ -15,7 +14,7 @@ export default function PositionList({formValue, setFormValue, callback, isEdit=
         getServicesHandler();
     },[]);
 
-    let servicesTree = generateServiceTree(services)
+    let servicesTree = expertisesTreeByLanguage()
 
 
     const [create, setCreate] = useState(false);

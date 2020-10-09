@@ -1,20 +1,14 @@
-import React, {useEffect, useState} from 'react';
-import {useGetServices} from "../../../Backend/hooks/useServices";
-import {generateServiceTree} from "../../Administration/CategoriesManagement";
+import React, {useState} from 'react';
 import {Button, List} from "rsuite";
 import {GenericTable} from "../../../ReusableComponents/GenericTable";
-import {PositionDescription} from "../../Position/PositionDescription";
 import PartnerForm from "./PartnerForm";
 import ExistingPartnerForm from "./ExistingPartnerForm";
 import {SecondaryButton} from "../../../styledComponents/CustomComponents";
+import {expertisesTreeByLanguage} from "../../../Functions/Expertises";
 
 export default function PartnersList({formValue, setFormValue}){
-    const [services, getServicesHandler] = useGetServices();
-    useEffect(()=>{
-        getServicesHandler();
-    },[]);
 
-    let servicesTree = generateServiceTree(services)
+    let servicesTree = expertisesTreeByLanguage()
 
     const [create, setCreate] = useState(false);
     const [existingPartner, setExistingPartner] = useState(false);

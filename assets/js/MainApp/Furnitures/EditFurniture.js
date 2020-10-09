@@ -1,14 +1,14 @@
 import React, {useEffect, useState, useRef} from "react";
 import {useSelector} from "react-redux";
-import {useCreateOfferedService, useGetServices} from "../../Backend/hooks/useServices";
+import {useCreateOfferedService, useEditOfferedService, useGetServices} from "../../Backend/hooks/useServices";
 import {useTranslation} from "react-i18next";
-import {generateServiceTree} from "../Administration/CategoriesManagement";
 import {Button, ButtonGroup, Form, Modal, Schema, SelectPicker, TreePicker} from "rsuite";
 import TextField from "../../Login/Components/TextField";
 import {dataCountry} from "../../selectData";
 import {bordeaux} from "../../styledComponents/CustomComponents";
 import {useHistory} from "react-router-dom";
 import * as Routes from "../../routes";
+import {expertisesTreeByLanguage} from "../../Functions/Expertises";
 
 export default function EditFurniture(){
 
@@ -34,13 +34,7 @@ export default function EditFurniture(){
         }
     };
 
-    const [services, getServicesHandler] = useGetServices();
-    useEffect(()=>{
-        getServicesHandler();
-    },[]);
-
-    let servicesTree = generateServiceTree(services);
-
+    let servicesTree = expertisesTreeByLanguage();
 
     const { StringType, ArrayType } = Schema.Types;
     const model = Schema.Model({

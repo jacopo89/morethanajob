@@ -1,40 +1,21 @@
-import React, {useEffect, useState, useRef} from "react";
+import React, {useRef, useState} from "react";
 import {useSelector} from "react-redux";
 import {useCreateNewProject} from "../../Backend/hooks/useProjects";
 import TextField from "../../Login/Components/TextField";
+import {Col, Form, Grid, Row, SelectPicker} from "rsuite";
+import {dataLanguage} from "../../selectData";
 import {
-    Button,
-    Col,
-    DatePicker,
-    Form, Grid,
-    Icon,
-    IconButton,
-    List,
-    Panel,
-    Row, Schema,
-    SelectPicker,
-    TreePicker,
-    Uploader
-} from "rsuite";
-import {dataCountry, dataLanguage, modalityData} from "../../selectData";
-import {useGetServices} from "../../Backend/hooks/useServices";
-import {generateServiceTree} from "../Administration/CategoriesManagement";
-import {GenericTable} from "../../ReusableComponents/GenericTable";
-import {
-    bordeaux, coverPicture,
+    bordeaux,
+    coverPicture,
     InverseButton,
-    MainButton,
-    projectPicture, SaveButton,
-    SecondaryButton
+    projectPicture,
+    SaveButton
 } from "../../styledComponents/CustomComponents";
 import styled from "styled-components";
 import ImageCropper from "../../ReusableComponents/ImageCropper";
 import {useHistory} from "react-router-dom";
 import * as Routes from "../../routes";
-import {getCalendarFormat} from "../../ReusableComponents/TimeManager";
-import {useGetUsers} from "../../Backend/hooks/useAdministration";
 import {useTranslation} from "react-i18next";
-import {PositionDescription} from "../Position/PositionDescription";
 import PartnersList from "./Partners/PartnersList";
 import {projectModel} from "../FormModels/models";
 

@@ -24,6 +24,10 @@ class ServiceNormalizer implements NormalizerInterface, CacheableSupportsMethodI
         $normalized["value"] = $object->getId();
         $normalized["label"] = $object->getName();
         $normalized["name"] = $object->getName();
+        $normalized["ar"] = $object->getAr();
+        $normalized["en"] = $object->getEn();
+        $normalized["it"] = $object->getIt();
+        $normalized["gr"] = $object->getGr();
         $normalized["picture"] = is_null($object->getPicture())? null: $object->getPicture()->getUrl();
 
         //$normalized["parentService"] = (!is_null($object->getParentService())) ? $this->normalize($object->getParentService()) : null ;
