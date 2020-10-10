@@ -538,9 +538,8 @@ class User implements UserInterface
         return $this->getProjectsRelations()->map(function(ProjectPartner $projectPartner){ return $projectPartner->getProject();})->filter(function(Project $project){return $project->getIsPortfolio()===false;});
     }
 
-    public function getCollaborations(): Collection
-    {
-        return $this->collaborations;
+    public function getAllProjects(){
+        return $this->getProjectsRelations()->map(function(ProjectPartner $projectPartner){ return $projectPartner->getProject();});
     }
 
     public function getServices(): Collection

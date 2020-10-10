@@ -93,7 +93,7 @@ export default function NewCollaboration({isService=false}){
                         <TextField style={{width:"100%"}} label={categoryLabel} name="category" accepter={TreePicker} data={categoriesTree} />
                     </div>
                     <div style={{display:"flex", justifyContent:"space-around"}}>
-                        <TextField style={{width:"100%"}} label={t('Language')} name="language" accepter={SelectPicker} data={dataLanguage} />
+                        <TextField style={{width:"100%"}} label={t('Language')} name="language" accepter={SelectPicker} data={dataLanguage()} />
 
                     </div>
                     <>

@@ -235,8 +235,6 @@ class ProjectController extends AbstractController
 
 
 
-
-
     /**
      * @Route("/get/{id}")
      * @param Project $project
@@ -525,6 +523,21 @@ class ProjectController extends AbstractController
         return new Response($this->serializer->serialize($finalProjects, 'json'), Response::HTTP_OK);
 
     }
+
+    /**
+     * @param User $user
+     * @return Response
+     * @Route("/get-all-projects/{email}")
+     */
+    public function getAllProjects(User $user){
+        $portfolioProjects = $user->getAllProjects();
+
+        return new Response($this->serializer->serialize($portfolioProjects, 'json'), Response::HTTP_OK);
+
+    }
+
+
+
 
     /**
      * @param User $user

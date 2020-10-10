@@ -78,6 +78,8 @@ export default function EditProject({isPortfolio=false}){
 
 
 
+
+
     const removeProjectSuccessCallaback = ()=> {
         history.push(Routes.profile(user.profileName));
     }
@@ -110,7 +112,7 @@ export default function EditProject({isPortfolio=false}){
             <InfoBox >
                 <Form fluid model={projectModel} formValue={formValue} onChange={setFormValue} onSubmit={onSubmitHandler}>
                     <TextField label={t('Title')} name="title" type="text" />
-                    <TextField style={{width:"100%"}} label={t('Language')} name="language" accepter={SelectPicker} data={dataLanguage} />
+                    <TextField style={{width:"100%"}} label={t('Language')} name="language" accepter={SelectPicker} data={dataLanguage()} />
                     <TextField label={t('Local Title')} name="localTitle" type="text" />
                     <TextField label={t('Short Description')} name="shortDescription" componentClass="textarea" />
                     <TextField label={t('Local Short Description')} name="localShortDescription" componentClass="textarea" />

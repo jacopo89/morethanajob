@@ -44,7 +44,7 @@ export default function NewProjectModal({show, onHide, successCallback = ()=>{},
                 <TextField style={{width:"100%"}}  label="Data di fine progetto" name="endTime" accepter={DatePicker} format="DD-MM-YYYY" placement="topEnd" /> </div>
 
                 <TextField style={{width:"100%"}} label="Paese" name="country" accepter={SelectPicker} data={dataCountry} />
-                <TextField style={{width:"100%"}} label="Lingua" name="language" accepter={SelectPicker} data={dataLanguage} />
+                <TextField style={{width:"100%"}} label="Lingua" name="language" accepter={SelectPicker} data={dataLanguage()} />
 
 
         </>,

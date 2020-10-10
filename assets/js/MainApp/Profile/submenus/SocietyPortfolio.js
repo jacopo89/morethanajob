@@ -1,6 +1,10 @@
 import React, {useEffect, useState} from "react";
 import {Button, Col, HelpBlock, Icon, IconButton, Panel, PanelGroup, Row} from "rsuite";
-import {useGetCollaborationProjects, useGetPortfolioProjects} from "../../../Backend/hooks/useProjects";
+import {
+    useGetAllUserProjects,
+    useGetCollaborationProjects,
+    useGetPortfolioProjects
+} from "../../../Backend/hooks/useProjects";
 import {bordeaux} from "../../../styledComponents/CustomComponents";
 import {getCalendarFormat, getDayAndMonth} from "../../../ReusableComponents/TimeManager";
 import {useHistory} from "react-router-dom";
@@ -15,6 +19,7 @@ import {useSelector} from "react-redux";
 export default function SocietyPortfolio({society}) {
     const [portfolioProjects, getPortfolioProjectsHandler] = useGetPortfolioProjects();
     const [portfolioProjectsCollaborations, getCollaborationProjectsHandler] = useGetCollaborationProjects();
+    const [userProjects, getAllUserProjects] = useGetAllUserProjects();
     const [show, setShow] = useState(false);
     const openModal = ()=> setShow(true);
     const closeModal = ()=> setShow(false);
@@ -23,24 +28,22 @@ export default function SocietyPortfolio({society}) {
     const history = useHistory();
 
     useEffect(()=>{
-        getPortfolioProjectsHandler(society.email);
-        getCollaborationProjectsHandler(society.email);
+        getAllUserProjects(society.email);
     },[]);
 
     const successCallback = ()=>{
         closeModal();
-        getPortfolioProjectsHandler(society.email);
-        getCollaborationProjectsHandler(society.email);
+        getAllUserProjects(society.email);
     }
 
-    const panels = portfolioProjects.map((project, item)=> <PortfolioDetail key={item} project={project}/>);
-    const panelShow = panels.length > 0 ? panels : <NoElementsFound message="No portfolio projects" />
+    const panels = userProjects.map((project, item)=> <PortfolioDetail key={item} project={project}/>);
+    const panelShow = panels.length > 0 ? panels : <NoElementsFound message="No projects" />
 
-    const panelsCollaborations = portfolioProjectsCollaborations.map((project, item)=> <PortfolioDetail key={item} project={project}/>);
+    /*const panelsCollaborations = portfolioProjectsCollaborations.map((project, item)=> <PortfolioDetail key={item} project={project}/>);
     const panelShowCollaborations = panelsCollaborations.length > 0 ? panelsCollaborations : <div style={{height:100, margin:"0 auto", textAlign:"center", color:bordeaux}}> No collaborations </div>
-    return  <>
+    */return  <>
 
-        <PanelGroup>{panelShow}{panelShowCollaborations}</PanelGroup>
+        <PanelGroup>{panelShow}</PanelGroup>
         <NewProjectModal show={show} onHide={closeModal} successCallback={successCallback} isPortfolio={true} />
         </>
 

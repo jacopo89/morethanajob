@@ -39,16 +39,16 @@ export default function Dashboard(){
         getRandomCollaborationsHandler(formData);
     },[language]);
 
-    const profilePics = profiles.map((profile)=>
+    const profilePics = profiles.map((profile, index)=>
     {
         const picture = profile.profilePicture ? profile.profilePicture.url : noProfilePicture;
-        return (<IconTextBox>
+        return (<IconTextBox key={index}>
             <img width={75} src={picture}/>
             <a href={`/profile/${profile.profileName}`} >{profile.name}</a>
         </IconTextBox>)
     } );
 
-    const collaborationBlocks = collaborations.map(collaboration=><CollaborationDetail collaboration={collaboration} />)
+    const collaborationBlocks = collaborations.map((collaboration, index)=><CollaborationDetail key={index} collaboration={collaboration} />)
 
     return <>
         <Navbar id="dashboard" appearance="inverse" style={{backgroundColor:"transparent", color:"white"}} >

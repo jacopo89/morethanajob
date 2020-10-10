@@ -30,14 +30,11 @@ export default function LoginForm({loginProps}){
     }
 
     const history = useHistory();
-    const registrationButton = (loginProps.registration) ? <SecondaryButton appearance="default" onClick={loginProps.registrationNavigation} >Register</SecondaryButton> : <></>;
+    const registrationButton = (loginProps.registration) ? <SecondaryButton appearance="default" onClick={loginProps.registrationNavigation} >{t('Register')}</SecondaryButton> : <></>;
 
 
     return (
         <RegistrationBox>
-            <div>
-                <h3>Sign in</h3>
-            </div>
             <div>
                 <Form
                     autoComplete="off"

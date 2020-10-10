@@ -1,36 +1,28 @@
-import React, {useEffect, useState} from "react";
+import React, {useEffect} from "react";
 import {useSelector} from "react-redux";
-import {Button, Col, Grid, Icon, Modal, Panel, Row, HelpBlock, Divider} from "rsuite";
-import styled from "styled-components";
+import {Col, Divider, Grid, HelpBlock, Icon, Row} from "rsuite";
 import {useHistory, useParams} from "react-router-dom";
-import {
-    useConfirmApplication,
-    useGetApplications,
-    useGetProject,
-    usePostApplication
-} from "../../Backend/hooks/useProjects";
+import {useGetProject} from "../../Backend/hooks/useProjects";
 import {
     bordeaux,
-    coverPicture, coverStyle, FormBox, IconSpanProject,
-    InverseButton, LinearGradient,
+    coverPicture,
+    coverStyle,
+    FormBox,
+    InverseButton,
+    LinearGradient,
     profilePicture,
     projectPicture
 } from "../../styledComponents/CustomComponents";
 import * as Routes from "../../routes";
-import {GenericTable} from "../../ReusableComponents/GenericTable";
-import {getCalendarFormat} from "../../ReusableComponents/TimeManager";
 import {useTranslation} from "react-i18next";
 import CollaborationDetail from "../Profile/DetailCards/CollaborationDetail";
-import {profile} from "../../routes";
 import {IconSpan} from "../Profile/submenus/SocietyContacts";
-
+import {getProjectLanguageElements} from "../../Functions/Projects";
 
 
 export default function Project(){
 
-
     const { t, i18n } = useTranslation();
-
     //Logged user
     const {user, language} = useSelector(state=>state);
 
@@ -45,9 +37,7 @@ export default function Project(){
         getProjectHandler(id);
     },[]);
 
-    const isOwner = project.projectPartnersRelations.filter((relation)=> {
-        return relation.isLeader===true && relation.partner.email===user.email
-    }).length>0;
+    const isOwner = project.projectPartnersRelations.filter((relation)=> relation.isLeader===true && relation.partner.email===user.email).length>0;
 
 
     const backgroundImage = (project && project.projectLogo) ? project.projectLogo.url  : projectPicture;
@@ -61,7 +51,7 @@ export default function Project(){
             return <PlatformPartnerPanel partner={partner} key={index} />
 
         });
-        const externalpartners =  project.externalPartners.map((externalPartner)=> <ExternalPartnerPanel partner={externalPartner}/>);
+        const externalpartners =  project.externalPartners.map((externalPartner, index)=> <ExternalPartnerPanel key={index} partner={externalPartner}/>);
         list = <>
             <h4 style={{color:bordeaux}}>{t('Platform Partners')}</h4>
             <div style={{display:"flex", justifyContent:"space-around", flexWrap:"wrap"}}>{existingPartners}</div>
@@ -74,23 +64,8 @@ export default function Project(){
         list = project.collaborations.map((collaboration)=> <CollaborationDetail collaboration={collaboration} />);
     }
 
-    const projectLogostyle = {backgroundImage:  `url(${backgroundImage})`, backgroundSize: "contain", width:150, height:150}
-    const projectLogo = <div style={projectLogostyle}/>
-
-    const title = (project && project.language === language && project.localTitle!==null && project.localTitle.length!==0) ? project && project.localTitle  : project && project.title ;
-    const description = (project && project.language === language && project.localLongDescription!==null && project.localLongDescription.length!==0) ? project && project.localLongDescription  : project && project.longDescription ;
-
-    console.log("PRoject", project)
-    const isDescriptionInEnglish = (
-        project &&
-        project.localLanguage === language &&
-        project.localLongDescription===null ||
-        ( project && project.localLongDescription !==null && project.localLongDescription.length===0)
-    );
-
-
-    const languageMessage = (isDescriptionInEnglish) ? "This content is available only in English" :"";
-
+    const projectLogo = <img src={backgroundImage} width={150} height={150}/>
+    const {title, description, languageMessage} = getProjectLanguageElements(project);
 
 
 
@@ -135,7 +110,10 @@ export default function Project(){
 
             </Grid>
             <Divider />
-            {list}
+            <div style={{paddingLeft:10, paddingRight:10}}>
+                {list}
+            </div>
+
         </FormBox>
 
     </>;

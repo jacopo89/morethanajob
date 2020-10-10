@@ -1,23 +1,29 @@
-export const dataLanguage = [
+import {useTranslation} from "react-i18next";
+
+export function dataLanguage(){
+    const {t,i18n} = useTranslation();
+
+    return [
     {
-        "label": "Arabic",
+        "label": t('Arabic'),
         "value": "ar"
     },
     {
-        "label": "Italian",
+        "label": t('Italian'),
         "value": "it",
 
     },
     {
-        "label": "Greek",
+        "label": t("Greek"),
         "value": "gr",
 
     },
     {
-        "label": "English",
+        "label": t("English"),
         "value": "en",
 
     }]
+};
 
 export const dataCountry = [
     {

@@ -50,7 +50,7 @@ export default function RegistrationForm({registrationProps}){
                 <TextField name="name" label={t('Organisation name')}  />
                 <TextField name="email" label={t('Email')}  />
                 <TextField name="password" label={t('Password')} type="password" />
-                <TextField name="language" label={t('Choose language')} accepter={SelectPicker} data={dataLanguage} searchable={false} style={{width:"100%"}}/>
+                <TextField name="language" label={t('Choose language')} accepter={SelectPicker} data={dataLanguage()} searchable={false} style={{width:"100%"}}/>
 
                 <ButtonToolbar>
                     <MainButton appearance="primary" onClick={()=>registrationProps.registrationHandler(formValue)}>{t('Submit')}</MainButton>

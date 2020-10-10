@@ -21,6 +21,7 @@ export const newServicePage = "/newservice";
 export const newFurniturePage = "/new-furniture";
 export const collaborationDetailPage = "/collaboration/:id";
 export const routeProfile = "/profile/:profilename";
+export const routeProfileEdit = "/edit-profile/:profilename";
 export const routeProject = "/project/:id";
 export const routeEditProject = "/editproject/:id";
 export const routeEditCollaboration = "/editcollaboration/:id";
@@ -31,6 +32,12 @@ export const immediateLogout = "/immediatelogout";
 export function profile(name){
     return "/profile/"+name;
 }
+
+
+export function editProfile(name){
+    return "/edit-profile/"+name;
+}
+
 
 export function project(id){
     return "/project/"+id;

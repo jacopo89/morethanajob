@@ -11,6 +11,7 @@ import {GenericTable} from "../../ReusableComponents/GenericTable";
 import styled from "styled-components";
 import TextField from "../../Login/Components/TextField";
 import {useTranslation} from "react-i18next";
+import {getCollaborationsLanguageElements} from "../../Functions/Collaborations";
 
 export default function Collaboration(){
     const {id} = useParams();
@@ -30,17 +31,7 @@ export default function Collaboration(){
 
     const isCollaborationClosed =  collaboration && collaboration.positions.filter((position)=>!position.isOpen).length === collaboration.positions.length;
 
-    const title = (collaboration && collaboration.localLanguage === language && collaboration.localLanguageTitle && collaboration.localLanguageTitle.length!==0) ? collaboration && collaboration.localLanguageTitle  : collaboration && collaboration.title ;
-    const description = (collaboration && collaboration.localLanguage === language && collaboration.localLanguageDescription && collaboration.localLanguageDescription.length!==0) ? collaboration && collaboration.localLanguageDescription  : collaboration && collaboration.description ;
-    const isDescriptionInEnglish = (
-        collaboration &&
-        collaboration.localLanguage === language &&
-        collaboration.localLanguageShortDescription===null ||
-        ( collaboration && collaboration.localLanguageShortDescription !==null && collaboration.localLanguageShortDescription.length===0)
-    );
-
-
-    const languageMessage = (isDescriptionInEnglish) ? "This content is available only in English" : "";
+    const {title, description, languageMessage} = getCollaborationsLanguageElements(collaboration);
 
     const serviceBox = <ServiceFormBox collaboration={collaboration}/>;
 

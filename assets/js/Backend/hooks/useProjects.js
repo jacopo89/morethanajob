@@ -62,6 +62,15 @@ export function  useGetCollaborationProjects() {
     return useCreateHook(backendClient,'/backend/project/getcollaborations','get',[]);
 }
 
+export function  useGetAllUserProjects() {
+
+    const {accessToken} = useSelector(state=>state);
+    const backendClient = BackendClient(accessToken);
+    return useCreateHook(backendClient,'/backend/project/get-all-projects','get',[]);
+}
+
+
+
 
 
 export function  useGetProject() {

@@ -109,10 +109,10 @@ export const translation = {
         "partner5":"CESIE – Italy\n",
         "partner6":"Eurotraining Educational Organization SA – Greece\n",
 
-        "categoryFamily":"Family and income support",
-        "categoryCounseling":"Health and counselling services",
-        "categoryEducation":"Education and training",
-        "categoryCarrier":"Career guidance and employment support",
+        "categoryFamily":"Sostegno alle famiglie e al reddito",
+        "categoryCounseling":"Salute e ascolto",
+        "categoryEducation":"Supporto scolastico e formazione",
+        "categoryCarrier":"Orientamento al lavoro e sostegno all'impiego",
         "categoryCulture":"Cultura e partecipazione",
 
         //MENU
