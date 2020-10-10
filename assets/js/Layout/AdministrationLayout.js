@@ -4,6 +4,7 @@ import {Icon, Nav} from "rsuite";
 import * as Routes from "../routes"
 import {useHistory} from "react-router-dom";
 import MainPage from "./MainPage";
+import FullPage from "./FullPage";
 export default function AdministrationLayout({page}) {
 
     const history = useHistory();
@@ -17,7 +18,7 @@ export default function AdministrationLayout({page}) {
 
     </>
 
-    return <MainPage page={
+    return <FullPage page={
         <SidebarPage navItemList={navItems} subPage={page}  />
     }/>
 

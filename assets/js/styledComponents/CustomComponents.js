@@ -25,6 +25,14 @@ export const Body = styled.div`
     margin-bottom:20;
     `;
 
+
+
+export const FullBody = styled.div`
+    background-color: white;
+    display: flex;
+    flex-direction: column;
+    margin-bottom:20;
+    `;
 export const MainButton = styled(Button)`
     background-color: ${bordeaux};
     color: white;
