@@ -1,9 +1,9 @@
 import React, {useState} from 'react';
-import {Button, List} from "rsuite";
+import {Button, ButtonGroup, FlexboxGrid, Icon, List} from "rsuite";
 import {GenericTable} from "../../../ReusableComponents/GenericTable";
 import PartnerForm from "./PartnerForm";
 import ExistingPartnerForm from "./ExistingPartnerForm";
-import {SecondaryButton} from "../../../styledComponents/CustomComponents";
+import {InverseButton, SecondaryButton} from "../../../styledComponents/CustomComponents";
 import {expertisesTreeByLanguage} from "../../../Functions/Expertises";
 
 export default function PartnersList({formValue, setFormValue}){
@@ -89,7 +89,7 @@ export default function PartnersList({formValue, setFormValue}){
 
     const createForm = (!existingPartner) ?  <><PartnerForm item={element} updater={update} save={save} back={()=>back(element.id)} servicesTree={servicesTree}  /></> :  <><ExistingPartnerForm item={element} updater={update} save={save} back={()=>back(element.id)} servicesTree={servicesTree}  /></>
 
-    const actionRender= (rowData) => {
+  /*  const actionRender= (rowData) => {
         //console.log("RowData", rowData)
 
         const editHandler = (rowData)=>{
@@ -122,23 +122,103 @@ export default function PartnersList({formValue, setFormValue}){
         {label:"Organisation name", dataKey: "name"},
         {label:"Website", dataKey: "website"},
         {label:"actions", render:actionRender}
-    ]
+    ]*/
+
+    const editHandler = (rowData)=>{
+        if(rowData.type==="old"){
+            setExistingPartner(true)
+        }else{
+            setExistingPartner(false)
+        }
+        setElement(rowData);
+        setCreate(true);
+    }
+
+    const removeHandler = (element) => {
+        remove(element.id);
+    }
+
 
     const table = <>
-        <SecondaryButton onClick={createHandlerExistingPartner}>Insert existing partner</SecondaryButton>
-        <SecondaryButton onClick={createHandler}>Create new partner</SecondaryButton>
-        <GenericTable rowKey="id" modelData={modelData} propData={formValue.partners} />
+
+        {/*<GenericTable rowKey="id" modelData={modelData} propData={formValue.partners} />*/}
     </>
     const list = <>
-        <List>
-            {formValue.partners.map((item, index) => (
-                <List.Item key={index} index={index}>
-                    {item.service}
-                </List.Item>
-            ))}
-        </List>
-        <Button onClick={createHandler}>Crea</Button>
+        <ButtonGroup style={{marginTop:10, marginBottom:10}}>
+            <SecondaryButton onClick={createHandlerExistingPartner}>Insert existing partner</SecondaryButton>
+            <SecondaryButton onClick={createHandler}>Create new partner</SecondaryButton>
+        </ButtonGroup>
+        <PartnerList data={formValue.partners} deleteHandler={removeHandler} editHandler={editHandler} >
+        </PartnerList>
+        {/*<Button onClick={createHandler}>Crea</Button>*/}
     </>
 
-    return (create) ? createForm : table;
+    return (create) ? createForm : list;
+}
+
+
+function PartnerList({data, editHandler, deleteHandler}){
+    const styleCenter = {
+        display: 'flex',
+        justifyContent: 'center',
+        alignItems: 'center',
+        height: '60px'
+    };
+
+    const titleStyle = {
+        paddingBottom: 5,
+        whiteSpace: 'nowrap',
+        fontWeight: 500
+    };
+
+    const dataStyle = {
+        fontSize: '1.2em',
+        fontWeight: 500
+    };
+
+
+
+
+    return <List>
+            {data.map((item,index)=>
+                <List.Item key={item['title']} index={index}>
+                    <FlexboxGrid>
+
+                        <FlexboxGrid.Item colspan={6} style={{
+                            ...styleCenter,
+                            flexDirection: 'column',
+                            alignItems: 'flex-start',
+                            overflow: 'hidden'
+                        }}>
+                            <div style={titleStyle}>{item['title']}</div>
+                            <div>
+                                <div><Icon icon='user-circle-o' />{' ' + item['email']}</div>
+                            </div>
+                        </FlexboxGrid.Item>
+                        {/*peak data*/}
+                        <FlexboxGrid.Item colspan={6} style={styleCenter}>
+                            <div style={{ textAlign: 'right' }}>
+                                <div style={dataStyle}>{item['name']}</div>
+                            </div>
+                        </FlexboxGrid.Item>
+                        {/*uv data*/}
+                        <FlexboxGrid.Item colspan={6} style={styleCenter}>
+                            <div style={{ textAlign: 'right' }}>
+                                <div style={dataStyle}>{item['website']}</div>
+                            </div>
+                        </FlexboxGrid.Item>
+                        {/*uv data*/}
+                        <FlexboxGrid.Item colspan={4} style={{
+                            ...styleCenter
+                        }}>
+                            <InverseButton onClick={()=>editHandler(item)}>Edit</InverseButton>
+                            <span style={{ padding: 5 }}>|</span>
+                            <InverseButton onClick={()=>deleteHandler(item)}>Delete</InverseButton>
+                        </FlexboxGrid.Item>
+                    </FlexboxGrid>
+                </List.Item>
+            )}
+        </List>
+    ;
+
 }

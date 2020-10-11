@@ -37,3 +37,18 @@ body {
 .rs-nav-subtle.rs-nav-horizontal .rs-nav-item>.rs-nav-item-content:before {
     background-color: #b45860;
 }
+
+.rs-picker-default:not(.rs-picker-disabled) .rs-btn.active, .rs-picker-default:not(.rs-picker-disabled) .rs-btn:hover, .rs-picker-default:not(.rs-picker-disabled) .rs-picker-toggle.active, .rs-picker-default:not(.rs-picker-disabled) .rs-picker-toggle:hover {
+    border-color: #b45860;
+    -webkit-border-radius: 0;
+    -moz-border-radius: 0;
+    border-radius: 0;
+}
+
+.rs-picker-has-value .rs-btn .rs-picker-toggle-value, .rs-picker-has-value .rs-picker-toggle .rs-picker-toggle-value {
+    color: #b45860;
+}
+
+.rs-input:focus, .rs-input:hover{
+    border-color: #b45860;
+}

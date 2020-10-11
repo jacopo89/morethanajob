@@ -45,11 +45,7 @@ export const dataCountry = [
     {
         "label": "Greece",
         "value": "greece",
-    },
-    {
-        "label": "International",
-        "value": "international",
-    },
+    }
 ];
 
 

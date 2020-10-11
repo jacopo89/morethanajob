@@ -2,7 +2,7 @@ import React, {useRef, useState} from "react";
 import {useSelector} from "react-redux";
 import {useCreateNewProject} from "../../Backend/hooks/useProjects";
 import TextField from "../../Login/Components/TextField";
-import {Col, Form, Grid, Row, SelectPicker} from "rsuite";
+import {Col, Divider, Form, Grid, Row, SelectPicker} from "rsuite";
 import {dataLanguage} from "../../selectData";
 import {
     bordeaux,
@@ -42,6 +42,23 @@ export default function NewProject({isPortfolio=false}){
 
 
     }
+
+    const partialSave = () =>{
+        const formData = new FormData();
+        formData.append('projectCover', formValue.projectCoverImage);
+        formData.append('projectLogo', formValue.projectLogoImage);
+        formData.append('email', user.email);
+        formData.append('isPortfolio', isPortfolio.toString());
+
+        if(formRef.current.check()){
+            Object.keys(formValue).forEach((key)=>  { formData.append(key,JSON.stringify(formValue[key]));});
+            createNewProjectHandler(formData, {successCallback: (data)=> history.push(Routes.editProject(data)) });
+        }
+
+
+    }
+
+
 
     const [pathUrl, setPathUrl] = useState(coverPicture);
     const [projectLogoUrl, setProjectLogoUrl] = useState(projectPicture);
@@ -97,7 +114,7 @@ export default function NewProject({isPortfolio=false}){
             </div>
 
             <InfoBox >
-                <h4 style={{color:bordeaux}}>Info </h4>
+                <TitleBox>Info </TitleBox>
                 <div style={{margin:5}}>
                     <Form ref={formRef} fluid formValue={formValue} model={projectModel} onChange={setFormValue} onSubmit={onSubmitHandler}>
                         <TextField label={t('Title')} name="title" type="text" />
@@ -131,11 +148,18 @@ export default function NewProject({isPortfolio=false}){
                                     }} keyField="projectImage" onChange={handleProjectLogoChange}/>
                                 </Col>
                             </Row>
+                           {/* <Row>
+                                <Col xs={12}></Col>
+                                <Col xs={12}>
+                                        <SaveButton onClick={partialSave}>{t('Save')}</SaveButton>
+                                </Col>
+                            </Row>*/}
                         </Grid>
 
+                        <Divider />
                         {isPortfolio &&
                             <>
-                                <h5 style={{color:bordeaux}}>Partner </h5>
+                                <TitleBox>Partner </TitleBox>
                                 <PartnersList formValue={formValue} setFormValue={setFormValue} />
                             </>}
 
@@ -156,3 +180,13 @@ export default function NewProject({isPortfolio=false}){
 const InfoBox =  styled.div`
 padding: 10px;`
 ;
+
+const TitleBox = styled.h4`
+display: flex;
+align-items:center;
+padding-left: 20px;
+color: white;
+background-color: ${bordeaux};
+height:100px;
+margin: 10px 0 10px 0;
+`;

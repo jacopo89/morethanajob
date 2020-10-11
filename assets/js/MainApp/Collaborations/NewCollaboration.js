@@ -12,6 +12,7 @@ import {useTranslation} from "react-i18next";
 import PositionList from "../Position/PositionList";
 import {collaborationModel} from "../FormModels/models";
 import {categoriesTreeByLanguage} from "../../Functions/Categories";
+import styled from "styled-components";
 
 export default function NewCollaboration({isService=false}){
     const [formValue, setFormValue] = useState({positions: []});
@@ -64,7 +65,7 @@ export default function NewCollaboration({isService=false}){
                 {formValue.title}
             </CollaborationBox>
             <FormBox >
-                <h5 style={{color:bordeaux}}>Info </h5>
+                <TitleBox>Info </TitleBox>
                 <Form ref={formRef} model={collaborationModel} fluid formValue={formValue} onChange={setFormValue} onSubmit={onSubmitHandler}>
                     <TextField label={titleLabel} name="title" type="text" />
                     <TextField label={titleLocalLabel} name="localTitle" type="text" />
@@ -111,3 +112,12 @@ export default function NewCollaboration({isService=false}){
 
 
 }
+const TitleBox = styled.h4`
+display: flex;
+align-items:center;
+padding-left: 20px;
+color: ${bordeaux};
+background-color: whitesmoke;
+height:100px;
+margin: 10px 0 10px 0;
+`;

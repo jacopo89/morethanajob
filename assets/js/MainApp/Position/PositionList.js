@@ -5,6 +5,7 @@ import {List} from "rsuite";
 import {PositionDescription} from "./PositionDescription";
 import PositionForm from "./PositionForm";
 import {expertisesTreeByLanguage} from "../../Functions/Expertises";
+import styled from "styled-components";
 
 export default function PositionList({formValue, setFormValue, callback, isEdit=false}){
 
@@ -122,9 +123,9 @@ export default function PositionList({formValue, setFormValue, callback, isEdit=
 
     const list = <>
         <div style={{display:"flex", justifyContent:"space-between"}}>
-            <h5 style={{color:bordeaux}}>{('Positions')} </h5>
-            <InverseButton onClick={createHandler}>{('Create position')}</InverseButton>
+            <TitleBox style={{color:bordeaux}}>{('Positions')} </TitleBox>
         </div>
+        <InverseButton onClick={createHandler}>{('Create position')}</InverseButton>
         <List>
             {formValue.positions.map((position, index) => (
                 <PositionDescription key={index} isEdit={isEdit} position={position} services={services} remover={remove} updater={update} setEdit={editHandler} callback={callback} />
@@ -135,3 +136,14 @@ export default function PositionList({formValue, setFormValue, callback, isEdit=
 
     return (create) ? createForm : list;
 }
+
+
+const TitleBox = styled.h4`
+display: flex;
+align-items:center;
+padding-left: 20px;
+color: ${bordeaux};
+background-color: whitesmoke;
+height:100px;
+margin: 10px 0 10px 0;
+`;
