@@ -11,7 +11,7 @@ export default function MainPage({page}){
         <DesktopDiv>
             <div style={{backgroundImage: `url('/defaults/background.jpg')`, minHeight:"100vh"}}>
                 <FinalHeader />
-                <div style={{paddingTop:100, maxWidth: 1081, margin:"0 auto", width: "100%"}}>
+                <div style={{paddingTop:125, maxWidth: 1081, margin:"0 auto", width: "100%"}}>
                     <Body>
                         {page}
                     </Body>

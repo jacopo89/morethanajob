@@ -53,9 +53,9 @@ export default function FinalHeader(){
 
 
 
-    return <Navbar appearance="subtle" style={{position:"fixed", zIndex:100, width:"100%", height:100}}>
+    return <Navbar appearance="subtle" style={{position:"fixed", zIndex:100, width:"100%", height:125}}>
         <Navbar.Header onClick={()=>history.push(Routes.dashboardPage)}>
-            <img style={{cursor:"pointer"}} height={100} src="/defaults/en_morethanajob.png" className="navbar-brand logo">
+            <img style={{cursor:"pointer"}} height={125} src="/defaults/en_morethanajob.png" className="navbar-brand logo">
             </img>
         </Navbar.Header>
         <Navbar.Body>
