@@ -224,7 +224,7 @@ class ProfileController extends AbstractController
         $name = json_decode($request->get('name'),true);
         $country = json_decode($request->get('country'),true);
         $description = json_decode($request->get('description'),true);
-        $localDescription = json_decode($request->get('localDescription'),true);
+        $localDescription = json_decode($request->get('localLanguageDescription'),true);
         $website = json_decode($request->get('website'),true);
         $address = json_decode($request->get('address'),true);
         $telephone = json_decode($request->get('telephone'),true);
