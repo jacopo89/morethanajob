@@ -1,5 +1,5 @@
 import React, {useEffect, useState} from "react";
-import {Col, Grid, Icon, Nav, Navbar, Panel, Row} from "rsuite";
+import {Col, Grid, Icon, List, Nav, Navbar, Panel, Row} from "rsuite";
 import {Link, useHistory} from "react-router-dom";
 import * as Routes from '../routes'
 import {Body, bordeaux, MainButton, noProfilePicture, noProjectPicture} from "../styledComponents/CustomComponents";
@@ -53,8 +53,6 @@ export default function Dashboard(){
     } );
 
     const collaborationBlocks = collaborations.map((collaboration, index)=><CollaborationDetail key={index} collaboration={collaboration} />)
-
-    const recentNewsPanels = recentNews.map((news, index)=><NewsPanel key={index} news={news}> </NewsPanel>);
 
 
     return <>
@@ -181,7 +179,9 @@ export default function Dashboard(){
             <Panel shaded style={panelStyle}>
                 <Title>News</Title>
                 <Anchor id="News"/>
-                {recentNewsPanels}
+                <List size='lg'>
+                    {recentNews.map((news, index)=><List.Item><NewsPanel key={index} news={news}> </NewsPanel></List.Item>)}
+                </List>
             </Panel>
 
            {/* <Panel shaded style={panelStyle}>

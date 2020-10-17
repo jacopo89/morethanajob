@@ -54,7 +54,7 @@ class Collaboration
     private $mainBeneficiaries;
 
     /**
-     * @ORM\Column(type="text", nullable=true)
+     * @ORM\Column(type="string", length=255, nullable=true)
      */
     private $rates;
 
@@ -120,6 +120,21 @@ class Collaboration
      * @ORM\Column(type="text", nullable=true)
      */
     private $localLanguageShortDescription;
+
+    /**
+     * @ORM\Column(type="string", length=255, nullable=true)
+     */
+    private $rateType;
+
+    /**
+     * @ORM\Column(type="string", length=255, nullable=true)
+     */
+    private $currency;
+
+    /**
+     * @ORM\Column(type="text", nullable=true)
+     */
+    private $ratesText;
 
 
     public function __construct()
@@ -394,6 +409,42 @@ class Collaboration
     public function setLocalLanguageShortDescription(?string $localLanguageShortDescription): self
     {
         $this->localLanguageShortDescription = $localLanguageShortDescription;
+
+        return $this;
+    }
+
+    public function getRateType(): ?string
+    {
+        return $this->rateType;
+    }
+
+    public function setRateType(?string $rateType): self
+    {
+        $this->rateType = $rateType;
+
+        return $this;
+    }
+
+    public function getCurrency(): ?string
+    {
+        return $this->currency;
+    }
+
+    public function setCurrency(?string $currency): self
+    {
+        $this->currency = $currency;
+
+        return $this;
+    }
+
+    public function getRatesText(): ?string
+    {
+        return $this->ratesText;
+    }
+
+    public function setRatesText(?string $ratesText): self
+    {
+        $this->ratesText = $ratesText;
 
         return $this;
     }

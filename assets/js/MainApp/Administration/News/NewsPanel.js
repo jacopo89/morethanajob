@@ -1,5 +1,7 @@
 import React from "react";
 import {manipulateWebsite} from "../../Profile/Profile";
+import {bordeaux} from "../../../styledComponents/CustomComponents";
+import styled from "styled-components";
 
 export default function NewsPanel({news}){
 
@@ -8,7 +10,7 @@ export default function NewsPanel({news}){
     </div> )
 
     return <div>
-        <h3>{news.title}</h3>
+        <Title>{news.title}</Title>
         <div>
             {news.text}
         </div>
@@ -20,3 +22,6 @@ export default function NewsPanel({news}){
 }
 
 
+const Title = styled.h3`
+color: ${bordeaux};
+`

@@ -1,7 +1,7 @@
-import React, {useEffect, useState} from "react";
+import React, {useEffect, useRef, useState} from "react";
 import {useHistory, useParams} from "react-router-dom";
-import {HelpBlock, Button, Col, Form, Grid, Icon, Modal, Panel, Row} from "rsuite";
-import {bordeaux, CollaborationBox, InverseButton, MainButton} from "../../styledComponents/CustomComponents";
+import {Button, Col, Form, Grid, HelpBlock, Icon, Modal, Panel, Row} from "rsuite";
+import {bordeaux, CollaborationBox, MainButton} from "../../styledComponents/CustomComponents";
 import {useGetCollaboration, useSendMessage} from "../../Backend/hooks/useCollaborations";
 import {getCalendarFormat} from "../../ReusableComponents/TimeManager";
 import {useSelector} from "react-redux";
@@ -12,6 +12,8 @@ import styled from "styled-components";
 import TextField from "../../Login/Components/TextField";
 import {useTranslation} from "react-i18next";
 import {getCollaborationsLanguageElements} from "../../Functions/Collaborations";
+import {digestAmounts} from "../../selectData";
+import {messageAnonymousModel} from "../FormModels/models";
 
 export default function Collaboration(){
     const {id} = useParams();
@@ -59,19 +61,21 @@ export default function Collaboration(){
                         </Col>
                 </Row>
                 {isCollaborationClosed && <>
-                <Row className="show-grid" style={{padding: 5}}>
-                    <Col xs={24}>
-                        <IconWithText icon="calendar-o" label={t('Main beneficiaries')}
-                                      value={collaboration && collaboration.mainBeneficiaries}/>
-                    </Col>
-
-                </Row>
                     <Row className="show-grid" style={{padding: 5}}>
-                    <Col xs={24}>
-                    <IconWithText icon="calendar-o" label={t('Payment mode')} value={collaboration && collaboration.rates}/>
-                    </Col>
+                        <Col xs={24}>
+                            <IconWithText icon="calendar-o" label={t('Main beneficiaries')}
+                                          value={collaboration && collaboration.mainBeneficiaries}/>
+                        </Col>
 
-                </Row>
+                    </Row>
+                    <Row className="show-grid" style={{padding: 5}}>
+                        <Col xs={12}>
+                            <IconWithText icon="calendar-o" label={t('Rate type')} value={collaboration && collaboration.rateType}/>
+                        </Col>
+                        <Col xs={12}>
+                            <IconWithText icon="calendar-o" label={t('Payment mode')} value={collaboration && digestAmounts(collaboration.rates, collaboration.currency)}/>
+                        </Col>
+                    </Row>
                 </>
                 }
                 <Row className="show-grid" style={{padding:5}}>
@@ -283,18 +287,21 @@ export function ServiceFormBox({collaboration}) {
     const { t, i18n } = useTranslation();
 
     const receiver = (collaboration.contacts) ? collaboration.contacts : collaboration.user.email;
-
+    const formRef = useRef();
     const onSubmit = () =>{
         const formData = new FormData();
-        formData.append('emailSender',user.email);
-        formData.append('userSender', JSON.stringify(user));
-        formData.append('emailReceiver',receiver);
-        formData.append('message', formValue.message);
-        sendMessageHandler(formData);
-    }
 
+        if(formRef.current.check()){
 
+            const profileName = formValue.firstname + " " + formValue.lastname;
+            formData.append('emailSender',formValue.email);
+            formData.append('userSender', JSON.stringify({profileName:profileName}));
+            formData.append('emailReceiver',receiver);
+            formData.append('message', formValue.message);
+            sendMessageHandler(formData);
+        }
 
+    };
 
     return(
         (!messageResponse) ?
@@ -302,7 +309,22 @@ export function ServiceFormBox({collaboration}) {
             {(!apply) ?
                 <MainButton style={{width:200}}  onClick={()=>setApply(true)}>{t('Apply')}</MainButton>
                 :
-                <Form fluid style={{width:"100%", padding:40}} formValue={formValue} onChange={setFormValue} onSubmit={onSubmit}>
+                <Form ref={formRef} model={messageAnonymousModel} fluid style={{width:"100%", padding:40}} formValue={formValue} onChange={setFormValue} onSubmit={onSubmit}>
+                       <Grid fluid>
+                           <Row>
+                               <Col xs={12}>
+                                   <TextField style={{width:"100%"}} name="firstname" label={t('Firstname')}  />
+                               </Col>
+                               <Col xs={12}>
+                                   <TextField style={{width:"100%"}} name="lastname" label={t('Lastname')}  />
+                               </Col>
+                           </Row>
+                           <Row>
+                               <Col xs={24}>
+                                   <TextField style={{width:"100%"}} name="email" label={t('Email')}  />
+                               </Col>
+                           </Row>
+                        </Grid>
                     <TextField style={{width:"100%"}} name="message" label={t('Message')} componentClass="textarea" />
                     <MainButton style={{width:100}} type="submit">{t('Send')}</MainButton>
                 </Form>}

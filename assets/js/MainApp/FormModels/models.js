@@ -23,6 +23,18 @@ export const collaborationModel = Schema.Model({
 });
 
 
+export const messageLoggedModel = Schema.Model({
+    message:StringType().isRequired()
+})
+
+export const messageAnonymousModel = Schema.Model({
+    message:StringType().isRequired(),
+    firstname:StringType().isRequired(),
+    lastname:StringType().isRequired(),
+    email:StringType().isEmail().isRequired()
+})
+
+
 export const furnitureModel = {};
 
 
@@ -39,3 +51,5 @@ export const projectEmptyModel = {
     projectPartnersRelations:[],
     collaborations:[]
 }
+
+

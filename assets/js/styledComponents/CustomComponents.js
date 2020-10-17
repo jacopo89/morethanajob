@@ -57,9 +57,7 @@ export const InverseButton = styled(Button)`
     `;
 
 export const SaveButton = styled(MainButton)`
-    float:right;
-    margin-top:20px;
-    margin-bottom:10px;
+    border: 1px solid ${bordeaux}!important;
 `
 
 export const IconButtonTransparent = styled(IconButton)`

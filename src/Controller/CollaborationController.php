@@ -128,6 +128,9 @@ class CollaborationController extends AbstractController
             $startDate = json_decode($request->get('startDate'));
             $endDate = json_decode($request->get('endDate'));
             $rates = json_decode($request->get('rates'));
+            $rateType = json_decode($request->get('rateType'));
+            $currency = json_decode($request->get('currency'));
+            $ratesText = json_decode($request->get('rateText'));
             $modality = json_decode($request->get('modality'));
             $mainBeneficiaries = json_decode($request->get('mainBeneficiaries'));
             $country = json_decode($request->get('country'));
@@ -157,6 +160,9 @@ class CollaborationController extends AbstractController
             $collaboration->setMainBeneficiaries($mainBeneficiaries);
             $collaboration->setModality($modality);
             $collaboration->setRates($rates);
+            $collaboration->setRateType($rateType);
+            $collaboration->setRatesText($ratesText);
+            $collaboration->setCurrency($currency);
             $collaboration->setLocalLanguageTitle($localLanguageTitle);
             $collaboration->setLocalLanguageDescription($localLanguageDescription);
             $collaboration->setLocalLanguage($localLanguage);
@@ -215,7 +221,6 @@ class CollaborationController extends AbstractController
      * @return Response
      */
     public function editCollaboration(Request $request){
-        $services = new ArrayCollection($this->em->getRepository(Service::class)->findAll());
         $id = $request->get('id');
         $collaboration = $this->em->getRepository(Collaboration::class)->find($id);
         if($collaboration) {
@@ -227,6 +232,9 @@ class CollaborationController extends AbstractController
             $categoryId = $request->get('category');
             $projectId = $request->get('project');
             $rates = json_decode($request->get('rates'));
+            $rateType = json_decode($request->get('rateType'));
+            $currency = json_decode($request->get('currency'));
+            $ratesText = json_decode($request->get('ratesText'));
             $modality = json_decode($request->get('modality'));
             $mainBeneficiaries = json_decode($request->get('mainBeneficiaries'));
             $contacts = json_decode($request->get('contacts'));
@@ -244,6 +252,9 @@ class CollaborationController extends AbstractController
             $collaboration->setLocalLanguageTitle($localLanguageTitle);
             $collaboration->setLocalLanguageDescription($localLanguageDescription);
             $collaboration->setLocalLanguageShortDescription($localLanguageShortDescription);
+            $collaboration->setRateType($rateType);
+            $collaboration->setRatesText($ratesText);
+            $collaboration->setCurrency($currency);
 
             if($categoryId) {
                 $category = $this->em->getRepository(Category::class)->find($categoryId);

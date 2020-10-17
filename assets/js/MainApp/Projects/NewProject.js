@@ -3,7 +3,7 @@ import {useSelector} from "react-redux";
 import {useCreateNewProject} from "../../Backend/hooks/useProjects";
 import TextField from "../../Login/Components/TextField";
 import {Col, Divider, Form, Grid, Row, SelectPicker} from "rsuite";
-import {dataLanguage} from "../../selectData";
+import {dataLanguage, getLanguageFromValue} from "../../selectData";
 import {
     bordeaux,
     coverPicture,
@@ -125,11 +125,11 @@ export default function NewProject({isPortfolio=false}){
                     <Form ref={formRef} fluid formValue={formValue} model={projectModel} onChange={setFormValue} onSubmit={onSubmitHandler}>
                         <TextField label={t('Title')} name="title" type="text" />
                         <TextField disabled style={{width:"100%"}} label={t('Language')} name="language" accepter={SelectPicker} data={dataLanguage()} />
-                        <TextField label={t('Local Title')} name="localTitle" type="text" />
+                        <TextField label={t('Local Title') + " (" + getLanguageFromValue(formValue.language) +")"} name="localTitle" type="text" />
                         <TextField label={t('Short Description')} name="shortDescription" componentClass="textarea" />
-                        <TextField label={t('Local Short Description')} name="LocalShortDescription" componentClass="textarea" />
+                        <TextField label={t('Local Short Description') + " (" + getLanguageFromValue(formValue.language) +")"} name="LocalShortDescription" componentClass="textarea" />
                         <TextField label={t('Description')} name="longDescription" componentClass="textarea" />
-                        <TextField label={t('Local Description')} name="localLongDescription" componentClass="textarea" />
+                        <TextField label={t('Local Description')  + " (" + getLanguageFromValue(formValue.language) +")"} name="localLongDescription" componentClass="textarea" />
 
                         <Grid fluid>
                             <Row>

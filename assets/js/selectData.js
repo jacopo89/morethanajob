@@ -25,6 +25,11 @@ export function dataLanguage(){
     }]
 };
 
+export function getLanguageFromValue(value){
+    const languages = dataLanguage();
+    return languages.find((language)=> language.value===value)["label"];
+}
+
 export const dataCountry = [
     {
         "label": "Palestine",
@@ -85,3 +90,41 @@ export const PaginationLimit = [
 ];
 
 
+
+export const rateData = [
+    {
+        "label": "Free",
+        "value": "free",
+    },
+    {
+        "label": "Paid",
+        "value": "paid",
+    }
+    ]
+
+
+export const currencies = [
+    {
+        "label": "Euro (€)",
+        "value": "EUR",
+        "symbol": "€"
+    },
+    {
+        "label": "Dollar ($)",
+        "value": "USD",
+        "symbol": "$"
+    },
+    {
+        "label": "Jordanian Dinar (د.ا)",
+        "value": "JOD",
+        "symbol": "د.ا"
+    }
+]
+
+export function digestAmounts(amount, currency){
+    
+    const currencySymbol = currencies.find((cur)=> cur.value === currency);
+
+    return amount + " " + currencySymbol.symbol;
+
+}

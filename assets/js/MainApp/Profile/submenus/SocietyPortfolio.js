@@ -22,7 +22,7 @@ export default function SocietyPortfolio({society}) {
     const {projectsNumber} = society;
     const [pagination, setPagination] = useState(1);
     const [limitPerPage, setLimitPerPage] = useState(5);
-    const pages = Math.round(projectsNumber/limitPerPage);
+    const pages = Math.ceil(projectsNumber/limitPerPage);
 
     const [userProjects, getAllUserProjects] = useGetAllUserProjects();
     const [userPaginatedProjects, getUserPaginatedProjectsHandler] = useGetPaginatedProjects();
@@ -63,7 +63,7 @@ export default function SocietyPortfolio({society}) {
    return  <>
        <FlexBetweenDiv>
            <Pagination pages={pages} {...paginationSettings} onSelect={onPaginationSelect} />
-           <Form><TextField accepter={SelectPicker} data={PaginationLimit} onChange={setLimitPerPage} searchable={false} /></Form>
+           <Form><TextField accepter={SelectPicker} data={PaginationLimit} value={limitPerPage} onChange={setLimitPerPage} searchable={false} cleanable={false} /></Form>
        </FlexBetweenDiv>
         <PanelGroup>{panelShow}</PanelGroup>
         <NewProjectModal show={show} onHide={closeModal} successCallback={successCallback} isPortfolio={true} />

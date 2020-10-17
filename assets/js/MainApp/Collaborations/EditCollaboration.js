@@ -17,9 +17,21 @@ import {
     MainButton, SaveButton,
     SecondaryButton
 } from "../../styledComponents/CustomComponents";
-import Modal, {Button, DatePicker, Form, HelpBlock, Schema, SelectPicker, TreePicker} from "rsuite";
+import Modal, {
+    Button, ButtonGroup,
+    Col,
+    DatePicker,
+    Divider,
+    Form,
+    Grid,
+    HelpBlock,
+    Row,
+    Schema,
+    SelectPicker,
+    TreePicker
+} from "rsuite";
 import TextField from "../../Login/Components/TextField";
-import {dataCountry, dataLanguage} from "../../selectData";
+import {currencies, dataCountry, dataLanguage, rateData} from "../../selectData";
 import styled from "styled-components";
 import {useHistory, useParams} from "react-router-dom";
 import {getCalendarDate} from "../../ReusableComponents/TimeManager";
@@ -117,41 +129,104 @@ export default function EditCollaboration({isService}) {
                 {formValue.title}
             </CollaborationBox>
             <FormBox >
-                <h5 style={{color:bordeaux}}>Info </h5>
+                <TitleBox>Info </TitleBox>
                 <Form ref={formRef} model={collaborationModel} fluid formValue={formValue} onChange={setFormValue} onSubmit={onSubmitHandler}>
-                    <TextField label={t('Title')} name="title" type="text" />
-                    <TextField label={t('Local Title')} name="localLanguageTitle" type="text" />
-                    <TextField label={t('Short Description')} name="shortDescription" componentClass="textarea" />
-                    <TextField label={t('Local Language Short description')} name="localLanguageShortDescription" componentClass="textarea" />
-                    <TextField label={t('Description')} name="description" componentClass="textarea" />
-                    <TextField label={t('Local Language Detailed description')} name="localLanguageDescription" componentClass="textarea" />
-                    <div style={{display:"flex", justifyContent:"space-around"}}>
-                        <TextField style={{width:"100%"}} label={t('Start date')} name="startDate" format="DD-MM-YYYY" accepter={DatePicker} />
-                        <TextField style={{width:"100%"}}  label={t('End date')} name="endDate" accepter={DatePicker} format="DD-MM-YYYY" placement="topEnd" /> </div>
+                    <Grid fluid>
+                        <Row>
+                            <Col xs={24}>
+                                <TextField label={t('Title')} name="title" type="text" />
+                            </Col>
+                        </Row>
+                        <Row>
+                            <Col xs={24}>
+                                <TextField style={{width:"100%"}} disabled label={t('Language')} name="language" accepter={SelectPicker} data={dataLanguage()} />
+                            </Col>
+                        </Row>
+                        <Row>
+                            <Col xs={24}>
+                                <TextField label={t('Local Title')} name="localLanguageTitle" type="text" />
+                            </Col>
+                        </Row>
+                        <Row>
+                            <Col xs={24}>
+                                <TextField label={t('Short Description')} name="shortDescription" componentClass="textarea" />
+                            </Col>
+                        </Row>
+                        <Row>
+                            <Col xs={24}>
+                                <TextField label={t('Local Language Short description')} name="localLanguageShortDescription" componentClass="textarea" />
+                            </Col>
+                        </Row>
+                        <Row>
+                            <Col xs={24}>
+                                <TextField label={t('Local Language Detailed description')} name="localLanguageDescription" componentClass="textarea" />
+                            </Col>
+                        </Row>
+                        <Row>
+                            <Col xs={12}>
+                                <TextField style={{width:"100%"}} label={t('Start date')} name="startDate" format="DD-MM-YYYY" accepter={DatePicker} />
+                            </Col>
+                            <Col xs={12}>
+                                <TextField style={{width:"100%"}}  label={t('End date')} name="endDate" accepter={DatePicker} format="DD-MM-YYYY" placement="topEnd" />
+                            </Col>
+                        </Row>
+                        <Row>
+                            <Col xs={12}>
+                                <TextField style={{width:"100%"}} label={t('Project')} name="project" accepter={SelectPicker} data={projects} />
+                            </Col>
+                            <Col xs={12}>
+                                <TextField style={{width:"100%"}} label={t('Category')} name="category" accepter={TreePicker} data={categoriesTree} />
+                            </Col>
+                        </Row>
+                        <Divider />
+                        {isService &&
+                        <>
+                            <Row>
+                                <TitleBox>{t('Rates')}</TitleBox>
+                                <Col xs={8}>
+                                    <TextField style={{width:"100%"}} label={t('Paid or free')} name="rateType" accepter={SelectPicker} data={rateData} searchable={false}  />
+                                </Col>
+                                <Col xs={8}>
+                                    {formValue.rateType && formValue.rateType==="paid" && <TextField style={{width:"100%"}} label={t('Currency')} name="currency" accepter={SelectPicker} data={currencies} searchable={false}  />}
+                                </Col>
+                                <Col xs={8}>
+                                    {formValue.rateType && formValue.rateType==="paid" && <TextField label={t('Rate value')} name="rates" />}
+                                </Col>
+                            </Row>
+                            <Row>
+                                <Col xs={24}>
+                                    <TextField label={t('Rates')} name="ratesText" componentClass="textarea" />
+                                </Col>
+                            </Row>
+                            <Row>
+                                <Col xs={24}>
+                                    <TextField label={t('Main beneficiaries')} name="mainBeneficiaries" componentClass="textarea" />
+                                </Col>
+                            </Row>
+                            <Row>
+                                <Col xs={24}>
+                                    <TextField label={t('Contacts')} name="contacts"  />
+                                </Col>
+                            </Row>
+                        </>
+                        }
 
-                    <div style={{display:"flex", justifyContent:"space-around"}}>
-                        <TextField style={{width:"100%"}} label={t('Project')} name="project" accepter={SelectPicker} data={projects} />
-                        <TextField style={{width:"100%"}} label={t('Category')} name="category" accepter={TreePicker} data={categoriesTree} />
-                    </div>
-
-                    {isService && <>
-                        <TextField label={t('Rates')} name="rates" componentClass="textarea" />
-                        <TextField label={t('Main beneficiaries')} name="mainBeneficiaries" componentClass="textarea" />
-                    </> }
-
-                    {isService && <>
-                        <TextField label={t('Contacts')} name="contacts"  />
-                    </> }
-
-                    <div style={{display:"flex", justifyContent:"space-around"}}>
-                        <TextField style={{width:"100%"}} disabled label={t('Language')} name="language" accepter={SelectPicker} data={dataLanguage()} />
-                    </div>
+                    </Grid>
 
                     {!isService && <PositionList isEdit={true} formValue={formValue} setFormValue={setFormValue} callback={getCollaborationFunction} />}
 
+                    <Grid fluid style={{marginTop:20}}>
+                        <Row>
+                            <Col xs={24}>
+                                <ButtonGroup>
+                                    <DeleteButton onClickHandler={() => deleteHandler(formValue.id)}/> <SaveButton type="submit">{t('Save')}</SaveButton>
+                                </ButtonGroup>
+                            </Col>
+                        </Row>
+                    </Grid>
 
-                    <SaveButton type="submit">{t('Save')}</SaveButton>
-                    <DeleteButton onClickHandler={() => deleteHandler(formValue.id)}/>
+
+
 
                 </Form>
 
@@ -161,3 +236,12 @@ export default function EditCollaboration({isService}) {
 
 
 }
+const TitleBox = styled.h4`
+display: flex;
+align-items:center;
+padding-left: 20px;
+color: ${bordeaux};
+background-color: whitesmoke;
+height:100px;
+margin: 10px 0 10px 0;
+`;

@@ -26,7 +26,7 @@ export default function SocietyFornitures({society}){
     const {expertiseNumber} = society;
     const [pagination, setPagination] = useState(1);
     const [limitPerPage, setLimitPerPage] = useState(5);
-    const pages = Math.round(expertiseNumber/limitPerPage);
+    const pages = Math.ceil(expertiseNumber/limitPerPage);
     const onPaginationSelect = (item) => setPagination(item);
 
 
