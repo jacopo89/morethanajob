@@ -7,7 +7,7 @@ use Doctrine\Common\Collections\Collection;
 use Doctrine\ORM\Mapping as ORM;
 
 /**
- * @ORM\Entity
+ * @ORM\Entity(repositoryClass="App\Repository\ProjectRepository")
  */
 class Project
 {
@@ -60,12 +60,12 @@ class Project
     private $projectLogo;
 
     /**
-     * @ORM\Column(type="text", nullable=true)
+     * @ORM\Column(type="array", nullable=true)
      */
     private $links;
 
     /**
-     * @ORM\Column(type="text", nullable=true)
+     * @ORM\Column(type="array", nullable=true)
      */
     private $contacts;
 
@@ -104,6 +104,11 @@ class Project
      * @ORM\Column(type="string", length=255)
      */
     private $language;
+
+    /**
+     * @var User
+     */
+    private $leader;
     
 
     public function __construct()
@@ -236,29 +241,41 @@ class Project
         return $this;
     }
 
+    /**
+     * @return mixed
+     */
     public function getLinks()
     {
         return $this->links;
     }
 
-    public function setLinks($links): self
+    /**
+     * @param mixed $links
+     */
+    public function setLinks($links): void
     {
         $this->links = $links;
-
-        return $this;
     }
 
+    /**
+     * @return mixed
+     */
     public function getContacts()
     {
         return $this->contacts;
     }
 
-    public function setContacts( $contacts): self
+    /**
+     * @param mixed $contacts
+     */
+    public function setContacts($contacts): void
     {
         $this->contacts = $contacts;
-
-        return $this;
     }
+
+
+
+
 
     /**
      * @return Collection|ExternalPartner[]
@@ -378,6 +395,22 @@ class Project
 
         return $this;
     }
+
+    /**
+     * @return mixed
+     */
+    public function getLeader()
+    {
+        return $this->projectPartnersRelations->filter(function(ProjectPartner $projectPartner){
+            return $projectPartner->getIsLeader() === true;
+        })->map(function (ProjectPartner $projectPartner){
+            return $projectPartner->getPartner();
+        })->first();
+    }
+
+
+
+
 
 
 }

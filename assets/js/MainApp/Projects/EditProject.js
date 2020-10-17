@@ -8,7 +8,7 @@ import {
     useUploadProjectLogo
 } from "../../Backend/hooks/useProjects";
 import TextField from "../../Login/Components/TextField";
-import {Form, SelectPicker} from "rsuite";
+import {Col, Form, Grid, Row, SelectPicker} from "rsuite";
 import {dataLanguage} from "../../selectData";
 import {coverPicture, coverStyle, InverseButton, SaveButton} from "../../styledComponents/CustomComponents";
 import styled from "styled-components";
@@ -19,9 +19,10 @@ import {useTranslation} from "react-i18next";
 import PartnersList from "./Partners/PartnersList";
 import {projectModel} from "../FormModels/models";
 import DeleteButton from "../../ReusableComponents/DeleteButton";
+import DynamicList from "../../ReusableComponents/DynamicList";
 
 export default function EditProject({isPortfolio=false}){
-    const [formValue, setFormValue] = useState({positions: [], partners:[]});
+    const [formValue, setFormValue] = useState({positions: [], partners:[], links:[], contacts:[]});
 
     const {id} = useParams();
     const { t, i18n } = useTranslation();
@@ -92,11 +93,13 @@ export default function EditProject({isPortfolio=false}){
     const backgrounCoverdImage = (project && project.projectPicture) ? project.projectPicture.url  : coverPicture;
 
 
-    const listElements = (formValue) => {return (isPortfolio)  ? <PartnersList formValue={formValue} setFormValue={setFormValue} /> : <ListOrCreate formValue={formValue} setFormValue={setFormValue} /> };
+    //const listElements = (formValue) => {return (isPortfolio)  ? <PartnersList formValue={formValue} setFormValue={setFormValue} /> : <ListOrCreate formValue={formValue} setFormValue={setFormValue} /> };
 
     const uploadCoverButton = <InverseButton style={{position: "absolute", top:5, left:5}}>{t('Upload Cover Button')}</InverseButton>;
     const uploadLogoButton = <InverseButton>{t('Upload Logo Button')}</InverseButton>;
 
+    const linksListChanger = (list) => setFormValue({...formValue, links: list});
+    const contactListChanger = (list) => setFormValue({...formValue, contacts: list});
 
     return (
         <>
@@ -105,7 +108,6 @@ export default function EditProject({isPortfolio=false}){
                     unit: 'px', // default, can be 'px' or '%'
                     x: 0,
                     y: 0,
-                    height: 250,
                     aspect:3.592
                 }} keyField="projectImage" onChange={handleFileChange}/>
             </div>
@@ -118,9 +120,17 @@ export default function EditProject({isPortfolio=false}){
                     <TextField label={t('Local Short Description')} name="localShortDescription" componentClass="textarea" />
                     <TextField label={t('Description')} name="longDescription" componentClass="textarea" />
                     <TextField label={t('Local Description')} name="localLongDescription" componentClass="textarea" />
-                    <TextField label={t('Links')} name="links" componentClass="textarea" />
-                    <TextField label={t('Contacts')} name="contacts" componentClass="textarea" />
 
+                    <Grid fluid>
+                        <Row>
+                            <Col xs={12}>
+                                <DynamicList name="link" updater={linksListChanger} startingValue={formValue.links}> </DynamicList>
+                            </Col>
+                            <Col xs={12}>
+                                <DynamicList name="contact" updater={contactListChanger} startingValue={formValue.contacts}> </DynamicList>
+                            </Col>
+                        </Row>
+                    </Grid>
 
                     <ImageCropper button={uploadLogoButton} propCrop={{
                         unit: 'px', // default, can be 'px' or '%'

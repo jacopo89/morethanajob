@@ -3,6 +3,7 @@
 namespace App\Repository;
 
 use App\Entity\Collaboration;
+use App\Entity\User;
 use Doctrine\Bundle\DoctrineBundle\Repository\ServiceEntityRepository;
 use Doctrine\Common\Persistence\ManagerRegistry;
 
@@ -17,6 +18,39 @@ class CollaborationRepository extends ServiceEntityRepository
     public function __construct(ManagerRegistry $registry)
     {
         parent::__construct($registry, Collaboration::class);
+    }
+
+    public function getUserCollaborationsPaginated(User $user, $currentPage = 1, $limit = 5){
+        $dql = $this->createQueryBuilder('n')
+            ->innerJoin('n.user', 'u')
+            ->innerJoin('n.positions', 'ps')
+            ->where('ps.isOpen = true')
+            ->andWhere('n.isCollaboration = true')
+            ->andWhere('u = :val')->setParameter('val', $user)
+            ->getQuery()->setFirstResult($limit * ($currentPage -1 ))
+            ->setMaxResults($limit)
+            ->getResult();
+
+
+        return $dql;
+
+    }
+
+
+    public function getUserServicesPaginated(User $user, $currentPage = 1, $limit = 5){
+        $dql = $this->createQueryBuilder('n')
+            ->innerJoin('n.user', 'u')
+            ->innerJoin('n.positions', 'ps')
+            ->where('ps.isOpen = false')
+            ->andWhere('n.isCollaboration = true')
+            ->andWhere('u = :val')->setParameter('val', $user)
+            ->getQuery()->setFirstResult($limit * ($currentPage -1 ))
+            ->setMaxResults($limit)
+            ->getResult();
+
+
+        return $dql;
+
     }
 
     // /**

@@ -1,4 +1,4 @@
-import {Body, bordeaux, FullBody, gray} from "../styledComponents/CustomComponents";
+import {Body, bordeaux, FullBody, gray, headerHeight} from "../styledComponents/CustomComponents";
 import React from 'react'
 import styled from 'styled-components';
 import FinalHeader from "./FinalHeader";
@@ -11,7 +11,7 @@ export default function FullPage({page}){
             <DesktopDiv>
                 <div style={{backgroundImage: `url('/defaults/background.jpg')`, minHeight:"100vh"}}>
                     <FinalHeader />
-                    <div style={{paddingTop:100, margin:"0 auto", width: "100%"}}>
+                    <div style={{paddingTop:headerHeight, margin:"0 auto", width: "100%"}}>
                         <FullBody className="full-body">
                             {page}
                         </FullBody>

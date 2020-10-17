@@ -15,8 +15,8 @@ import {categoriesTreeByLanguage} from "../../Functions/Categories";
 import styled from "styled-components";
 
 export default function NewCollaboration({isService=false}){
-    const [formValue, setFormValue] = useState({positions: []});
     const {user, categories, language} = useSelector(state=>state);
+    const [formValue, setFormValue] = useState({language: user.language,positions: []});
     const [response, createNewProjectHandler] = useCreateNewCollaboration();
     const [projects, getProjectsHandler] = useGetUserProjects();
     const history = useHistory();
@@ -94,7 +94,7 @@ export default function NewCollaboration({isService=false}){
                         <TextField style={{width:"100%"}} label={categoryLabel} name="category" accepter={TreePicker} data={categoriesTree} />
                     </div>
                     <div style={{display:"flex", justifyContent:"space-around"}}>
-                        <TextField style={{width:"100%"}} label={t('Language')} name="language" accepter={SelectPicker} data={dataLanguage()} />
+                        <TextField style={{width:"100%"}} disabled label={t('Language')} name="language" accepter={SelectPicker} data={dataLanguage()} />
 
                     </div>
                     <>

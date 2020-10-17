@@ -1,4 +1,4 @@
-import React, {useRef, useState} from "react";
+import React, {useEffect, useRef, useState} from "react";
 import {useSelector} from "react-redux";
 import {useCreateNewProject} from "../../Backend/hooks/useProjects";
 import TextField from "../../Login/Components/TextField";
@@ -18,15 +18,18 @@ import * as Routes from "../../routes";
 import {useTranslation} from "react-i18next";
 import PartnersList from "./Partners/PartnersList";
 import {projectModel} from "../FormModels/models";
+import DynamicList from "../../ReusableComponents/DynamicList";
 
 export default function NewProject({isPortfolio=false}){
-    const [formValue, setFormValue] = useState({positions: [], partners:[]});
     const {user} = useSelector(state=>state);
+    const [formValue, setFormValue] = useState({language:user.language,positions: [], partners:[]});
+
     const [response, createNewProjectHandler] = useCreateNewProject();
     const history = useHistory();
     const formRef = useRef();
     const { t, i18n } = useTranslation();
 //    useEffect(()=>console.log("FormValue", formValue), [formValue]);
+
 
     const onSubmitHandler = () =>{
         const formData = new FormData();
@@ -95,6 +98,8 @@ export default function NewProject({isPortfolio=false}){
         }
     };
 
+    const linksListChanger = (list) => setFormValue({...formValue, links: list});
+    const contactListChanger = (list) => setFormValue({...formValue, contacts: list});
 
 
     const uploadCoverButton = <InverseButton>{t('Upload cover button')}</InverseButton>;
@@ -108,8 +113,9 @@ export default function NewProject({isPortfolio=false}){
                     unit: 'px', // default, can be 'px' or '%'
                     x: 0,
                     y: 0,
-                    height: 281,
-                    aspect: 3.592
+                    height: 281
+                    //height: 281,
+                    //aspect: 3.592
                 }} keyField="projectImage" onChange={handleFileChange}/>
             </div>
 
@@ -118,14 +124,24 @@ export default function NewProject({isPortfolio=false}){
                 <div style={{margin:5}}>
                     <Form ref={formRef} fluid formValue={formValue} model={projectModel} onChange={setFormValue} onSubmit={onSubmitHandler}>
                         <TextField label={t('Title')} name="title" type="text" />
-                        <TextField style={{width:"100%"}} label={t('Language')} name="language" accepter={SelectPicker} data={dataLanguage()} />
+                        <TextField disabled style={{width:"100%"}} label={t('Language')} name="language" accepter={SelectPicker} data={dataLanguage()} />
                         <TextField label={t('Local Title')} name="localTitle" type="text" />
                         <TextField label={t('Short Description')} name="shortDescription" componentClass="textarea" />
                         <TextField label={t('Local Short Description')} name="LocalShortDescription" componentClass="textarea" />
                         <TextField label={t('Description')} name="longDescription" componentClass="textarea" />
                         <TextField label={t('Local Description')} name="localLongDescription" componentClass="textarea" />
-                        <TextField label={t('Links')} name="links" componentClass="textarea" />
-                        <TextField label={t('Contacts')} name="contacts" componentClass="textarea" />
+
+                        <Grid fluid>
+                            <Row>
+                                <Col xs={12}>
+                                    <DynamicList name="link" updater={linksListChanger} startingValue={[]}> </DynamicList>
+                                </Col>
+                                <Col xs={12}>
+                                    <DynamicList name="contact" updater={contactListChanger} startingValue={[]}> </DynamicList>
+                                </Col>
+                            </Row>
+                        </Grid>
+
                         <Grid>
                             <Row>
                                 <Col xs={12}>
@@ -140,11 +156,10 @@ export default function NewProject({isPortfolio=false}){
                                 </Col>
                                 <Col xs={12}>
                                     <ImageCropper button={uploadLogoButton} propCrop={{
-                                        unit: 'px', // default, can be 'px' or '%'
+                                        unit: '%', // default, can be 'px' or '%'
                                         x: 0,
                                         y: 0,
-                                        width: 250,
-                                        height: 250
+                                        aspect:3.592
                                     }} keyField="projectImage" onChange={handleProjectLogoChange}/>
                                 </Col>
                             </Row>

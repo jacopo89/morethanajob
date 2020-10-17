@@ -5,6 +5,7 @@ import {useTranslation} from "react-i18next";
 import {useDispatch, useSelector} from "react-redux";
 import * as ActionTypes from "../Redux/actions";
 import {useHistory} from "react-router-dom";
+import {headerHeight} from "../styledComponents/CustomComponents";
 
 export default function FinalHeader(){
 
@@ -42,10 +43,10 @@ export default function FinalHeader(){
             <Dropdown.Item onClick={()=> history.push(Routes.searchUserPage)} eventKey="4">{t('Search organisations')}</Dropdown.Item>
             {user && <Dropdown.Item onClick={()=> history.push(Routes.profile(user.profileName))} >{t('Profile')}</Dropdown.Item>}
             {user && user.roles.includes("ROLE_ADMIN") && <Dropdown.Menu pullLeft title={t('Administration')} >
-                <Dropdown.Item onClick={()=> history.push(Routes.administration)} eventKey="e-1">Management</Dropdown.Item>
                 <Dropdown.Item onClick={()=> history.push(Routes.administrationProjects)} eventKey="e-2">Projects</Dropdown.Item>
                 <Dropdown.Item onClick={()=> history.push(Routes.administrationCollaborations)} eventKey="e-3">Services and collaborations</Dropdown.Item>
                 <Dropdown.Item onClick={()=> history.push(Routes.administrationUsers)} eventKey="e-4">Users</Dropdown.Item>
+                <Dropdown.Item onClick={()=> history.push(Routes.administrationNews)} eventKey="e-5">News</Dropdown.Item>
             </Dropdown.Menu>}
             {authenticated && <Dropdown.Item onClick={()=>signOut()} >{t('Logout')}</Dropdown.Item>}
         </Dropdown>
@@ -55,7 +56,7 @@ export default function FinalHeader(){
 
     return <Navbar appearance="subtle" style={{position:"fixed", zIndex:100, width:"100%", height:125}}>
         <Navbar.Header onClick={()=>history.push(Routes.dashboardPage)}>
-            <img style={{cursor:"pointer"}} height={125} src="/defaults/en_morethanajob.png" className="navbar-brand logo">
+            <img style={{cursor:"pointer"}} height={headerHeight} src="/defaults/en_morethanajob.png" className="navbar-brand logo">
             </img>
         </Navbar.Header>
         <Navbar.Body>

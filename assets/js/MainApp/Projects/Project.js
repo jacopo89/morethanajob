@@ -18,6 +18,7 @@ import {useTranslation} from "react-i18next";
 import CollaborationDetail from "../Profile/DetailCards/CollaborationDetail";
 import {IconSpan} from "../Profile/submenus/SocietyContacts";
 import {getProjectLanguageElements} from "../../Functions/Projects";
+import {manipulateWebsite} from "../Profile/Profile";
 
 
 export default function Project(){
@@ -70,7 +71,6 @@ export default function Project(){
 
 
 
-
     return <>
 
         <div style={{...coverStyle, backgroundImage: `url(${backgrounCoverdImage})`}}>
@@ -93,11 +93,13 @@ export default function Project(){
                         <Grid fluid>
                             <Row>
                                 <Col xs={8} style={{display:"flex",justifyContent:"center", marginBottom:5}}><Icon style={{color:bordeaux}} icon="external-link-square" size="3x" /></Col>
-                                <Col xs={16}>{project && project.links}</Col>
+                                <Col xs={16}>{project && project.links.map(link => <div><a target="_blank" href={manipulateWebsite(link)}>{link}</a></div>)}</Col>
                             </Row>
                             <Row>
                                 <Col xs={8} style={{display:"flex",justifyContent:"center", marginBottom:5}}><Icon style={{color:bordeaux}} icon="envelope" size="3x" /></Col>
-                                <Col xs={16}>{project && project.contacts}</Col>
+                                <Col xs={16}>{project && project.contacts.map(contact => <div>
+                                    <a target="_blank" href={`mailto:${contact}`}>{contact}</a>
+                                </div>)}</Col>
                             </Row>
                         </Grid>
                     </Col>

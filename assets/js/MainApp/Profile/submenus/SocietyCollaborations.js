@@ -1,40 +1,53 @@
 import React, {useEffect, useState} from "react";
-import {Button, Col, Icon, IconButton, Panel, PanelGroup, Row} from "rsuite";
+import {Button, Col, Form, Icon, IconButton, Pagination, Panel, PanelGroup, Row, SelectPicker} from "rsuite";
 import NewProjectModal from "../../Projects/NewProjectModal";
 import * as Routes from "../../../routes";
-import {bordeaux} from "../../../styledComponents/CustomComponents";
+import {bordeaux, FlexBetweenDiv} from "../../../styledComponents/CustomComponents";
 import {getCalendarFormat} from "../../../ReusableComponents/TimeManager";
 import {useHistory} from "react-router-dom";
 import {PortfolioPanelTitle} from "./SocietyPortfolio";
-import {useGetCollaborations} from "../../../Backend/hooks/useCollaborations";
+import {useGetCollaborations, useGetPaginatedCollaborations} from "../../../Backend/hooks/useCollaborations";
 import {useTranslation} from "react-i18next";
 import CollaborationDetail from "../DetailCards/CollaborationDetail";
+import TextField from "../../../Login/Components/TextField";
+import {PaginationLimit} from "../../../selectData";
 
 export default function SocietyCollaborations({society}) {
+
+    const {collaborationsNumber} = society;
+    const [pagination, setPagination] = useState(1);
+    const [limitPerPage, setLimitPerPage] = useState(5);
+    const pages = Math.round(collaborationsNumber/limitPerPage);
+    const onPaginationSelect = (item) => setPagination(item);
+
+
     const [collaborations, getCollaborationsHandler] = useGetCollaborations();
-    const [show, setShow] = useState(false);
-    const openModal = ()=> setShow(true);
-    const closeModal = ()=> setShow(false);
 
     const history = useHistory();
     const { t, i18n } = useTranslation();
 
-
-    console.log("Collaborations", collaborations);
-
     useEffect(()=>{
-        getCollaborationsHandler(society.email);
-    },[]);
+        getCollaborationsHandler([society.email, pagination, limitPerPage]);
+    },[pagination, limitPerPage]);
 
-
-    const successCallback = ()=>{
-        closeModal();
-        getCollaborationsHandler(society.email);
-    }
+    const paginationSettings =
+        {
+            prev: true,
+            next: true,
+            first: true,
+            last: true,
+            ellipsis: true,
+            boundaryLinks: true,
+            activePage:pagination
+        };
 
     const panels = collaborations.map((collaboration, item)=> <CollaborationDetail key={item} collaboration={collaboration}/>);
     const panelShow = panels.length > 0 ? panels : <div style={{height:100, margin:"0 auto", textAlign:"center", color:bordeaux}}> No collaborations </div>
     return  <>
+      {/*  <FlexBetweenDiv>
+            <Pagination pages={pages} {...paginationSettings} onSelect={onPaginationSelect} />
+            <Form><TextField accepter={SelectPicker} data={PaginationLimit} onChange={setLimitPerPage} searchable={false} /></Form>
+        </FlexBetweenDiv>*/}
         {panelShow}
     </>
 

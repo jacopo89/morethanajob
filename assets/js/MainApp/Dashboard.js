@@ -11,6 +11,8 @@ import {useTranslation} from "react-i18next";
 import CollaborationDetail from "./Profile/DetailCards/CollaborationDetail";
 import {useSelector} from "react-redux";
 import {useGetCategories} from "../Backend/hooks/useCategories";
+import {useGetRecentNews} from "../Backend/hooks/useNews";
+import NewsPanel from "./Administration/News/NewsPanel";
 
 export default function Dashboard(){
     const history = useHistory();
@@ -24,11 +26,13 @@ export default function Dashboard(){
     const panelStyle = {width: "85%", borderRadius:"20px", backgroundColor:"white", margin:"0 auto", padding:20, marginTop:20}
     const [profiles, getRandomProfilesHandler] = useGetRandomProfiles();
     const [collaborations, getRandomCollaborationsHandler] = useGetRandomCollaborations();
+    const [recentNews, getRecentNews] = useGetRecentNews();
 
 
     useEffect(()=>{
         getRandomProfilesHandler();
         getCategories();
+        getRecentNews();
     },[]);
 
     const categoriesPanels = categories.map((category, index)=> <CategoryPanel key={index} category={category} /> )
@@ -50,13 +54,16 @@ export default function Dashboard(){
 
     const collaborationBlocks = collaborations.map((collaboration, index)=><CollaborationDetail key={index} collaboration={collaboration} />)
 
+    const recentNewsPanels = recentNews.map((news, index)=><NewsPanel key={index} news={news}> </NewsPanel>);
+
+
     return <>
         <Navbar id="dashboard" appearance="inverse" style={{backgroundColor:"transparent", color:"white"}} >
             <Navbar.Body>
                 <Nav>
-                    <Nav.Item href="#home" eventKey="1" icon={<Icon icon="home" />}>
+                    {/*<Nav.Item href="#home" eventKey="1" icon={<Icon icon="home" />}>
                         {t('Homepage')}
-                    </Nav.Item>
+                    </Nav.Item>*/}
                     <Nav.Item href="#aboutUs"  eventKey="2">{t('The project')}</Nav.Item>
                     <Nav.Item onClick={()=>history.push(Routes.serviceSearchPage)}  eventKey="3">{t('Services and opportunities')}</Nav.Item>
                     <Nav.Item onClick={()=>history.push(Routes.searchUserPage)}  eventKey="4">{t('Organisations')}</Nav.Item>
@@ -171,7 +178,11 @@ export default function Dashboard(){
                 {collaborationBlocks}
 
             </Panel>
-
+            <Panel shaded style={panelStyle}>
+                <Title>News</Title>
+                <Anchor id="News"/>
+                {recentNewsPanels}
+            </Panel>
 
            {/* <Panel shaded style={panelStyle}>
                 <Title>FAQ</Title>

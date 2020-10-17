@@ -57,6 +57,7 @@ export default function ImageCropper({keyField, onChange, locked=false, propCrop
     };
 
     const onCropComplete = crop => {
+        console.log("onCropComplete", crop);
         makeClientCrop(crop);
     };
 
@@ -82,12 +83,21 @@ export default function ImageCropper({keyField, onChange, locked=false, propCrop
     }
 
     const getCroppedImg = (image, crop, fileName) => {
+
+        console.log("get cropped crop", crop)
+
         const canvas = document.createElement('canvas');
         const scaleX = image.naturalWidth / image.width;
         const scaleY = image.naturalHeight / image.height;
         canvas.width = crop.width;
         canvas.height = crop.height;
         const ctx = canvas.getContext('2d');
+
+
+        console.log("Cropping features", crop);
+        console.log("scalex", scaleX);
+        console.log("scaley", scaleY);
+
 
         ctx.drawImage(
             image,
@@ -100,6 +110,7 @@ export default function ImageCropper({keyField, onChange, locked=false, propCrop
             crop.width,
             crop.height
         );
+
 
         return new Promise((resolve, reject) => {
             resolve(canvas.toDataURL()); // base64
@@ -131,24 +142,21 @@ function CropperModal({src, crop, show,croppedImageUrl, onModalClose, onSave, on
                 </Modal.Header>
                 <Modal.Body>
 
+                    <h5>Original Image </h5>
+                    {src && (
+                        <ReactCrop
+                            src={src}
+                            crop={crop}
+                            locked={locked}
+                            ruleOfThirds
+                            onImageLoaded={onImageLoaded}
+                            onComplete={onCropComplete}
+                            onChange={onCropChange}
+                        />
+                    )}
                     <Grid style={{width:"100%"}}>
                         <Row>
-                            <Col xs={12}>
-                                <h5>Original Image </h5>
-                                {src && (
-                                    <ReactCrop
-                                        style={{maxWidth:250, maxHeight:250}}
-                                        src={src}
-                                        crop={crop}
-                                        locked={locked}
-                                        ruleOfThirds
-                                        onImageLoaded={onImageLoaded}
-                                        onComplete={onCropComplete}
-                                        onChange={onCropChange}
-                                    />
-                                )}
-                            </Col>
-                            <Col xs={12}>
+                            <Col xs={24}>
                                 <h5>Resized Image </h5>
                                 <div style={{display:"flex", justifyContent:"center",maxWidth:250, maxHeight:250}}>
                                     {croppedImageUrl && (

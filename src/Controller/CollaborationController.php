@@ -15,6 +15,7 @@ use App\Entity\Position;
 use App\Entity\Project;
 use App\Entity\Service;
 use App\Entity\User;
+use App\Repository\CollaborationRepository;
 use App\Service\Serializer;
 use Doctrine\Common\Collections\ArrayCollection;
 use Doctrine\ORM\EntityManagerInterface;
@@ -35,12 +36,14 @@ class CollaborationController extends AbstractController
     private $serializer;
     private $em;
     private $mailer;
+    private $repository;
 
-    public function __construct(EntityManagerInterface $em,Serializer $serializer, \Swift_Mailer $mailer)
+    public function __construct(EntityManagerInterface $em,Serializer $serializer, \Swift_Mailer $mailer, CollaborationRepository $collaborationRepository)
     {
         $this->serializer = $serializer;
         $this->em = $em;
         $this->mailer = $mailer;
+        $this->repository = $collaborationRepository;
     }
 
 
@@ -57,6 +60,29 @@ class CollaborationController extends AbstractController
         }
 
         return new Response($this->serializer->serialize($collaborationsArray, 'json'), Response::HTTP_OK);
+    }
+
+
+    /**
+     * @Route("/get-paginated/{email}/{page}/{limit}")
+     * @param $email
+     * @param $page
+     * @param $limit
+     * @return Response
+     */
+    public function getPaginatedCollaborations($email, $page, $limit){
+        $user = $this->em->getRepository(User::class)->findOneBy(['email'=> $email]);
+        if($user){
+            $collaborations = $this->repository->getUserCollaborationsPaginated($user, $page,$limit);
+            $response  = $collaborations;
+            $status = Response::HTTP_OK;
+        }else{
+            $response = "User not found";
+            $status = Response::HTTP_NOT_FOUND;
+        }
+
+
+        return new Response($this->serializer->serialize($response, 'json'), $status);
     }
 
     /**

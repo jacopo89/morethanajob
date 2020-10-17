@@ -33,8 +33,8 @@ export const projectEmptyModel = {
     shortDescription:"",
     longDescription:"",
     localLongDescription:"",
-    links:"",
-    contacts:"",
+    links:[],
+    contacts:[],
     positions:[],
     projectPartnersRelations:[],
     collaborations:[]

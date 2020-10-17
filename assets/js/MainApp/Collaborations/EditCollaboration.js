@@ -144,7 +144,7 @@ export default function EditCollaboration({isService}) {
                     </> }
 
                     <div style={{display:"flex", justifyContent:"space-around"}}>
-                        <TextField style={{width:"100%"}} label={t('Language')} name="language" accepter={SelectPicker} data={dataLanguage()} />
+                        <TextField style={{width:"100%"}} disabled label={t('Language')} name="language" accepter={SelectPicker} data={dataLanguage()} />
                     </div>
 
                     {!isService && <PositionList isEdit={true} formValue={formValue} setFormValue={setFormValue} callback={getCollaborationFunction} />}

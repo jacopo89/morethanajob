@@ -52,6 +52,7 @@ import PasswordReset from "./Login/Components/PasswordReset";
 import AdministrationLayout from "./Layout/AdministrationLayout";
 import ExpertiseManagement from "./MainApp/Administration/ExpertiseManagement";
 import ProfileEdit from "./MainApp/Profile/ProfileEdit";
+import NewsManagement from "./MainApp/Administration/NewsManagement";
 
 function App(){
     const {authenticated, language} = useSelector(state=>state);
@@ -89,6 +90,7 @@ function App(){
     const administrationProjectPage = <AdministrationLayout page={<ProjectManagement/>}/>;
     const administrationCollaborationsPage = <AdministrationLayout page={<CollaborationManagement/>}/>;
     const administrationUserPage = <AdministrationLayout page={<UserManagement />} />
+    const administrationNewsPage = <AdministrationLayout page={<NewsManagement />} />
     const administrationExpertisePage = <AdministrationLayout page={<ExpertiseManagement />} />
 
     const serviceSearchPage = <MainPage page={<ServiceSearch />}/>;
@@ -139,6 +141,7 @@ function App(){
                 <Route path={Routes.administrationCollaborations} children={administrationCollaborationsPage}/>
                 <Route path={Routes.administrationProjects} children={administrationProjectPage}/>
                 <Route path={Routes.administrationUsers} children={administrationUserPage}/>
+                <Route path={Routes.administrationNews} children={administrationNewsPage}/>
                 <Route path={Routes.routeProject} children={projectDetailPage}/>
                 <Route path={Routes.immediateLogout} children={immediateLogoutPage}/>
                 <Route path={Routes.main} children={dashboardPage}/>
@@ -173,6 +176,7 @@ function App(){
                 <Route path={Routes.routeProject} children={projectDetailPage}/>
                 <Route path={Routes.administrationCollaborations} children={administrationCollaborationsPage}/>
                 <Route path={Routes.administrationProjects} children={administrationProjectPage}/>
+                <Route path={Routes.administrationNews} children={administrationNewsPage}/>
                 <Route path={Routes.immediateLogout} children={immediateLogoutPage}/>
                 <Route path={Routes.main} children={dashboardPage}/>
                 <Route path="/">

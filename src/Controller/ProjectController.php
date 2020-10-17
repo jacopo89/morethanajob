@@ -20,6 +20,7 @@ use App\Entity\Project;
 use App\Entity\ProjectPartner;
 use App\Entity\Service;
 use App\Entity\User;
+use App\Repository\ProjectRepository;
 use App\Service\FileSystemService;
 use App\Service\Serializer;
 use Doctrine\Common\Collections\ArrayCollection;
@@ -40,11 +41,14 @@ class ProjectController extends AbstractController
     private $serializer;
     private $fileSystemService;
 
-    public function __construct(EntityManagerInterface $em, Serializer $serializer, FileSystemService $fileSystemService)
+    private $repository;
+
+    public function __construct(EntityManagerInterface $em, Serializer $serializer, FileSystemService $fileSystemService, ProjectRepository $projectRepository)
     {
         $this->em = $em;
         $this->serializer = $serializer;
         $this->fileSystemService = $fileSystemService;
+        $this->repository = $projectRepository;
     }
 
 
@@ -279,12 +283,12 @@ class ProjectController extends AbstractController
             $title = json_decode($request->get('title'));
             $shortDescription = json_decode($request->get('shortDescription'));
             $longDescription = json_decode($request->get('longDescription'));
-            $links = json_decode($request->get('links'));
+            $links = json_decode($request->get('links'), true);
             $localTitle = json_decode($request->get('localTitle'));
             $shortLocalDescription = json_decode($request->get('localShortDescription'));
             $longLocalDescription = json_decode($request->get('localLongDescription'));
-            $contacts = json_decode($request->get('contacts'));
-            $language = json_decode($request->get('language'));
+            $contacts = json_decode($request->get('contacts'), true);
+            $language = json_decode($request->get('language'), true);
             $project->setLanguage($language);
             $project->setTitle($title);
             $project->setShortDescription($shortDescription);
@@ -321,8 +325,8 @@ class ProjectController extends AbstractController
             $shortLocalDescription = json_decode($request->get('localShortDescription'));
             $longLocalDescription = json_decode($request->get('localLongDescription'));
             $longDescription = json_decode($request->get('longDescription'));
-            $links = json_decode($request->get('links'));
-            $contacts = json_decode($request->get('contacts'));
+            $links = json_decode($request->get('links'), true);
+            $contacts = json_decode($request->get('contacts'), true);
             $positions = json_decode($request->get('positions'),true);
             $partners = json_decode($request->get('partners'),true);
 
@@ -848,5 +852,28 @@ class ProjectController extends AbstractController
 
         return new Response($this->serializer->serialize($projects,'json'));
 
+    }
+
+
+    /**
+     * @param $email
+     * @param $page
+     * @param $limit
+     * @return Response
+     * @Route("/get-user-paginated/{email}/{page}/{limit}", methods={"GET"})
+     */
+    public function getUserPaginated($email, $page, $limit){
+        $user = $this->em->getRepository(User::class)->findOneBy(['email'=> $email]);
+        if($user){
+            $projects = $this->repository->getUserPaginated($user, $page,$limit);
+            $response  = $projects;
+            $status = Response::HTTP_OK;
+        }else{
+            $response = "User not found";
+            $status = Response::HTTP_NOT_FOUND;
+        }
+
+
+        return new Response($this->serializer->serialize($response, 'json'), $status);
     }
 }

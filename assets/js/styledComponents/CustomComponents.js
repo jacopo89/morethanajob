@@ -4,6 +4,8 @@ import {Button, IconButton} from 'rsuite';
 export const gray = "#f7f8f9";
 export const bordeaux = "#b45860";
 
+export const headerHeight = 125;
+
 export const RegistrationBox = styled.div`
     background-color: white;
     padding: 25px;
@@ -63,8 +65,11 @@ export const SaveButton = styled(MainButton)`
 export const IconButtonTransparent = styled(IconButton)`
     background-color:white;
     color:${bordeaux};
+    &:hover {
+        background-color:${bordeaux};
+        color:white;
+    }
 `;
-
 
 export const profilePicture = "/defaults/profile_thumbnail.png";
 export const projectPicture = "/defaults/project_thumbnail.png";
@@ -113,3 +118,15 @@ export const LinearGradient = styled.div`
     `
 
 export const coverStyle = {height:0, paddingTop:"27.83964365256125%", width:"100%", marginBottom:10, backgroundColor:"black",position:"relative", backgroundSize:"contain"}
+
+
+export const FlexAroundDiv = styled.div`
+    display:flex;
+    justify-content:space-around;
+`
+
+export const FlexBetweenDiv = styled.div`
+    display:flex;
+    justify-content:space-between;
+    align-items:center;
+`

@@ -1,48 +1,70 @@
 import React, {useEffect, useState} from "react";
-import {Button, Col, HelpBlock, Icon, IconButton, Panel, PanelGroup, Row} from "rsuite";
+import {Button, Col, Form, HelpBlock, Pagination, Panel, PanelGroup, Row, SelectPicker} from "rsuite";
 import {
     useGetAllUserProjects,
-    useGetCollaborationProjects,
+    useGetCollaborationProjects, useGetPaginatedProjects,
     useGetPortfolioProjects
 } from "../../../Backend/hooks/useProjects";
-import {bordeaux} from "../../../styledComponents/CustomComponents";
-import {getCalendarFormat, getDayAndMonth} from "../../../ReusableComponents/TimeManager";
+import {bordeaux, FlexBetweenDiv} from "../../../styledComponents/CustomComponents";
 import {useHistory} from "react-router-dom";
 import * as Routes from '../../../routes';
 import NewProjectModal from "../../Projects/NewProjectModal";
 
 import {useTranslation} from "react-i18next";
-import CollaborationDetail from "../DetailCards/CollaborationDetail";
 import NoElementsFound from "./NoElementsFound";
 import {useSelector} from "react-redux";
+import CustomPagination from "../../../ReusableComponents/CustomPagination";
+import TextField from "../../../Login/Components/TextField";
+import {PaginationLimit} from "../../../selectData";
 
 export default function SocietyPortfolio({society}) {
-    const [portfolioProjects, getPortfolioProjectsHandler] = useGetPortfolioProjects();
-    const [portfolioProjectsCollaborations, getCollaborationProjectsHandler] = useGetCollaborationProjects();
+
+    const {projectsNumber} = society;
+    const [pagination, setPagination] = useState(1);
+    const [limitPerPage, setLimitPerPage] = useState(5);
+    const pages = Math.round(projectsNumber/limitPerPage);
+
     const [userProjects, getAllUserProjects] = useGetAllUserProjects();
+    const [userPaginatedProjects, getUserPaginatedProjectsHandler] = useGetPaginatedProjects();
     const [show, setShow] = useState(false);
     const openModal = ()=> setShow(true);
     const closeModal = ()=> setShow(false);
     const { t, i18n } = useTranslation();
 
+
     const history = useHistory();
 
+
     useEffect(()=>{
-        getAllUserProjects(society.email);
-    },[]);
+        getUserPaginatedProjectsHandler([society.email, pagination, limitPerPage]);
+    },[pagination, limitPerPage]);
 
     const successCallback = ()=>{
         closeModal();
         getAllUserProjects(society.email);
     }
 
-    const panels = userProjects.map((project, item)=> <PortfolioDetail key={item} project={project}/>);
+    const panels = userPaginatedProjects.map((project, item)=> <PortfolioDetail key={item} project={project}/>);
     const panelShow = panels.length > 0 ? panels : <NoElementsFound message="No projects" />
 
-    /*const panelsCollaborations = portfolioProjectsCollaborations.map((project, item)=> <PortfolioDetail key={item} project={project}/>);
-    const panelShowCollaborations = panelsCollaborations.length > 0 ? panelsCollaborations : <div style={{height:100, margin:"0 auto", textAlign:"center", color:bordeaux}}> No collaborations </div>
-    */return  <>
+    const paginationSettings =
+        {
+            prev: true,
+            next: true,
+            first: true,
+            last: true,
+            ellipsis: true,
+            boundaryLinks: true,
+            activePage:pagination
+        };
 
+    const onPaginationSelect = (item) => setPagination(item);
+
+   return  <>
+       <FlexBetweenDiv>
+           <Pagination pages={pages} {...paginationSettings} onSelect={onPaginationSelect} />
+           <Form><TextField accepter={SelectPicker} data={PaginationLimit} onChange={setLimitPerPage} searchable={false} /></Form>
+       </FlexBetweenDiv>
         <PanelGroup>{panelShow}</PanelGroup>
         <NewProjectModal show={show} onHide={closeModal} successCallback={successCallback} isPortfolio={true} />
         </>
@@ -60,7 +82,6 @@ export function PortfolioDetail({project}){
     const description = (project && project.language === language && project.localShortDescription!==null && project.localShortDescription.length!==0) ? project && project.localShortDescription  : project && project.shortDescription ;
 
 
-    //TODO check length
     const isDescriptionInEnglish = (
         project &&
         project.localLanguage === language &&

@@ -126,3 +126,13 @@ export function useDeleteProject(){
     const backendClient = BackendClient(accessToken);
     return useCreateHook(backendClient,'/backend/project/removeProject','delete',null);
 }
+
+
+export function useGetPaginatedProjects(){
+
+    const {accessToken} = useSelector(state=>state);
+    const backendClient = BackendClient(accessToken);
+    return useCreateHook(backendClient,'/backend/project/get-user-paginated','get',[]);
+}
+
+

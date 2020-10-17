@@ -7,6 +7,12 @@ export function  useGetCollaborations() {
     return useCreateHook(backendClient,'/backend/collaborations/get','get',[]);
 }
 
+export function  useGetPaginatedCollaborations() {
+
+    const backendClient = BackendClient();
+    return useCreateHook(backendClient,'/backend/collaborations/get-paginated','get',[]);
+}
+
 export function  useGetCollaborationServices() {
 
     const backendClient = BackendClient();
