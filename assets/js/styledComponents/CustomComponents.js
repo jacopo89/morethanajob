@@ -1,10 +1,12 @@
 import styled from "styled-components";
-import {Button, IconButton} from 'rsuite';
+import {Button, ButtonGroup, IconButton, Row} from 'rsuite';
 
 export const gray = "#f7f8f9";
 export const bordeaux = "#b45860";
 
 export const headerHeight = 125;
+export const uploaderCoverConfig = { unit: 'px', x: 0, y: 0, aspect: 3.592}
+
 
 export const RegistrationBox = styled.div`
     background-color: white;
@@ -128,3 +130,14 @@ export const FlexBetweenDiv = styled.div`
     justify-content:space-between;
     align-items:center;
 `
+
+
+export const FormButtonGroup = styled(ButtonGroup)`
+    float: right;
+    margin-top:10px;
+`
+
+export const FormRow = styled(Row)`
+    margin-bottom:30px;
+`
+

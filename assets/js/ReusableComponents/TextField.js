@@ -1,15 +1,14 @@
-import React from 'react'
 import {ControlLabel, FormControl, FormGroup} from "rsuite";
-import {bordeaux} from "../styledComponents/CustomComponents";
+import React from "react";
 
-class TextField extends React.PureComponent {
-    render() {
-        const { name, label, accepter, ...props } = this.props;
-        return (
-            <FormGroup>
-                <ControlLabel>{label} </ControlLabel>
-                <FormControl style={{borderColor:bordeaux}} name={name} accepter={accepter} {...props} />
-            </FormGroup>
-        );
-    }
+export default function TextField({ name, label, accepter, style, ...rest }) {
+
+    let finalStyle  = {...style};
+    return (
+
+        <FormGroup style={finalStyle}>
+            {label && <ControlLabel><b>{label}</b> </ControlLabel>}
+            <FormControl name={name} accepter={accepter} style={style} {...rest} />
+        </FormGroup>
+    );
 }

@@ -6,7 +6,7 @@ import {
     Form,
     FormControl,
     FormGroup,
-    Grid,
+    Grid, Pagination,
     Radio,
     RadioGroup,
     Row,
@@ -18,11 +18,11 @@ import {useGetServices} from "../../Backend/hooks/useServices";
 import {useSearchProjects} from "../../Backend/hooks/useProjects";
 import {useSelector} from "react-redux";
 import {useHistory, useLocation} from "react-router-dom";
-import {dataCountry} from "../../selectData";
+import {dataCountry, PaginationLimit} from "../../selectData";
 import {useGetUsers} from "../../Backend/hooks/useAdministration";
 import {useTranslation} from "react-i18next";
 import CollaborationDetail from "../Profile/DetailCards/CollaborationDetail";
-import {FormBox} from "../../styledComponents/CustomComponents";
+import {FlexBetweenDiv, FormBox} from "../../styledComponents/CustomComponents";
 import {categoriesTreeByLanguage} from "../../Functions/Categories";
 
 
@@ -31,6 +31,26 @@ export default function ServiceSearch(){
     const [projects, getProjectsHandler] = useSearchProjects();
     const [users, getUsersListHandler] = useGetUsers();
     const { t, i18n } = useTranslation();
+
+    const {servicesNumber} = projects;
+    const [pagination, setPagination] = useState(1);
+    const [limitPerPage, setLimitPerPage] = useState(5);
+    const pages = Math.ceil(servicesNumber/limitPerPage);
+
+    const paginationSettings =
+        {
+            prev: true,
+            next: true,
+            first: true,
+            last: true,
+            ellipsis: true,
+            boundaryLinks: true,
+            activePage:pagination
+        };
+
+    const onPaginationSelect = (item) => setPagination(item);
+
+
 
     const {user,language} = useSelector(state=>state);
 
@@ -42,6 +62,8 @@ export default function ServiceSearch(){
        // formData.append('isPortfolio', isPortFolioCheckboxChecked);
         Object.keys(formValue).forEach((key)=>  { formData.append(key,JSON.stringify(formValue[key]));});
         formData.append('language', language);
+        formData.append('page', pagination);
+        formData.append('limit', limitPerPage);
         getProjectsHandler(formData);
     }
     const history = useHistory();
@@ -49,7 +71,7 @@ export default function ServiceSearch(){
 
     useEffect(()=>{
         if(location.state && location.state.category){
-            console.log("Trying to push ",location.state.category);
+            //console.log("Trying to push ",location.state.category);
             const categoriesArray = [location.state.category];
             setFormValue( {...formValue,  category: categoriesArray});
         }
@@ -57,7 +79,8 @@ export default function ServiceSearch(){
 
     useEffect(()=>{
         const formData = new FormData();
-        console.log("Location", location);
+        formData.append('page', pagination);
+        formData.append('limit', limitPerPage);
         if(location.state && location.state.category){
             formData.append('language', language);
             formData.append('category', [].push(location.state.category));
@@ -97,6 +120,7 @@ export default function ServiceSearch(){
 
 
 
+
     const finalPanels = [...projectPanels, ...servicePanels];
     return <>
         <FormBox>
@@ -119,13 +143,6 @@ export default function ServiceSearch(){
 
                     </Row>
                 </Grid>
-
-                <div style={{display:"flex", justifyContent:"space-between"}}>
-
-                </div>
-                <div style={{display:"flex", justifyContent:"space-between"}}>
-
-                </div>
                 <FormGroup>
                     <FormControl
                         name="radio"
@@ -139,7 +156,10 @@ export default function ServiceSearch(){
 
                 <Button type="submit">{t('Search')}</Button>
             </Form>
-
+        <FlexBetweenDiv>
+            <Pagination pages={pages} {...paginationSettings} onSelect={onPaginationSelect} />
+            <Form><TextField accepter={SelectPicker} data={PaginationLimit} value={limitPerPage} onChange={setLimitPerPage} searchable={false} cleanable={false} /></Form>
+        </FlexBetweenDiv>
         {finalPanels.length===0 ?<div>No results found</div> : finalPanels }
         </FormBox>
         </>

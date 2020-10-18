@@ -98,56 +98,50 @@ export default function Dashboard(){
             <Panel shaded style={panelStyle}>
                 <Anchor id="aboutUs">Abus</Anchor>
                 <Grid fluid>
-                    <Row className="show-grid">
-                        <Col xs={12}>
-                            <div style={{display:"flex", justifyContent:"center"}}>
-                            <img width="100%" src="/defaults/MoreThanAJob_Cover.jpg"/>
+                    <Row>
+                        <Col xs={24}>
+                            <div>
+                                <img style={{float:"left", margin:30}} width="50%" src="/defaults/MoreThanAJob_Cover.jpg"/>
+                                <Title id="aboutUs">
+                                    {t('projectTitle')}
+                                </Title>
+                                <p>
+                                    {t('projectPre')}
+                                </p>
+                                {! readMore && <MainButton style={{float:"right", margin:10}} onClick={()=>setReadMore(!readMore)}>{t('Read more')}</MainButton>}
+                                {readMore &&
+                                <>
+                                    <p>
+                                        {t('projectMore')}.
+                                    </p>
+                                    <SmallTitle>{t('projectSSE')}</SmallTitle>
+                                    <p>
+                                        {t('projectSSEText')}
+                                    </p>
+                                    <SmallTitle>{t('projectPartners')}</SmallTitle>
+                                    <ul>
+                                        <li>
+                                            {t('partner1')} <a target="_blank" href={t('linkpartner1')}>{t('linkpartner1')}</a>
+                                        </li>
+                                        <li>
+                                            {t('partner2')} <a target="_blank" href={t('linkpartner2')}>{t('linkpartner2')}</a>
+                                        </li>
+                                        <li>
+                                            {t('partner3')} <a target="_blank" href={t('linkpartner3')}>{t('linkpartner3')}</a>
+                                        </li>
+                                        <li>
+                                            {t('partner4')} <a target="_blank" href={t('linkpartner4')}>{t('linkpartner4')}</a>
+                                        </li>
+                                        <li>
+                                            {t('partner5')} <a target="_blank" href={t('linkpartner5')}>{t('linkpartner5')}</a>
+                                        </li>
+                                        <li>
+                                            {t('partner6')} <a target="_blank" href={t('linkpartner6')}>{t('linkpartner6')}</a>
+                                        </li>
+                                    </ul>
+                                </>}
                             </div>
                         </Col>
-                        <Col xs={12}>
-                            <Title id="aboutUs">
-                                {t('projectTitle')}
-                            </Title>
-                            <p>
-                                {t('projectPre')}
-                            </p>
-                            <MainButton style={{float:"right", margin:10}} onClick={()=>setReadMore(!readMore)}>{t('Read more')}</MainButton>
-                        </Col>
-                    </Row>
-                    <Row style={{marginTop: 20}} className="show-grid">
-
-
-                        {readMore &&
-                            <>
-                                <p>
-                                    {t('projectMore')}.
-                                </p>
-                                <SmallTitle>{t('projectSSE')}</SmallTitle>
-                                <p>
-                                    {t('projectSSEText')}
-                                </p>
-                                <SmallTitle>{t('projectPartners')}</SmallTitle>
-                                <ul>
-                                    <li>
-                                        {t('partner1')} <a target="_blank" href={t('linkpartner1')}>{t('linkpartner1')}</a>
-                                    </li>
-                                    <li>
-                                        {t('partner2')} <a target="_blank" href={t('linkpartner2')}>{t('linkpartner2')}</a>
-                                    </li>
-                                    <li>
-                                        {t('partner3')} <a target="_blank" href={t('linkpartner3')}>{t('linkpartner3')}</a>
-                                    </li>
-                                    <li>
-                                        {t('partner4')} <a target="_blank" href={t('linkpartner4')}>{t('linkpartner4')}</a>
-                                    </li>
-                                    <li>
-                                        {t('partner5')} <a target="_blank" href={t('linkpartner5')}>{t('linkpartner5')}</a>
-                                    </li>
-                                    <li>
-                                        {t('partner6')} <a target="_blank" href={t('linkpartner6')}>{t('linkpartner6')}</a>
-                                    </li>
-                                </ul>
-                            </>}
                     </Row>
                 </Grid>
 
@@ -155,7 +149,7 @@ export default function Dashboard(){
 
             <Panel shaded style={panelStyle}>
                 <Title>{t('Categories')}</Title>
-                <div style={{display:"flex", justifyContent:"space-around"}}>
+                <div style={{display:"flex", justifyContent:"space-around", flexWrap:"wrap"}}>
                     {categoriesPanels}
 
                 </div>
@@ -230,7 +224,8 @@ const Box = styled.div`width: 85%; border-radius:20px; background-color:whitesmo
 const IconTextBox = styled.div`display: flex;
     flex-direction: column;
     align-items: center;
-    max-width: 158px;`;
+    max-width: 158px;
+    margin:20px`;
 
 const Anchor = styled.div
     `position: relative;

@@ -13,7 +13,6 @@ import NewProjectModal from "../../Projects/NewProjectModal";
 import {useTranslation} from "react-i18next";
 import NoElementsFound from "./NoElementsFound";
 import {useSelector} from "react-redux";
-import CustomPagination from "../../../ReusableComponents/CustomPagination";
 import TextField from "../../../Login/Components/TextField";
 import {PaginationLimit} from "../../../selectData";
 

@@ -7,7 +7,7 @@ export default function TextField({ name, label, accepter, style, ...rest }) {
     return (
 
         <FormGroup style={finalStyle}>
-            <ControlLabel><b>{label}</b> </ControlLabel>
+            {label && <ControlLabel><b>{label}</b> </ControlLabel>}
             <FormControl name={name} accepter={accepter} style={style} {...rest} />
         </FormGroup>
     );

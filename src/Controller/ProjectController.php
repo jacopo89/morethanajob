@@ -232,7 +232,7 @@ class ProjectController extends AbstractController
 
         $results["services"] = [];
         $results["projects"] = $sentRecords;
-
+        $results["servicesNumber"] = sizeOf($sentRecords);
 
         return new Response($this->serializer->serialize($results, 'json'));
     }

@@ -8,9 +8,15 @@ import {
     useUploadProjectLogo
 } from "../../Backend/hooks/useProjects";
 import TextField from "../../Login/Components/TextField";
-import {Col, Form, Grid, Row, SelectPicker} from "rsuite";
+import {ButtonGroup, Col, Divider, Form, Grid, Row, SelectPicker} from "rsuite";
 import {dataLanguage} from "../../selectData";
-import {coverPicture, coverStyle, InverseButton, SaveButton} from "../../styledComponents/CustomComponents";
+import {
+    coverPicture,
+    coverStyle,
+    FormButtonGroup, FormRow,
+    InverseButton,
+    SaveButton, uploaderCoverConfig
+} from "../../styledComponents/CustomComponents";
 import styled from "styled-components";
 import ImageCropper from "../../ReusableComponents/ImageCropper";
 import {useHistory, useParams} from "react-router-dom";
@@ -20,6 +26,7 @@ import PartnersList from "./Partners/PartnersList";
 import {projectModel} from "../FormModels/models";
 import DeleteButton from "../../ReusableComponents/DeleteButton";
 import DynamicList from "../../ReusableComponents/DynamicList";
+import ProjectForm from "../Forms/ProjectForm";
 
 export default function EditProject({isPortfolio=false}){
     const [formValue, setFormValue] = useState({positions: [], partners:[], links:[], contacts:[]});
@@ -96,7 +103,6 @@ export default function EditProject({isPortfolio=false}){
     //const listElements = (formValue) => {return (isPortfolio)  ? <PartnersList formValue={formValue} setFormValue={setFormValue} /> : <ListOrCreate formValue={formValue} setFormValue={setFormValue} /> };
 
     const uploadCoverButton = <InverseButton style={{position: "absolute", top:5, left:5}}>{t('Upload Cover Button')}</InverseButton>;
-    const uploadLogoButton = <InverseButton>{t('Upload Logo Button')}</InverseButton>;
 
     const linksListChanger = (list) => setFormValue({...formValue, links: list});
     const contactListChanger = (list) => setFormValue({...formValue, contacts: list});
@@ -104,46 +110,13 @@ export default function EditProject({isPortfolio=false}){
     return (
         <>
             <div style={{...coverStyle, backgroundImage:`url(${backgrounCoverdImage})`}}>
-                <ImageCropper button={uploadCoverButton} propCrop={{
-                    unit: 'px', // default, can be 'px' or '%'
-                    x: 0,
-                    y: 0,
-                    aspect:3.592
-                }} keyField="projectImage" onChange={handleFileChange}/>
+                <ImageCropper button={uploadCoverButton} propCrop={uploaderCoverConfig} keyField="projectImage" onChange={handleFileChange}/>
             </div>
             <InfoBox >
                 <Form fluid model={projectModel} formValue={formValue} onChange={setFormValue} onSubmit={onSubmitHandler}>
-                    <TextField label={t('Title')} name="title" type="text" />
-                    <TextField style={{width:"100%"}} label={t('Language')} name="language" accepter={SelectPicker} data={dataLanguage()} />
-                    <TextField label={t('Local Title')} name="localTitle" type="text" />
-                    <TextField label={t('Short Description')} name="shortDescription" componentClass="textarea" />
-                    <TextField label={t('Local Short Description')} name="localShortDescription" componentClass="textarea" />
-                    <TextField label={t('Description')} name="longDescription" componentClass="textarea" />
-                    <TextField label={t('Local Description')} name="localLongDescription" componentClass="textarea" />
-
-                    <Grid fluid>
-                        <Row>
-                            <Col xs={12}>
-                                <DynamicList name="link" updater={linksListChanger} startingValue={formValue.links}> </DynamicList>
-                            </Col>
-                            <Col xs={12}>
-                                <DynamicList name="contact" updater={contactListChanger} startingValue={formValue.contacts}> </DynamicList>
-                            </Col>
-                        </Row>
-                    </Grid>
-
-                    <ImageCropper button={uploadLogoButton} propCrop={{
-                        unit: 'px', // default, can be 'px' or '%'
-                        x: 0,
-                        y: 0,
-                        width: 250,
-                        height: 250
-                    }} keyField="projectLogoImage" onChange={handleProjectLogoChange}/>
-
-
-                    <SaveButton type="submit">{t('Save')}</SaveButton>
+                    <ProjectForm formValue={formValue} setFormValue={setFormValue} isPortfolio={isPortfolio} linksListChanger={linksListChanger} contactsListChanger={contactListChanger} handleProjectLogoChange={handleProjectLogoChange} isEdit={true} remover={removeProject}/>
                 </Form>
-                <DeleteButton onClickHandler={()=>removeProject(formValue.id)} >{t('Delete')}</DeleteButton>
+
 
             </InfoBox>
         </>);

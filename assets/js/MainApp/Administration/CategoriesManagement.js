@@ -1,7 +1,7 @@
-import React, {useEffect, useState} from "react";
+import React, {useEffect, useRef, useState} from "react";
 import {Button, ButtonGroup, Col, Form, Grid, Modal, Row, Tree} from "rsuite";
 import TextField from "../../Login/Components/TextField";
-import {FormBox} from "../../styledComponents/CustomComponents";
+import {bordeaux, FlexBetweenDiv, FormBox} from "../../styledComponents/CustomComponents";
 import ImageCropper from "../../ReusableComponents/ImageCropper";
 import {
     useCategoryUploadPicture,
@@ -11,6 +11,7 @@ import {
     useGetCategories
 } from "../../Backend/hooks/useCategories";
 import {useTranslation} from "react-i18next";
+import {categoryModel} from "../FormModels/models";
 
 export default function CategoriesManagement(){
 
@@ -50,21 +51,30 @@ export default function CategoriesManagement(){
 
     return (
         <FormBox style={{width:"100%"}}>
-            <h3>Category Management</h3>
-            <p>Please select one element from the tree to edit its property</p>
+
 
             <Grid fluid>
-            <Row>
-                <Col xs={12}>
-                    <ButtonGroup>
-                        <Button onClick={()=>deleteCategoryHandler(selectedCategoryNode,{successCallback: getCategoriesHandler} )}>Remove category</Button>
-                        <Button onClick={addRootCategory}>Create root category</Button>
-                    </ButtonGroup>
+            <Row style={{backgroundColor:bordeaux}}>
+                <Col xs={24}>
+
+                    <FlexBetweenDiv style={{margin:10}}>
+                        <div>
+                            <h3>Category Management</h3>
+                            <p>Please select one element from the tree to edit its property</p>
+                        </div>
+                        <div>
+                            <ButtonGroup>
+                                <Button onClick={addRootCategory}>Create root category</Button>
+                                {selectedCategoryNode!==null && <Button onClick={handleShowGroup}>Add child category</Button>}
+                                <Button onClick={()=>deleteCategoryHandler(selectedCategoryNode,{successCallback: getCategoriesHandler} )}>Remove category</Button>
+                            </ButtonGroup>
+                        </div>
+
+                    </FlexBetweenDiv>
                 </Col>
-                <Col xs={12}></Col>
             </Row>
             <Row>
-                <Col xs={12}>
+                <Col xs={8}>
                     <Tree defaultExpandAll={true} data={categoriesTree} onSelect={
                         (e) => {
                             console.log(e);
@@ -73,14 +83,8 @@ export default function CategoriesManagement(){
                         }
                     } />
                 </Col>
-                <Col xs={12}>
-                    {selectedCategoryNode!==null &&
-                    <><CategoryDetail category={getCategory(selectedCategoryNode)} refreshHandler={getCategoriesHandler} />
-                        <ButtonGroup>
-                            <Button onClick={handleShowGroup}>Add child category</Button>
-
-                        </ButtonGroup>
-                    </>}
+                <Col xs={16}>
+                    {selectedCategoryNode!==null && <CategoryDetail category={getCategory(selectedCategoryNode)} refreshHandler={getCategoriesHandler} />}
                     <CategoryModal parentId={selectedCategoryNode} onHide={()=>setShowGroup(false)} show={showGroup} successCallback={successCallbackCreation} />
                 </Col>
 
@@ -119,7 +123,6 @@ export function generateCategoriesTree(items){
 
 function CategoryDetail({category, refreshHandler}){
 
-    console.log("changed to category", category);
     const [response, uploadPictureHandler ] = useCategoryUploadPicture();
     const [formValue, setFormValue] = useState(category);
     const onChangeProfileHandler = (file) => {
@@ -158,27 +161,49 @@ function CategoryDetail({category, refreshHandler}){
         onSubmit={saveCategory}
         //    onSubmit={()=>submitHandler(formValue)}
     >
-        <TextField style={{width:"100%"}} name="label" label="Category"  />
-        <TextField style={{width:"100%"}} name="en" label="English"  />
-        <TextField style={{width:"100%"}} name="it" label="Italian"  />
-        <TextField style={{width:"100%"}} name="ar" label="Arabic"  />
-        <TextField style={{width:"100%"}} name="gr" label="Greek"  />
-        <div style={{display:"flex", justifyContent:"center"}}>
-            {category && category.picture && <img src={serviceImage} width="200" height="200" />}
-        </div>
+        <Grid fluid>
+            <Row>
+                <Col xs={24}>
+                    <TextField style={{width:"100%"}} name="label" label="Category"  />
+                </Col>
+            </Row>
+            <Row>
+                <Col xs={12}>
+                    <TextField style={{width:"100%"}} name="en" label="English"  />
+                </Col>
+                <Col xs={12}>
+                    <TextField style={{width:"100%"}} name="it" label="Italian"  />
+                </Col>
+            </Row>
+            <Row>
+                <Col xs={12}>
+                    <TextField style={{width:"100%"}} name="ar" label="Arabic"  />
+                </Col>
+                <Col xs={12}>
+                    <TextField style={{width:"100%"}} name="gr" label="Greek"  />
+                </Col>
+            </Row>
+            <Row>
+                <Col xs={12}></Col>
+                <Col xs={12}><Button type="submit">Save</Button></Col>
+            </Row>
+            <Row>
+                <Col xs={12}>
+                    {category && category.picture && <img src={serviceImage} width="200" height="200" />}
+                    <ImageCropper button={uploaderButton} propCrop={{
+                        unit: 'px', // default, can be 'px' or '%'
+                        x: 130,
+                        y: 50,
+                        width: 200,
+                        height: 200
+                    }} keyField="servicePicture" onChange={onChangeProfileHandler}/>
 
+                </Col>
+                <Col xs={12}>
 
-        <div style={{display:"flex", justifyContent:"space-around"}}>
-            <ImageCropper button={uploaderButton} propCrop={{
-                unit: 'px', // default, can be 'px' or '%'
-                x: 130,
-                y: 50,
-                width: 200,
-                height: 200
-            }} keyField="servicePicture" onChange={onChangeProfileHandler}/>
-            <Button type="submit">Save</Button>
-        </div>
-
+                </Col>
+            </Row>
+        </Grid>
     </Form>)
 
 }
@@ -188,17 +213,23 @@ export function CategoryModal({show, onHide, successCallback = ()=>{}, parentId}
 
     const [formValue, setFormValue] = useState();
     const [response, createCategoryHandler] = useCreateCategory();
+    const formRef = useRef();
 
     const onSubmitHandler = () =>{
-        const formData = new FormData();
-        formData.append('parentId', parentId);
-        formData.append('value', formValue.value);
-        formData.append('ar', formValue.ar);
-        formData.append('en', formValue.en);
-        formData.append('it', formValue.it);
-        formData.append('gr', formValue.gr);
-        createCategoryHandler(formData, {successCallback: successCallback });
-    }
+
+        if(formRef.current.check()){
+            const formData = new FormData();
+            formData.append('parentId', parentId);
+            formData.append('value', formValue.value);
+            formData.append('ar', formValue.ar);
+            formData.append('en', formValue.en);
+            formData.append('it', formValue.it);
+            formData.append('gr', formValue.gr);
+            createCategoryHandler(formData, {successCallback: successCallback });
+        }
+
+    };
+
 
 
 
@@ -206,7 +237,7 @@ export function CategoryModal({show, onHide, successCallback = ()=>{}, parentId}
         <Modal.Header closeButton>
             New category
         </Modal.Header>
-        <Form fluid formValue={formValue} onChange={setFormValue} onSubmit={onSubmitHandler}  >
+        <Form ref={formRef} model={categoryModel} fluid formValue={formValue} onChange={setFormValue} onSubmit={onSubmitHandler}  >
             <Modal.Body >
                     <TextField style={{width:"100%"}} name="value" label="Name"/>
                 <TextField style={{width:"100%"}} name="en" label="English"  />

@@ -2,10 +2,11 @@ import React, {useEffect, useState} from "react";
 import {Button, ButtonGroup, Col, Form, Grid, Modal, Row, Tree} from "rsuite";
 import {useEditExpertise, useGetServices, useUploadPicture} from "../../Backend/hooks/useServices";
 import TextField from "../../Login/Components/TextField";
-import {FormBox} from "../../styledComponents/CustomComponents";
+import {bordeaux, FlexBetweenDiv, FormBox} from "../../styledComponents/CustomComponents";
 import ImageCropper from "../../ReusableComponents/ImageCropper";
 import {expertisesTreeByLanguage, generateServiceTree} from "../../Functions/Expertises";
 import {useCreateExpertise, useDeleteExpertise} from "../../Backend/hooks/useExpertise";
+import {CategoryModal} from "./CategoriesManagement";
 
 export default function ExpertiseManagement(){
 
@@ -44,22 +45,30 @@ export default function ExpertiseManagement(){
     }
 
     return (<FormBox style={{width:"100%"}}>
-        <h3>Expertise Management</h3>
-        <p>Please select one element from the tree to edit its property</p>
 
         <Grid fluid>
-            <Row>
-                <Col xs={12}>
-                    <ButtonGroup>
-                        <Button onClick={()=>deleteServiceHandler(selectedServiceNode,{successCallback: getServicesHandler} )}>Remove Expertise</Button>
-                        <Button onClick={addRootExpertise}>Create root expertise</Button>
-                    </ButtonGroup>
+            <Row style={{backgroundColor:bordeaux}}>
+                <Col xs={24}>
+
+                    <FlexBetweenDiv style={{margin:10}}>
+                        <div>
+                            <h3>Expertise Management</h3>
+                            <p>Please select one element from the tree to edit its property</p>
+                        </div>
+                        <div>
+                            <ButtonGroup>
+                                <Button onClick={addRootExpertise}>Create root expertise</Button>
+                                {selectedServiceNode!==null && <Button onClick={handleShowGroup}>Add child expertise</Button>}
+                                <Button onClick={()=>deleteServiceHandler(selectedServiceNode,{successCallback: getServicesHandler} )}>Remove expertise</Button>
+                            </ButtonGroup>
+                        </div>
+
+                    </FlexBetweenDiv>
                 </Col>
-                <Col xs={12}></Col>
             </Row>
             <Row>
-                <Col xs={12}>
-                    <Tree style={{width:"100%"}} defaultExpandAll={true} data={servicesTree} onSelect={
+                <Col xs={8}>
+                    <Tree defaultExpandAll={true} data={servicesTree} onSelect={
                         (e) => {
                             console.log(e);
                             setSelectedServiceNode(e.value);
@@ -67,17 +76,10 @@ export default function ExpertiseManagement(){
                         }
                     } />
                 </Col>
-                <Col xs={12}>
-                    {selectedServiceNode !== null &&
-                    <>
-                        <ServiceDetail service={getService(selectedServiceNode)} refreshHandler={getServicesHandler}/>
-                        <Button onClick={handleShowGroup}>Add expertise</Button>
-
-                    </>}
-                    <ServiceModal parentId={selectedServiceNode} onHide={() => setShowGroup(false)} show={showGroup}
-                                  successCallback={successCallbackCreation}/>
+                <Col xs={16}>
+                    {selectedServiceNode!==null && <ServiceDetail service={getService(selectedServiceNode)} refreshHandler={getServicesHandler} />}
+                    <ServiceModal parentId={selectedServiceNode} onHide={()=>setShowGroup(false)} show={showGroup} successCallback={successCallbackCreation} />
                 </Col>
-
 
             </Row>
 
@@ -130,23 +132,49 @@ function ServiceDetail({service, refreshHandler}){
                   onSubmit={saveExpertise}
         //    onSubmit={()=>submitHandler(formValue)}
     >
-        <TextField style={{width:"100%"}} name="label" label="Expertise"  />
-        <TextField style={{width:"100%"}} name="en" label="English"  />
-        <TextField style={{width:"100%"}} name="it" label="Italian"  />
-        <TextField style={{width:"100%"}} name="ar" label="Arabic"  />
-        <TextField style={{width:"100%"}} name="gr" label="Greek"  />
-        <div style={{display:"flex", justifyContent:"center"}}>
-            {service && service.picture && <img src={serviceImage} width="200" height="200" />}
-        </div>
+        <Grid fluid>
+            <Row>
+                <Col xs={24}>
+                    <TextField style={{width:"100%"}} name="label" label="Expertise"  />
+                </Col>
+            </Row>
+            <Row>
+                <Col xs={12}>
+                    <TextField style={{width:"100%"}} name="en" label="English"  />
+                </Col>
+                <Col xs={12}>
+                    <TextField style={{width:"100%"}} name="it" label="Italian"  />
+                </Col>
+            </Row>
+            <Row>
+                <Col xs={12}>
+                    <TextField style={{width:"100%"}} name="ar" label="Arabic"  />
+                </Col>
+                <Col xs={12}>
+                    <TextField style={{width:"100%"}} name="gr" label="Greek"  />
+                </Col>
+            </Row>
+            <Row>
+                <Col xs={12}></Col>
+                <Col xs={12}><Button type="submit">Save</Button></Col>
+            </Row>
+            <Row>
+                <Col xs={12}>
+                    {service && service.picture && <img src={serviceImage} width="200" height="200" />}
+                    <ImageCropper button={uploaderButton} propCrop={{
+                        unit: 'px', // default, can be 'px' or '%'
+                        x: 130,
+                        y: 50,
+                        width: 200,
+                        height: 200
+                    }} keyField="servicePicture" onChange={onChangeProfileHandler}/>
 
-        <ImageCropper button={uploaderButton} propCrop={{
-            unit: 'px', // default, can be 'px' or '%'
-            x: 130,
-            y: 50,
-            width: 200,
-            height: 200
-        }} keyField="servicePicture" onChange={onChangeProfileHandler}/>
-        <Button type="submit">Save</Button>
+                </Col>
+                <Col xs={12}>
+
+                </Col>
+            </Row>
+        </Grid>
     </Form>)
 
 }

@@ -28,6 +28,8 @@ export default function ImageCropper({keyField, onChange, locked=false, propCrop
         setCroppedImageUrl(null);
         setShow(false);
         onChange(blob);
+
+
     }
 
     const onHide = ()=>{
@@ -57,7 +59,6 @@ export default function ImageCropper({keyField, onChange, locked=false, propCrop
     };
 
     const onCropComplete = crop => {
-        console.log("onCropComplete", crop);
         makeClientCrop(crop);
     };
 
@@ -84,7 +85,6 @@ export default function ImageCropper({keyField, onChange, locked=false, propCrop
 
     const getCroppedImg = (image, crop, fileName) => {
 
-        console.log("get cropped crop", crop)
 
         const canvas = document.createElement('canvas');
         const scaleX = image.naturalWidth / image.width;
@@ -92,11 +92,6 @@ export default function ImageCropper({keyField, onChange, locked=false, propCrop
         canvas.width = crop.width;
         canvas.height = crop.height;
         const ctx = canvas.getContext('2d');
-
-
-        console.log("Cropping features", crop);
-        console.log("scalex", scaleX);
-        console.log("scaley", scaleY);
 
 
         ctx.drawImage(
@@ -136,7 +131,7 @@ function CropperModal({src, crop, show,croppedImageUrl, onModalClose, onSave, on
     return (
         <>
 
-            <Modal show={show} onHide={onModalClose} centered>
+            <Modal show={show} onHide={onModalClose} centered size="lg">
                 <Modal.Header>
                     <Modal.Title>Cambia la immagine</Modal.Title>
                 </Modal.Header>

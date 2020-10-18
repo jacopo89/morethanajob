@@ -2,6 +2,7 @@
 
 namespace App\Entity;
 
+use DateTime;
 use Doctrine\Common\Collections\ArrayCollection;
 use Doctrine\Common\Collections\Collection;
 use Doctrine\ORM\Mapping as ORM;
@@ -105,17 +106,13 @@ class Project
      */
     private $language;
 
-    /**
-     * @var User
-     */
-    private $leader;
-    
 
     public function __construct()
     {
         $this->projectPartnersRelations = new ArrayCollection();
         $this->externalPartners = new ArrayCollection();
         $this->collaborations = new ArrayCollection();
+        $this->creationTime = new DateTime();
 
     }
 
@@ -396,17 +393,7 @@ class Project
         return $this;
     }
 
-    /**
-     * @return mixed
-     */
-    public function getLeader()
-    {
-        return $this->projectPartnersRelations->filter(function(ProjectPartner $projectPartner){
-            return $projectPartner->getIsLeader() === true;
-        })->map(function (ProjectPartner $projectPartner){
-            return $projectPartner->getPartner();
-        })->first();
-    }
+
 
 
 

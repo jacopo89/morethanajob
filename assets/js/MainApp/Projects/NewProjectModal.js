@@ -25,7 +25,6 @@ export default function NewProjectModal({show, onHide, successCallback = ()=>{},
 
     const handleFileChange = (file) =>{
         if(file){
-            console.log("File immagine progetto", file);
             setFormValue({
                 ...formValue,
                 projectPictureImage:  file[0].blobFile,

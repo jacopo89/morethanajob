@@ -100,15 +100,15 @@ export function ProjectMenu({society, isOwner}){
 function ProjectModal({show, onHide}){
 
     const history = useHistory();
+    const {t} = useTranslation();
 
     return (<Modal show={show} onHide={onHide} centered>
         <Modal.Header closeButton>
-            Show Project Type
         </Modal.Header>
             <Modal.Body>
                 <div style={{display:"flex"}}>
-                    <Button style={{flexGrow:1, margin:5}} onClick={() => history.push(Routes.newPortfolioPage)}> Create portfolio project</Button>
-                    <Button style={{flexGrow:1, margin:5}} onClick={() => history.push(Routes.newProjectPage)}> Create new project</Button>
+                    <Button style={{flexGrow:1, margin:5}} onClick={() => history.push(Routes.newPortfolioPage)}> {t('Create portfolio project')}</Button>
+                    <Button style={{flexGrow:1, margin:5}} onClick={() => history.push(Routes.newProjectPage)}> {t('Create new project')}</Button>
                 </div>
 
             </Modal.Body>

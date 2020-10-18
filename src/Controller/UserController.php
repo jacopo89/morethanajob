@@ -59,6 +59,7 @@ class UserController extends AbstractController
         $userToSend["expertiseNumber"] = $user->getOfferedServicesRelations()->count();
         $userToSend["serviceNumber"] = $user->getServices()->count();
         $userToSend["collaborationNumber"] = $user->getActiveCollaborations()->count();
+        $userToSend["localDescription"] = $user->getLocalLanguageDescription();
 
 
         return new Response($this->serializer->serialize($userToSend, 'json'), Response::HTTP_OK);
@@ -89,6 +90,7 @@ class UserController extends AbstractController
         $userToSend["expertiseNumber"] = $user->getOfferedServicesRelations()->count();
         $userToSend["serviceNumber"] = $user->getServices()->count();
         $userToSend["collaborationNumber"] = $user->getActiveCollaborations()->count();
+        $userToSend["localDescription"] = $user->getLocalLanguageDescription();
 
         return new Response($this->serializer->serialize($userToSend, 'json'), Response::HTTP_OK);
     }
@@ -122,6 +124,7 @@ class UserController extends AbstractController
             $userToSend["profileName"] = $user->getProfileName();
             $userToSend["profilePicture"] = $user->getProfilePicture();
             $userToSend["files"] = $user->getDocFiles();
+
             $finalUsers[] = $userToSend;
         }
 

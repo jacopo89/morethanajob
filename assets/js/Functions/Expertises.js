@@ -38,7 +38,6 @@ export function expertisesTreeByLanguage(){
 
     useEffect(()=>{
         const newExpertises = filterExpertise(services);
-        console.log("new expertises", newExpertises);
         setLanguageExpertises(newExpertises);
     },[language, services]);
 

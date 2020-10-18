@@ -6,10 +6,10 @@ import {Col, Divider, Form, Grid, Row, SelectPicker} from "rsuite";
 import {dataLanguage, getLanguageFromValue} from "../../selectData";
 import {
     bordeaux,
-    coverPicture,
+    coverPicture, FormButtonGroup, FormRow,
     InverseButton,
     projectPicture,
-    SaveButton
+    SaveButton, uploaderCoverConfig
 } from "../../styledComponents/CustomComponents";
 import styled from "styled-components";
 import ImageCropper from "../../ReusableComponents/ImageCropper";
@@ -19,10 +19,13 @@ import {useTranslation} from "react-i18next";
 import PartnersList from "./Partners/PartnersList";
 import {projectModel} from "../FormModels/models";
 import DynamicList from "../../ReusableComponents/DynamicList";
+import DeleteButton from "../../ReusableComponents/DeleteButton";
+import {ProjectFields} from "../FormModels/project-fields";
+import ProjectForm from "../Forms/ProjectForm";
 
 export default function NewProject({isPortfolio=false}){
     const {user} = useSelector(state=>state);
-    const [formValue, setFormValue] = useState({language:user.language,positions: [], partners:[]});
+    const [formValue, setFormValue] = useState({language:user.language, positions: [], partners:[], links:[], contacts:[]});
 
     const [response, createNewProjectHandler] = useCreateNewProject();
     const history = useHistory();
@@ -101,91 +104,21 @@ export default function NewProject({isPortfolio=false}){
     const linksListChanger = (list) => setFormValue({...formValue, links: list});
     const contactListChanger = (list) => setFormValue({...formValue, contacts: list});
 
+    const uploadCoverButton = <InverseButton>{t('Upload Cover Button')}</InverseButton>;
 
-    const uploadCoverButton = <InverseButton>{t('Upload cover button')}</InverseButton>;
-    const uploadLogoButton = <InverseButton>{t('Upload logo button')}</InverseButton>;
 
 
     return (
         <>
             <div style={{height:281, width:"100%", marginBottom:10,position:"relative", backgroundImage:`url(${pathUrl})`,  backgroundSize: "contain"}}>
-                <ImageCropper button={uploadCoverButton} propCrop={{
-                    unit: 'px', // default, can be 'px' or '%'
-                    x: 0,
-                    y: 0,
-                    height: 281
-                    //height: 281,
-                    //aspect: 3.592
-                }} keyField="projectImage" onChange={handleFileChange}/>
-            </div>
-
-            <InfoBox >
-                <TitleBox>Info </TitleBox>
-                <div style={{margin:5}}>
-                    <Form ref={formRef} fluid formValue={formValue} model={projectModel} onChange={setFormValue} onSubmit={onSubmitHandler}>
-                        <TextField label={t('Title')} name="title" type="text" />
-                        <TextField disabled style={{width:"100%"}} label={t('Language')} name="language" accepter={SelectPicker} data={dataLanguage()} />
-                        <TextField label={t('Local Title') + " (" + getLanguageFromValue(formValue.language) +")"} name="localTitle" type="text" />
-                        <TextField label={t('Short Description')} name="shortDescription" componentClass="textarea" />
-                        <TextField label={t('Local Short Description') + " (" + getLanguageFromValue(formValue.language) +")"} name="LocalShortDescription" componentClass="textarea" />
-                        <TextField label={t('Description')} name="longDescription" componentClass="textarea" />
-                        <TextField label={t('Local Description')  + " (" + getLanguageFromValue(formValue.language) +")"} name="localLongDescription" componentClass="textarea" />
-
-                        <Grid fluid>
-                            <Row>
-                                <Col xs={12}>
-                                    <DynamicList name="link" updater={linksListChanger} startingValue={[]}> </DynamicList>
-                                </Col>
-                                <Col xs={12}>
-                                    <DynamicList name="contact" updater={contactListChanger} startingValue={[]}> </DynamicList>
-                                </Col>
-                            </Row>
-                        </Grid>
-
-                        <Grid>
-                            <Row>
-                                <Col xs={12}>
-                                    <div style={{display: "flex", justifyContent: "center"}}>
-                                        <div style={{
-                                            backgroundImage: `url(${projectLogoUrl})`,
-                                            backgroundSize: "contain",
-                                            width: 150,
-                                            height: 150
-                                        }}/>
-                                    </div>
-                                </Col>
-                                <Col xs={12}>
-                                    <ImageCropper button={uploadLogoButton} propCrop={{
-                                        unit: '%', // default, can be 'px' or '%'
-                                        x: 0,
-                                        y: 0,
-                                        aspect:3.592
-                                    }} keyField="projectImage" onChange={handleProjectLogoChange}/>
-                                </Col>
-                            </Row>
-                           {/* <Row>
-                                <Col xs={12}></Col>
-                                <Col xs={12}>
-                                        <SaveButton onClick={partialSave}>{t('Save')}</SaveButton>
-                                </Col>
-                            </Row>*/}
-                        </Grid>
-
-                        <Divider />
-                        {isPortfolio &&
-                            <>
-                                <TitleBox>Partner </TitleBox>
-                                <PartnersList formValue={formValue} setFormValue={setFormValue} />
-                            </>}
-
-                        <div>
-                            <SaveButton type="submit">{t('Save')}</SaveButton>
-                        </div>
-
-                    </Form>
+                <div style={{position:"absolute", bottom:5, left:5}}>
+                    <ImageCropper button={uploadCoverButton} propCrop={uploaderCoverConfig} keyField="projectImage" onChange={handleFileChange}/>
                 </div>
-
-
+            </div>
+            <InfoBox >
+                <Form ref={formRef} fluid formValue={formValue} model={projectModel} onChange={setFormValue} onSubmit={onSubmitHandler}>
+                    <ProjectForm formValue={formValue} linksListChanger={linksListChanger} contactsListChanger={contactListChanger} handleProjectLogoChange={handleProjectLogoChange} isPortfolio={isPortfolio}/>
+                </Form>
             </InfoBox>
         </>);
 
@@ -195,13 +128,3 @@ export default function NewProject({isPortfolio=false}){
 const InfoBox =  styled.div`
 padding: 10px;`
 ;
-
-const TitleBox = styled.h4`
-display: flex;
-align-items:center;
-padding-left: 20px;
-color: white;
-background-color: ${bordeaux};
-height:100px;
-margin: 10px 0 10px 0;
-`;

@@ -61,7 +61,6 @@ function AlreadyLoggedIn(){
     const history = useHistory();
     const {user} = useSelector(state=>state);
 
-    console.log(user);
     const signOut = () => {
         dispatch(ActionTypes.logOut());
     }

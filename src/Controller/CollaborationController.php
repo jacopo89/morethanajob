@@ -11,6 +11,7 @@ namespace App\Controller;
 
 use App\Entity\Category;
 use App\Entity\Collaboration;
+use App\Entity\OfferedService;
 use App\Entity\Position;
 use App\Entity\Project;
 use App\Entity\Service;
@@ -295,18 +296,15 @@ class CollaborationController extends AbstractController
     public function getRandom(Request $request){
         $language = $request->get('language');
 
-        $collaborations = $this->em->getRepository(Collaboration::class)->findBy(['language'=>$language]);
+        if($language!=="en"){
+            $collaborations = $this->em->getRepository(Collaboration::class)->findBy(['language'=>$language]);
+        }else{
+            $collaborations = $this->repository->findAll();
+        }
         shuffle($collaborations);
 
-        $totalNumberCollaborations = sizeof($collaborations);
-        $finalSize = ($totalNumberCollaborations<5) ? $totalNumberCollaborations : 5;
-        $finalCollaborations = [];
-        for($i=0;  $i<$finalSize; $i++){
-            $collaboration = $collaborations[$i];
-            $finalCollaborations[] = $collaboration;
-        }
 
-        $openRecords = array_filter($finalCollaborations, function(Collaboration $collaboration){
+        $openRecords = array_filter($collaborations, function(Collaboration $collaboration){
             $today = new \DateTime();
             $format = "Y-m-d\TH:i:s.v\Z";
 
@@ -321,14 +319,22 @@ class CollaborationController extends AbstractController
             return true;
 
         });
-
         $sentRecords = [];
         foreach($openRecords as $openRecord){
             $sentRecords[] = $openRecord;
         }
 
+        $totalNumberCollaborations = sizeof($sentRecords);
+        $finalSize = ($totalNumberCollaborations<5) ? $totalNumberCollaborations : 5;
+        $finalCollaborations = [];
+        for($i=0;  $i<$finalSize; $i++){
+            $collaboration = $sentRecords[$i];
+            $finalCollaborations[] = $collaboration;
+        }
 
-        return new Response($this->serializer->serialize($sentRecords, 'json'), Response::HTTP_OK);
+
+
+        return new Response($this->serializer->serialize($finalCollaborations, 'json'), Response::HTTP_OK);
     }
 
     /**
@@ -405,4 +411,185 @@ class CollaborationController extends AbstractController
         return new Response($this->serializer->serialize($projects,'json'));
 
     }
+
+
+    /**
+     * @Route("/searchfiltered")
+     * @param Request $request
+     * @return Response
+     */
+    public function getFiltered(Request $request){
+
+
+        //REQUEST PARAMETERS
+        $country = json_decode($request->get('country'));
+        $language = $request->get('language');
+        $services = json_decode($request->get('service'));
+        $categories = json_decode($request->get('category'));
+        $userMail = json_decode($request->get('user'));
+        $from = json_decode($request->get('from'));
+        $to = json_decode($request->get('to'));
+        $deadline = new \DateTime($to);
+        $checkbox = json_decode($request->get('radio'));
+
+        $page = intval($request->get('page'));
+        $limit = intval($request->get('limit'));
+
+
+        //RELATIONS
+        $user = $this->em->getRepository(User::class)->findOneBy(['email'=>$userMail]);
+        $trueServices = $this->em->getRepository(Service::class)->findBy(['id'=>$services]);
+        $trueCategories = $this->em->getRepository(Category::class)->findBy(['id'=>$categories]);
+
+
+        $userCollaborationsIds = [];
+        $userServiceIds = [];
+
+        $arrayServicesIds = [];
+        $userOfferedServicesIds = [];
+
+
+        $projectFilters = []; $serviceFilters = [];
+        if($country){
+            $projectFilters['country'] = $country;
+        }
+        if($language && $language!=="en"){
+            $projectFilters['language'] = $language;
+        }
+        if($categories){
+            $projectFilters['category'] = $trueCategories;
+        }
+        if($user){
+            $userCollaborationsIds = $user->getCollaborations()->map(function(Collaboration $collaboration){return $collaboration->getId();})->toArray();
+
+            $userOfferedServicesIds = $user->getOfferedServicesRelations()->map(function(OfferedService $offeredService){return $offeredService->getId();})->toArray();
+        }
+        if($services){
+
+            //ricerca con fornitura
+
+            $positions = $this->getDoctrine()->getRepository(Position::class)->findBy(['service'=>$trueServices, 'isOpen'=>true]);
+
+            $array_positions = [];
+            foreach($positions as $position){
+                $array_positions[] = $position;
+            }
+
+            $userServiceIds = array_unique(array_map(function(Position $position){
+                return $position->getCollaboration()->getId();
+            }, $array_positions));
+
+            $offeredServices = $this->getDoctrine()->getRepository(OfferedService::class)->findBy(['service'=> $trueServices]);
+
+            $arrayServicesIds = [];
+            foreach($offeredServices as $offeredService){
+                $arrayServicesIds[] = $offeredService->getId();
+            }
+
+
+        }
+
+
+
+        $arrayId = array_unique(array_merge($userCollaborationsIds, $userServiceIds));
+
+        $servicesId = array_diff($userOfferedServicesIds,$arrayServicesIds)
+        ;
+        if($services || $userMail){
+            $projectFilters['id'] = $arrayId;
+            $serviceFilters['id'] = $servicesId;
+        }
+
+
+
+
+        $offeredServices = $this->getDoctrine()
+            ->getRepository(OfferedService::class)
+            ->findBy($serviceFilters);
+
+        $records = $this->getDoctrine()
+            ->getRepository(Collaboration::class)
+            ->findBy($projectFilters)
+        ;
+
+
+        $results = [];
+
+        switch($checkbox){
+            case "services":{
+                $filteredRecords = array_filter($records, function(Collaboration $collaboration){
+                    return $collaboration->getIsActive()===false;
+                });
+                $newRecords = [];
+                foreach ($filteredRecords as $filteredRecord){
+                    $newRecords[] = $filteredRecord;
+                }
+            }
+                break;
+            case "collaborations":{
+                $filteredRecords = array_filter($records, function(Collaboration $collaboration){
+                    return $collaboration->getIsActive()===true;
+                });
+                $newRecords = [];
+                foreach ($filteredRecords as $filteredRecord){
+                    $newRecords[] = $filteredRecord;
+                }
+            }
+                break;
+            default:{
+                $newRecords = $records;
+            }
+                break;
+
+        }
+
+        if($to){
+            $timeRecords = array_filter($newRecords, function(Collaboration $collaboration)use($deadline){
+                $format = "Y-m-d\TH:i:s.v\Z";
+                $endDateS = $collaboration->getEndDate();
+                if($endDateS){
+                    $endDate = \DateTime::createFromFormat($format, $endDateS);
+                    return ($endDate >=$deadline);
+                }else{
+                    return true;
+                }
+            });
+            $finalRecords = [];
+            foreach($timeRecords as $timeRecord){
+                $finalRecords[] = $timeRecord;
+            }
+        }else{
+            $finalRecords = $newRecords;
+        }
+
+        //filter by date
+        $openRecords = array_filter($finalRecords, function(Collaboration $collaboration){
+            $today = new \DateTime();
+            $format = "Y-m-d\TH:i:s.v\Z";
+
+            $endDateS = $collaboration->getEndDate();
+
+            if($endDateS){
+                $endDate = \DateTime::createFromFormat($format, $endDateS);
+                if($today> $endDate){
+                    return false;
+                }
+            }
+            return true;
+
+        });
+
+        $sentRecords = [];
+        foreach($openRecords as $openRecord){
+            $sentRecords[] = $openRecord;
+        }
+
+
+        $results["services"] = [];
+        $results["servicesNumber"] = sizeOf($sentRecords);
+        $results["projects"] = array_slice($sentRecords, $limit * ($page -1), $limit * $page);
+        return new Response($this->serializer->serialize($results, 'json'));
+    }
+
+
 }

@@ -14,6 +14,9 @@ export const projectModel = Schema.Model({
 
 export const collaborationModel = Schema.Model({
     title: StringType().isRequired('This field is required.'),
+    localLanguageTitle: StringType().isRequired('This field is required.'),
+    localLanguageShortDescription: StringType().isRequired('This field is required.').maxLength(500,"No more than 500 characters"),
+    localLanguageDescription: StringType().isRequired('This field is required.').maxLength(500,"No more than 500 characters"),
     shortDescription: StringType().isRequired('This field is required.').maxLength(500,"No more than 500 characters"),
     description: StringType().isRequired('This field is required.').maxLength(500, "No more than 500 characters"),
     category: NumberType().isRequired('This field is required.'),
@@ -22,17 +25,23 @@ export const collaborationModel = Schema.Model({
     contacts: StringType().isEmail().isRequired('This field is required.'),
 });
 
-
-export const messageLoggedModel = Schema.Model({
-    message:StringType().isRequired()
-})
-
 export const messageAnonymousModel = Schema.Model({
-    message:StringType().isRequired(),
-    firstname:StringType().isRequired(),
-    lastname:StringType().isRequired(),
-    email:StringType().isEmail().isRequired()
+    message:StringType().isRequired('This field is required.'),
+    firstname:StringType().isRequired('This field is required.'),
+    lastname:StringType().isRequired('This field is required.'),
+    email:StringType().isEmail('Insert a valid email.').isRequired('This field is required.')
 })
+
+export const categoryModel = Schema.Model({
+    value:StringType().isRequired('This field is required.'),
+    ar:StringType().isRequired('This field is required.'),
+    en:StringType().isRequired('This field is required.'),
+    it:StringType().isRequired('This field is required.'),
+    gr:StringType().isRequired('This field is required.'),
+
+})
+
+
 
 
 export const furnitureModel = {};

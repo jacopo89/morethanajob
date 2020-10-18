@@ -1,6 +1,6 @@
 import {useGetServices} from "../../Backend/hooks/useServices";
 import React, {useEffect, useState} from "react";
-import {bordeaux, InverseButton} from "../../styledComponents/CustomComponents";
+import {bordeaux, FlexBetweenDiv, InverseButton, MainButton} from "../../styledComponents/CustomComponents";
 import {List} from "rsuite";
 import {PositionDescription} from "./PositionDescription";
 import PositionForm from "./PositionForm";
@@ -122,10 +122,11 @@ export default function PositionList({formValue, setFormValue, callback, isEdit=
     }
 
     const list = <>
-        <div style={{display:"flex", justifyContent:"space-between"}}>
-            <TitleBox style={{color:bordeaux}}>{('Positions')} </TitleBox>
-        </div>
-        <InverseButton onClick={createHandler}>{('Create position')}</InverseButton>
+        <FlexBetweenDiv style={{ backgroundColor:"whitesmoke" }}>
+            <TitleBox style={{color:bordeaux, flexGrow:1}}>{('Positions')} </TitleBox>
+            <MainButton onClick={createHandler}>{('Create position')}</MainButton>
+        </FlexBetweenDiv>
+
         <List>
             {formValue.positions.map((position, index) => (
                 <PositionDescription key={index} isEdit={isEdit} position={position} services={services} remover={remove} updater={update} setEdit={editHandler} callback={callback} />

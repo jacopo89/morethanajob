@@ -14,7 +14,7 @@ export function  useSearchProjects() {
 
     const {accessToken} = useSelector(state=>state);
     const backendClient = BackendClient(accessToken);
-    return useCreateHook(backendClient,'/backend/project/searchfiltered','post',{projects:[], services:[]});
+    return useCreateHook(backendClient,'/backend/collaborations/searchfiltered','post',{servicesNumber: 0,projects:[], services:[]});
 }
 
 export function  useGetUserProjects() {

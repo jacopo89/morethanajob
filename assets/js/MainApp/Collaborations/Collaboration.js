@@ -210,7 +210,6 @@ export function RequestsModal({position, showModal, closeModal, callback}){
     const history = useHistory();
 
     const confirmCollaboration = (rowData) =>{
-        console.log("Confirm Collaboration", rowData)
         const formData = new FormData();
         formData.append('user', rowData.user.email);
         formData.append('position',position.id );
@@ -221,8 +220,6 @@ export function RequestsModal({position, showModal, closeModal, callback}){
 
     const actionRender= (rowData) => {
 
-        console.log("Rowdata", rowData);
-
         return (
             <span>
                     <a onClick={() => approveHandler(rowData)}> Approve </a> |{' '}
@@ -232,7 +229,6 @@ export function RequestsModal({position, showModal, closeModal, callback}){
     }
 
     const approveHandler = (rowData)=>{
-        console.log("rowdata approvehandler", rowData);
         confirmCollaboration(rowData, {successCallback: callback});
     }
 

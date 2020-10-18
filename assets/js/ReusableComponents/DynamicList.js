@@ -1,5 +1,5 @@
 import React, {useEffect, useState} from 'react';
-import {Button, Icon, IconButton, List} from "rsuite";
+import {Button, Form, Icon, IconButton, List} from "rsuite";
 import TextField from "../Login/Components/TextField";
 import {IconButtonTransparent} from "../styledComponents/CustomComponents";
 
@@ -41,9 +41,6 @@ export default function DynamicList({name, updater, startingValue, options = {}}
     }
 
     useEffect(()=> {
-        console.log(list);
-        console.log(startingValue)
-
         if(list!==startingValue){
             updater(list)
         }
@@ -53,7 +50,7 @@ export default function DynamicList({name, updater, startingValue, options = {}}
 
 
     return <div style={{padding:10}}>
-        <b>{name}s</b>
+        <b>{name}</b>
 
         <List hover>
             {list.map((item,index)=>
@@ -65,7 +62,10 @@ export default function DynamicList({name, updater, startingValue, options = {}}
             )}
         </List>
         <div style={{display:"flex", justifyContent:"space-around", alignItems:"center"}}>
-            <TextField style={{flexGrow:1}} onChange={setBufferText} value={bufferText} label={`New ${name}`} /> <IconButtonTransparent icon={<Icon icon="plus"/>} onClick={addToList}/>
+            <div style={{flexGrow:1}}>
+            <TextField  onChange={setBufferText} value={bufferText}  />
+            </div>
+            <IconButtonTransparent icon={<Icon icon="plus"/>} onClick={addToList}/>
         </div>
     </div>
 
