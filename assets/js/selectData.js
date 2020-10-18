@@ -125,6 +125,13 @@ export function digestAmounts(amount, currency){
     
     const currencySymbol = currencies.find((cur)=> cur.value === currency);
 
-    return amount + " " + currencySymbol.symbol;
+    if(currencySymbol!==undefined){
+        return amount + " " + currencySymbol.symbol;
+    }
+    else{
+        return "";
+    }
+
+
 
 }
