@@ -100,11 +100,11 @@ class NewsController extends AbstractController
     }
 
     /**
-     * @param News $news
      * @Route("/delete/{id}", methods={"DELETE"})
+     * @param $news
      * @return Response
      */
-    public function delete(News $news){
+    public function delete($news){
         $this->em->delete($news);
         return new Response("", Response::HTTP_OK);
     }
