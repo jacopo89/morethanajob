@@ -73,7 +73,12 @@ export default function Collaboration(){
                             <IconWithText icon="calendar-o" label={t('Rate type')} value={collaboration && collaboration.rateType}/>
                         </Col>
                         <Col xs={12}>
-                            <IconWithText icon="calendar-o" label={t('Payment mode')} value={collaboration && digestAmounts(collaboration.rates, collaboration.currency)}/>
+                            <IconWithText icon="calendar-o" label={t('Payment')} value={collaboration && collaboration.rates && digestAmounts(collaboration.rates, collaboration.currency)}/>
+                        </Col>
+                    </Row>
+                    <Row className="show-grid" style={{padding: 5}}>
+                        <Col xs={24}>
+                            <IconWithText icon="calendar-o" label={t('More info')} value={collaboration && collaboration.ratesText}/>
                         </Col>
                     </Row>
                 </>
