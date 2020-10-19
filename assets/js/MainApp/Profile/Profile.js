@@ -20,6 +20,7 @@ import TextField from "../../Login/Components/TextField";
 import {dataCountry, dataLanguage} from "../../selectData";
 import {useTranslation} from "react-i18next";
 import * as Routes from '../../routes';
+import {getProfileLanguageElements} from "../../Functions/Profile";
 
 export default function Profile(){
 
@@ -48,6 +49,8 @@ export default function Profile(){
     const backgroundImage = (userInfo && userInfo.coverPicture) ? userInfo.coverPicture.url  : coverPicture;
     const profileImage = (userInfo && userInfo.profilePicture) ? userInfo.profilePicture.url  : profilePicture;
 
+
+    const {description} = getProfileLanguageElements(userInfo);
     /*const social = <div style={{position:"absolute", top: 4, right:10, display:"flex", justifyContent:"space-around", width:200 }}>
         {userInfo && userInfo.facebook &&  <a href={userInfo && userInfo.facebook}><Icon style={{color:"white"}} icon="facebook-square" size="3x"/></a>}
         {userInfo && userInfo.linkedin && <a href={userInfo && userInfo.linkedin}><Icon style={{color:"white"}} icon="linkedin-square" size="3x"/></a>}
@@ -63,8 +66,7 @@ export default function Profile(){
             <>
                 <div style={{...coverStyle, backgroundImage: `url(${backgroundImage})`}}>
                     <LinearGradient/>
-                    <h3 style={{position: "absolute", bottom: 4, right: 10, color: "white"}}><a target="_blank"
-                                                                                                href={userInfo && manipulateWebsite(userInfo.website)}>{userInfo && userInfo.website}</a>
+                    <h3 style={{position: "absolute", bottom: 4, right: 10, color: "white"}}><a target="_blank" href={userInfo && manipulateWebsite(userInfo.website)}>{userInfo && userInfo.website}</a>
                     </h3>
                     {/* {social}*/}
                     {isOwner && editButton}
@@ -84,7 +86,7 @@ export default function Profile(){
                             </Col>
                             <Col xs={16}>
                                 <h3 style={{color: bordeaux}}>{userInfo.name}</h3>
-                                <div>{userInfo.description}</div>
+                                <div>{description}</div>
                             </Col>
                         </Row>
                     </Grid>
