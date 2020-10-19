@@ -8,7 +8,11 @@ const { StringType, NumberType, DateType } = Schema.Types;
 export const projectModel = Schema.Model({
     title: StringType().isRequired("This field is required"),
     language: StringType().isRequired("This field is required"),
-    shortDescription:StringType().isRequired("This field is required")
+    shortDescription:StringType().isRequired("This field is required"),
+    localShortDescription:StringType().isRequired("This field is required"),
+    longDescription:StringType().isRequired("This field is required"),
+    localLongDescription:StringType().isRequired("This field is required"),
+    localTitle:StringType().isRequired("This field is required"),
 
 });
 
