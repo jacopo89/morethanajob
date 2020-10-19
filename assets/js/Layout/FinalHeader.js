@@ -46,22 +46,24 @@ export default function FinalHeader(){
                 <Dropdown.Item onClick={()=> history.push(Routes.administrationProjects)} eventKey="e-2">Projects</Dropdown.Item>
                 <Dropdown.Item onClick={()=> history.push(Routes.administrationCollaborations)} eventKey="e-3">Services and collaborations</Dropdown.Item>
                 <Dropdown.Item onClick={()=> history.push(Routes.administrationUsers)} eventKey="e-4">Users</Dropdown.Item>
-                <Dropdown.Item onClick={()=> history.push(Routes.administrationNews)} eventKey="e-5">News</Dropdown.Item>
+                <Dropdown.Item onClick={()=> history.push(Routes.administrationCategories)} eventKey="e-5">Categories</Dropdown.Item>
+                <Dropdown.Item onClick={()=> history.push(Routes.administrationExpertise)} eventKey="e-6">Expertise</Dropdown.Item>
+                <Dropdown.Item onClick={()=> history.push(Routes.administrationNews)} eventKey="e-7">News</Dropdown.Item>
             </Dropdown.Menu>}
             {authenticated && <Dropdown.Item onClick={()=>signOut()} >{t('Logout')}</Dropdown.Item>}
+            {!authenticated && <Dropdown.Item onClick={()=> history.push(Routes.login)} >{t('Login')}</Dropdown.Item>}
         </Dropdown>
     );
 
 
 
-    return <Navbar appearance="subtle" style={{position:"fixed", zIndex:100, width:"100%", height:125}}>
-        <Navbar.Header onClick={()=>history.push(Routes.dashboardPage)}>
+    return <Navbar appearance="subtle" style={{position:"fixed", zIndex:100, width:"100%", height:headerHeight, display:"flex", alignItems:"center", justifyContent:"space-between"}}>
+        <Navbar.Header style={{height:headerHeight, flexGrow:1}} onClick={()=>history.push(Routes.dashboardPage)}>
             <img style={{cursor:"pointer"}} height={headerHeight} src="/defaults/en_morethanajob.png" className="navbar-brand logo">
             </img>
         </Navbar.Header>
         <Navbar.Body>
-
-            <Nav pullRight>
+            <Nav>
                 <LanguageDropdown title={t('language')} />
                 {false && <Nav.Item onClick={()=>history.push(Routes.registration)} icon={<Icon icon="cog" />}>Register</Nav.Item>}
                  <CustomDropdown icon={<Icon icon="bars" />} placement="bottomEnd" />

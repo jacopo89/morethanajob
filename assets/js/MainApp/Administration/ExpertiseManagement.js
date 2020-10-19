@@ -2,7 +2,7 @@ import React, {useEffect, useState} from "react";
 import {Button, ButtonGroup, Col, Form, Grid, Modal, Row, Tree} from "rsuite";
 import {useEditExpertise, useGetServices, useUploadPicture} from "../../Backend/hooks/useServices";
 import TextField from "../../Login/Components/TextField";
-import {bordeaux, FlexBetweenDiv, FormBox} from "../../styledComponents/CustomComponents";
+import {bordeaux, FlexBetweenDiv, FormBox, FormButtonGroup, FormRow} from "../../styledComponents/CustomComponents";
 import ImageCropper from "../../ReusableComponents/ImageCropper";
 import {expertisesTreeByLanguage, generateServiceTree} from "../../Functions/Expertises";
 import {useCreateExpertise, useDeleteExpertise} from "../../Backend/hooks/useExpertise";
@@ -133,32 +133,28 @@ function ServiceDetail({service, refreshHandler}){
         //    onSubmit={()=>submitHandler(formValue)}
     >
         <Grid fluid>
-            <Row>
+            <FormRow>
                 <Col xs={24}>
                     <TextField style={{width:"100%"}} name="label" label="Expertise"  />
                 </Col>
-            </Row>
-            <Row>
+            </FormRow>
+            <FormRow>
                 <Col xs={12}>
                     <TextField style={{width:"100%"}} name="en" label="English"  />
                 </Col>
                 <Col xs={12}>
                     <TextField style={{width:"100%"}} name="it" label="Italian"  />
                 </Col>
-            </Row>
-            <Row>
+            </FormRow>
+            <FormRow>
                 <Col xs={12}>
                     <TextField style={{width:"100%"}} name="ar" label="Arabic"  />
                 </Col>
                 <Col xs={12}>
                     <TextField style={{width:"100%"}} name="gr" label="Greek"  />
                 </Col>
-            </Row>
-            <Row>
-                <Col xs={12}></Col>
-                <Col xs={12}><Button type="submit">Save</Button></Col>
-            </Row>
-            <Row>
+            </FormRow>
+            <FormRow>
                 <Col xs={12}>
                     {service && service.picture && <img src={serviceImage} width="200" height="200" />}
                     <ImageCropper button={uploaderButton} propCrop={{
@@ -171,9 +167,11 @@ function ServiceDetail({service, refreshHandler}){
 
                 </Col>
                 <Col xs={12}>
-
+                    <FormButtonGroup>
+                        <Button type="submit">Save</Button>
+                    </FormButtonGroup>
                 </Col>
-            </Row>
+            </FormRow>
         </Grid>
     </Form>)
 

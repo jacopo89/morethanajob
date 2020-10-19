@@ -1,7 +1,7 @@
 import React, {useEffect, useRef, useState} from "react";
 import {Button, ButtonGroup, Col, Form, Grid, Modal, Row, Tree} from "rsuite";
 import TextField from "../../Login/Components/TextField";
-import {bordeaux, FlexBetweenDiv, FormBox} from "../../styledComponents/CustomComponents";
+import {bordeaux, FlexBetweenDiv, FormBox, FormButtonGroup, FormRow} from "../../styledComponents/CustomComponents";
 import ImageCropper from "../../ReusableComponents/ImageCropper";
 import {
     useCategoryUploadPicture,
@@ -162,32 +162,28 @@ function CategoryDetail({category, refreshHandler}){
         //    onSubmit={()=>submitHandler(formValue)}
     >
         <Grid fluid>
-            <Row>
+            <FormRow>
                 <Col xs={24}>
                     <TextField style={{width:"100%"}} name="label" label="Category"  />
                 </Col>
-            </Row>
-            <Row>
+            </FormRow>
+            <FormRow>
                 <Col xs={12}>
                     <TextField style={{width:"100%"}} name="en" label="English"  />
                 </Col>
                 <Col xs={12}>
                     <TextField style={{width:"100%"}} name="it" label="Italian"  />
                 </Col>
-            </Row>
-            <Row>
+            </FormRow>
+            <FormRow>
                 <Col xs={12}>
                     <TextField style={{width:"100%"}} name="ar" label="Arabic"  />
                 </Col>
                 <Col xs={12}>
                     <TextField style={{width:"100%"}} name="gr" label="Greek"  />
                 </Col>
-            </Row>
-            <Row>
-                <Col xs={12}></Col>
-                <Col xs={12}><Button type="submit">Save</Button></Col>
-            </Row>
-            <Row>
+            </FormRow>
+            <FormRow>
                 <Col xs={12}>
                     {category && category.picture && <img src={serviceImage} width="200" height="200" />}
                     <ImageCropper button={uploaderButton} propCrop={{
@@ -200,9 +196,11 @@ function CategoryDetail({category, refreshHandler}){
 
                 </Col>
                 <Col xs={12}>
-
+                    <FormButtonGroup>
+                        <Button type="submit">Save</Button>
+                    </FormButtonGroup>
                 </Col>
-            </Row>
+            </FormRow>
         </Grid>
     </Form>)
 

@@ -1,7 +1,7 @@
 import React, {useEffect, useRef, useState} from "react";
 import {useHistory, useParams} from "react-router-dom";
-import {Button, Col, Form, Grid, HelpBlock, Icon, Modal, Panel, Row} from "rsuite";
-import {bordeaux, CollaborationBox, MainButton} from "../../styledComponents/CustomComponents";
+import {Button, Col, Form, Grid, HelpBlock, Icon, IconButton, Modal, Panel, Row} from "rsuite";
+import {bordeaux, CollaborationBox, FormRow, MainButton} from "../../styledComponents/CustomComponents";
 import {useGetCollaboration, useSendMessage} from "../../Backend/hooks/useCollaborations";
 import {getCalendarFormat} from "../../ReusableComponents/TimeManager";
 import {useSelector} from "react-redux";
@@ -37,10 +37,19 @@ export default function Collaboration(){
 
     const serviceBox = <ServiceFormBox collaboration={collaboration}/>;
 
-    const editButton = isCollaborationClosed ? <Button style={{backgroundColor:"white", color:bordeaux, margin:10, bottom:10, right:10}} onClick={()=>history.push(Routes.editService(id))}>Edit Service</Button> : <Button style={{backgroundColor:"white", color:bordeaux, margin:10, bottom:10, right:10}} onClick={()=>history.push(Routes.editCollaboration(id))}>Edit Collaboration</Button>
+    const editButtonClickHandler = (isCollaborationClosed) ? () => history.push(Routes.editService(id)) : ()=>history.push(Routes.editCollaboration(id));
+
+    const editButton =
+        <IconButton icon={<Icon icon="edit" />} style={{
+    backgroundColor: "white",
+    color: bordeaux,
+    position: "absolute",
+    bottom: 5,
+    right: 5
+}} onClick={editButtonClickHandler}/>
 
     return (<>
-        <div style={{width:"100%", backgroundColor:bordeaux}}>
+        <div style={{width:"100%", backgroundColor:bordeaux, position:"relative"}}>
             <CollaborationBox>
                 <div style={{height: 150, width: 150, backgroundImage: `url(${categoryImage})`, backgroundColor: "white", backgroundSize: "contain", flex:"none", margin:10}}/>
                 {title}
@@ -48,7 +57,7 @@ export default function Collaboration(){
             {isOwner && editButton}
         </div>
 
-        <div style={{padding:10}}>{description}</div>
+        <div style={{padding:"10px 30px"}}>{description}</div>
         <HelpBlock>{languageMessage}</HelpBlock>
         <InfoBox>
             <Grid style={{width:"100%"}}>
@@ -63,35 +72,42 @@ export default function Collaboration(){
                 {isCollaborationClosed && <>
                     <Row className="show-grid" style={{padding: 5}}>
                         <Col xs={24}>
-                            <IconWithText icon="calendar-o" label={t('Main beneficiaries')}
+                            <IconWithText icon="people-group" label={t('Main beneficiaries')}
                                           value={collaboration && collaboration.mainBeneficiaries}/>
                         </Col>
 
                     </Row>
                     <Row className="show-grid" style={{padding: 5}}>
                         <Col xs={12}>
-                            <IconWithText icon="calendar-o" label={t('Rate type')} value={collaboration && collaboration.rateType}/>
+                            <IconWithText icon="usd" label={t('Rate type')} value={collaboration && collaboration.rateType}/>
                         </Col>
-                        <Col xs={12}>
-                            <IconWithText icon="calendar-o" label={t('Payment')} value={collaboration && collaboration.rates && digestAmounts(collaboration.rates, collaboration.currency)}/>
-                        </Col>
+                        {
+                            collaboration && collaboration.rateType==="paid" &&
+                            <Col xs={12}>
+                                <IconWithText icon="calculator" label={t('Payment')} value={collaboration && collaboration.rates && digestAmounts(collaboration.rates, collaboration.currency)}/>
+                            </Col>
+                        }
+
                     </Row>
-                    <Row className="show-grid" style={{padding: 5}}>
-                        <Col xs={24}>
-                            <IconWithText icon="calendar-o" label={t('More info')} value={collaboration && collaboration.ratesText}/>
-                        </Col>
-                    </Row>
+                    {
+                        collaboration && collaboration.rateType==="paid" &&
+                        <Row className="show-grid" style={{padding: 5}}>
+                            <Col xs={24}>
+                                <IconWithText icon="info" label={t('More info')} value={collaboration && collaboration.ratesText}/>
+                            </Col>
+                        </Row>
+                    }
                 </>
                 }
                 <Row className="show-grid" style={{padding:5}}>
                     <Col xs={24}>
-                        <IconWithText icon="calendar-o" label={t('Contacts')} value={collaboration && collaboration.contacts}/>
+                        <IconWithText icon="envelope" label={t('Contacts')} value={collaboration && collaboration.contacts}/>
                     </Col>
 
                 </Row>
                 <Row className="show-grid" style={{padding:5}}>
                     <Col xs={12}>
-                        <IconWithText icon="user" label={t('Modality')} value={collaboration && collaboration.modality}/>
+                        <IconWithText icon="eye" label={t('Modality')} value={collaboration && collaboration.modality}/>
                     </Col>
                 </Row>
 
@@ -306,28 +322,37 @@ export function ServiceFormBox({collaboration}) {
 
     return(
         (!messageResponse) ?
-        <div style={{width:"100%", display:"flex", justifyContent:"center", alignItems:"center", margin:5, height:300}}>
+        <div style={{width:"100%", display:"flex", justifyContent:"center", alignItems:"center", margin:5}}>
             {(!apply) ?
                 <MainButton style={{width:200}}  onClick={()=>setApply(true)}>{t('Apply')}</MainButton>
                 :
                 <Form ref={formRef} model={messageAnonymousModel} fluid style={{width:"100%", padding:40}} formValue={formValue} onChange={setFormValue} onSubmit={onSubmit}>
                        <Grid fluid>
-                           <Row>
+                           <FormRow>
                                <Col xs={12}>
                                    <TextField style={{width:"100%"}} name="firstname" label={t('Firstname')}  />
                                </Col>
                                <Col xs={12}>
                                    <TextField style={{width:"100%"}} name="lastname" label={t('Lastname')}  />
                                </Col>
-                           </Row>
-                           <Row>
+                           </FormRow>
+                           <FormRow>
                                <Col xs={24}>
                                    <TextField style={{width:"100%"}} name="email" label={t('Email')}  />
                                </Col>
-                           </Row>
+                           </FormRow>
+                           <FormRow>
+                               <Col xs={24}>
+                                   <TextField style={{width:"100%"}} name="message" label={t('Message')} componentClass="textarea" />
+                               </Col>
+                           </FormRow>
+                           <FormRow>
+                               <Col xs={24}>
+                                   <MainButton style={{width:100}} type="submit">{t('Send')}</MainButton>
+                               </Col>
+                           </FormRow>
                         </Grid>
-                    <TextField style={{width:"100%"}} name="message" label={t('Message')} componentClass="textarea" />
-                    <MainButton style={{width:100}} type="submit">{t('Send')}</MainButton>
+
                 </Form>}
         </div> : <div>Message correctly sent!</div>
     )

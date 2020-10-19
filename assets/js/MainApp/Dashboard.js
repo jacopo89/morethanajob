@@ -65,6 +65,7 @@ export default function Dashboard(){
                     <Nav.Item href="#aboutUs"  eventKey="2">{t('The project')}</Nav.Item>
                     <Nav.Item onClick={()=>history.push(Routes.serviceSearchPage)}  eventKey="3">{t('Services and opportunities')}</Nav.Item>
                     <Nav.Item onClick={()=>history.push(Routes.searchUserPage)}  eventKey="4">{t('Organisations')}</Nav.Item>
+                    <Nav.Item href="#news" eventKey="4">{t('News')}</Nav.Item>
                     {/*<Nav.Item href="#FAQ"  eventKey="5">FAQ</Nav.Item>*/}
 
                 </Nav>
@@ -171,8 +172,8 @@ export default function Dashboard(){
 
             </Panel>
             <Panel shaded style={panelStyle}>
+                <Anchor id="news"/>
                 <Title>News</Title>
-                <Anchor id="News"/>
                 <List size='lg'>
                     {recentNews.map((news, index)=><List.Item><NewsPanel key={index} news={news}> </NewsPanel></List.Item>)}
                 </List>
