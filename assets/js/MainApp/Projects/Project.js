@@ -38,7 +38,7 @@ export default function Project(){
         getProjectHandler(id);
     },[]);
 
-    const isOwner = project.projectPartnersRelations.filter((relation)=> relation.isLeader===true && relation.partner.email===user.email).length>0;
+    const isOwner =  (user) ? project.projectPartnersRelations.filter((relation)=> relation.isLeader===true && relation.partner.email===user.email).length>0 : false;
 
 
     const backgroundImage = (project && project.projectLogo) ? project.projectLogo.url  : projectPicture;
