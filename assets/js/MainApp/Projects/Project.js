@@ -44,26 +44,27 @@ export default function Project(){
     const backgroundImage = (project && project.projectLogo) ? project.projectLogo.url  : projectPicture;
     const backgrounCoverdImage = (project && project.projectPicture) ? project.projectPicture.url  : coverPicture;
 
-    let list;
+    let projectPartnerList = <></>;
 
-    if(project.isPortfolio){
-        const existingPartners = project.projectPartnersRelations.map((projectPartnersRelation, index)=>{
+    if(project.isPortfolio) {
+        const existingPartners = project.projectPartnersRelations.map((projectPartnersRelation, index) => {
             const partner = projectPartnersRelation.partner;
-            return <PlatformPartnerPanel partner={partner} key={index} />
+            return <PlatformPartnerPanel partner={partner} key={index}/>
 
         });
-        const externalpartners =  project.externalPartners.map((externalPartner, index)=> <ExternalPartnerPanel key={index} partner={externalPartner}/>);
-        list = <>
-            <h4 style={{color:bordeaux}}>{t('Platform Partners')}</h4>
-            <div style={{display:"flex", justifyContent:"space-around", flexWrap:"wrap"}}>{existingPartners}</div>
+        const externalpartners = project.externalPartners.map((externalPartner, index) => <ExternalPartnerPanel
+            key={index} partner={externalPartner}/>);
+        projectPartnerList = <>
+            <h4 style={{color: bordeaux}}>{t('Platform Partners')}</h4>
+            <div style={{display: "flex", justifyContent: "space-around", flexWrap: "wrap"}}>{existingPartners}</div>
 
-            {externalpartners.length!==0 && <><Icon style={{color:bordeaux}} icon="people-group" size="3x" /> <h4 style={{color:bordeaux}}>{t('External Partners')}</h4></> }
+            {externalpartners.length !== 0 && <><Icon style={{color: bordeaux}} icon="people-group" size="3x"/> <h4
+                style={{color: bordeaux}}>{t('External Partners')}</h4></>}
             {externalpartners}
         </>
-
-    }else{
-        list = project.collaborations.map((collaboration)=> <CollaborationDetail collaboration={collaboration} />);
     }
+
+    const collaborationList = project.collaborations.map((collaboration)=> <CollaborationDetail collaboration={collaboration} />);
 
     const projectLogo = <img src={backgroundImage} width={150} height={150}/>
     const {title, description, languageMessage} = getProjectLanguageElements(project);
@@ -111,9 +112,19 @@ export default function Project(){
                 </Row>
 
             </Grid>
-            <Divider />
+
+            {
+                project.isPortfolio &&
+                <>
+                    <Divider />
+                    <div style={{paddingLeft:10, paddingRight:10}}>
+                        {projectPartnerList}
+                    </div>
+                </>
+            }
+            <Divider/>
             <div style={{paddingLeft:10, paddingRight:10}}>
-                {list}
+                {collaborationList}
             </div>
 
         </FormBox>

@@ -1,7 +1,7 @@
 import React, {useEffect, useRef, useState} from "react";
 import {useSelector} from "react-redux";
 import {useDeleteCollaboration, useEditCollaboration, useGetCollaboration} from "../../Backend/hooks/useCollaborations";
-import {useGetCollaborationProjects} from "../../Backend/hooks/useProjects";
+import {useGetCollaborationProjects, useGetUserProjects} from "../../Backend/hooks/useProjects";
 import * as Routes from "../../routes";
 import {bordeaux, CollaborationBox, FormBox} from "../../styledComponents/CustomComponents";
 import {Form} from "rsuite";
@@ -17,7 +17,7 @@ export default function EditCollaboration({isService}) {
     const {user,language} = useSelector(state=>state);
     const [getResponse, getCollaborationHandler] = useGetCollaboration();
     const [response, createNewCollaborationHandler] = useEditCollaboration();
-    const [projects, getProjectsHandler] = useGetCollaborationProjects();
+    const [projects, getProjectsHandler] = useGetUserProjects();
     const { t, i18n } = useTranslation();
     const [deleteResponse, deleteCollaborationHandler] = useDeleteCollaboration();
     const history = useHistory();
