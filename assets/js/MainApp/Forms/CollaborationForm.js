@@ -40,7 +40,7 @@ export default function CollaborationForm({formValue, setFormValue, projects, ca
         </FormRow>
         <FormRow>
             <Col xs={24}>
-                <TextField label={t('Description')} name="localLanguageDescription" componentClass="textarea" />
+                <TextField label={t('Description')} name="description" componentClass="textarea" />
             </Col>
         </FormRow>
         <FormRow>

@@ -8,10 +8,10 @@ const { StringType, NumberType, DateType } = Schema.Types;
 export const projectModel = Schema.Model({
     title: StringType().isRequired("This field is required"),
     language: StringType().isRequired("This field is required"),
-    shortDescription:StringType().isRequired("This field is required"),
-    localShortDescription:StringType().isRequired("This field is required"),
-    longDescription:StringType().isRequired("This field is required"),
-    localLongDescription:StringType().isRequired("This field is required"),
+    shortDescription:StringType().isRequired("This field is required").maxLength(500,"No more than 500 characters"),
+    localShortDescription:StringType().isRequired("This field is required").maxLength(500,"No more than 500 characters"),
+    longDescription:StringType().isRequired("This field is required").maxLength(1500,"No more than 1500 characters"),
+    localLongDescription:StringType().isRequired("This field is required").maxLength(1500,"No more than 1500 characters"),
     localTitle:StringType().isRequired("This field is required"),
 
 });
@@ -20,9 +20,9 @@ export const collaborationModel = Schema.Model({
     title: StringType().isRequired('This field is required.'),
     localLanguageTitle: StringType().isRequired('This field is required.'),
     localLanguageShortDescription: StringType().isRequired('This field is required.').maxLength(500,"No more than 500 characters"),
-    localLanguageDescription: StringType().isRequired('This field is required.').maxLength(500,"No more than 500 characters"),
+    localLanguageDescription: StringType().isRequired('This field is required.').maxLength(1500,"No more than 1500 characters"),
     shortDescription: StringType().isRequired('This field is required.').maxLength(500,"No more than 500 characters"),
-    description: StringType().isRequired('This field is required.').maxLength(500, "No more than 500 characters"),
+    description: StringType().isRequired('This field is required.').maxLength(1500, "No more than 1500 characters"),
     category: NumberType().isRequired('This field is required.'),
     country: StringType().isRequired('This field is required.'),
     language: StringType().isRequired('This field is required.'),
