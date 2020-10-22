@@ -1,3 +1,4 @@
+
 export const main = "/";
 export const registration = "/registration";
 export const login = "/login";
@@ -29,6 +30,7 @@ export const routeEditCollaboration = "/editcollaboration/:id";
 export const routeEditService = "/editservice/:id";
 export const immediateLogout = "/immediatelogout";
 
+export var newsPage = "/news";
 
 export function profile(name){
     return "/profile/"+name;

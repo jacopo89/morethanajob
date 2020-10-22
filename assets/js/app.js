@@ -53,6 +53,7 @@ import AdministrationLayout from "./Layout/AdministrationLayout";
 import ExpertiseManagement from "./MainApp/Administration/ExpertiseManagement";
 import ProfileEdit from "./MainApp/Profile/ProfileEdit";
 import NewsManagement from "./MainApp/Administration/NewsManagement";
+import AllNews from "./MainApp/News/AllNews";
 
 function App(){
     const {authenticated, language} = useSelector(state=>state);
@@ -92,6 +93,8 @@ function App(){
     const administrationUserPage = <AdministrationLayout page={<UserManagement />} />
     const administrationNewsPage = <AdministrationLayout page={<NewsManagement />} />
     const administrationExpertisePage = <AdministrationLayout page={<ExpertiseManagement />} />
+
+    const allNewsPage = <MainPage page={<AllNews/>}/>;
 
     const serviceSearchPage = <MainPage page={<ServiceSearch />}/>;
     const searchUserPage = <MainPage page={<SearchPartners />}/>;
@@ -144,6 +147,7 @@ function App(){
                 <Route path={Routes.administrationNews} children={administrationNewsPage}/>
                 <Route path={Routes.routeProject} children={projectDetailPage}/>
                 <Route path={Routes.immediateLogout} children={immediateLogoutPage}/>
+                <Route path={Routes.newsPage} children={allNewsPage}/>
                 <Route path={Routes.main} children={dashboardPage}/>
 
 
@@ -177,6 +181,7 @@ function App(){
                 <Route path={Routes.administrationCollaborations} children={administrationCollaborationsPage}/>
                 <Route path={Routes.administrationProjects} children={administrationProjectPage}/>
                 <Route path={Routes.administrationNews} children={administrationNewsPage}/>
+                <Route path={Routes.newsPage} children={allNewsPage}/>
                 <Route path={Routes.immediateLogout} children={immediateLogoutPage}/>
                 <Route path={Routes.main} children={dashboardPage}/>
                 <Route path="/">

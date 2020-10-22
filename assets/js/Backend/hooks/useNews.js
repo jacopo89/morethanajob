@@ -26,3 +26,7 @@ export function useGetRecentNews() {
     return useCreateHook(backendClient,'/backend/news/get-recent','get',[]);
 }
 
+export function useNewsLoadFile() {
+    const backendClient = BackendClient();
+    return useCreateHook(backendClient,'/backend/news/load-file','post',null);
+}

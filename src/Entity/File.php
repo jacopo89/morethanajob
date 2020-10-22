@@ -56,6 +56,11 @@ class File
      */
     private $isDoc;
 
+    /**
+     * @ORM\ManyToOne(targetEntity="App\Entity\News", inversedBy="files")
+     */
+    private $news;
+
     public function getId(): ?int
     {
         return $this->id;
@@ -141,6 +146,18 @@ class File
     public function setIsDoc(bool $isDoc): self
     {
         $this->isDoc = $isDoc;
+
+        return $this;
+    }
+
+    public function getNews(): ?News
+    {
+        return $this->news;
+    }
+
+    public function setNews(?News $news): self
+    {
+        $this->news = $news;
 
         return $this;
     }

@@ -40,6 +40,16 @@ class FileSystemService extends AbstractController
         }
     }
 
+    public function createNewsFolder($newsIdentifier){
+
+
+        $newsFolderPath = $this->getParameter('kernel.project_dir').'/public/uploads/news';
+        $isCreated = mkdir($newsFolderPath."/".$newsIdentifier);
+        if(!$isCreated){
+            $this->logger->error( self::class.".createNewsFolder"."/".$newsIdentifier );
+        }
+    }
+
     public function getUserFolderPath($userId){
         $userFolderPath = $this->getParameter('kernel.project_dir').'/public/uploads/users/'.$userId;
 
@@ -58,10 +68,24 @@ class FileSystemService extends AbstractController
         return $projectFolderPath;
     }
 
+    public function getNewsFolderPath($newsId){
+        return $this->getParameter('kernel.project_dir').'/public/uploads/news/'.$newsId;
+    }
+
+    public function getNewsFilePath($newsId, $fileName){
+        return $this->getParameter('kernel.project_dir').'/public/uploads/news/'.$newsId."/".$fileName;
+    }
+
+
+
     public function getUserFolderWebPath($base, $userId){
         $userFolderPath = $base.'/uploads/users/'.$userId;
 
         return $userFolderPath;
+    }
+
+    public function getNewsFolderWebPath($base, $newsId){
+        return $base.'/uploads/news/'.$newsId;
     }
 
     public function getProjectFolderWebPath($base, $projectId){

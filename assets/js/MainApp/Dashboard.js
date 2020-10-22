@@ -65,7 +65,7 @@ export default function Dashboard(){
                     <Nav.Item href="#aboutUs"  eventKey="2">{t('The project')}</Nav.Item>
                     <Nav.Item onClick={()=>history.push(Routes.serviceSearchPage)}  eventKey="3">{t('Services and opportunities')}</Nav.Item>
                     <Nav.Item onClick={()=>history.push(Routes.searchUserPage)}  eventKey="4">{t('Organisations')}</Nav.Item>
-                    <Nav.Item href="#news" eventKey="4">{t('News')}</Nav.Item>
+                    <Nav.Item eventKey="4" onClick={()=>history.push(Routes.newsPage)}>{t('News')}</Nav.Item>
                     {/*<Nav.Item href="#FAQ"  eventKey="5">FAQ</Nav.Item>*/}
 
                 </Nav>
@@ -102,7 +102,10 @@ export default function Dashboard(){
                     <Row>
                         <Col xs={24}>
                             <div>
-                                <img style={{float:"left", margin:30}} width="50%" src="/defaults/MoreThanAJob_Cover.jpg"/>
+
+                                    <img style={{float:"left", marginLeft:30, marginRight:30}}  width="50%" src="/defaults/MoreThanAJob_Cover.jpg"/>
+                                    <p style={{float:"left", clear:"left", marginLeft:30, marginRight:30, fontSize:"0.6rem"}}>Photo © UN Women/Christopher Herwig </p>
+
                                 <Title id="aboutUs">
                                     {t('projectTitle')}
                                 </Title>

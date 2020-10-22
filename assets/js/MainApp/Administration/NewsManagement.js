@@ -1,5 +1,5 @@
 import React, {useEffect, useState} from "react";
-import {Button, Col, Grid, Icon, List, Row} from "rsuite";
+import {Button, Col, Grid, Icon, List, Row, Uploader} from "rsuite";
 import {useCreateNews, useDeleteNews, useEditNews, useGetAllNews} from "../../Backend/hooks/useNews";
 import NewsDetail from "./News/NewsDetail";
 import {bordeaux, FlexAroundDiv, FlexBetweenDiv, IconButtonTransparent} from "../../styledComponents/CustomComponents";
@@ -44,6 +44,8 @@ export default function NewsManagement() {
     }
 
 
+
+
     useEffect(()=>{getNewsHandler()},[])
 
     return <Grid fluid>
@@ -73,6 +75,7 @@ export default function NewsManagement() {
                 <NewsDetail news={selectedNews} updater={setSelectedNews}/>
             </Col>
         </Row>
+
     </Grid>
 }
 

@@ -3,6 +3,8 @@
 namespace App\Entity;
 
 use App\Model\NewsDTO;
+use Doctrine\Common\Collections\ArrayCollection;
+use Doctrine\Common\Collections\Collection;
 use Doctrine\ORM\Mapping as ORM;
 
 /**
@@ -36,6 +38,11 @@ class News implements \JsonSerializable
      * @ORM\Column(type="string", length=255)
      */
     private $title;
+
+    /**
+     * @ORM\OneToMany(targetEntity="App\Entity\File", mappedBy="news")
+     */
+    private $files;
 
     public function getId(): ?int
     {
@@ -80,7 +87,8 @@ class News implements \JsonSerializable
             'title' => $this->title,
             'text' => $this->text,
             'links' => $this->links,
-            'creationTime' => $this->creationTime
+            'creationTime' => $this->creationTime,
+            'files' =>$this->files
         ];
     }
 
@@ -90,6 +98,7 @@ class News implements \JsonSerializable
         $this->text = $text;
         $this->links = $links;
         $this->creationTime = new \DateTimeImmutable();
+        $this->files = new ArrayCollection();
     }
 
     public static function createFromDTO(NewsDTO $newsDTO){
@@ -116,6 +125,37 @@ class News implements \JsonSerializable
     public function setTitle(string $title): self
     {
         $this->title = $title;
+
+        return $this;
+    }
+
+    /**
+     * @return Collection|File[]
+     */
+    public function getFiles(): Collection
+    {
+        return $this->files;
+    }
+
+    public function addFile(File $file): self
+    {
+        if (!$this->files->contains($file)) {
+            $this->files[] = $file;
+            $file->setNews($this);
+        }
+
+        return $this;
+    }
+
+    public function removeFile(File $file): self
+    {
+        if ($this->files->contains($file)) {
+            $this->files->removeElement($file);
+            // set the owning side to null (unless already changed)
+            if ($file->getNews() === $this) {
+                $file->setNews(null);
+            }
+        }
 
         return $this;
     }

@@ -55,6 +55,13 @@ class NewsRepository extends ServiceEntityRepository
             ->getResult();
     }
 
+    public function getAllOrdered(){
+        return $this->createQueryBuilder('n')
+            ->orderBy('n.creationTime', 'ASC')
+            ->getQuery()
+            ->getResult();
+    }
+
     // /**
     //  * @return News[] Returns an array of News objects
     //  */
