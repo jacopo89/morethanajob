@@ -24,7 +24,6 @@ export const collaborationModel = Schema.Model({
     shortDescription: StringType().isRequired('This field is required.').maxLength(500,"No more than 500 characters"),
     description: StringType().isRequired('This field is required.').maxLength(1500, "No more than 1500 characters"),
     category: NumberType().isRequired('This field is required.'),
-    country: StringType().isRequired('This field is required.'),
     language: StringType().isRequired('This field is required.'),
 });
 
