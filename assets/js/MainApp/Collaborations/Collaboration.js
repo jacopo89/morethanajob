@@ -168,7 +168,7 @@ export function PositionShowDescription({isOwnerOfProject, position}){
                     </Col>
                     <Col xs={16}>
                         <div style={{height:150, maxHeight:150}}>{position.description}</div>
-                        {false && isOwnerOfProject && <Button onClick={openModal} >Check requests!</Button> } //TODO should be done
+                        {false && isOwnerOfProject && <Button onClick={openModal} >Check requests!</Button> }
                         {position.isOpen && !alreadyApplied && !isOwnerOfProject && <Button style={{float:"right"}} onClick={()=>postApplicationFunction()}>{t('Apply')}</Button> }
                     </Col>
                 </Row>
