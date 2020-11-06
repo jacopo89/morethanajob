@@ -10,7 +10,7 @@ import * as Routes from "../../routes";
 import {useCreateNewCollaboration} from "../../Backend/hooks/useCollaborations";
 import {useTranslation} from "react-i18next";
 import PositionList from "../Position/PositionList";
-import {collaborationModel} from "../FormModels/models";
+import {collaborationModel, serviceModel} from "../FormModels/models";
 import {categoriesTreeByLanguage} from "../../Functions/Categories";
 import styled from "styled-components";
 import Collaboration from "./Collaboration";
@@ -35,6 +35,8 @@ export default function NewCollaboration({isService=false}){
             }})
     },[]);
 
+
+    const model = (isService) ? serviceModel : collaborationModel;
 
 
 
@@ -68,7 +70,7 @@ export default function NewCollaboration({isService=false}){
             </CollaborationBox>
             <FormBox >
                 <TitleBox>Info </TitleBox>
-                <Form ref={formRef} model={collaborationModel} fluid formValue={formValue} onChange={setFormValue} onSubmit={onSubmitHandler}>
+                <Form ref={formRef} model={model} fluid formValue={formValue} onChange={setFormValue} onSubmit={onSubmitHandler}>
                     <CollaborationForm formValue={formValue} setFormValue={setFormValue} categoriesTree={categoriesTree} projects={projects} isService={isService}/>
                 </Form>
 

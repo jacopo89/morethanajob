@@ -26,6 +26,18 @@ export const collaborationModel = Schema.Model({
     category: NumberType().isRequired('This field is required.'),
     country: StringType().isRequired('This field is required.'),
     language: StringType().isRequired('This field is required.'),
+});
+
+export const serviceModel = Schema.Model({
+    title: StringType().isRequired('This field is required.'),
+    localLanguageTitle: StringType().isRequired('This field is required.'),
+    localLanguageShortDescription: StringType().isRequired('This field is required.').maxLength(500,"No more than 500 characters"),
+    localLanguageDescription: StringType().isRequired('This field is required.').maxLength(1500,"No more than 1500 characters"),
+    shortDescription: StringType().isRequired('This field is required.').maxLength(500,"No more than 500 characters"),
+    description: StringType().isRequired('This field is required.').maxLength(1500, "No more than 1500 characters"),
+    category: NumberType().isRequired('This field is required.'),
+    country: StringType().isRequired('This field is required.'),
+    language: StringType().isRequired('This field is required.'),
     contacts: StringType().isEmail().isRequired('This field is required.'),
 });
 

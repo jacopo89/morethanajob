@@ -8,7 +8,7 @@ import {Form} from "rsuite";
 import styled from "styled-components";
 import {useHistory, useParams} from "react-router-dom";
 import {useTranslation} from "react-i18next";
-import {collaborationModel} from "../FormModels/models";
+import {collaborationModel, serviceModel} from "../FormModels/models";
 import {categoriesTreeByLanguage} from "../../Functions/Categories";
 import CollaborationForm from "../Forms/CollaborationForm";
 
@@ -28,7 +28,7 @@ export default function EditCollaboration({isService}) {
 
     let categoriesTree = categoriesTreeByLanguage();
 
-
+    const model = (isService) ? serviceModel : collaborationModel;
 
 
 
@@ -100,8 +100,8 @@ export default function EditCollaboration({isService}) {
             </CollaborationBox>
             <FormBox >
                 <TitleBox>Info </TitleBox>
-                <Form ref={formRef} model={collaborationModel} fluid formValue={formValue} onChange={setFormValue} onSubmit={onSubmitHandler}>
-                    <CollaborationForm formValue={formValue} setFormValue={setFormValue} categoriesTree={categoriesTree} projects={projects} isService={isService} getCollaborationFunction={getCollaborationFunction} remover={deleteHandler}/>
+                <Form ref={formRef} model={model} fluid formValue={formValue} onChange={setFormValue} onSubmit={onSubmitHandler}>
+                    <CollaborationForm isEdit={true} formValue={formValue} setFormValue={setFormValue} categoriesTree={categoriesTree} projects={projects} isService={isService} getCollaborationFunction={getCollaborationFunction} remover={deleteHandler}/>
                 </Form>
             </FormBox>
 
