@@ -1,7 +1,7 @@
 import {ButtonGroup, Col, DatePicker, Divider, Form, Grid, SelectPicker, TreePicker} from "rsuite";
 import {bordeaux, FormButtonGroup, FormRow, MainButton, SaveButton} from "../../styledComponents/CustomComponents";
 import TextField from "../../Login/Components/TextField";
-import {currencies, dataLanguage, rateData} from "../../selectData";
+import {currencies, dataCountry, dataLanguage, modalityData, rateData} from "../../selectData";
 import React from "react";
 import PositionList from "../Position/PositionList";
 import {useTranslation} from "react-i18next";
@@ -50,10 +50,10 @@ export default function CollaborationForm({formValue, setFormValue, projects, ca
         </FormRow>
         {isService && <FormRow>
             <Col xs={12}>
-                <TextField label={t('Modality')} name="modality" componentClass="textarea"/>
+                <TextField label={t('Modality')} name="modality" accepter={SelectPicker} data={modalityData}/>
             </Col>
             <Col xs={12}>
-                <TextField label={t('Country')} name="country" componentClass="textarea"/>
+                <TextField label={t('Country')} name="country" accepter={SelectPicker} data={dataCountry}/>
             </Col>
         </FormRow>}
         <FormRow>
