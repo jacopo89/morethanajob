@@ -48,6 +48,14 @@ export default function CollaborationForm({formValue, setFormValue, projects, ca
                 <TextField label={t('Local Description')} name="localLanguageDescription" componentClass="textarea" />
             </Col>
         </FormRow>
+        {isService && <FormRow>
+            <Col xs={12}>
+                <TextField label={t('Modality')} name="modality" componentClass="textarea"/>
+            </Col>
+            <Col xs={12}>
+                <TextField label={t('Country')} name="country" componentClass="textarea"/>
+            </Col>
+        </FormRow>}
         <FormRow>
             <Col xs={12}>
                 <TextField style={{width:"100%"}} label={t('Start date')} name="startDate" format="DD-MM-YYYY" accepter={DatePicker} />
@@ -89,13 +97,14 @@ export default function CollaborationForm({formValue, setFormValue, projects, ca
                     <TextField label={t('Main beneficiaries')} name="mainBeneficiaries" componentClass="textarea" />
                 </Col>
             </FormRow>
-            <FormRow>
-                <Col xs={24}>
-                    <TextField label={t('Contacts')} name="contacts"  />
-                </Col>
-            </FormRow>
+
         </>
         }
+        <FormRow>
+            <Col xs={24}>
+                <TextField label={t('Contacts')} name="contacts"  />
+            </Col>
+        </FormRow>
 
         {!isEdit && <FormRow>
             <Col xs={24}>

@@ -25,6 +25,7 @@ export const collaborationModel = Schema.Model({
     description: StringType().isRequired('This field is required.').maxLength(1500, "No more than 1500 characters"),
     category: NumberType().isRequired('This field is required.'),
     language: StringType().isRequired('This field is required.'),
+    contacts: StringType().isEmail().isRequired('This field is required.'),
 });
 
 export const serviceModel = Schema.Model({
@@ -36,6 +37,7 @@ export const serviceModel = Schema.Model({
     description: StringType().isRequired('This field is required.').maxLength(1500, "No more than 1500 characters"),
     category: NumberType().isRequired('This field is required.'),
     country: StringType().isRequired('This field is required.'),
+    modality: StringType().isRequired('This field is required.'),
     language: StringType().isRequired('This field is required.'),
     contacts: StringType().isEmail().isRequired('This field is required.'),
 });
