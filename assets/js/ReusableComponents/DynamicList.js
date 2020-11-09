@@ -3,7 +3,7 @@ import {Button, Form, Icon, IconButton, List} from "rsuite";
 import TextField from "../Login/Components/TextField";
 import {IconButtonTransparent} from "../styledComponents/CustomComponents";
 
-export default function DynamicList({name, updater, startingValue, options = {}}){
+export default function DynamicList({name, updater, startingValue=[], options = {}}){
 
     const[list, setList] = useState(startingValue);
     const [bufferText, setBufferText] = useState("");

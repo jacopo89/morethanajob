@@ -50,10 +50,10 @@ export default function CollaborationForm({formValue, setFormValue, projects, ca
         </FormRow>
         {isService && <FormRow>
             <Col xs={12}>
-                <TextField label={t('Modality')} name="modality" accepter={SelectPicker} data={modalityData}/>
+                <TextField width="100%" label={t('Modality')} name="modality" accepter={SelectPicker} data={modalityData}/>
             </Col>
             <Col xs={12}>
-                <TextField label={t('Country')} name="country" accepter={SelectPicker} data={dataCountry}/>
+                <TextField width="100%" label={t('Country')} name="country" accepter={SelectPicker} data={dataCountry}/>
             </Col>
         </FormRow>}
         <FormRow>
