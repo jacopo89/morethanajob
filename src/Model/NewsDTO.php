@@ -17,11 +17,14 @@ class NewsDTO
 
     private $links;
 
-    public function __construct(string $title, string $text, array $links)
+    private $type;
+
+    public function __construct(string $title, string $text, array $links, int $type)
     {
         $this->title = $title;
         $this->text = $text;
         $this->links = $links;
+        $this->type = $type;
     }
 
     /**
@@ -49,6 +52,16 @@ class NewsDTO
     {
         return $this->links;
     }
+
+    /**
+     * @return int
+     */
+    public function getType(): int
+    {
+        return $this->type;
+    }
+
+
 
 
 }

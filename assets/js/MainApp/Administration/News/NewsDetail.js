@@ -1,8 +1,9 @@
-import {Button, Col, Form, Row, Uploader} from "rsuite";
+import {Button, Col, Form, Row, SelectPicker, Uploader} from "rsuite";
 import React, {useEffect, useState} from "react";
 import TextField from "../../../Login/Components/TextField";
 import DynamicList from "../../../ReusableComponents/DynamicList";
 import {useCreateNews, useEditNews, useNewsLoadFile} from "../../../Backend/hooks/useNews";
+import {newsSelectData} from "../../../selectData";
 
 export default function NewsDetail({news, updater}) {
 
@@ -24,6 +25,7 @@ export default function NewsDetail({news, updater}) {
         formData.append('id', formValue.id);
         formData.append('file', formValue.file);
         formData.append('title', formValue.title);
+        formData.append('type', formValue.type);
 
         loadFileHandler(formData, {successCallback: ()=>{
                 setFormValue({...formValue, file:null, title:null});
@@ -42,6 +44,7 @@ export default function NewsDetail({news, updater}) {
         <TextField disabled label="Id" name="id" />
         <TextField label="Title" name="title" />
         <TextField label="Text" name="text" componentClass="textarea"  />
+        <TextField label="Type" name="type" accepter={SelectPicker} data={newsSelectData}  />
         <DynamicList name="link" updater={linksListChanger} startingValue={formValue.links}  />
         <Row>
             <Col xs={24}>

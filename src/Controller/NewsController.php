@@ -64,8 +64,9 @@ class NewsController extends AbstractController
     public function createNews(Request $request){
         $title = $request->get('title');
         $text = $request->get('text');
+        $type = $request->get('type');
         $links = json_decode($request->get('links'), true);
-        $newsDto = new NewsDTO($title, $text, $links);
+        $newsDto = new NewsDTO($title, $text, $links, $type);
         $news = News::createFromDTO($newsDto);
         $this->em->save($news);
 

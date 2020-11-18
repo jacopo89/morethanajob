@@ -121,6 +121,26 @@ export const currencies = [
     }
 ]
 
+
+export const newsSelectData = [
+    {
+        "label": "Project news",
+        "value": 1
+    },
+    {
+        "label": "Relevant publications",
+        "value": 2
+    },
+    {
+        "label": "Project dissemination material and resources",
+        "value": 3
+    },
+    {
+        "label": "Funding opportunities",
+        "value": 4
+    }
+]
+
 export function digestAmounts(amount, currency){
     
     const currencySymbol = currencies.find((cur)=> cur.value === currency);

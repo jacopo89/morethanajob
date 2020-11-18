@@ -12,6 +12,12 @@ use Doctrine\ORM\Mapping as ORM;
  */
 class News implements \JsonSerializable
 {
+
+    const PROJECT_NEWS = 1;
+    const RELEVANT_PUBLICATIONS = 2;
+    const PROJECT_DISSEMINATION_MATERIAL_RESOURCES = 3;
+    const FUNDING_OPPORTUNITIES = 4;
+
     /**
      * @ORM\Id()
      * @ORM\GeneratedValue()
@@ -43,6 +49,11 @@ class News implements \JsonSerializable
      * @ORM\OneToMany(targetEntity="App\Entity\File", mappedBy="news")
      */
     private $files;
+
+    /**
+     * @ORM\Column(type="integer")
+     */
+    private $type;
 
     public function getId(): ?int
     {
@@ -87,22 +98,24 @@ class News implements \JsonSerializable
             'title' => $this->title,
             'text' => $this->text,
             'links' => $this->links,
+            'type' => $this->type,
             'creationTime' => $this->creationTime,
             'files' =>$this->files
         ];
     }
 
-    private function __construct(string $title, string $text, array $links)
+    private function __construct(string $title, string $text, array $links, int $type)
     {
         $this->title = $title;
         $this->text = $text;
         $this->links = $links;
         $this->creationTime = new \DateTimeImmutable();
         $this->files = new ArrayCollection();
+        $this->type = $type;
     }
 
     public static function createFromDTO(NewsDTO $newsDTO){
-        return new self($newsDTO->getTitle(),$newsDTO->getText(), $newsDTO->getLinks());
+        return new self($newsDTO->getTitle(),$newsDTO->getText(), $newsDTO->getLinks(), $newsDTO->getType());
     }
 
     public function getCreationTime(): ?\DateTimeImmutable
@@ -156,6 +169,18 @@ class News implements \JsonSerializable
                 $file->setNews(null);
             }
         }
+
+        return $this;
+    }
+
+    public function getType(): ?int
+    {
+        return $this->type;
+    }
+
+    public function setType(int $type): self
+    {
+        $this->type = $type;
 
         return $this;
     }
