@@ -41,6 +41,7 @@ class UserController extends AbstractController
         $userToSend["email"] = $user->getEmail();
         $userToSend["roles"] = $user->getRoles();
         $userToSend["name"] = $user->getName();
+        $userToSend["country"] = $user->getCountry();
         $userToSend["description"] = $user->getDescription();
 
         $userToSend["website"] = $user->getWebsite();
@@ -91,6 +92,7 @@ class UserController extends AbstractController
         $userToSend["serviceNumber"] = $user->getServices()->count();
         $userToSend["collaborationNumber"] = $user->getActiveCollaborations()->count();
         $userToSend["localDescription"] = $user->getLocalLanguageDescription();
+        $userToSend["country"] = $user->getCountry();
 
         return new Response($this->serializer->serialize($userToSend, 'json'), Response::HTTP_OK);
     }

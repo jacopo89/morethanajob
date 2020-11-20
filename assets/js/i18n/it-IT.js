@@ -22,6 +22,8 @@ export const translation = {
         "Categories": "Categorie",
         "Delete":"Cancella",
         "Title":"Titolo in inglese",
+        "Collaboration Title":"Titolo della collaborazione in inglese",
+        "Service Title":"Titolo del servizio in inglese",
         "Description":"Descrizione in inglese",
         "Short Description": "Descrizione breve in inglese",
         "Links": "Link",
@@ -31,6 +33,8 @@ export const translation = {
         "Details":"Dettagli",
         "Local Short Description":"Descrizione breve in lingua nazionale",
         "Local Title": "Titolo in lingua nazionale",
+        "Local Collaboration Title": "Titolo della collaborazione in lingua nazionale",
+        "Local Service Title": "Titolo del servizio in lingua nazionale",
         "Local Language Detailed Description": "Descrizione in lingua nazionale",
         "Local Description": "Descrizione in lingua nazionale",
         "Title of the service":"Nome del servizio",
@@ -44,10 +48,16 @@ export const translation = {
         "Search organisations":"Cerca organizzazioni",
         "Proposed by":"Proposto da",
         "Category": "Categoria",
+        "Collaboration Category": "Macrocategoria della collaborazione",
+        "Service Category": "Macrocategoria del servizio",
         "All": "Tutti",
         "Collaborations":"Collaborazioni",
         "Documents":"Documenti",
+
+        "Project Title":"Titolo del progetto in inglese",
+        "Local Project Title": "Titolo del progetto in lingua nazionale",
 /*
+
         "Homepage":"Homepage",
         "The project":"Il progetto",
         "Services and opportunities": "Servizi e opportunità",
@@ -193,8 +203,27 @@ export const translation = {
         "Create portfolio project": "Crea progetto di portfolio",
         "Create new project": "Crea nuovo progetto",
 
-        "Are you sure": "Vuoi comfermare?"
+        "Are you sure": "Vuoi comfermare?",
 
+
+        "News": "News",
+        "No results found": "Nessun risultato trovato",
+        "Show 5 results":"Mostra 5 risultati",
+        "Show 10 results":"Mostra 10 risultati",
+        "Show 20 results":"Mostra 20 risultati",
+        "Info":"Informazioni",
+        "Paid or free":"A pagamento o gratis",
+        "Paid": "A pagamento",
+        "Free": "Gratis",
+        "Cost":"Costo",
+        "Currency":"Valuta",
+        "Additional info": "Ulteriori informazioni",
+        "Apply": "Applica!",
+        "Firstname": "Nome",
+        "Lastname":"Cognome",
+        "Message":"Testo",
+        "Send":"Invia",
+        "Message correctly sent!":"Messaggio inviato correttamente!"
 
     }
 }

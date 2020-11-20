@@ -58,6 +58,7 @@ class PositionController extends AbstractController
             $services = new ArrayCollection($this->em->getRepository(Service::class)->findAll());
             $position = $this->em->getRepository(Position::class)->find($id);
             $description = json_decode($request->get('description'));
+            $localDescription = json_decode($request->get('localDescription'));
             $deadline = json_decode($request->get('deadline'));
             $furniture = $request->get('furniture');
 
@@ -68,6 +69,7 @@ class PositionController extends AbstractController
 
             $position->setService($service);
             $position->setDescription($description);
+            $position->setLocalDescription($localDescription);
             $position->setDeadline($deadline);
 
             $this->em->persist($position);

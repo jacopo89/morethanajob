@@ -1,26 +1,13 @@
-import React, {useEffect, useRef, useState} from "react";
+import React, {useRef, useState} from "react";
 import {useSelector} from "react-redux";
 import {useCreateNewProject} from "../../Backend/hooks/useProjects";
-import TextField from "../../Login/Components/TextField";
-import {Col, Divider, Form, Grid, Row, SelectPicker} from "rsuite";
-import {dataLanguage, getLanguageFromValue} from "../../selectData";
-import {
-    bordeaux,
-    coverPicture, FormButtonGroup, FormRow,
-    InverseButton,
-    projectPicture,
-    SaveButton, uploaderCoverConfig
-} from "../../styledComponents/CustomComponents";
+import {Form, Uploader} from "rsuite";
+import {coverPicture, InverseButton, projectPicture} from "../../styledComponents/CustomComponents";
 import styled from "styled-components";
-import ImageCropper from "../../ReusableComponents/ImageCropper";
 import {useHistory} from "react-router-dom";
 import * as Routes from "../../routes";
 import {useTranslation} from "react-i18next";
-import PartnersList from "./Partners/PartnersList";
 import {projectModel} from "../FormModels/models";
-import DynamicList from "../../ReusableComponents/DynamicList";
-import DeleteButton from "../../ReusableComponents/DeleteButton";
-import {ProjectFields} from "../FormModels/project-fields";
 import ProjectForm from "../Forms/ProjectForm";
 
 export default function NewProject({isPortfolio=false}){
@@ -71,14 +58,15 @@ export default function NewProject({isPortfolio=false}){
 
     const handleFileChange = (file) =>{
 
-        if(file){
+        if(file.length!==0){
+            const trueFile = file[0].blobFile
             setFormValue({
                 ...formValue,
-                projectCoverImage:  file,
+                projectCoverImage: trueFile ,
             })
 
             const fileReaderInstance = new FileReader();
-            fileReaderInstance.readAsDataURL(file);
+            fileReaderInstance.readAsDataURL(trueFile);
             fileReaderInstance.onload = ()=> {
                 setPathUrl(fileReaderInstance.result);
             }
@@ -87,14 +75,15 @@ export default function NewProject({isPortfolio=false}){
 
     const handleProjectLogoChange = (file) =>{
 
-        if(file){
+        if(file.length!==0){
+            const blobFile = file[0].blobFile;
             setFormValue({
                 ...formValue,
-                projectLogoImage:  file,
+                projectLogoImage:  blobFile,
             })
 
             const fileReaderInstance = new FileReader();
-            fileReaderInstance.readAsDataURL(file);
+            fileReaderInstance.readAsDataURL(blobFile);
             fileReaderInstance.onload = ()=> {
                 setProjectLogoUrl(fileReaderInstance.result);
             }
@@ -110,9 +99,9 @@ export default function NewProject({isPortfolio=false}){
 
     return (
         <>
-            <div style={{height:281, width:"100%", marginBottom:10,position:"relative", backgroundImage:`url(${pathUrl})`,  backgroundSize: "contain"}}>
+            <div style={{height:281, width:"100%", marginBottom:10,position:"relative", backgroundImage:`url(${pathUrl})`,  backgroundSize: "cover"}}>
                 <div style={{position:"absolute", bottom:5, left:5}}>
-                    <ImageCropper button={uploadCoverButton} propCrop={uploaderCoverConfig} keyField="projectImage" onChange={handleFileChange}/>
+                    <Uploader fileListVisible={false} onChange={handleFileChange}>{uploadCoverButton}</Uploader>
                 </div>
             </div>
             <InfoBox >

@@ -1,9 +1,8 @@
 import React, {useEffect, useState} from "react";
 import {useDispatch, useSelector} from "react-redux";
-import {Button, Col, Form, Grid, Row, SelectPicker, Uploader} from "rsuite";
-import {useLoadFiles, useSaveProfile, useUploadPictures, useUploadProfilePicture} from "../../Backend/hooks/useProfile";
+import {Col, Grid, Row} from "rsuite";
+import {useUploadPictures} from "../../Backend/hooks/useProfile";
 import styled from "styled-components";
-import * as ActionTypes from '../../Redux/actions';
 import {useGetUserInfo} from "../../Backend/hooks/UserInfo";
 import {ProjectMenu} from "./../Profile/ProjectMenu";
 import {useHistory, useParams} from "react-router-dom";
@@ -12,12 +11,9 @@ import {
     coverPicture,
     coverStyle,
     InverseButton,
-    LinearGradient,
+    LinearGradient, ProfileImage,
     profilePicture
 } from "../../styledComponents/CustomComponents";
-import ImageCropper from "../../ReusableComponents/ImageCropper";
-import TextField from "../../Login/Components/TextField";
-import {dataCountry, dataLanguage} from "../../selectData";
 import {useTranslation} from "react-i18next";
 import * as Routes from '../../routes';
 import {getProfileLanguageElements} from "../../Functions/Profile";
@@ -37,7 +33,6 @@ export default function Profile(){
     const dispatch = useDispatch();
     const [isEdit, setIsEdit] = useState(false);
 
-    const [fileList, setFileList] = useState([]);
 
 
 
@@ -76,9 +71,8 @@ export default function Profile(){
                         <Row className="show-grid" style={{padding: 5, display: "flex", alignItems: "flex-start"}}>
                             <Col xs={8}>
                                 <div style={{display: "flex", justifyContent: "center"}}>
-                                    <div style={{
+                                    <ProfileImage style={{
                                         backgroundImage: `url(${profileImage})`,
-                                        backgroundSize: "contain",
                                         width: 200,
                                         height: 200
                                     }}/>

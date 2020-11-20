@@ -2,7 +2,15 @@ import React, {useEffect, useState} from "react";
 import {Col, Grid, Icon, List, Nav, Navbar, Panel, Row} from "rsuite";
 import {Link, useHistory} from "react-router-dom";
 import * as Routes from '../routes'
-import {Body, bordeaux, MainButton, noProfilePicture, noProjectPicture} from "../styledComponents/CustomComponents";
+import {
+    BackTitle,
+    Body,
+    bordeaux, FrontTitle,
+    MainButton,
+    noProfilePicture,
+    noProjectPicture,
+    Title,
+} from "../styledComponents/CustomComponents";
 import styled from "styled-components";
 import "./dashboard.css";
 import {useGetRandomProfiles} from "../Backend/hooks/UserInfo";
@@ -48,7 +56,7 @@ export default function Dashboard(){
         const picture = profile.profilePicture ? profile.profilePicture.url : noProfilePicture;
         return (<IconTextBox key={index}>
             <img width={75} src={picture}/>
-            <a href={`/profile/${profile.profileName}`} >{profile.name}</a>
+            <a style={{color:"black"}} href={`/profile/${profile.profileName}`} >{profile.name}</a>
         </IconTextBox>)
     } );
 
@@ -80,17 +88,22 @@ export default function Dashboard(){
                 <Anchor id="home"/>
                 <Grid fluid>
                     <Row className="show-grid">
-                        <Col xs={12}>
-                            <h4 style={{color: bordeaux, margin:10}}>{t('MoreThanAJob Portal')}</h4>
+                        <Col xs={24}  md={12}>
+                            <BackTitle>
+                                <FrontTitle id="aboutUs">
+                                    {t('MoreThanAJob Portal')}
+                                </FrontTitle>
+                                {t('MoreThanAJob Portal')}
+                            </BackTitle>
                             <h5 style={{margin:10}}>{t('Dashboard title')}</h5>
                             <p style={{margin:10}}>
                                 {t('Dashboard text')}
                             </p>
                             <MainButton style={{float:"right", margin:10}} onClick={()=>history.push(Routes.serviceSearchPage)}>  {t('Dashboard button')}</MainButton>
                         </Col>
-                        <Col xs={12}>
+                        <Col xs={24} md={12}>
                             <div style={{display:"flex", justifyContent:"center"}}>
-                            <img width="100%" src="/defaults/bg-dashboard.jpg"/>
+                            <img width="75%" src="/defaults/bg-dashboard.jpg"/>
                             </div>
                         </Col>
                     </Row>
@@ -103,16 +116,25 @@ export default function Dashboard(){
                         <Col xs={24}>
                             <div>
 
-                                    <img style={{float:"left", marginLeft:30, marginRight:30}}  width="50%" src="/defaults/MoreThanAJob_Cover.jpg"/>
-                                    <p style={{float:"left", clear:"left", marginLeft:30, marginRight:30, fontSize:"0.6rem"}}>Photo © UN Women/Christopher Herwig </p>
+                                {false &&
+                                    <>
+                                        <img style={{float:"left", marginLeft:30, marginRight:30}}  width="50%" src="/defaults/MoreThanAJob_Cover.jpg"/>
+                                        <p style={{float:"left", clear:"left", marginLeft:30, marginRight:30, fontSize:"0.6rem"}}>Photo © UN Women/Christopher Herwig </p>
+                                    </>}
 
-                                <Title id="aboutUs">
+                                <BackTitle>
+                                    <FrontTitle id="aboutUs">
+                                        {t('projectTitle')}
+                                    </FrontTitle>
                                     {t('projectTitle')}
-                                </Title>
+                                </BackTitle>
                                 <p>
                                     {t('projectPre')}
                                 </p>
-                                {! readMore && <MainButton style={{float:"right", margin:10}} onClick={()=>setReadMore(!readMore)}>{t('Read more')}</MainButton>}
+                                {! readMore &&
+                                <div style={{display:"flex", justifyContent:"center", alignItems:"center"}}>
+                                    <MainButton style={{margin:15, borderRadius:999}} onClick={()=>setReadMore(!readMore)}>{t('Read more')}</MainButton>
+                                </div>}
                                 {readMore &&
                                 <>
                                     <p>
@@ -152,7 +174,16 @@ export default function Dashboard(){
             </Panel>
 
             <Panel shaded style={panelStyle}>
-                <Title>{t('Categories')}</Title>
+                <BackTitle >
+                    <FrontTitle id="aboutUs">
+                        {t('Categories')}
+                    </FrontTitle>
+                    {t('Categories')}
+                </BackTitle>
+                <p> These categories orient the classification of the information in the portal in order to allow an
+                    easier navigation facilitating to find the services and opportunities answering to your needs.
+                    By clicking on each icon, you will find the relevant services and opportunities available in the
+                    portal.</p>
                 <div style={{display:"flex", justifyContent:"space-around", flexWrap:"wrap"}}>
                     {categoriesPanels}
 
@@ -160,7 +191,12 @@ export default function Dashboard(){
 
             </Panel>
             <Panel shaded style={panelStyle}>
-                <Title>{t('Organisations')}</Title>
+                <BackTitle >
+                    <FrontTitle >
+                        {t('Organisations')}
+                    </FrontTitle>
+                    {t('Organisations')}
+                </BackTitle>
                 <Anchor id="organisations"/>
                 <div style={{display:"flex", justifyContent:"space-around"}}>
                     {profilePics}
@@ -170,13 +206,23 @@ export default function Dashboard(){
             </Panel>
 
             <Panel shaded style={panelStyle}>
-                <Title id="services">{t('Services and opportunities')}</Title>
+                <BackTitle>
+                    <FrontTitle>
+                        {t('Services and opportunities')}
+                    </FrontTitle>
+                    {t('Services and opportunities')}
+                </BackTitle>
                 {collaborationBlocks}
 
             </Panel>
             <Panel shaded style={panelStyle}>
                 <Anchor id="news"/>
-                <Title>News</Title>
+                <BackTitle >
+                    <FrontTitle>
+                        {t('News')}
+                    </FrontTitle>
+                    {t('News')}
+                </BackTitle>
                 <List size='lg'>
                     {recentNews.map((news, index)=><List.Item><NewsPanel key={index} news={news}> </NewsPanel></List.Item>)}
                 </List>
@@ -211,15 +257,20 @@ function CategoryPanel({category}){
     const picture = (category.picture) ? category.picture : noProjectPicture;
    return <IconTextBox>
         <img width={75} src={picture}/>
-        <Link to={{
+        <BlackLink to={{
             pathname: Routes.serviceSearchPage,
             state: { category: category.value }
-        }} >{t(category[language])}</Link>
+        }} >{t(category[language])}</BlackLink>
     </IconTextBox>
 }
 
+function TitleWithBack(text){
+    return <BackTitle>
+        <FrontTitle>{text}</FrontTitle>
+        {text}
+    </BackTitle>
+}
 
-const Title = styled.h5`color:${bordeaux}; text-align:center; margin:10px`;
 const SmallTitle = styled.h6`color:${bordeaux}; margin:10px`;
 
 
@@ -235,3 +286,8 @@ const Anchor = styled.div
     `position: relative;
     left: 0px;
     top: -100px;`;
+
+const BlackLink = styled(Link)`
+    color: black;
+`
+

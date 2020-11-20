@@ -18,6 +18,8 @@ export const translation = {
         "Categories": "الفئات",
         "Delete":"حذف",
         "Title":"العنوان",
+        "Collaboration Title":"العنوان",
+        "Service Title":"العنوان",
         "Description":"الوصف",
         "Short Description": "وصف مختصرn",
         "Links": "الروابط",
@@ -27,6 +29,8 @@ export const translation = {
         "Details":"التفاصيل",
         "Local Short Description":"وصف مختصر باللغة العربية",
         "Local Title": "العنوان باللغة العربية",
+        "Local Collaboration Title": "العنوان باللغة العربية",
+        "Local Service Title": "العنوان باللغة العربية",
         "Local Description": "الوصف باللغة العربية",
         "Title of the service":"اسم الخدمة المقدّمة",
         "Title of the collaboration":" عنوان التعاون ",
@@ -39,9 +43,12 @@ export const translation = {
         "Search organisations":" بحث عن مؤسسة ",
         "Proposed by":" مقترح من ",
         "Category": " الفئة ",
+        "Collaboration Category": " الفئة ",
         "All": " الكل ",
         "Collaborations":" التعاونات ",
         "Documents":" الملفات ",
+        "Project Title":"Title of the project in english",
+        "Local Project Title": "Title of the project in national language",
 
 
 
@@ -135,6 +142,7 @@ export const translation = {
         "Main beneficiaries": "المستفيدين الرئيسين",
         "Project":"المشروع",
         "Macro category of the service":"فئة الماكرو للخدمات",
+        "Service Category":"فئة الماكرو للخدمات",
         "Positions": "وظائف",
         "Create position": "انشاء وظيفة",
         "Expertise": "التخصص",

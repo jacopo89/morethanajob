@@ -117,7 +117,7 @@ export const LinearGradient = styled.div`
     opacity:33%;
     `
 
-export const coverStyle = {height:0, paddingTop:"27.83964365256125%", width:"100%", marginBottom:10, backgroundColor:"black",position:"relative", backgroundSize:"contain"}
+export const coverStyle = {height:0, paddingTop:"27.83964365256125%", width:"100%", marginBottom:10, backgroundColor:"black",position:"relative", backgroundSize:"cover"}
 
 
 export const FlexAroundDiv = styled.div`
@@ -140,4 +140,42 @@ export const FormButtonGroup = styled(ButtonGroup)`
 export const FormRow = styled(Row)`
     margin-bottom:30px;
 `
+
+export const Title = styled.h5`color:${bordeaux}; text-align:center; margin:10px;`;
+
+export const PaginationBox = styled(FlexBetweenDiv)`
+    margin:0px 20px;
+    background-color:whitesmoke;
+`
+
+export const InfoBox = styled.p`
+    margin:0px 20px;
+    background-color:whitesmoke;
+    font-weight:bold;
+    padding:10px;
+    
+    
+`
+
+export const BackTitle = styled.div`
+    position:relative;
+    text-align:center;
+    margin:10px;
+    color:gray;
+    font-weight:bolder;
+    font-size:4rem;
+`;
+
+export const FrontTitle = styled(Title)`
+    position:absolute;
+    top: 50%;
+    left: 50%;
+    transform: translate(-50%, -50%);
+`;
+
+export const ProfileImage = styled.img`
+    background-position: center;
+    background-repeat:no-repeat;
+    background-size:contain;
+    `;
 

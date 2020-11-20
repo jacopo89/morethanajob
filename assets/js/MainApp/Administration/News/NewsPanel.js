@@ -1,8 +1,9 @@
 import React from "react";
 import {manipulateWebsite} from "../../Profile/Profile";
-import {bordeaux} from "../../../styledComponents/CustomComponents";
+import {bordeaux, FlexBetweenDiv} from "../../../styledComponents/CustomComponents";
 import styled from "styled-components";
 import {List, FlexboxGrid, Icon, Grid, Row, Col} from "rsuite";
+import {newsSelectData} from "../../../selectData";
 
 export default function NewsPanel({news}){
 
@@ -10,11 +11,17 @@ export default function NewsPanel({news}){
         <a target="_blank" href={manipulateWebsite(link)}> {link}</a>
     </div> )
 
+    const typeElement = newsSelectData.find(item => item.value ===news.type);
+
+    const type = (typeElement) ? typeElement.value :"";
+
     return <div>
         <Grid fluid>
             <Row>
                 <Col xs={24}>
-                    <Title>{news.title}</Title>
+                    <FlexBetweenDiv>
+                        <Title>{news.title}</Title><h5>{type.label}</h5>
+                    </FlexBetweenDiv>
                 </Col>
             </Row><Row>
                 <Col xs={2}>
@@ -25,17 +32,17 @@ export default function NewsPanel({news}){
             </Row>
             <Row>
                 <Col xs={2}>
-                    <Icon style={{color:bordeaux}} size="3x" icon="link"/>
                 </Col>
                 <Col xs={22}>
+                    {links.length!==0 && <h5>Links</h5>}
                     {links}
                 </Col>
             </Row>
             <Row>
                 <Col xs={2}>
-                    <Icon style={{color:bordeaux}} size="3x" icon="file"/>
                 </Col>
                 <Col xs={22}>
+                    {news.files.length!==0 && <h5>Files</h5>}
                     <FileList data={news.files}/>
                 </Col>
             </Row>
@@ -49,7 +56,7 @@ color: ${bordeaux};
 `
 
 
-function FileList({data}){
+export function FileList({data}){
 
     const styleCenter = {
         display: 'flex',

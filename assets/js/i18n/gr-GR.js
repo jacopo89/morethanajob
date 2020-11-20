@@ -131,6 +131,13 @@ export const translation = {
         "Are you sure":"Είστε σίγουροι?",
         "Profile image": "Εικόνα προφίλ",
 
+        "Collaboration Category": "Μακροκατηγορία της συνεργασίας",
+        "Service Category": "Μακρο-κατηγορία της υπηρεσίας",
+
+
+        "Project Title":"Title of the project in english",
+        "Local Project Title": "Title of the project in national language",
+
         "Homepage":"Homepage",
         "The project":"The project",
         "Services and opportunities": "Services and opportunities",
@@ -139,6 +146,8 @@ export const translation = {
         "Categories": "Categories",
         "Delete":"Delete",
         "Title":"Title in english",
+        "Collaboration Title":"Title in english",
+        "Service Title":"Title in english",
         "Description":"Description in english",
         "Short Description": "Short Description in english",
         "Links": "Links",
@@ -148,6 +157,8 @@ export const translation = {
         "Details":"Details",
         "Local Language Short Description":"Short description in national language",
         "Local Title": "Title in national language",
+        "Local Collaboration Title": "Title in national language",
+        "Local Service Title": "Title in national language",
         "Local Short Description": "Short description in national language",
         "Local Description": "Description in national language",
         "Local Language Detailed Description": "Description in national language",

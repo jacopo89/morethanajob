@@ -64,11 +64,44 @@ class NewsController extends AbstractController
     public function createNews(Request $request){
         $title = $request->get('title');
         $text = $request->get('text');
-        $type = $request->get('type');
+        $type = intval($request->get('type'));
         $links = json_decode($request->get('links'), true);
         $newsDto = new NewsDTO($title, $text, $links, $type);
         $news = News::createFromDTO($newsDto);
         $this->em->save($news);
+        $basePath = $request->getBasePath();
+
+        $uploadedFiles = $request->files;
+        foreach ($uploadedFiles as $uploadedFileArray){
+            foreach ($uploadedFileArray as $uploadedFile) {
+
+                $newsFolderPath = $this->fileSystemService->getNewsFolderPath($news->getId());
+                $originalFilename = pathinfo($uploadedFile->getClientOriginalName(), PATHINFO_FILENAME);
+                $newFilename = $originalFilename.'-'.uniqid().'.'.$uploadedFile->guessExtension();
+                $path = $this->fileSystemService->getNewsFolderWebPath($basePath, $news->getId())."/".$newFilename;
+
+                $uploadedFile->move(
+                    $newsFolderPath,
+                    $newFilename
+                );
+
+                $file = new File();
+                $file->setFilename($newFilename);
+                $file->setOriginalFilename($originalFilename);
+                $file->setExtension("png");
+                $file->setUrl($path);
+                $file->setIsDoc(true);
+                $file->setUser(null);
+                $file->setNews($news);
+
+                $this->getDoctrine()->getManager()->persist($file);
+
+            }
+
+
+        }
+        $this->em->save($news);
+
 
         return new Response(json_encode($news));
 
@@ -85,10 +118,13 @@ class NewsController extends AbstractController
         if($news){
             $title = $request->get('title');
             $text = $request->get('text');
+            $type = $request->get('type');
             $links = json_decode($request->get('links'), true);
             $news->setTitle($title);
             $news->setText($text);
             $news->setLinks($links);
+            $news->setType($type);
+
             $this->em->save($news);
             $status = Response::HTTP_OK;
         }else{

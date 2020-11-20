@@ -1,5 +1,5 @@
 import {bordeaux, FormButtonGroup, FormRow, InverseButton, SaveButton} from "../../styledComponents/CustomComponents";
-import {Col, Divider, Form, Grid, SelectPicker} from "rsuite";
+import {Col, Divider, Form, Grid, SelectPicker, Uploader} from "rsuite";
 import TextField from "../../Login/Components/TextField";
 import {ProjectFields} from "../FormModels/project-fields";
 import {dataLanguage} from "../../selectData";
@@ -17,10 +17,10 @@ export default function ProjectForm({formValue, setFormValue, linksListChanger, 
 
 
     return <Grid fluid>
-        <TitleBox>Info </TitleBox>
+        <TitleBox>{t('Info')} </TitleBox>
         <FormRow>
             <Col xs={24}>
-                <TextField label={t('Title')} name={ProjectFields.title} type="text" />
+                <TextField label={t('Project Title')} name={ProjectFields.title} type="text" />
             </Col>
         </FormRow>
         <FormRow>
@@ -30,7 +30,7 @@ export default function ProjectForm({formValue, setFormValue, linksListChanger, 
         </FormRow>
         <FormRow>
             <Col xs={24}>
-                <TextField label={t('Local Title')} name={ProjectFields.localTitle} type="text" />
+                <TextField label={t('Local Project Title')} name={ProjectFields.localTitle} type="text" />
             </Col>
         </FormRow>
         <FormRow>
@@ -63,13 +63,7 @@ export default function ProjectForm({formValue, setFormValue, linksListChanger, 
         </FormRow>
         <FormRow>
             <Col xs={12}>
-                <ImageCropper button={uploadLogoButton} propCrop={{
-                    unit: 'px', // default, can be 'px' or '%'
-                    x: 0,
-                    y: 0,
-                    width: 250,
-                    height: 250
-                }} keyField="projectImage" onChange={handleProjectLogoChange}/>
+                <Uploader fileListVisible={false} onChange={handleProjectLogoChange}>{uploadLogoButton}</Uploader>
             </Col>
             <Col xs={12}/>
         </FormRow>

@@ -5,7 +5,13 @@ import {
     useGetCollaborationProjects, useGetPaginatedProjects,
     useGetPortfolioProjects
 } from "../../../Backend/hooks/useProjects";
-import {bordeaux, FlexBetweenDiv} from "../../../styledComponents/CustomComponents";
+import {
+    bordeaux,
+    FlexBetweenDiv,
+    InfoBox,
+    PaginationBox,
+    ProfileImage
+} from "../../../styledComponents/CustomComponents";
 import {useHistory} from "react-router-dom";
 import * as Routes from '../../../routes';
 import NewProjectModal from "../../Projects/NewProjectModal";
@@ -60,10 +66,16 @@ export default function SocietyPortfolio({society}) {
     const onPaginationSelect = (item) => setPagination(item);
 
    return  <>
-       <FlexBetweenDiv>
-           <Pagination pages={pages} {...paginationSettings} onSelect={onPaginationSelect} />
-           <Form><TextField accepter={SelectPicker} data={PaginationLimit} value={limitPerPage} onChange={setLimitPerPage} searchable={false} cleanable={false} /></Form>
-       </FlexBetweenDiv>
+       <InfoBox>
+           In this section, you will have the opportunity to describe social inclusion projects managed by
+           your organisation. It highly recommended to include only relevant projects for synergies with
+           MoreThanAJob themes and, preferably, projects that includes specific services and
+           opportunities for social and employment inclusion of disadvantaged groups.
+       </InfoBox>
+       <PaginationBox>
+               <Pagination pages={pages} {...paginationSettings} onSelect={onPaginationSelect} />
+               <Form><TextField accepter={SelectPicker} data={PaginationLimit} value={limitPerPage} onChange={setLimitPerPage} searchable={false} cleanable={false} /></Form>
+       </PaginationBox>
         <PanelGroup>{panelShow}</PanelGroup>
         <NewProjectModal show={show} onHide={closeModal} successCallback={successCallback} isPortfolio={true} />
         </>
@@ -93,7 +105,7 @@ export function PortfolioDetail({project}){
 
         const existingPartners = project.projectPartnersRelations.map((projectPartnersRelation, index)=>{
             let profileImage = (projectPartnersRelation.partner.profilePicture) ? projectPartnersRelation.partner.profilePicture.url : "";
-            return <div key={index} style={{backgroundImage:  `url(${profileImage})`, backgroundSize: "contain", width:50, height:50}}/>
+            return <ProfileImage key={index} style={{backgroundImage:  `url(${profileImage})`, width:50, height:50}}/>
         });
         let list = <>
             <div style={{display:"flex", flexWrap:"wrap"}}>{existingPartners}</div>
@@ -105,7 +117,7 @@ export function PortfolioDetail({project}){
         <Row className="show-grid">
             <Col xs={8}>
                 <div style={{display:"flex", justifyContent:"center"}}>
-                    <div style={{backgroundImage:  `url(${backgroundImage})`, backgroundSize: "contain", width:150, height:150}}/>
+                    <ProfileImage style={{backgroundImage:  `url(${backgroundImage})`, width:150, height:150}}/>
                 </div>
             </Col>
             <Col xs={16}>

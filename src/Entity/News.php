@@ -46,7 +46,7 @@ class News implements \JsonSerializable
     private $title;
 
     /**
-     * @ORM\OneToMany(targetEntity="App\Entity\File", mappedBy="news")
+     * @ORM\OneToMany(targetEntity="App\Entity\File", mappedBy="news", cascade={"persist", "remove"})
      */
     private $files;
 

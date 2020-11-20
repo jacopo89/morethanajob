@@ -79,12 +79,12 @@ export default function Collaboration(){
                     </Row>
                     <Row className="show-grid" style={{padding: 5}}>
                         <Col xs={12}>
-                            <IconWithText icon="usd" label={t('Rate type')} value={collaboration && collaboration.rateType}/>
+                            <IconWithText icon="usd" label={t('Paid or free')} value={collaboration && collaboration.rateType}/>
                         </Col>
                         {
                             collaboration && collaboration.rateType==="paid" &&
                             <Col xs={12}>
-                                <IconWithText icon="calculator" label={t('Payment')} value={collaboration && collaboration.rates && digestAmounts(collaboration.rates, collaboration.currency)}/>
+                                <IconWithText icon="calculator" label={t('Cost')} value={collaboration && collaboration.rates && digestAmounts(collaboration.rates, collaboration.currency)}/>
                             </Col>
                         }
 
@@ -93,7 +93,7 @@ export default function Collaboration(){
                         collaboration && collaboration.rateType==="paid" &&
                         <Row className="show-grid" style={{padding: 5}}>
                             <Col xs={24}>
-                                <IconWithText icon="info" label={t('More info')} value={collaboration && collaboration.ratesText}/>
+                                <IconWithText icon="info" label={t('Additional info')} value={collaboration && collaboration.ratesText}/>
                             </Col>
                         </Row>
                     }
@@ -354,7 +354,7 @@ export function ServiceFormBox({collaboration}) {
                         </Grid>
 
                 </Form>}
-        </div> : <div>Message correctly sent!</div>
+        </div> : <div>{t('Message correctly sent!')}</div>
     )
 
 

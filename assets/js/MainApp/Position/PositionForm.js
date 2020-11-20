@@ -55,6 +55,7 @@ export default function PositionForm({item, updater, save, back, remover, isEdit
                 <TextField name="furniture" label={t('Expertise')} accepter={TreePicker} data={servicesTree} style={{width:"100%"}} />
             </div>
             <TextField name="description" label={t('Description')} componentClass="textarea"/>
+            <TextField name="localDescription" label={t('Local Description')} componentClass="textarea"/>
 
             <div style={{display:"flex", justifyContent:"space-around"}}>
                 <TextField name="deadline" accepter={DatePicker} label={t('Deadline')} format="DD-MM-YYYY" style={{width:"100%"}}/>

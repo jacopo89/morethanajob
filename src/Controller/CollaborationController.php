@@ -196,6 +196,7 @@ class CollaborationController extends AbstractController
                 })->first();
                 $newPosition->setService($service);
                 $newPosition->setDescription($position["description"]);
+                $newPosition->setLocalDescription($position["localDescription"]);
                 $newPosition->setDeadline($position["deadline"]);
 
 

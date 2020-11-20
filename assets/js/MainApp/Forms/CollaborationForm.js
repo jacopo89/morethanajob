@@ -7,15 +7,20 @@ import PositionList from "../Position/PositionList";
 import {useTranslation} from "react-i18next";
 import styled from "styled-components";
 import DeleteButton from "../../ReusableComponents/DeleteButton";
+import HelpBlock from "rsuite/es/HelpBlock/HelpBlock";
 
 export default function CollaborationForm({formValue, setFormValue, projects, categoriesTree, isService, isEdit=false, getCollaborationFunction = ()=>{}, remover}){
 
     const {t} = useTranslation();
 
+    const titleLabel = (isService) ? t('Service Title') : t('Collaboration Title')
+    const localTitleLabel = (isService) ? t('Local Service Title') : t('Local Collaboration Title')
+    const categoryLabel = (isService) ? t('Service Category') : t('Collaboration Category')
+
     return <Grid fluid>
         <FormRow>
             <Col xs={24}>
-                <TextField label={t('Title')} name="title" type="text" />
+                <TextField label={titleLabel} name="title" type="text" />
             </Col>
         </FormRow>
         <FormRow>
@@ -25,27 +30,31 @@ export default function CollaborationForm({formValue, setFormValue, projects, ca
         </FormRow>
         <FormRow>
             <Col xs={24}>
-                <TextField label={t('Local Title')} name="localLanguageTitle" type="text" />
+                <TextField label={localTitleLabel} name="localLanguageTitle" type="text" />
             </Col>
         </FormRow>
         <FormRow>
             <Col xs={24}>
-                <TextField label={t('Short Description')} name="shortDescription" componentClass="textarea" />
+                <TextField label={t('Short Description')} name="shortDescription" componentClass="textarea" placeholder={"Max 500 characters (including spaces)"} />
+                <HelpBlock>{formValue.shortDescription && formValue.shortDescription.length+"/500"}</HelpBlock>
             </Col>
         </FormRow>
         <FormRow>
             <Col xs={24}>
-                <TextField label={t('Local Short Description')} name="localLanguageShortDescription" componentClass="textarea" />
+                <TextField label={t('Local Short Description')} name="localLanguageShortDescription" componentClass="textarea"  placeholder={"Max 500 characters (including spaces)"} />
+                <HelpBlock>{formValue.localLanguageShortDescription && formValue.localLanguageShortDescription.length+"/500"}</HelpBlock>
             </Col>
         </FormRow>
         <FormRow>
             <Col xs={24}>
-                <TextField label={t('Description')} name="description" componentClass="textarea" />
+                <TextField label={t('Description')} name="description" componentClass="textarea" placeholder={"Max 1500 characters (including spaces)"} />
+                <HelpBlock>{formValue.description && formValue.description.length+"/1500"}</HelpBlock>
             </Col>
         </FormRow>
         <FormRow>
             <Col xs={24}>
-                <TextField label={t('Local Description')} name="localLanguageDescription" componentClass="textarea" />
+                <TextField label={t('Local Description')} name="localLanguageDescription" componentClass="textarea" placeholder={"Max 1500 characters (including spaces)"} />
+                <HelpBlock>{formValue.localLanguageDescription && formValue.localLanguageDescription.length+"/1500"}</HelpBlock>
             </Col>
         </FormRow>
         {isService && <FormRow>
@@ -67,9 +76,10 @@ export default function CollaborationForm({formValue, setFormValue, projects, ca
         <FormRow>
             <Col xs={12}>
                 <TextField style={{width:"100%"}} label={t('Project')} name="project" accepter={SelectPicker} data={projects} />
+                <HelpBlock>If the case, link with relevant project in portfolio</HelpBlock>
             </Col>
             <Col xs={12}>
-                <TextField style={{width:"100%"}} label={t('Category')} name="category" accepter={TreePicker} data={categoriesTree} />
+                <TextField style={{width:"100%"}} label={categoryLabel} name="category" accepter={TreePicker} data={categoriesTree} />
             </Col>
         </FormRow>
         <Divider />
@@ -84,12 +94,12 @@ export default function CollaborationForm({formValue, setFormValue, projects, ca
                     {formValue.rateType && formValue.rateType==="paid" && <TextField style={{width:"100%"}} label={t('Currency')} name="currency" accepter={SelectPicker} data={currencies} searchable={false}  />}
                 </Col>
                 <Col xs={8}>
-                    {formValue.rateType && formValue.rateType==="paid" && <TextField label={t('Rate value')} name="rates" />}
+                    {formValue.rateType && formValue.rateType==="paid" && <TextField label={t('Cost')} name="rates" />}
                 </Col>
             </FormRow>
             <FormRow>
                 <Col xs={24}>
-                    <TextField label={t('Rates')} name="ratesText" componentClass="textarea" />
+                    <TextField label={t('Additional info')} name="ratesText" componentClass="textarea" />
                 </Col>
             </FormRow>
             <FormRow>

@@ -49,6 +49,11 @@ class Position
      */
     private $deadline;
 
+    /**
+     * @ORM\Column(type="text", nullable=true)
+     */
+    private $localDescription;
+
 
     public function __construct()
     {
@@ -149,6 +154,18 @@ class Position
     public function setDeadline($deadline): self
     {
         $this->deadline = $deadline;
+
+        return $this;
+    }
+
+    public function getLocalDescription(): ?string
+    {
+        return $this->localDescription;
+    }
+
+    public function setLocalDescription(?string $localDescription): self
+    {
+        $this->localDescription = $localDescription;
 
         return $this;
     }

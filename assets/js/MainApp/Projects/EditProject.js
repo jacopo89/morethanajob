@@ -7,25 +7,14 @@ import {
     useUploadProjectCover,
     useUploadProjectLogo
 } from "../../Backend/hooks/useProjects";
-import TextField from "../../Login/Components/TextField";
-import {ButtonGroup, Col, Divider, Form, Grid, Row, SelectPicker} from "rsuite";
-import {dataLanguage} from "../../selectData";
-import {
-    coverPicture,
-    coverStyle,
-    FormButtonGroup, FormRow,
-    InverseButton,
-    SaveButton, uploaderCoverConfig
-} from "../../styledComponents/CustomComponents";
+import {Form, Uploader} from "rsuite";
+import {coverPicture, coverStyle, InverseButton, uploaderCoverConfig} from "../../styledComponents/CustomComponents";
 import styled from "styled-components";
 import ImageCropper from "../../ReusableComponents/ImageCropper";
 import {useHistory, useParams} from "react-router-dom";
 import * as Routes from "../../routes";
 import {useTranslation} from "react-i18next";
-import PartnersList from "./Partners/PartnersList";
 import {projectModel} from "../FormModels/models";
-import DeleteButton from "../../ReusableComponents/DeleteButton";
-import DynamicList from "../../ReusableComponents/DynamicList";
 import ProjectForm from "../Forms/ProjectForm";
 
 export default function EditProject({isPortfolio=false}){
@@ -60,22 +49,24 @@ export default function EditProject({isPortfolio=false}){
     }
 
     const handleFileChange = (file) => {
-        let data = {};
-        const formData = new FormData();
-        formData.append('file', file);
-        data.id = id;
-        Object.keys(data).forEach((key)=>  { formData.append(key,JSON.stringify(data[key]));});
-        uploadProjectPictureHandler(formData, {successCallback: ()=>{
-                getProjectHandler(id)
-            }});
+        if(file.length!==0){
+            let data = {};
+            const formData = new FormData();
+            formData.append('file', file[0].blobFile);
+            data.id = id;
+            Object.keys(data).forEach((key)=>  { formData.append(key,JSON.stringify(data[key]));});
+            uploadProjectPictureHandler(formData, {successCallback: ()=>{
+                    getProjectHandler(id)
+                }});
+        }
+
     };
 
     const handleProjectLogoChange = (file) =>{
-        console.log("File logo", file);
         let data = {};
-        if(file){
+        if(file.length!==0){
             const formData = new FormData();
-            formData.append('file', file);
+            formData.append('file', file[0].blobFile);
             data.id = id;
             Object.keys(data).forEach((key)=>  { formData.append(key,JSON.stringify(data[key]));});
             uploadProjectLogoHandler(formData, {successCallback: ()=>{
@@ -110,7 +101,7 @@ export default function EditProject({isPortfolio=false}){
     return (
         <>
             <div style={{...coverStyle, backgroundImage:`url(${backgrounCoverdImage})`}}>
-                <ImageCropper button={uploadCoverButton} propCrop={uploaderCoverConfig} keyField="projectImage" onChange={handleFileChange}/>
+                <Uploader fileListVisible={false} onChange={handleFileChange}>{uploadCoverButton}</Uploader>
             </div>
             <InfoBox >
                 <Form fluid model={projectModel} formValue={formValue} onChange={setFormValue} onSubmit={onSubmitHandler}>

@@ -2,7 +2,7 @@ import React, {useEffect, useState} from "react";
 import {
     useGetServicesBySociety
 } from "../../../Backend/hooks/useServices";
-import {bordeaux, FlexBetweenDiv} from "../../../styledComponents/CustomComponents";
+import {bordeaux, FlexBetweenDiv, InfoBox, PaginationBox} from "../../../styledComponents/CustomComponents";
 import {useTranslation} from "react-i18next";
 import FurnitureDetail from "../../Furnitures/Details/FurnitureDetail";
 import {useSelector} from "react-redux";
@@ -48,10 +48,16 @@ export default function SocietyFornitures({society}){
         };
 
     return <>
-        <FlexBetweenDiv>
+        <InfoBox>
+            Here, you can specify the kind of expertise you have in relation to one or more of the
+            identified macro categories. Provide a description in a tailored way according to the field
+            selected in order to support the creation of new synergies and cooperation locally and
+            internationally.
+        </InfoBox>
+        <PaginationBox>
             <Pagination pages={pages} {...paginationSettings} onSelect={onPaginationSelect} />
             <Form><TextField accepter={SelectPicker} data={PaginationLimit} onChange={setLimitPerPage} searchable={false} /></Form>
-        </FlexBetweenDiv>
+        </PaginationBox>
         {panelShow}
         </>
 

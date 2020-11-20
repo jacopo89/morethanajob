@@ -39,26 +39,36 @@ export default function ProfileEdit() {
     },[profilename]);
 
     const onChangeHandler = (file) => {
+
         let data = {};
         const formData = new FormData();
-        formData.append('file', file);
-        data.email = user.email;
-        Object.keys(data).forEach((key)=>  { formData.append(key,JSON.stringify(data[key]));});
-        uploadPictureHandler(formData, {successCallback: ()=>{
-                getUserInfoHandler(profilename, {successCallback: (data)=>dispatch(ActionTypes.updateUserInfo(data))})
-            }});
+        if(file.length !==0){
+            formData.append('file', file[0].blobFile);
+            data.email = user.email;
+            Object.keys(data).forEach((key)=>  { formData.append(key,JSON.stringify(data[key]));});
+            uploadPictureHandler(formData, {successCallback: ()=>{
+                    getUserInfoHandler(profilename, {successCallback: (data)=>dispatch(ActionTypes.updateUserInfo(data))})
+                }});
+        }
+
     };
 
 
     const onChangeProfileHandler = (file) => {
         let data = {};
-        const formData = new FormData();
-        formData.append('file', file);
-        data.email = userInfo.email;
-        Object.keys(data).forEach((key)=>  { formData.append(key,JSON.stringify(data[key]));});
-        uploadProfilePictureHandler(formData, {successCallback: ()=>{
-                getUserInfoHandler(profilename, {successCallback: (data)=>dispatch(ActionTypes.updateUserInfo(data))})
-            }});
+        if(file.length !==0) {
+            const formData = new FormData();
+            formData.append('file', file[0].blobFile);
+            data.email = userInfo.email;
+            Object.keys(data).forEach((key) => {
+                formData.append(key, JSON.stringify(data[key]));
+            });
+            uploadProfilePictureHandler(formData, {
+                successCallback: () => {
+                    getUserInfoHandler(profilename, {successCallback: (data) => dispatch(ActionTypes.updateUserInfo(data))})
+                }
+            });
+        }
     };
     const saveProfile = () =>{
         const formData = new FormData();
@@ -123,13 +133,7 @@ export default function ProfileEdit() {
                         <Col xs={12}>
                             Profile Image
                             <div  style={{display:"flex", justifyContent:"center"}}>
-                                <ImageCropper button={uploaderProfileButton} propCrop={{
-                                    unit: 'px', // default, can be 'px' or '%'
-                                    x: 0,
-                                    y: 0,
-                                    width: 200,
-                                    aspect:1
-                                }}  keyField="projectImage" onChange={onChangeProfileHandler}/>
+                                <Uploader fileListVisible={false} name="courseImage" onChange={onChangeProfileHandler}>{uploaderProfileButton}</Uploader>
                             </div>
                         </Col>
                         <Col xs={12}>
@@ -156,7 +160,7 @@ export default function ProfileEdit() {
                                 <TextField  name="description" label={t('Society Description')} componentClass="textarea" />
                             </Col>
                             <Col xs={24}>
-                                <TextField label={t('Local Language description')} name="localDescription" componentClass="textarea" />
+                                <TextField label={t('Local Description')} name="localDescription" componentClass="textarea" />
                             </Col>
                         </Row>
                         <Row>

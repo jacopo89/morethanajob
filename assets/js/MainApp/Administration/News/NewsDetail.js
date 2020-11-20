@@ -9,7 +9,6 @@ export default function NewsDetail({news, updater}) {
 
     const [formValue, setFormValue] = useState(news);
     const [fileList, setFileList] = useState([]);
-
     const [fileLoadResponse, loadFileHandler] = useNewsLoadFile();
 
     const handleFileChange = (file) =>{

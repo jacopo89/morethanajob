@@ -9,7 +9,7 @@ import {
     coverStyle,
     FormBox,
     InverseButton,
-    LinearGradient,
+    LinearGradient, ProfileImage,
     profilePicture,
     projectPicture
 } from "../../styledComponents/CustomComponents";
@@ -66,7 +66,7 @@ export default function Project(){
 
     const collaborationList = project.collaborations.map((collaboration)=> <CollaborationDetail collaboration={collaboration} />);
 
-    const projectLogo = <img src={backgroundImage} width={150} height={150}/>
+    const projectLogo = <ProfileImage src={backgroundImage} width={150} height={150}/>
     const {title, description, languageMessage} = getProjectLanguageElements(project);
 
 
@@ -74,7 +74,7 @@ export default function Project(){
 
     return <>
 
-        <div style={{...coverStyle, backgroundImage: `url(${backgrounCoverdImage})`}}>
+        <div style={{...coverStyle, backgroundImage: `url(${backgrounCoverdImage})`, backgroundSize:"cover"}}>
             <LinearGradient/>
             {isOwner && <>
                 <InverseButton style={{position: "absolute", left:5, bottom:5}} onClick={()=>history.push(Routes.editProject(id))}>{t('Edit project')}</InverseButton>
@@ -148,7 +148,7 @@ export function PlatformPartnerPanel({partner}){
     let profileName = (partner.profileName);
     return (
         <div style={{display: "flex", flexDirection:"column", marginLeft:10, marginRight:10}}>
-            <img src={profileImage} style={{ width:150, height:150 }} alt={profileName}/>
+            <ProfileImage style={{ backgroundImage:`url(${profileImage})`, width:150, height:150 }} />
             <a href={`/profile/${profileName}`} >{name}</a>
         </div>)
 }

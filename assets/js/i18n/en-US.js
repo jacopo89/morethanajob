@@ -1,10 +1,7 @@
+import React from "react";
+
 export const translation = {
     translation: {
-
-
-        "Apply":"Apply!",
-        "Send":"Send",
-        "Message":"Message",
 
 
         //REGISTRATION
@@ -17,7 +14,6 @@ export const translation = {
         "language":"Language",
 
 
-        //MANCANTI
         "Homepage":"Homepage",
         "The project":"The project",
         "Services and opportunities": "Services and opportunities",
@@ -26,6 +22,9 @@ export const translation = {
         "Categories": "Categories",
         "Delete":"Delete",
         "Title":"Title in english",
+        "Collaboration Title":"Title of the collaboration in english",
+        "Project Title":"Title of the project in english",
+        "Service Title":"Title of the service in english",
         "Description":"Description in english",
         "Short Description": "Short Description in english",
         "Links": "Links",
@@ -35,6 +34,9 @@ export const translation = {
         "Details":"Details",
         "Local Language Short Description":"Short description in national language",
         "Local Title": "Title in national language",
+        "Local Project Title": "Title of the project in national language",
+        "Local Collaboration Title": "Title of the collaboration in national language",
+        "Local Service Title": "Title of the service in national language",
         "Local Short Description": "Short description in national language",
         "Local Description": "Description in national language",
         "Local Language Detailed Description": "Description in national language",
@@ -50,6 +52,8 @@ export const translation = {
         "Search organisations":"Search organisations",
         "Proposed by":"Proposed by",
         "Category": "Category",
+        "Collaboration Category": "Macro category of the collaboration",
+        "Service Category": "Macro category of the service",
         "All": "All",
         "Collaborations":"Collaborations",
         "Documents":"Documenti",
@@ -105,6 +109,37 @@ export const translation = {
 
         "Rates": "Payment mode: free or paid service (if paid, please specify rates)",
 
-        "WHAT WE OFFER": "EXPERTISE"
+        "WHAT WE OFFER": "EXPERTISE",
+
+
+        //FINALI
+
+        "News": "News",
+        "No results found": "No results found",
+        "Show 5 results":"Show 5 results",
+        "Show 10 results":"Show 10 results",
+        "Show 20 results":"Show 20 results",
+        "Info":"Info",
+        "Paid or free":"Paid or free",
+        "Paid": "Paid",
+        "Free": "Free",
+        "Cost":"Cost",
+        "Currency":"Currency",
+        "Additional info": "Additional info",
+        "Apply": "Apply!",
+        "Firstname": "Firstname",
+        "Lastname":"Lastname",
+        "Message":"Message",
+        "Send":"Send",
+        "Message correctly sent!":"Message correctly sent!"
+
+
+
+
+
     }
+
+
+
+
 }

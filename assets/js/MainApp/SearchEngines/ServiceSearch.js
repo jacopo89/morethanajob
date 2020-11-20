@@ -6,7 +6,7 @@ import {
     Form,
     FormControl,
     FormGroup,
-    Grid, Pagination,
+    Grid, Pagination, Panel,
     Radio,
     RadioGroup,
     Row,
@@ -22,7 +22,14 @@ import {dataCountry, PaginationLimit} from "../../selectData";
 import {useGetUsers} from "../../Backend/hooks/useAdministration";
 import {useTranslation} from "react-i18next";
 import CollaborationDetail from "../Profile/DetailCards/CollaborationDetail";
-import {FlexBetweenDiv, FormBox} from "../../styledComponents/CustomComponents";
+import {
+    BackTitle,
+    FlexAroundDiv,
+    FlexBetweenDiv,
+    FormBox,
+    FrontTitle,
+    Title
+} from "../../styledComponents/CustomComponents";
 import {categoriesTreeByLanguage} from "../../Functions/Categories";
 
 
@@ -124,6 +131,19 @@ export default function ServiceSearch(){
     const finalPanels = [...projectPanels, ...servicePanels];
     return <>
         <FormBox>
+            <FlexAroundDiv>
+                <BackTitle >
+                    <FrontTitle>
+                        Search Services
+                    </FrontTitle>
+                    Search Services
+                </BackTitle>
+            </FlexAroundDiv>
+            <p>
+                In this section, you can find the services and opportunities that the organisations are
+                delivering to support the social and employment inclusion of vulnerable groups as well as the
+                collaboration opportunities to renovate or develop new ones.
+            </p>
             <Form fluid formValue={formValue} onChange={setFormValue} onSubmit={onSubmitHandler}>
                 <Grid fluid>
                     <Row>
@@ -160,7 +180,7 @@ export default function ServiceSearch(){
             <Pagination pages={pages} {...paginationSettings} onSelect={onPaginationSelect} />
             <Form><TextField accepter={SelectPicker} data={PaginationLimit} value={limitPerPage} onChange={setLimitPerPage} searchable={false} cleanable={false} /></Form>
         </FlexBetweenDiv>
-        {finalPanels.length===0 ?<div>No results found</div> : finalPanels }
+        {finalPanels.length===0 ?<div style={{display:"flex", justifyContent:"center"}}>{t('No results found')}</div> : finalPanels }
         </FormBox>
         </>
 }

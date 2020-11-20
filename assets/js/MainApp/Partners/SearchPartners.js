@@ -6,7 +6,7 @@ import * as Routes from '../../routes';
 import {useHistory} from "react-router-dom";
 import {dataCountry} from "../../selectData";
 import {useSearcbPartners} from "../../Backend/hooks/usePartners";
-import {bordeaux} from "../../styledComponents/CustomComponents";
+import {BackTitle, bordeaux, FlexAroundDiv, FormBox, FrontTitle, Title} from "../../styledComponents/CustomComponents";
 import {useTranslation} from "react-i18next";
 import {categoriesTreeByLanguage} from "../../Functions/Categories";
 import {expertisesTreeByLanguage} from "../../Functions/Expertises";
@@ -47,8 +47,18 @@ export default function SearchPartners(){
 
     return <>
 
-        <Panel header="Filters" bordered>
-
+        <Panel bordered>
+            <FlexAroundDiv>
+                <BackTitle >
+                    <FrontTitle>
+                        Search Partners
+                    </FrontTitle>
+                    Search Partners
+                </BackTitle>
+            </FlexAroundDiv>
+            <p>
+                Discover the organisations that are part of the MoreThanAJob community!
+            </p>
             <Form fluid formValue={formValue} onChange={setFormValue} onSubmit={onSubmitHandler}>
                 <div style={{display:"flex", justifyContent:"space-between"}}>
                     <TextField label={t('Country')} name="country" data={dataCountry} accepter={SelectPicker} searchable={false} style={{width:"100%"}} />
@@ -93,7 +103,7 @@ export function PartnerTitle({partner}){
 
     return <div style={{color:bordeaux, minHeight:40, backgroundColor:"whitesmoke", display: "flex", justifyContent: "space-evenly",alignItems: "center"}}>
         <div style={{flexGrow:3, paddingLeft:10, fontWeight: "bold", fontSize:20}}>
-            <a href={Routes.profile(partner.profileName)}>{partner.profileName}</a>
+            <a href={Routes.profile(partner.profileName)}>{partner.name}</a>
         </div>
     </div>
 }

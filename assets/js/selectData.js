@@ -72,19 +72,15 @@ export const modalityData = [
 
 export const PaginationLimit = [
     {
-        "label": "2",
-        "value": 2,
-    },
-    {
-        "label": "5",
+        "label": "Show 5 results",
         "value": 5,
     },
     {
-        "label": "10",
+        "label": "Show 10 results",
         "value": 10,
     },
     {
-        "label": "20",
+        "label": "Show 20 results",
         "value": 20,
     }
 ];
