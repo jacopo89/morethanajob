@@ -71,11 +71,7 @@ export default function Profile(){
                         <Row className="show-grid" style={{padding: 5, display: "flex", alignItems: "flex-start"}}>
                             <Col xs={8}>
                                 <div style={{display: "flex", justifyContent: "center"}}>
-                                    <ProfileImage style={{
-                                        backgroundImage: `url(${profileImage})`,
-                                        width: 200,
-                                        height: 200
-                                    }}/>
+                                    <ProfileImage src={profileImage} width={200}/>
                                 </div>
                             </Col>
                             <Col xs={16}>

@@ -1,5 +1,5 @@
 import React, {useEffect, useState} from "react";
-import {Col, Grid, Icon, List, Nav, Navbar, Panel, Row} from "rsuite";
+import {Col, FlexboxGrid, Grid, Icon, List, Nav, Navbar, Panel, Row} from "rsuite";
 import {Link, useHistory} from "react-router-dom";
 import * as Routes from '../routes'
 import {

@@ -84,7 +84,7 @@ export function CollaborationPanelTitle({collaboration, title}){
             {title}
         </div>
         <div style={{flexGrow:1, fontSize:12, flexBasis: "20%"}}>
-            <Icon icon="calendar-o"/>  {timeMessage}
+            {collaboration.startDate&& collaboration.endDate && (<Icon icon="calendar-o"/>  && timeMessage)}
         </div>
         <div style={{flexGrow:1, fontSize:12, flexBasis: "20%"}}>
             <Icon icon="suitcase" /> {positionMessage}

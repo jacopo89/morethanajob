@@ -1987,6 +1987,15 @@
   resolved "https://registry.yarnpkg.com/@protobufjs/utf8/-/utf8-1.1.0.tgz#a777360b5b39a1a2e5106f8e858f2fd2d060c570"
   integrity sha1-p3c2C1s5oaLlEG+OhY8v0tBgxXA=
 
+"@rsuite/responsive-nav@^0.0.10":
+  version "0.0.10"
+  resolved "https://registry.yarnpkg.com/@rsuite/responsive-nav/-/responsive-nav-0.0.10.tgz#2f7d5b7cae5d67bdf96f8894a373d09d086d3802"
+  integrity sha512-C5kASKLFOFXyctRQ9gz2f/ABvFStdTvSt4hC5eucfGpIFjAKpGLExHwY/qe/ABEkoKBp6TzWI1AHX77z76sWKg==
+  dependencies:
+    core-js "3"
+    element-resize-event "^3.0.3"
+    prop-types "^15.6.2"
+
 "@symfony/webpack-encore@^0.28.2":
   version "0.28.2"
   resolved "https://registry.yarnpkg.com/@symfony/webpack-encore/-/webpack-encore-0.28.2.tgz#0d661b19c33c43d320dea1636cbbfeb6d583d982"
@@ -3125,6 +3134,11 @@ core-js-compat@^3.6.2:
   dependencies:
     browserslist "^4.8.3"
     semver "7.0.0"
+
+core-js@3:
+  version "3.7.0"
+  resolved "https://registry.yarnpkg.com/core-js/-/core-js-3.7.0.tgz#b0a761a02488577afbf97179e4681bf49568520f"
+  integrity sha512-NwS7fI5M5B85EwpWuIwJN4i/fbisQUwLwiSNUWeXlkAZ0sbBjLEvLvFLf1uzAUV66PcEPt4xCGCmOZSxVf3xzA==
 
 core-js@3.6.5, core-js@^3.4.2:
   version "3.6.5"

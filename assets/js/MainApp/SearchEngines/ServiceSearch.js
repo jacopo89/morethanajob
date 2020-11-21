@@ -25,9 +25,9 @@ import CollaborationDetail from "../Profile/DetailCards/CollaborationDetail";
 import {
     BackTitle,
     FlexAroundDiv,
-    FlexBetweenDiv,
+    FlexBetweenDiv, FlexCenterDiv,
     FormBox,
-    FrontTitle,
+    FrontTitle, MainButton,
     Title
 } from "../../styledComponents/CustomComponents";
 import {categoriesTreeByLanguage} from "../../Functions/Categories";
@@ -159,22 +159,29 @@ export default function ServiceSearch(){
                         <Col xs={12}>
                             <TextField label={t('Category')} name="category" data={categoriesTree} accepter={CheckTreePicker} style={{width:"100%"}}  />
                         </Col>
-
-
+                    </Row>
+                    <Row>
+                        <Col xs={24}>
+                            <FormGroup>
+                                <FormControl
+                                    name="radio"
+                                    accepter={RadioGroup}
+                                >
+                                    <Radio defaultChecked value="all">{t('All')}</Radio>
+                                    <Radio value="services">{t('Services and opportunities')}</Radio>
+                                    <Radio value="collaborations">{t('Collaborations')}</Radio>
+                                </FormControl>
+                            </FormGroup>
+                        </Col>
+                    </Row>
+                    <Row>
+                        <Col xs={24}>
+                            <FlexCenterDiv>
+                                <MainButton type="submit">Search</MainButton>
+                            </FlexCenterDiv>
+                        </Col>
                     </Row>
                 </Grid>
-                <FormGroup>
-                    <FormControl
-                        name="radio"
-                        accepter={RadioGroup}
-                    >
-                        <Radio defaultChecked value="all">{t('All')}</Radio>
-                        <Radio value="services">{t('Services and opportunities')}</Radio>
-                        <Radio value="collaborations">{t('Collaborations')}</Radio>
-                    </FormControl>
-                </FormGroup>
-
-                <Button type="submit">{t('Search')}</Button>
             </Form>
         <FlexBetweenDiv>
             <Pagination pages={pages} {...paginationSettings} onSelect={onPaginationSelect} />

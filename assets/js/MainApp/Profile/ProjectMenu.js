@@ -11,7 +11,9 @@ import {useHistory} from "react-router-dom";
 import SocietyServices from "./submenus/SocietyServices";
 import TextField from "../../Login/Components/TextField";
 import {dataCountry} from "../../selectData";
+import ResponsiveNav from '@rsuite/responsive-nav';
 import {useTranslation} from "react-i18next";
+import styled from "styled-components";
 
 const renderItemFunction = (item) => {
     const style = {height:25, color:bordeaux}
@@ -33,28 +35,29 @@ const CustomNav = ({ active, onSelect,isOwner, ...props }) => {
 
 
     return (
-        <Nav id="projectMenu" {...props} activeKey={active} onSelect={onSelect} justified>
-            <Nav.Item renderItem={renderItemFunction} eventKey="portfolio">
+        <ResponsiveNav id="projectMenu" {...props} activeKey={active} onSelect={onSelect} justified>
+            <ResponsiveNav.Item renderItem={renderItemFunction} eventKey="portfolio">
                 <div style={{display:"flex", alignItems:"center", justifyContent:"center"}}>
                     {t('PORTFOLIO')}  {isOwner &&<IconButtonTransparent onClick={()=>history.push(Routes.newProjectPage)} icon={<Icon icon="plus"/>}/>}
                 </div>
                 <ProjectModal show={showprojectModal} onHide={closeProjectModal}/>
-            </Nav.Item>
-            <Nav.Item renderItem={renderItemFunction} eventKey="offerings">  {t('WHAT WE OFFER')}
+            </ResponsiveNav.Item>
+            <ResponsiveNav.Item renderItem={renderItemFunction} eventKey="offerings">  {t('WHAT WE OFFER')}
                 {isOwner && <IconButtonTransparent onClick={() => history.push(Routes.newFurniturePage)} icon={<Icon icon="plus"/>}/>}
-            </Nav.Item>
-            <Nav.Item renderItem={renderItemFunction} eventKey="services">
+            </ResponsiveNav.Item>
+            <ResponsiveNav.Item renderItem={renderItemFunction} eventKey="services">
                  {t('SERVICES AND OPPORTUNITIES')}
                 {isOwner && <IconButtonTransparent onClick={() => history.push(Routes.newServicePage)} icon={<Icon icon="plus"/>}/>}
-            </Nav.Item>
-            <Nav.Item renderItem={renderItemFunction} eventKey="collaborations">
+            </ResponsiveNav.Item>
+            <ResponsiveNav.Item renderItem={renderItemFunction} eventKey="collaborations">
                 {t('COLLABORATIONS')}
                 {isOwner &&<IconButtonTransparent onClick={() => history.push(Routes.newCollaborationPage)} icon={<Icon icon="plus"/>}/>}
-            </Nav.Item>
-            <Nav.Item renderItem={renderItemFunction} eventKey="contacts">{t('CONTACTS')}</Nav.Item>
-        </Nav>
+            </ResponsiveNav.Item>
+            <ResponsiveNav.Item renderItem={renderItemFunction} eventKey="contacts">{t('CONTACTS')}</ResponsiveNav.Item>
+        </ResponsiveNav>
     );
 };
+
 
 export function ProjectMenu({society, isOwner}){
 

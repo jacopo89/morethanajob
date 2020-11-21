@@ -61,7 +61,7 @@ class LoginAuthenticator extends AbstractGuardAuthenticator
      */
     public function start(Request $request, AuthenticationException $authException = null)
     {
-        return new RedirectResponse('/app/login');
+        return new RedirectResponse('/backend/redirect');
     }
 
     /**
@@ -74,7 +74,6 @@ class LoginAuthenticator extends AbstractGuardAuthenticator
      */
     public function supports(Request $request)
     {
-
         return !in_array($request->attributes->get('_route'), ['home', 'app_login', 'app_register', "app_default_logout", "get_random", "get_random_collaborations"]);
     }
 

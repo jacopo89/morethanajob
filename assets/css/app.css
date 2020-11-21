@@ -2,55 +2,10 @@ body {
     background-image: url("/defaults/background.jpg");
 }
 
-/*
-
-.rs-form-control-wrapper input{
-    border-radius: 0;
-}
-.rs-form-control-wrapper select{
-    border-radius: 0;
+.rs-form:not(.rs-form-inline) .rs-form-group:not(:last-child){
+    margin-bottom:0!important;
 }
 
-
-.rs-form-control-wrapper textarea{
-    border-radius: 0;
+form{
+    margin-block-end: 0;
 }
-
-.rs-form-control-wrapper input:hover{
-    border-color: #b45860;
-    border-radius: 0;
-}
-.rs-form-control-wrapper input:active{
-    border-color: #b45860;
-    border-radius: 0;
-}
-
-.rs-form-control-wrapper input:focus{
-    border-color: #b45860;
-    border-radius: 0;
-}
-
-.rs-form-control-wrapper textarea:hover :active :focus{
-    border-color: #b45860;
-    border-radius: 0;
-}
-
-.rs-nav-subtle.rs-nav-horizontal .rs-nav-item>.rs-nav-item-content:before {
-    background-color: #b45860;
-}
-
-.rs-picker-default:not(.rs-picker-disabled) .rs-btn.active, .rs-picker-default:not(.rs-picker-disabled) .rs-btn:hover, .rs-picker-default:not(.rs-picker-disabled) .rs-picker-toggle.active, .rs-picker-default:not(.rs-picker-disabled) .rs-picker-toggle:hover {
-    border-color: #b45860;
-    -webkit-border-radius: 0;
-    -moz-border-radius: 0;
-    border-radius: 0;
-}
-
-.rs-picker-has-value .rs-btn .rs-picker-toggle-value, .rs-picker-has-value .rs-picker-toggle .rs-picker-toggle-value {
-    color: #b45860;
-}
-
-.rs-input:focus, .rs-input:hover{
-    border-color: #b45860;
-}
-*/

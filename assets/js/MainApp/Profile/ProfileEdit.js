@@ -18,6 +18,7 @@ import {useTranslation} from "react-i18next";
 import {useGetUserInfo} from "../../Backend/hooks/UserInfo";
 import {useHistory, useParams} from "react-router-dom";
 import styled from "styled-components";
+import {SingleControlledUploader} from "../../ReusableComponents/SingleControlledUploader";
 
 export default function ProfileEdit() {
     const {user} = useSelector(state=>state);
@@ -56,6 +57,7 @@ export default function ProfileEdit() {
 
     const onChangeProfileHandler = (file) => {
         let data = {};
+        console.log("file",file);
         if(file.length !==0) {
             const formData = new FormData();
             formData.append('file', file[0].blobFile);
@@ -112,30 +114,19 @@ export default function ProfileEdit() {
 
     const uploadCoverButton = <InverseButton style={{position: "absolute", top:0}}>{t('Change cover Button')}</InverseButton>
 
-    const uploaderProfileButton = <Button style={{backgroundImage:  `url(${profileImage})`, backgroundSize: "contain", width:200, height:200}}> Upload</Button>;
+    const uploaderProfileButton = <Button style={{backgroundImage:  `url(${profileImage})`, backgroundSize: "contain", backgroundPosition:"center", backgroundRepeat:"no-repeat", width:200, height:200}}> Upload</Button>;
     return(
         <>
             <div style={{...coverStyle, backgroundImage: `url(${backgroundImage})`}}>
                 <LinearGradient/>
                 <h3 style={{position:"absolute", bottom:4, right:10, color:"white"}}>{userInfo && userInfo.website}</h3>
                 {/*{social}*/}
-                <ImageCropper button={uploadCoverButton}  propCrop={{
-                    unit: 'px', // default, can be 'px' or '%'
-                    x: 0,
-                    y: 0,
-                    width: 250,
-                    aspect:3.592
-                }} keyField="projectImage" onChange={onChangeHandler}/>
+                <SingleControlledUploader onChange={onChangeHandler}>{uploadCoverButton}</SingleControlledUploader>
             </div>
             <InfoBox>
                 <Grid fluid>
                     <Row>
-                        <Col xs={12}>
-                            Profile Image
-                            <div  style={{display:"flex", justifyContent:"center"}}>
-                                <Uploader fileListVisible={false} name="courseImage" onChange={onChangeProfileHandler}>{uploaderProfileButton}</Uploader>
-                            </div>
-                        </Col>
+
                         <Col xs={12}>
 
                         </Col>
@@ -145,14 +136,27 @@ export default function ProfileEdit() {
                 <Form fluid autoComplete="off" formValue={formValue} onChange={setFormValue}>
                     <Grid fluid>
                         <Row className="show-grid">
-                            <Col xs={24}> <TextField name="name" label={t('Society Name')} /></Col>
-                        </Row>
-                        <Row>
-                            <Col xs={12}>
-                                <TextField style={{width:"100%"}} name="language" label={t('Language')} accepter={SelectPicker} data={dataLanguage()} />
+                            <Col xs={24} md={12}>
+                                <b>Profile Image</b>
+                                <div  style={{display:"flex", justifyContent:"center"}}>
+                                    <SingleControlledUploader fileListVisible={false} name="courseImage" onChange={onChangeProfileHandler}>{uploaderProfileButton}
+                                    </SingleControlledUploader>
+                                </div>
                             </Col>
-                            <Col xs={12}>
-                                <TextField style={{width:"100%"}} name="country" label={t('Country')} accepter={SelectPicker} data={dataCountry} />
+                            <Col xs={24} md={12}>
+                                <Grid fluid>
+                                    <Row>
+                                        <Col>
+                                            <TextField name="name" label={t('Society Name')} />
+                                        </Col>
+                                        <Col xs={24}>
+                                            <TextField style={{width:"100%"}} name="language" label={t('Language')} accepter={SelectPicker} data={dataLanguage()} />
+                                        </Col>
+                                        <Col xs={24}>
+                                            <TextField style={{width:"100%"}} name="country" label={t('Country')} accepter={SelectPicker} data={dataCountry} />
+                                        </Col>
+                                    </Row>
+                                </Grid>
                             </Col>
                         </Row>
                         <Row>

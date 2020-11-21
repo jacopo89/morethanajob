@@ -105,7 +105,7 @@ export function PortfolioDetail({project}){
 
         const existingPartners = project.projectPartnersRelations.map((projectPartnersRelation, index)=>{
             let profileImage = (projectPartnersRelation.partner.profilePicture) ? projectPartnersRelation.partner.profilePicture.url : "";
-            return <ProfileImage key={index} style={{backgroundImage:  `url(${profileImage})`, width:50, height:50}}/>
+            return <ProfileImage src={profileImage} width={50} key={index} />
         });
         let list = <>
             <div style={{display:"flex", flexWrap:"wrap"}}>{existingPartners}</div>
@@ -117,7 +117,7 @@ export function PortfolioDetail({project}){
         <Row className="show-grid">
             <Col xs={8}>
                 <div style={{display:"flex", justifyContent:"center"}}>
-                    <ProfileImage style={{backgroundImage:  `url(${backgroundImage})`, width:150, height:150}}/>
+                    <ProfileImage src={backgroundImage} width={150} />
                 </div>
             </Col>
             <Col xs={16}>

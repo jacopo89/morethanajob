@@ -131,6 +131,11 @@ export const FlexBetweenDiv = styled.div`
     align-items:center;
 `
 
+export const FlexCenterDiv = styled.div`
+    display:flex;
+    justify-content:center;
+    align-items:center;
+`
 
 export const FormButtonGroup = styled(ButtonGroup)`
     float: right;

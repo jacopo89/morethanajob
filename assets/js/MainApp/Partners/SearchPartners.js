@@ -1,4 +1,4 @@
-import {Button, CheckTreePicker, Col, Form, Panel, Row, SelectPicker} from "rsuite";
+import {Button, CheckTreePicker, Col, Form, Grid, HelpBlock, Panel, Row, SelectPicker} from "rsuite";
 import React, {useEffect, useState} from "react";
 import TextField from "../../Login/Components/TextField";
 import {useSelector} from "react-redux";
@@ -6,7 +6,14 @@ import * as Routes from '../../routes';
 import {useHistory} from "react-router-dom";
 import {dataCountry} from "../../selectData";
 import {useSearcbPartners} from "../../Backend/hooks/usePartners";
-import {BackTitle, bordeaux, FlexAroundDiv, FormBox, FrontTitle, Title} from "../../styledComponents/CustomComponents";
+import {
+    BackTitle,
+    bordeaux,
+    FlexAroundDiv,
+    FlexCenterDiv,
+    FormRow,
+    FrontTitle, MainButton
+} from "../../styledComponents/CustomComponents";
 import {useTranslation} from "react-i18next";
 import {categoriesTreeByLanguage} from "../../Functions/Categories";
 import {expertisesTreeByLanguage} from "../../Functions/Expertises";
@@ -60,13 +67,33 @@ export default function SearchPartners(){
                 Discover the organisations that are part of the MoreThanAJob community!
             </p>
             <Form fluid formValue={formValue} onChange={setFormValue} onSubmit={onSubmitHandler}>
-                <div style={{display:"flex", justifyContent:"space-between"}}>
-                    <TextField label={t('Country')} name="country" data={dataCountry} accepter={SelectPicker} searchable={false} style={{width:"100%"}} />
-                    <TextField label={t('Expertise')} name="expertise" data={servicesTree} accepter={CheckTreePicker} searchable={false} style={{width:"100%"}} />
-                    <TextField label={t('Category')} name="category" data={categoriesTree} accepter={CheckTreePicker} searchable={false} style={{width:"100%"}} />
-                </div>
+                <Grid fluid>
+                    <Row>
+                        <Col xs={24}>
+                            <TextField label={t('Country')} name="country" data={dataCountry} accepter={SelectPicker} searchable={false} style={{width:"100%"}} />
+                            <HelpBlock>Insert country</HelpBlock>
+                        </Col>
+                    </Row>
+                    <Row>
+                        <Col xs={24}>
+                            <TextField label={t('Expertise')} name="expertise" data={servicesTree} accepter={CheckTreePicker} searchable={false} style={{width:"100%"}} />
+                        </Col>
+                    </Row>
+                    <Row>
+                        <Col xs={24}>
+                            <TextField label={t('Category')} name="category" data={categoriesTree} accepter={CheckTreePicker} searchable={false} style={{width:"100%"}} />
+                        </Col>
+                    </Row>
+                    <Row>
+                        <Col xs={24}>
+                            <FlexCenterDiv>
+                                <MainButton type="submit">Search</MainButton>
+                            </FlexCenterDiv>
+                        </Col>
+                    </Row>
+                </Grid>
 
-                <Button type="submit">Search</Button>
+
             </Form>
         </Panel>
 

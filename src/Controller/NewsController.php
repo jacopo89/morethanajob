@@ -15,6 +15,8 @@ use App\Model\NewsDTO;
 use App\Repository\NewsRepository;
 use App\Service\FileSystemService;
 use App\Service\Serializer;
+use Sensio\Bundle\FrameworkExtraBundle\Configuration\IsGranted;
+use Sensio\Bundle\FrameworkExtraBundle\Configuration\Security;
 use Symfony\Bundle\FrameworkBundle\Controller\AbstractController;
 use Symfony\Component\HttpFoundation\Request;
 use Symfony\Component\HttpFoundation\Response;
@@ -59,6 +61,7 @@ class NewsController extends AbstractController
     /**
      * @param Request $request
      * @return Response
+     * @IsGranted("ROLE_ADMIN")
      * @Route("/new", methods={"POST"})
      */
     public function createNews(Request $request){

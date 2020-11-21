@@ -14,20 +14,20 @@ export const administrationCollaborations = "/administration-collaborations";
 export const administrationUsers = "/administration-users";
 export const administrationNews = "/administration-news";
 export const serviceSearchPage = "/services";
-export const searchUserPage = "/partners";
-export const dashboardPage = "/dashboard";
-export const newProjectPage = "/newproject";
-export const newPortfolioPage = "/newportfolio";
-export const newCollaborationPage = "/newcollaboration";
-export const newServicePage = "/newservice";
+export const searchUserPage = "/organisations";
+export const dashboardPage = "/";
+export const newProjectPage = "/new-project";
+export const newPortfolioPage = "/new-portfolio";
+export const newCollaborationPage = "/new-collaboration";
+export const newServicePage = "/new-service";
 export const newFurniturePage = "/new-furniture";
 export const collaborationDetailPage = "/collaboration/:id";
 export const routeProfile = "/profile/:profilename";
 export const routeProfileEdit = "/edit-profile/:profilename";
 export const routeProject = "/project/:id";
-export const routeEditProject = "/editproject/:id";
-export const routeEditCollaboration = "/editcollaboration/:id";
-export const routeEditService = "/editservice/:id";
+export const routeEditProject = "/edit-project/:id";
+export const routeEditCollaboration = "/edit-collaboration/:id";
+export const routeEditService = "/edit-service/:id";
 export const immediateLogout = "/immediatelogout";
 
 export var newsPage = "/news";
@@ -47,7 +47,7 @@ export function project(id){
 }
 
 export function editProject(id){
-    return "/editproject/"+id;
+    return "/edit-project/"+id;
 }
 
 export function collaboration(id){
@@ -55,11 +55,11 @@ export function collaboration(id){
 }
 
 export function editCollaboration(id){
-    return "/editcollaboration/"+id;
+    return "/edit-collaboration/"+id;
 }
 
 export function editService(id){
-    return "/editservice/"+id;
+    return "/edit-service/"+id;
 }
 
 export function editFurniture(id){

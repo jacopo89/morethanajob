@@ -11,16 +11,18 @@ export default function NewsPanel({news}){
         <a target="_blank" href={manipulateWebsite(link)}> {link}</a>
     </div> )
 
-    const typeElement = newsSelectData.find(item => item.value ===news.type);
+    const typeElement = newsSelectData.find(item => {
+        return item.value ===news.type
+    });
 
-    const type = (typeElement) ? typeElement.value :"";
+    const type = (typeElement) ? typeElement.label :"";
 
     return <div>
         <Grid fluid>
             <Row>
                 <Col xs={24}>
                     <FlexBetweenDiv>
-                        <Title>{news.title}</Title><h5>{type.label}</h5>
+                        <Title>{news.title}</Title><h6>{type}</h6>
                     </FlexBetweenDiv>
                 </Col>
             </Row><Row>
@@ -51,7 +53,7 @@ export default function NewsPanel({news}){
 }
 
 
-const Title = styled.h3`
+const Title = styled.h4`
 color: ${bordeaux};
 `
 

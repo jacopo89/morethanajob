@@ -66,7 +66,7 @@ export default function Project(){
 
     const collaborationList = project.collaborations.map((collaboration)=> <CollaborationDetail collaboration={collaboration} />);
 
-    const projectLogo = <ProfileImage src={backgroundImage} width={150} height={150}/>
+    const projectLogo = <ProfileImage src={backgroundImage} width={150} />
     const {title, description, languageMessage} = getProjectLanguageElements(project);
 
 
@@ -148,7 +148,7 @@ export function PlatformPartnerPanel({partner}){
     let profileName = (partner.profileName);
     return (
         <div style={{display: "flex", flexDirection:"column", marginLeft:10, marginRight:10}}>
-            <ProfileImage style={{ backgroundImage:`url(${profileImage})`, width:150, height:150 }} />
+            <ProfileImage src={profileImage} width={150} />
             <a href={`/profile/${profileName}`} >{name}</a>
         </div>)
 }
