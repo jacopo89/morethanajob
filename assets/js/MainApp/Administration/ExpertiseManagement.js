@@ -183,6 +183,11 @@ export function ServiceModal({show, onHide, successCallback = ()=>{}, parentId})
     const [formValue, setFormValue] = useState();
     const [response, createExpertiseHandler] = useCreateExpertise();
 
+    const localCallback = () => {
+        setFormValue({});
+        successCallback();
+    }
+
     const onSubmitHandler = () =>{
         const formData = new FormData();
         formData.append('parentId', parentId);
@@ -191,7 +196,7 @@ export function ServiceModal({show, onHide, successCallback = ()=>{}, parentId})
         formData.append('en', formValue.en);
         formData.append('it', formValue.it);
         formData.append('gr', formValue.gr);
-        createExpertiseHandler(formData, {successCallback: successCallback });
+        createExpertiseHandler(formData, {successCallback: localCallback });
     }
 
 

@@ -1,25 +1,24 @@
 import {useTranslation} from "react-i18next";
 
 export function dataLanguage(){
-    const {t,i18n} = useTranslation();
 
     return [
     {
-        "label": t('Arabic'),
+        "label": "اللغة العربية",
         "value": "ar"
     },
     {
-        "label": t('Italian'),
+        "label": "Italiano",
         "value": "it",
 
     },
     {
-        "label": t("Greek"),
+        "label": "Ελληνικά",
         "value": "gr",
 
     },
     {
-        "label": t("English"),
+        "label": "English",
         "value": "en",
 
     }]
