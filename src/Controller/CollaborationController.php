@@ -134,6 +134,7 @@ class CollaborationController extends AbstractController
             $ratesText = json_decode($request->get('rateText'));
             $modality = json_decode($request->get('modality'));
             $mainBeneficiaries = json_decode($request->get('mainBeneficiaries'));
+            $localBeneficiaries = json_decode($request->get('localBeneficiaries'));
             $country = json_decode($request->get('country'));
             $categoryId = $request->get('category');
             $contacts = json_decode($request->get('contacts'));
@@ -159,6 +160,7 @@ class CollaborationController extends AbstractController
             $collaboration->setDescription($longDescription);
 
             $collaboration->setMainBeneficiaries($mainBeneficiaries);
+            $collaboration->setLocalBeneficiaries($localBeneficiaries);
             $collaboration->setModality($modality);
             $collaboration->setRates($rates);
             $collaboration->setRateType($rateType);
@@ -239,6 +241,7 @@ class CollaborationController extends AbstractController
             $ratesText = json_decode($request->get('ratesText'));
             $modality = json_decode($request->get('modality'));
             $mainBeneficiaries = json_decode($request->get('mainBeneficiaries'));
+            $localBeneficiaries = json_decode($request->get('localBeneficiaries'));
             $contacts = json_decode($request->get('contacts'));
             $country = json_decode($request->get('country'));
             $localLanguageTitle = json_decode($request->get('localLanguageTitle'));
@@ -275,6 +278,7 @@ class CollaborationController extends AbstractController
             $collaboration->setRates($rates);
             $collaboration->setModality($modality);
             $collaboration->setMainBeneficiaries($mainBeneficiaries);
+            $collaboration->setLocalBeneficiaries($localBeneficiaries);
             $collaboration->setCountry($country);
             $collaboration->setContacts($contacts);
 

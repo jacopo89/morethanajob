@@ -205,6 +205,7 @@ class ServiceController extends AbstractController
         $email = $request->get('email');
         $serviceId = $request->get('service');
         $description = json_decode($request->get('description'));
+        $localDescription = json_decode($request->get('localDescription'));
         $country = json_decode($request->get('country'));
 
         $user = $this->em->getRepository(User::class)->findOneBy(['email'=>$email]);
@@ -216,6 +217,7 @@ class ServiceController extends AbstractController
             $offeredService->setUser($user);
             $offeredService->setService($service);
             $offeredService->setDescription($description);
+            $offeredService->setLocalDescription($localDescription);
             $offeredService->setCountry($country);
 
             $this->em->persist($offeredService);
@@ -243,6 +245,7 @@ class ServiceController extends AbstractController
         $email = $request->get('email');
         $serviceId = $request->get('service');
         $description = json_decode($request->get('description'));
+        $localDescription = json_decode($request->get('localDescription'));
         $country = json_decode($request->get('country'));
 
         $user = $this->em->getRepository(User::class)->findOneBy(['email'=>$email]);
@@ -255,6 +258,7 @@ class ServiceController extends AbstractController
             $offeredService->setUser($user);
             $offeredService->setService($service);
             $offeredService->setDescription($description);
+            $offeredService->setLocalDescription($localDescription);
             $offeredService->setCountry($country);
 
             $this->em->persist($offeredService);

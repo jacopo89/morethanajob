@@ -47,13 +47,13 @@ export default function CollaborationForm({formValue, setFormValue, projects, ca
         </FormRow>
         <FormRow>
             <Col xs={24}>
-                <TextField label={t('Description')} name="description" componentClass="textarea" placeholder={"Max 1500 characters (including spaces)"} />
+                <TextField label={t('Detailed Description')} name="description" componentClass="textarea" placeholder={"Max 1500 characters (including spaces)"} />
                 <HelpBlock>{formValue.description && formValue.description.length+"/1500"}</HelpBlock>
             </Col>
         </FormRow>
         <FormRow>
             <Col xs={24}>
-                <TextField label={t('Local Description')} name="localLanguageDescription" componentClass="textarea" placeholder={"Max 1500 characters (including spaces)"} />
+                <TextField label={t('Local Detailed Description')} name="localLanguageDescription" componentClass="textarea" placeholder={"Max 1500 characters (including spaces)"} />
                 <HelpBlock>{formValue.localLanguageDescription && formValue.localLanguageDescription.length+"/1500"}</HelpBlock>
             </Col>
         </FormRow>
@@ -105,6 +105,11 @@ export default function CollaborationForm({formValue, setFormValue, projects, ca
             <FormRow>
                 <Col xs={24}>
                     <TextField label={t('Main beneficiaries')} name="mainBeneficiaries" componentClass="textarea" />
+                </Col>
+            </FormRow>
+            <FormRow>
+                <Col xs={24}>
+                    <TextField label={t('Local Main beneficiaries')} name="localBeneficiaries" componentClass="textarea" />
                 </Col>
             </FormRow>
 

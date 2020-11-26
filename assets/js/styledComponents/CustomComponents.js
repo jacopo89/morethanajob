@@ -40,6 +40,7 @@ export const FullBody = styled.div`
 export const MainButton = styled(Button)`
     background-color: ${bordeaux};
     color: white;
+    border-radius:999px;
     `;
 
 export const SecondaryButton = styled(Button)`
@@ -166,7 +167,7 @@ export const BackTitle = styled.div`
     position:relative;
     text-align:center;
     margin:10px;
-    color:gray;
+    color:whitesmoke;
     font-weight:bolder;
     font-size:4rem;
 `;

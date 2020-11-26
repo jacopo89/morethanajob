@@ -48,12 +48,12 @@ export default function SocietyFornitures({society}){
         };
 
     return <>
-        <InfoBox>
+        {user && <InfoBox>
             Here, you can specify the kind of expertise you have in relation to one or more of the
             identified macro categories. Provide a description in a tailored way according to the field
             selected in order to support the creation of new synergies and cooperation locally and
             internationally.
-        </InfoBox>
+        </InfoBox>}
         <PaginationBox>
             <Pagination pages={pages} {...paginationSettings} onSelect={onPaginationSelect} />
             <Form><TextField accepter={SelectPicker} data={PaginationLimit} onChange={setLimitPerPage} searchable={false} /></Form>

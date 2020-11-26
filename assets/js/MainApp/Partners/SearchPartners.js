@@ -58,9 +58,9 @@ export default function SearchPartners(){
             <FlexAroundDiv>
                 <BackTitle >
                     <FrontTitle>
-                        Search Partners
+                        {t('Search organisations')}
                     </FrontTitle>
-                    Search Partners
+                    {t('Search organisations')}
                 </BackTitle>
             </FlexAroundDiv>
             <p>
@@ -71,7 +71,6 @@ export default function SearchPartners(){
                     <Row>
                         <Col xs={24}>
                             <TextField label={t('Country')} name="country" data={dataCountry} accepter={SelectPicker} searchable={false} style={{width:"100%"}} />
-                            <HelpBlock>Insert country</HelpBlock>
                         </Col>
                     </Row>
                     <Row>
@@ -79,11 +78,11 @@ export default function SearchPartners(){
                             <TextField label={t('Expertise')} name="expertise" data={servicesTree} accepter={CheckTreePicker} searchable={false} style={{width:"100%"}} />
                         </Col>
                     </Row>
-                    <Row>
+                    <FormRow>
                         <Col xs={24}>
                             <TextField label={t('Category')} name="category" data={categoriesTree} accepter={CheckTreePicker} searchable={false} style={{width:"100%"}} />
                         </Col>
-                    </Row>
+                    </FormRow>
                     <Row>
                         <Col xs={24}>
                             <FlexCenterDiv>

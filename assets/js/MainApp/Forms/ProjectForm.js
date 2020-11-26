@@ -55,7 +55,7 @@ export default function ProjectForm({formValue, setFormValue, linksListChanger, 
         </FormRow>
         <FormRow>
             <Col xs={12}>
-                <DynamicList name="link" updater={linksListChanger} startingValue={formValue.links}> </DynamicList>
+                <DynamicList label={t('Project links')} name="link" updater={linksListChanger} startingValue={formValue.links}> </DynamicList>
             </Col>
             <Col xs={12}>
                 <DynamicList name="contact" updater={contactsListChanger} startingValue={formValue.contacts}> </DynamicList>

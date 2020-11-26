@@ -71,6 +71,7 @@ export default function Dashboard(){
                         {t('Homepage')}
                     </Nav.Item>*/}
                     <Nav.Item href="#aboutUs"  eventKey="2">{t('The project')}</Nav.Item>
+                    <Nav.Item href="#categories" eventKey="3">{t('Categories')}</Nav.Item>
                     <Nav.Item onClick={()=>history.push(Routes.serviceSearchPage)}  eventKey="3">{t('Services and opportunities')}</Nav.Item>
                     <Nav.Item onClick={()=>history.push(Routes.searchUserPage)}  eventKey="4">{t('Organisations')}</Nav.Item>
                     <Nav.Item eventKey="4" onClick={()=>history.push(Routes.newsPage)}>{t('News')}</Nav.Item>
@@ -174,8 +175,8 @@ export default function Dashboard(){
             </Panel>
 
             <Panel shaded style={panelStyle}>
-                <BackTitle >
-                    <FrontTitle id="aboutUs">
+                <BackTitle id="categories">
+                    <FrontTitle>
                         {t('Categories')}
                     </FrontTitle>
                     {t('Categories')}
@@ -188,7 +189,6 @@ export default function Dashboard(){
                     {categoriesPanels}
 
                 </div>
-
             </Panel>
             <Panel shaded style={panelStyle}>
                 <BackTitle >

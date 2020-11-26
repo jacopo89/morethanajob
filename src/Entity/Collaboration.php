@@ -136,6 +136,11 @@ class Collaboration
      */
     private $ratesText;
 
+    /**
+     * @ORM\Column(type="text", nullable=true)
+     */
+    private $localBeneficiaries;
+
 
     public function __construct()
     {
@@ -445,6 +450,18 @@ class Collaboration
     public function setRatesText(?string $ratesText): self
     {
         $this->ratesText = $ratesText;
+
+        return $this;
+    }
+
+    public function getLocalBeneficiaries(): ?string
+    {
+        return $this->localBeneficiaries;
+    }
+
+    public function setLocalBeneficiaries(?string $localBeneficiaries): self
+    {
+        $this->localBeneficiaries = $localBeneficiaries;
 
         return $this;
     }

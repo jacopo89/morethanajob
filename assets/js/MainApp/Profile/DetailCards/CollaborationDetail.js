@@ -1,7 +1,7 @@
 import {useHistory} from "react-router-dom";
 import {useTranslation} from "react-i18next";
 import {Button, Col, HelpBlock, Icon, Panel, Row} from "rsuite";
-import {bordeaux} from "../../../styledComponents/CustomComponents";
+import {bordeaux, MainButton} from "../../../styledComponents/CustomComponents";
 import * as Routes from "../../../routes";
 import {getCalendarFormat} from "../../../ReusableComponents/TimeManager";
 import React from "react";
@@ -51,7 +51,7 @@ export default function CollaborationDetail({collaboration}){
 
             </Col>
             <Col xs={16}>
-                <Button style={{float:"right", color:"white", backgroundColor: bordeaux}} onClick={()=> history.push(Routes.collaboration(collaboration.id))}>{t('Details')}</Button>
+                <MainButton style={{float:"right"}} onClick={()=> history.push(Routes.collaboration(collaboration.id))}>{t('Details')}</MainButton>
             </Col>
         </Row>
 

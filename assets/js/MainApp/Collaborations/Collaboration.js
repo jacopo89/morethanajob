@@ -33,11 +33,13 @@ export default function Collaboration(){
 
     const isCollaborationClosed =  collaboration && collaboration.positions.filter((position)=>!position.isOpen).length === collaboration.positions.length;
 
-    const {title, description, languageMessage} = getCollaborationsLanguageElements(collaboration);
+    const {title, description, languageMessage, beneficiaries} = getCollaborationsLanguageElements(collaboration);
+
 
     const serviceBox = <ServiceFormBox collaboration={collaboration}/>;
 
     const editButtonClickHandler = (isCollaborationClosed) ? () => history.push(Routes.editService(id)) : ()=>history.push(Routes.editCollaboration(id));
+
 
     const editButton =
         <IconButton icon={<Icon icon="edit" />} style={{
@@ -72,8 +74,8 @@ export default function Collaboration(){
                 {isCollaborationClosed && <>
                     <Row className="show-grid" style={{padding: 5}}>
                         <Col xs={24}>
-                            <IconWithText icon="people-group" label={t('Main beneficiaries')}
-                                          value={collaboration && collaboration.mainBeneficiaries}/>
+                            <IconWithText icon="people-group" label={t('Main beneficiaries Show')}
+                                          value={beneficiaries}/>
                         </Col>
 
                     </Row>

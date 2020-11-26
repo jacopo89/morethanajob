@@ -8,7 +8,7 @@ import {
 import {
     bordeaux,
     FlexBetweenDiv,
-    InfoBox,
+    InfoBox, MainButton,
     PaginationBox,
     ProfileImage
 } from "../../../styledComponents/CustomComponents";
@@ -35,6 +35,8 @@ export default function SocietyPortfolio({society}) {
     const openModal = ()=> setShow(true);
     const closeModal = ()=> setShow(false);
     const { t, i18n } = useTranslation();
+
+    const {user} = useSelector(state=>state);
 
 
     const history = useHistory();
@@ -66,12 +68,12 @@ export default function SocietyPortfolio({society}) {
     const onPaginationSelect = (item) => setPagination(item);
 
    return  <>
-       <InfoBox>
+       {user && <InfoBox>
            In this section, you will have the opportunity to describe social inclusion projects managed by
            your organisation. It highly recommended to include only relevant projects for synergies with
            MoreThanAJob themes and, preferably, projects that includes specific services and
            opportunities for social and employment inclusion of disadvantaged groups.
-       </InfoBox>
+       </InfoBox>}
        <PaginationBox>
                <Pagination pages={pages} {...paginationSettings} onSelect={onPaginationSelect} />
                <Form><TextField accepter={SelectPicker} data={PaginationLimit} value={limitPerPage} onChange={setLimitPerPage} searchable={false} cleanable={false} /></Form>
@@ -134,7 +136,7 @@ export function PortfolioDetail({project}){
 
                 </Col>
                 <Col xs={16}>
-                    <Button style={{backgroundColor:bordeaux, color:"white", float:"right"}} onClick={()=> history.push(Routes.project(project.id))}>{t('Read More')}</Button>
+                    <MainButton style={{float:"right"}} onClick={()=> history.push(Routes.project(project.id))}>{t('Read More')}</MainButton>
                 </Col>
             </Row>
     </Panel>

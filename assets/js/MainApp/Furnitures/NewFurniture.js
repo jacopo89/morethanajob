@@ -52,6 +52,7 @@ export default function NewFurniture(){
 
                     <TextField name="service" label={t('Field of expertise')} accepter={TreePicker} data={servicesTree} style={{width:"100%"}} />
                     <TextField name="description" label={t('Description')} componentClass="textarea"/>
+                    <TextField name="localDescription" label={t('Local Description')} componentClass="textarea"/>
                     <TextField name="country" style={{width:"100%"}} label={t('Country')} accepter={SelectPicker} data={dataCountry}/>
                     <SaveButton type="submit">
                         {t('Save')}

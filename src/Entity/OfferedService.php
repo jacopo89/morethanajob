@@ -39,6 +39,11 @@ class OfferedService
      */
     private $country;
 
+    /**
+     * @ORM\Column(type="text", nullable=true)
+     */
+    private $localDescription;
+
 
     public function getId(): ?int
     {
@@ -89,6 +94,18 @@ class OfferedService
     public function setCountry(?string $country): self
     {
         $this->country = $country;
+
+        return $this;
+    }
+
+    public function getLocalDescription(): ?string
+    {
+        return $this->localDescription;
+    }
+
+    public function setLocalDescription(?string $localDescription): self
+    {
+        $this->localDescription = $localDescription;
 
         return $this;
     }

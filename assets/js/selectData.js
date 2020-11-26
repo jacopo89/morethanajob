@@ -10,7 +10,6 @@ export function dataLanguage(){
     {
         "label": "Italiano",
         "value": "it",
-
     },
     {
         "label": "Ελληνικά",

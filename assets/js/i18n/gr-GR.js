@@ -151,7 +151,7 @@ export const translation = {
         "Description":"Description in english",
         "Short Description": "Short Description in english",
         "Links": "Links",
-        "Upload Cover Button":"Upload cover ",
+        "Upload Cover Button":"Upload cover (1080x300)",
         "Upload Logo Button":"Upload logo",
         "Closed":"Closed",
         "Details":"Details",

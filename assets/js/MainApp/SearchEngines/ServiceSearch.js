@@ -134,9 +134,9 @@ export default function ServiceSearch(){
             <FlexAroundDiv>
                 <BackTitle >
                     <FrontTitle>
-                        Search Services
+                        {t('Search projects')}
                     </FrontTitle>
-                    Search Services
+                    {t('Search projects')}
                 </BackTitle>
             </FlexAroundDiv>
             <p>

@@ -13,11 +13,14 @@ export function getCollaborationsLanguageElements(collaboration){
         ( collaboration && collaboration.localLanguageDescription !==null && collaboration.localLanguageDescription.length===0)
     );
 
+    const beneficiaries = (collaboration && collaboration.localLanguage === language && collaboration.localBeneficiaries && collaboration.localBeneficiaries.length!==0) ? collaboration && collaboration.localBeneficiaries  : collaboration && collaboration.mainBeneficiaries ;
+
     const languageMessage = (isDescriptionInEnglish) ? "This content is available only in English" : "";
 
     return {
         title: title,
         description: description,
-        languageMessage: languageMessage
+        languageMessage: languageMessage,
+        beneficiaries:beneficiaries
     }
 }

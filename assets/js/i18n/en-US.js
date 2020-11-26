@@ -11,7 +11,14 @@ export const translation = {
         "Choose language": "Choose language",
         "Submit":"Submit",
         "Login":"Login",
-        "language":"Language",
+        "language":"National language",
+        "Society Name":"Official name of the organisation",
+        "Society Description": "Description in english",
+
+        "Main beneficiaries": "Main beneficiaries in english",
+        "Main beneficiaries Show": "Main beneficiaries",
+        "Local Main beneficiaries":"Main beneficiaries in national language",
+        "Create position": "Looking for",
 
 
         "Homepage":"Homepage",
@@ -28,6 +35,7 @@ export const translation = {
         "Description":"Description in english",
         "Short Description": "Short Description in english",
         "Links": "Links",
+        "Project links": "Project website",
         "Upload Cover Button":"Upload cover ",
         "Upload Logo Button":"Upload logo",
         "Closed":"Closed",
@@ -39,6 +47,8 @@ export const translation = {
         "Local Service Title": "Title of the service in national language",
         "Local Short Description": "Short description in national language",
         "Local Description": "Description in national language",
+        "Detailed Description": "Detailed description in english",
+        "Local Detailed Description": "Detailed description in national language",
         "Local Language Detailed Description": "Description in national language",
         "Local Language Description": "Description in national language",
         "Title of the service":"Service title",
@@ -49,14 +59,14 @@ export const translation = {
         "Italian":"Italian",
         "Arabic":"Arabic",
         "Greek":"Greek",
-        "Search organisations":"Search organisations",
+        "Search organisations":"Organisations",
         "Proposed by":"Proposed by",
         "Category": "Category",
         "Collaboration Category": "Macro category of the collaboration",
         "Service Category": "Macro category of the service",
         "All": "All",
         "Collaborations":"Collaborations",
-        "Documents":"Documenti",
+        "Documents":"Documents",
 
 
 
@@ -103,7 +113,7 @@ export const translation = {
         //project
         "Platform Partners": "Platform Partners",
         "External Partners": "External Partners",
-        "Change cover Button": "Change cover Button",
+        "Change cover Button": "Change cover Button (1080x300)",
         //profile
         "Edit profile":"Edit profile",
 
@@ -131,7 +141,9 @@ export const translation = {
         "Lastname":"Lastname",
         "Message":"Message",
         "Send":"Send",
-        "Message correctly sent!":"Message correctly sent!"
+        "Message correctly sent!":"Message correctly sent!",
+
+        "Search projects": "Services and opportunities",
 
 
 

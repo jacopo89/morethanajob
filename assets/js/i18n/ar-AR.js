@@ -103,7 +103,7 @@ export const translation = {
         //project
         "Platform Partners": "شركاء المنصة",
         "External Partners": "شركاء خارجيين",
-        "Change cover Button": "زر تغيير صورة الغلاف",
+        "Change cover Button": "زر تغيير صورة الغلاف (1080x300)",
 
         //Profile
         "Edit profile":"تعديل صفحة التعريف",

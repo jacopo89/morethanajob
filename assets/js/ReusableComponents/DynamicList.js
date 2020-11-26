@@ -3,7 +3,7 @@ import {Button, Form, Icon, IconButton, List} from "rsuite";
 import TextField from "../Login/Components/TextField";
 import {IconButtonTransparent} from "../styledComponents/CustomComponents";
 
-export default function DynamicList({name, updater, startingValue=[], options = {}}){
+export default function DynamicList({name, label = name, updater, startingValue=[], options = {}}){
 
     const[list, setList] = useState(startingValue);
     const [bufferText, setBufferText] = useState("");
@@ -50,7 +50,7 @@ export default function DynamicList({name, updater, startingValue=[], options = 
 
 
     return <div style={{padding:10}}>
-        <b>{name}</b>
+        <b>{label}</b>
 
         <List hover>
             {list.map((item,index)=>

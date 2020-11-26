@@ -37,6 +37,8 @@ export const translation = {
         "Local Service Title": "Titolo del servizio in lingua nazionale",
         "Local Language Detailed Description": "Descrizione in lingua nazionale",
         "Local Description": "Descrizione in lingua nazionale",
+        "Detailed Description": "Descrizione dettagliata in inglese",
+        "Local Detailed Description": "Descrizione dettagliata in lingua nazionale",
         "Title of the service":"Nome del servizio",
         "Title of the collaboration":"Nome della collaborazione",
         "Title of the service in local language":"Nome del servizio in lingua nazionale",
@@ -45,7 +47,7 @@ export const translation = {
         "Italian":"Italiano",
         "Arabic":"Arabo",
         "Greek":"Greco",
-        "Search organisations":"Cerca organizzazioni",
+        "Search organisations":"Organizzazioni",
         "Proposed by":"Proposto da",
         "Category": "Categoria",
         "Collaboration Category": "Macrocategoria della collaborazione",
@@ -128,7 +130,7 @@ export const translation = {
 
         //MENU
         "Administration":"Amministrazione",
-        "Search projects": "Ricerca progetti",
+        "Search projects": "Servizi e opportunità",
         "Profile": "Profilo",
         "Logout": "Logout",
 
@@ -146,14 +148,15 @@ export const translation = {
         //project
         "Platform Partners": "Partner di piattaforma",
         "External Partners": "Partner esterni",
-        "Change cover Button": "Cambia immagine copertina",
+        "Change cover Button": "Cambia immagine copertina (1080x300)",
 
         //Profile
         "Edit profile":"Modifica profilo",
-        "Society Name":"Nome Società",
+        "Society Name":"Nome ufficiale della organizzazione",
         "Language": "Lingua",
         "Country": "Paese",
-        "Society Description": "Descrizione società",
+        "Society Description": "Descrizione in inglese",
+        "Project links": "Website progetto",
         "Website": "Sito web",
         "Address": "Indirizzo",
         "Telephone": "Telefono",
@@ -182,11 +185,14 @@ export const translation = {
         "Start date":"Data di inizio",
         "End date":"Data di fine",
         "Rates":"Costi",
-        "Main beneficiaries": "Beneficiari",
+        "Main beneficiaries": "Beneficiari in inglese",
+        "Main beneficiaries Show": "Beneficiari",
+
+        "Main Local Main beneficiaries": "Beneficiari in lingua nazionale",
         "Project":"Progetto",
         "Macro category of the service":"Macro categoria del servizio",
         "Positions": "Posizioni",
-        "Create position": "Crea posizione",
+        "Create position": "In cerca di",
         "Expertise": "Esperienza",
         "Deadline":"Deadline",
 
