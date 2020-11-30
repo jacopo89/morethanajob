@@ -145,6 +145,10 @@ export const translation = {
         "Message correctly sent!":"Message correctly sent!",
 
         "Search projects": "Services and opportunities",
+        "societyPortfolioText":"In this section, you will have the opportunity to describe social inclusion projects managed by your organisation. It highly recommended to include only relevant projects for synergies with MoreThanAJob themes and, preferably, projects that includes specific services and opportunities for social and employment inclusion of disadvantaged groups.",
+        "societyFurnitureText":"Here, you can specify the kind of expertise you have in relation to one or more of the identified macro categories. Provide a description in a tailored way according to the field selected in order to support the creation of new synergies and cooperation locally and internationally.",
+        "societyServicesText":"Upload here information on the services and opportunities your organisation is delivering to support the social and employment inclusion of vulnerable groups.",
+        "societyCollaborationsText":"This section is thought to support the sharing of means and resources among organisations for the development or renovation of services supporting the social and employment inclusion of vulnerable groups. You can describe here what you are looking for to activate new services or delivering existing ones in your organisation."
 
 
 
