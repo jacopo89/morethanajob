@@ -86,7 +86,7 @@ export default function SearchPartners(){
                     <Row>
                         <Col xs={24}>
                             <FlexCenterDiv>
-                                <MainButton type="submit">Search</MainButton>
+                                <MainButton type="submit">{t('Search')}</MainButton>
                             </FlexCenterDiv>
                         </Col>
                     </Row>

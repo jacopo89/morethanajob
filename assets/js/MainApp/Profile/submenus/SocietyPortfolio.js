@@ -69,10 +69,7 @@ export default function SocietyPortfolio({society}) {
 
    return  <>
        {user && <InfoBox>
-           In this section, you will have the opportunity to describe social inclusion projects managed by
-           your organisation. It highly recommended to include only relevant projects for synergies with
-           MoreThanAJob themes and, preferably, projects that includes specific services and
-           opportunities for social and employment inclusion of disadvantaged groups.
+           {t('societyPortfolioText')}
        </InfoBox>}
        <PaginationBox>
                <Pagination pages={pages} {...paginationSettings} onSelect={onPaginationSelect} />

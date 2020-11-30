@@ -76,7 +76,6 @@ export default function CollaborationForm({formValue, setFormValue, projects, ca
         <FormRow>
             <Col xs={12}>
                 <TextField style={{width:"100%"}} label={t('Project')} name="project" accepter={SelectPicker} data={projects} />
-                <HelpBlock>If the case, link with relevant project in portfolio</HelpBlock>
             </Col>
             <Col xs={12}>
                 <TextField style={{width:"100%"}} label={categoryLabel} name="category" accepter={TreePicker} data={categoriesTree} />

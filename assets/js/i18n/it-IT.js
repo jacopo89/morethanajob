@@ -1,4 +1,3 @@
-import {Nav} from "rsuite";
 import React from "react";
 
 export const translation = {
@@ -27,15 +26,15 @@ export const translation = {
         "Description":"Descrizione in inglese",
         "Short Description": "Descrizione breve in inglese",
         "Links": "Link",
-        "Upload Cover Button":"Upload cover ",
-        "Upload Logo Button":"Upload logo",
+        "Upload Cover Button":"Caricare immagine copertina ",
+        "Upload Logo Button":"Caricare logo",
         "Closed":"Chiuso",
         "Details":"Dettagli",
         "Local Short Description":"Descrizione breve in lingua nazionale",
         "Local Title": "Titolo in lingua nazionale",
         "Local Collaboration Title": "Titolo della collaborazione in lingua nazionale",
         "Local Service Title": "Titolo del servizio in lingua nazionale",
-        "Local Language Detailed Description": "Descrizione in lingua nazionale",
+        "Local Language Detailed Description": "Descrizione dettagliata in lingua nazionale",
         "Local Description": "Descrizione in lingua nazionale",
         "Detailed Description": "Descrizione dettagliata in inglese",
         "Local Detailed Description": "Descrizione dettagliata in lingua nazionale",
@@ -58,40 +57,40 @@ export const translation = {
 
         "Project Title":"Titolo del progetto in inglese",
         "Local Project Title": "Titolo del progetto in lingua nazionale",
-/*
+        /*
 
-        "Homepage":"Homepage",
-        "The project":"Il progetto",
-        "Services and opportunities": "Servizi e opportunità",
-        "Organisations":"Organizzazioni",
-        "Read more": "Maggiori informazioni",
-        "Categories": "Categorie",
-        "Delete":"Cancella",
-        "Title":"Titolo",
-        "Description":"Descrizione",
-        "Short Description": "Descrizione breve",
-        "Links": "Links",
-        "Upload Cover Button":"Carica immagine di copertina ",
-        "Upload Logo Button":" Carica logo",
-        "Closed":"Chiuso",
-        "Details":"Details",
-        "Local Language Short description":"Descrizione breve in lingua locale",
-        "Local Title": "Titolo in lingua locale",
-        "Local Language Detailed description": "Descrizione in lingua locale",
-        "Title of the service":"Titolo del servizio",
-        "Title of the collaboration":"Titolo della collaborazione",
-        "Title of the service in local language":"Titolo del servizio in lingua locale",
-        "Title of the collaboration in local language":"Titolo della collaborazione in lingua locale",
-        "English":"Inglese",
-        "Italian":"Italiano",
-        "Arabic":"Arabo",
-        "Greek":"Greco",
-        "Search organisations":"Ricerca organizzazioni",
-        "Proposed by":"Proposto da",
-        "Category": "Macrocategoria",
-        "All": "Tutti",
-        "Collaborations":"Collaborazioni",
-        "Documents":"Documenti",*/
+                "Homepage":"Homepage",
+                "The project":"Il progetto",
+                "Services and opportunities": "Servizi e opportunità",
+                "Organisations":"Organizzazioni",
+                "Read more": "Maggiori informazioni",
+                "Categories": "Categorie",
+                "Delete":"Cancella",
+                "Title":"Titolo",
+                "Description":"Descrizione",
+                "Short Description": "Descrizione breve",
+                "Links": "Link",
+                "Upload Cover Button":"Carica immagine di copertina ",
+                "Upload Logo Button":" Carica logo",
+                "Closed":"Chiuso",
+                "Details":"Dettagli",
+                "Local Language Short description":"Descrizione breve in lingua locale",
+                "Local Title": "Titolo in lingua locale",
+                "Local Language Detailed description": "Descrizione in lingua locale",
+                "Title of the service":"Titolo del servizio",
+                "Title of the collaboration":"Titolo della collaborazione",
+                "Title of the service in local language":"Titolo del servizio in lingua locale",
+                "Title of the collaboration in local language":"Titolo della collaborazione in lingua locale",
+                "English":"Inglese",
+                "Italian":"Italiano",
+                "Arabic":"Arabo",
+                "Greek":"Greco",
+                "Search organisations":"Ricerca organizzazioni",
+                "Proposed by":"Proposto da",
+                "Category": "Macrocategoria",
+                "All": "Tutti",
+                "Collaborations":"Collaborazioni",
+                "Documents":"Documenti",*/
 
 
         //DASHBOARD MAIN
@@ -103,7 +102,7 @@ export const translation = {
         "Dashboard button": "Trova servizi e opportunità",
         //THE PROJECT
         "projectTitle":"IL PROGETTO",
-        "projectPre":"Il portale è stato sviluppato all’interno del progetto ”MoreThanAJob - Reinforcing social and solidarity economy for the unemployed, uneducated and refugees”, finanziato dal programma ENI CBC MED, che mira a promuovere l’inclusione sociale e lavorativa dei soggetti vulnerabili attraverso una migliore cooperazione tra gli attori dell’economia sociale e solidale e la pubblica amministrazione.",
+        "projectPre":"Il portale è stato sviluppato all’interno del progetto ”MoreThanAJob - Reinforcing social and solidarity economy for the unemployed, uneducated and refugees”, finanziato dal programma ENI CBC MED dell'Unione Europea, che mira a promuovere l’inclusione sociale e lavorativa dei soggetti vulnerabili attraverso una migliore cooperazione tra gli attori dell’economia sociale e solidale e la pubblica amministrazione.",
         "projectMore":"Il progetto MoreThanAJob promuove lo sviluppo di meccanismi di cooperazione tra attori dell’Economia Sociale e Solidale e la pubblica amministrazione per migliorare l’erogazione di servizi di welfare per soggetti vulnerabili al fine di migliorare le loro opportunità di inclusione socio-lavorativa.\n" +
             "Migliorare la cooperazione tra questi due attori e le loro diverse realtà migliorerà lo sviluppo di servizi innovativi e più efficienti che siano in grado di rispondere alle sfide attuali delle nostre società, in particolar modo a seguito dell’emergenza legata alla diffusione del Covid-19. Questa emergenza ha, infatti, evidenziato come un solido sistema di welfare sia essenziale per proteggere le fasce più deboli, garantire società più eque e assicurare che ogni cittadino abbia gli stessi diritti e opportunità.\n" +
             "MoreThanAJob cambierà il modo in cui gli attori dell'Economia Sociale e Solidale e le pubbliche amministrazioni collaborano per l’erogazione di servizi a soggetti vulnerabili attraverso lo sviluppo di un modello di nuove iniziative pilota di welfare, nonché lo sviluppo di policy briefs e raccomandazioni politiche per migliorare la pianificazione di politiche adattate ai bisogni dei beneficiari.\n" +
@@ -113,14 +112,14 @@ export const translation = {
             "Scopri di più sul progetto –http://www.enicbcmed.eu/projects/morethanajob",
         "projectPartners":"Partner",
 
-        "partner1":"Coordinator\n" +
-            "                                        An-Najah National University – Palestine\n",
-        "partner2":"Nablus chamber of commerce and industry – Palestine\n",
-        "partner3":"Ministry of Public Works & Housing – Jordan\n" +
-            "                                        Mutah University – Jordan\n",
-        "partner4":"Business Consultancy and Training Services – Lebanon\n",
-        "partner5":"CESIE – Italy\n",
-        "partner6":"Eurotraining Educational Organization SA – Greece\n",
+        "partner1":"Coordinatore\n" +
+            "                                        An-Najah National University – Palestina\n",
+        "partner2":"Nablus chamber of commerce and industry – Palestina\n",
+        "partner3":"Ministry of Public Works & Housing – Giordania\n" +
+            "                                        Mutah University – Giordania\n",
+        "partner4":"Business Consultancy and Training Services – Libano\n",
+        "partner5":"CESIE – Italia\n",
+        "partner6":"Eurotraining Educational Organization SA – Grecia\n",
 
         "categoryFamily":"Sostegno alle famiglie e al reddito",
         "categoryCounseling":"Salute e ascolto",
@@ -154,9 +153,10 @@ export const translation = {
         "Edit profile":"Modifica profilo",
         "Society Name":"Nome ufficiale della organizzazione",
         "Language": "Lingua",
+        "Menu language": "Lingua",
         "Country": "Paese",
         "Society Description": "Descrizione in inglese",
-        "Project links": "Website progetto",
+        "Project links": "Sito web del progetto",
         "Website": "Sito web",
         "Address": "Indirizzo",
         "Telephone": "Telefono",
@@ -188,13 +188,13 @@ export const translation = {
         "Main beneficiaries": "Beneficiari in inglese",
         "Main beneficiaries Show": "Beneficiari",
 
-        "Main Local Main beneficiaries": "Beneficiari in lingua nazionale",
+        "Main Local Main beneficiaries": "Beneficiari in lingua nazionale",//non mi risulta in piattaforma
         "Project":"Progetto",
         "Macro category of the service":"Macro categoria del servizio",
         "Positions": "Posizioni",
         "Create position": "In cerca di",
         "Expertise": "Esperienza",
-        "Deadline":"Deadline",
+        "Deadline":"Scadenza",
 
         //
         "No portfolio projects": "Nessun progetto portfolio esistente",
@@ -219,8 +219,8 @@ export const translation = {
         "Show 20 results":"Mostra 20 risultati",
         "Info":"Informazioni",
         "Paid or free":"A pagamento o gratis",
-        "Paid": "A pagamento",
-        "Free": "Gratis",
+        "Paid": "A pagamento", // non risulta in piattaforma
+        "Free": "Gratis",// non risulta in piattaforma
         "Cost":"Costo",
         "Currency":"Valuta",
         "Additional info": "Ulteriori informazioni",
@@ -229,7 +229,12 @@ export const translation = {
         "Lastname":"Cognome",
         "Message":"Testo",
         "Send":"Invia",
-        "Message correctly sent!":"Messaggio inviato correttamente!"
+        "Need": "Bisogno",
+        "Message correctly sent!":"Messaggio inviato correttamente!",
+        "societyPortfolioText":"In questa sezione, potrete trovare i servizi e le opportunità attivi sul territorio per sostenere l'inclusione sociale e lavorativa dei gruppi vulnerabili, nonché le opportunità di collaborazione per rinnovare o sviluppare nuovi servizi.",
+        "societyFurnitureText":"Qui è possibile specificare il vostro expertise in relazione a una o più delle macro categorie identificate. Si consiglia di fornire una descrizione il più puntuale possibile in base al settore selezionato per supportare la creazione di nuove sinergie e collaborazioni a livello locale e internazionale.",
+        "societyServicesText":"Caricate qui le informazioni sui servizi e le opportunità che la vostra organizzazione sta offrendo per sostenere l'inclusione sociale e lavorativa dei gruppi vulnerabili.",
+        "societyCollaborationsText":"Questa sezione è pensata per sostenere la condivisione di mezzi e risorse tra le organizzazioni per lo sviluppo o il rinnovamento dei servizi a sostegno dell'inclusione sociale e lavorativa dei gruppi vulnerabili. Qui potete descrivere ciò che cercate per attivare nuovi servizi o rinnovare quelli esistenti nella vostra organizzazione."
 
     }
 }

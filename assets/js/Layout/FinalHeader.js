@@ -64,7 +64,7 @@ export default function FinalHeader(){
         </Navbar.Header>
         <Navbar.Body>
             <Nav>
-                <LanguageDropdown title={t('language')} />
+                <LanguageDropdown title={t('Menu language')} />
                 {false && <Nav.Item onClick={()=>history.push(Routes.registration)} icon={<Icon icon="cog" />}>Register</Nav.Item>}
                  <CustomDropdown icon={<Icon icon="bars" />} placement="bottomEnd" />
             </Nav>

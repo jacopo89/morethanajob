@@ -109,6 +109,7 @@ export const translation = {
         "Edit profile":"تعديل صفحة التعريف",
         "Society Name":"اسم المؤسسة ",
         "Language": "اللغة",
+        "Menu language": "اللغة",
         "Country": "الدولة",
         "Society Description": "وصف المؤسسة",
         "Website": "الموقع الالكتروني",

@@ -40,10 +40,7 @@ export default function SocietyCollaborations({society}) {
     const panelShow = panels.length > 0 ? panels : <div style={{height:100, margin:"0 auto", textAlign:"center", color:bordeaux}}> No collaborations </div>
     return  <>
         {user && <InfoBox>
-            This section is thought to support the sharing of means and resources among organisations
-            for the development or renovation of services supporting the social and employment
-            inclusion of vulnerable groups. You can describe here what you are looking for to activate
-            new services or delivering existing ones in your organisation.
+            {t('societyCollaborationsText')}
         </InfoBox>}
       {/*  <FlexBetweenDiv>
             <Pagination pages={pages} {...paginationSettings} onSelect={onPaginationSelect} />

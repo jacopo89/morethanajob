@@ -5,7 +5,7 @@ import {bordeaux, IconSpan} from "../../../styledComponents/CustomComponents";
 import {useGetUserInfo, useGetUserInfoByEmail} from "../../../Backend/hooks/UserInfo";
 import {GenericTable} from "../../../ReusableComponents/GenericTable";
 import Divider from "rsuite/es/Divider/Divider";
-import {manipulateWebsite} from "../Profile";
+import {manipulateMail, manipulateWebsite} from "../Profile";
 import FileList from "../../../ReusableComponents/FileList";
 
 export default function SocietyContacts({society}){
@@ -32,13 +32,14 @@ export default function SocietyContacts({society}){
                <Col xs={6} md={2}><Icon style={iconStyle} icon="envelope" size="3x" /></Col>
                <Col xs={18} md={6}>
                    <div style={textStyle}>
-                       {userInfo && userInfo.email}
+                       <a style={{wordBreak:"break-word"}} href={userInfo && manipulateMail(userInfo.email)}> {userInfo && userInfo.email}</a>
                    </div>
 
                </Col>
                <Col xs={6} md={2}><Icon style={iconStyle} icon="phone-square" size="3x" /></Col>
                <Col xs={18} md={6}>
                    <div style={textStyle}>
+
                        {userInfo && userInfo.telephone}
                    </div>
                </Col>
@@ -47,19 +48,19 @@ export default function SocietyContacts({society}){
                <Col xs={6} md={2}><Icon style={iconStyle} icon="facebook-square" size="3x" /></Col>
                <Col xs={18} md={6}>
                    <div style={textStyle}>
-                       {userInfo && userInfo.facebook}
+                       <a style={{wordBreak:"break-word"}} target="_blank" href={userInfo && manipulateWebsite(userInfo.facebook)}> {userInfo && userInfo.facebook}</a>
                    </div>
                </Col>
                <Col xs={6} md={2}><Icon style={iconStyle} icon="linkedin-square" size="3x" /></Col>
                <Col xs={18} md={6}>
                    <div style={textStyle}>
-                       {userInfo && userInfo.linkedin}
+                       <a style={{wordBreak:"break-word"}} target="_blank" href={userInfo && manipulateWebsite(userInfo.linkedin)}> {userInfo && userInfo.linkedin}</a>
                    </div>
                </Col>
                <Col xs={6} md={2}><Icon style={iconStyle} icon="twitter-square" size="3x" /></Col>
                <Col xs={18} md={6}>
                    <div style={textStyle}>
-                       {userInfo && userInfo.twitter}
+                       <a style={{wordBreak:"break-word"}} target="_blank" href={userInfo && manipulateWebsite(userInfo.twitter)}> {userInfo && userInfo.twitter}</a>
                    </div>
                </Col>
            </Row>
