@@ -175,7 +175,8 @@ export default function Dashboard(){
             </Panel>
 
             <Panel shaded style={panelStyle}>
-                <BackTitle id="categories">
+                <BackTitle>
+                    <Anchor style={{ marginBottom:50 }} id="categories"/>
                     <FrontTitle>
                         {t('Categories')}
                     </FrontTitle>

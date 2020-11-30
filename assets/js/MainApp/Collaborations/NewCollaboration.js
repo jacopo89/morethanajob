@@ -1,19 +1,15 @@
 import React, {useEffect, useRef, useState} from "react";
 import {useSelector} from "react-redux";
 import {useGetUserProjects} from "../../Backend/hooks/useProjects";
-import TextField from "../../Login/Components/TextField";
-import {Col, DatePicker, Divider, Form, Grid, Row, SelectPicker, TreePicker} from "rsuite";
-import {currencies, dataCountry, dataLanguage, modalityData, rateData} from "../../selectData";
-import {bordeaux, CollaborationBox, FormBox, FormRow, MainButton} from "../../styledComponents/CustomComponents";
+import {Form} from "rsuite";
+import {bordeaux, CollaborationBox, FormBox} from "../../styledComponents/CustomComponents";
 import {useHistory} from "react-router-dom";
 import * as Routes from "../../routes";
 import {useCreateNewCollaboration} from "../../Backend/hooks/useCollaborations";
 import {useTranslation} from "react-i18next";
-import PositionList from "../Position/PositionList";
 import {collaborationModel, serviceModel} from "../FormModels/models";
 import {categoriesTreeByLanguage} from "../../Functions/Categories";
 import styled from "styled-components";
-import Collaboration from "./Collaboration";
 import CollaborationForm from "../Forms/CollaborationForm";
 
 export default function NewCollaboration({isService=false}){

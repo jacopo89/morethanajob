@@ -52,6 +52,7 @@ export const translation = {
         "CONTACTS": "Επαφές",
 
         "language":"Γλώσσα",
+        "Menu language":"Γλώσσα",
         //project
         "Platform Partners": "Συνεργάτες της πλατφόρμας",
         "External Partners": "Εξωτερικοί συνεργάτες",

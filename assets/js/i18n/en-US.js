@@ -11,6 +11,7 @@ export const translation = {
         "Choose language": "Choose language",
         "Submit":"Submit",
         "Login":"Login",
+        "Menu language": "Language",
         "language":"National language",
         "Society Name":"Official name of the organisation",
         "Society Description": "Description in english",

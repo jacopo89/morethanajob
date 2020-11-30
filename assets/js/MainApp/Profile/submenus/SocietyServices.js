@@ -4,6 +4,7 @@ import {bordeaux, InfoBox} from "../../../styledComponents/CustomComponents";
 import {useHistory} from "react-router-dom";
 import CollaborationDetail from "../DetailCards/CollaborationDetail";
 import {useSelector} from "react-redux";
+import {useTranslation} from "react-i18next";
 
 export default function SocietyServices({society}) {
     const [collaborations, getCollaborationsHandler] = useGetCollaborationServices();
@@ -13,6 +14,7 @@ export default function SocietyServices({society}) {
 
     const {user} = useSelector(state=>state);
     const history = useHistory();
+    const {t} = useTranslation()
 
 
     useEffect(()=>{
@@ -28,8 +30,7 @@ export default function SocietyServices({society}) {
     const panelShow = panels.length > 0 ? panels : <div style={{height:100, margin:"0 auto", textAlign:"center", color:bordeaux}}> No collaborations </div>
     return  <>
         {user && <InfoBox>
-            Upload here information on the services and opportunities your organisation is delivering to
-            support the social and employment inclusion of vulnerable groups.
+            {t('societyServicesText')}
         </InfoBox>}
         {panelShow}
     </>

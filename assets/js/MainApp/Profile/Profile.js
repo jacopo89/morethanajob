@@ -100,6 +100,15 @@ export function manipulateWebsite(website){
 
 }
 
+export function manipulateMail(mail){
+    if(mail){
+        return "mailto:"+mail
+    }
+
+}
+
+
+
 
 const InfoBox =  styled.div`
     padding: 10px;`

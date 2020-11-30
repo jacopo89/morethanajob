@@ -6,6 +6,7 @@ import {PositionDescription} from "./PositionDescription";
 import PositionForm from "./PositionForm";
 import {expertisesTreeByLanguage} from "../../Functions/Expertises";
 import styled from "styled-components";
+import {useTranslation} from "react-i18next";
 
 export default function PositionList({formValue, setFormValue, callback, isEdit=false}){
 
@@ -15,6 +16,8 @@ export default function PositionList({formValue, setFormValue, callback, isEdit=
         getServicesHandler();
     },[]);
 
+
+    const  {t} = useTranslation();
     let servicesTree = expertisesTreeByLanguage()
 
 
@@ -85,7 +88,7 @@ export default function PositionList({formValue, setFormValue, callback, isEdit=
 
 
     const createForm = <>
-        <h5 style={{color:bordeaux}}>Need </h5>
+        <h5 style={{color:bordeaux}}>{t('Need')} </h5>
         <PositionForm isEdit={isEdit} item={element} updater={update} save={save} back={back} servicesTree={servicesTree} callback={callback}  />
     </>
 
@@ -123,8 +126,8 @@ export default function PositionList({formValue, setFormValue, callback, isEdit=
 
     const list = <>
         <FlexBetweenDiv style={{ backgroundColor:"whitesmoke" }}>
-            <TitleBox style={{color:bordeaux, flexGrow:1}}>{('Positions')} </TitleBox>
-            <MainButton onClick={createHandler}>{('Create position')}</MainButton>
+            <TitleBox style={{color:bordeaux, flexGrow:1}}>{t('Positions')} </TitleBox>
+            <MainButton onClick={createHandler}>{t('Create position')}</MainButton>
         </FlexBetweenDiv>
 
         <List>
