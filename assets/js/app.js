@@ -214,7 +214,7 @@ const  firebaseConfig = {
     measurementId: "G-KH5GT2GVYS"
 };
 
-ReactGA.initialize('G-KH5GT2GVYS');
+ReactGA.initialize('G-ZGTBFYBYBY');
 ReactGA.pageview(window.location.pathname);
 // Initialize Firebase
 //firebase.initializeApp(firebaseConfig);
