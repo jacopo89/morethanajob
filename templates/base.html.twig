@@ -1,6 +1,14 @@
 <html>
 <head>
     <!-- ... -->
+    <script async src="https://www.googletagmanager.com/gtag/js?id=G-ZGTBFYBYBY"></script>
+    <script>
+        window.dataLayer = window.dataLayer || [];
+        function gtag(){dataLayer.push(arguments);}
+        gtag('js', new Date());
+
+        gtag('config', 'G-ZGTBFYBYBY');
+    </script>
 
     {% block stylesheets %}
         {# 'app' must match the first argument to addEntry() in webpack.config.js #}
