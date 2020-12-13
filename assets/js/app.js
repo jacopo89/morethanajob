@@ -54,7 +54,6 @@ import ExpertiseManagement from "./MainApp/Administration/ExpertiseManagement";
 import ProfileEdit from "./MainApp/Profile/ProfileEdit";
 import NewsManagement from "./MainApp/Administration/NewsManagement";
 import AllNews from "./MainApp/News/AllNews";
-import ReactGA from 'react-ga';
 
 function App(){
     const {authenticated, language} = useSelector(state=>state);
@@ -214,8 +213,6 @@ const  firebaseConfig = {
     measurementId: "G-KH5GT2GVYS"
 };
 
-ReactGA.initialize('G-ZGTBFYBYBY');
-ReactGA.pageview(window.location.pathname);
 // Initialize Firebase
 //firebase.initializeApp(firebaseConfig);
 //const messaging = firebase.messaging();
