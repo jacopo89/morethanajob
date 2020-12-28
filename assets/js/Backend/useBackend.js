@@ -4,7 +4,7 @@ import {useCreateHook} from "./useHook";
 export function  useLogin() {
 
     const backendClient = BackendClient();
-    return useCreateHook(backendClient,'/backend/login','post',null);
+    return useCreateHook(backendClient,'/login','post',null);
 }
 
 export function  useRegister() {

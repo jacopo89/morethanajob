@@ -113,7 +113,7 @@ export default function Project(){
 
             </Grid>
 
-            {
+            { false &&
                 project.isPortfolio &&
                 <>
                     <Divider />

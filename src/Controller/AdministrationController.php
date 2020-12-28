@@ -10,13 +10,16 @@ namespace App\Controller;
 
 
 use App\Entity\User;
+use App\Repository\CollaborationRepository;
+use App\Repository\ProjectRepository;
+use App\Repository\UserRepository;
 use App\Service\Serializer;
 use Doctrine\ORM\EntityManagerInterface;
-use Sensio\Bundle\FrameworkExtraBundle\Configuration\Method;
-use Sensio\Bundle\FrameworkExtraBundle\Configuration\Route;
+
 use Symfony\Bundle\FrameworkBundle\Controller\AbstractController;
 use Symfony\Component\HttpFoundation\Request;
 use Symfony\Component\HttpFoundation\Response;
+use Symfony\Component\Routing\Annotation\Route;
 
 /**
  * Class AdministrationController
@@ -35,8 +38,7 @@ class AdministrationController extends AbstractController
 
 
     /**
-     * @Route("/getusers")
-     * @Method(methods={"GET"})
+     * @Route("/getusers", methods={"GET"})
      */
     public function getUsers(){
         $users = $this->em->getRepository(User::class)->findAll();
@@ -44,8 +46,7 @@ class AdministrationController extends AbstractController
     }
 
     /**
-     * @Route("/changerole")
-     * @Method(methods={"POST"})
+     * @Route("/changerole", methods={"POST"})
      * @param Request $request
      * @return Response
      */
@@ -72,5 +73,21 @@ class AdministrationController extends AbstractController
         }
 
         return new Response($this->serializer->serialize($user, 'json'), $status);
+    }
+
+    /**
+     * @param CollaborationRepository $collaborationRepository
+     * @param ProjectRepository $projectRepository
+     * @param UserRepository $userRepository
+     * @return Response
+     * @Route("/statistics")
+     */
+    public function getStatistics(CollaborationRepository $collaborationRepository, ProjectRepository $projectRepository, UserRepository $userRepository){
+        return new Response(json_encode([
+            "users" => sizeof($userRepository->findAll()),
+            "projects" => sizeof($projectRepository->findAll()),
+            "services" => sizeof($collaborationRepository->getAllServices()),
+            "collaborations" => sizeof($collaborationRepository->getAllCollaborations())
+        ]));
     }
 }

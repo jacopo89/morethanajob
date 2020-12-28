@@ -11,6 +11,7 @@ export const administrationCategories = "/administration-categories";
 export const administrationExpertise = "/administration-expertise";
 export const administrationProjects = "/administration-projects";
 export const administrationCollaborations = "/administration-collaborations";
+export const administrationStatistics = "/administration-statistics";
 export const administrationUsers = "/administration-users";
 export const administrationNews = "/administration-news";
 export const serviceSearchPage = "/services";

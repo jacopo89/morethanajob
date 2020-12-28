@@ -2,6 +2,7 @@
 
 namespace App\Controller;
 
+use ApiPlatform\Core\Api\UrlGeneratorInterface;
 use App\Entity\User;
 use App\Service\FileSystemService;
 use App\Service\Serializer;
@@ -14,68 +15,47 @@ use Symfony\Component\HttpFoundation\Request;
 use Symfony\Component\HttpFoundation\Response;
 use Symfony\Component\Routing\Annotation\Route;
 use Symfony\Component\Security\Core\Encoder\UserPasswordEncoderInterface;
+use Symfony\Component\Security\Http\Authentication\AuthenticationUtils;
 
-/**
- * Class SecurityController
- * @package App\Controller
- * @Route("/backend")
- */
 class SecurityController extends AbstractController
 {
+
     private $em;
     private $serializer;
     private $mailer;
     private $fileSystemService;
+    private $urlGenerator;
 
-    public function __construct(EntityManagerInterface $em, \Swift_Mailer $mailer, Serializer $serializer, FileSystemService $fileSystemService)
+    public function __construct(EntityManagerInterface $em, \Swift_Mailer $mailer, Serializer $serializer, FileSystemService $fileSystemService, UrlGeneratorInterface $urlGenerator)
     {
         $this->em = $em;
         $this->serializer = $serializer;
         $this->mailer = $mailer;
         $this->fileSystemService = $fileSystemService;
+        $this->urlGenerator = $urlGenerator;
 
     }
 
+
     /**
-     * @Route("/login", name="app_login")
-     * @param Request $request
-     * @param UserPasswordEncoderInterface $encoder
-     * @param JWTEncoderInterface $jwtEncoder
-     * @return Response
-     * @throws \Lexik\Bundle\JWTAuthenticationBundle\Exception\JWTEncodeFailureException
+     * @Route("/login", name="app_login", priority="1")
      */
-    public function login(Request $request, UserPasswordEncoderInterface $encoder, JWTEncoderInterface $jwtEncoder): Response
+    public function login(AuthenticationUtils $authenticationUtils): Response
     {
-        $email = $request->get('email');
-        $password = $request->get('password');
+        // if ($this->getUser()) {
+        //     return $this->redirectToRoute('target_path');
+        // }
 
-        $user = $this->em->getRepository(User::class)->findOneBy(['email'=> $email]);
-        if($user){
+        // get the login error if there is one
+        $error = $authenticationUtils->getLastAuthenticationError();
+        // last username entered by the user
+        $lastUsername = $authenticationUtils->getLastUsername();
 
-            $creation_time = new \DateTime();
-            if($encoder->isPasswordValid($user, $password)){
-                $data = [
-                    'email' => $email
-                ];
-
-                $token = $jwtEncoder->encode($data);
-
-                $responseData = $token;
-                $status = Response::HTTP_OK;
-            }else{
-                $responseData = "";
-                $status = Response::HTTP_UNAUTHORIZED;
-            }
-        }else{
-            $responseData = "User could not be found";
-            $status = Response::HTTP_NOT_FOUND;
-        }
-
-        return new Response($responseData, $status);
+        return $this->render('security/login.html.twig', ['last_username' => $lastUsername, 'error' => $error]);
     }
 
     /**
-     * @Route("/register", name="app_register")
+     * @Route("/backend/register", name="app_register")
      * @param Request $request
      * @param UserPasswordEncoderInterface $encoder
      * @return Response
@@ -108,42 +88,8 @@ class SecurityController extends AbstractController
         return new Response($user->getId());
 
     }
-
-
     /**
-     * @Route("/checkuser", name="login_check_user")
-     * @param Request $request
-     * @return Response
-     */
-    public function checkUser(Request $request){
-        $mail = $request->get('email');
-
-        $content = null;
-        $status = Response::HTTP_BAD_REQUEST;
-        if(!is_null($mail)){
-            $user = $this->em->getRepository(User::class)->findOneBy(['email'=> $mail]);
-            if($user){
-                $status = Response::HTTP_BAD_REQUEST;
-                $content = "This email is already registered";
-            }else{
-                $status = Response::HTTP_OK;
-            }
-        }
-
-
-        return new Response($this->serializer->serialize($content, 'json'), $status);
-    }
-
-    /**
-     * @Route("/logout", name="app_logout")
-     */
-    public function logout()
-    {
-        throw new \Exception('This method can be blank - it will be intercepted by the logout key on your firewall');
-    }
-
-    /**
-     * @Route("/recovery", name="app_recovery_password")
+     * @Route("/backend/recovery", name="app_recovery_password")
      * @param Request $request
      * @return Response
      */
@@ -175,7 +121,7 @@ class SecurityController extends AbstractController
     }
 
     /**
-     * @Route("/passwordchange", name="app_password_change")
+     * @Route("/backend/passwordchange", name="app_password_change")
      * @param Request $request
      * @param UserPasswordEncoderInterface $encoder
      * @return Response
@@ -242,6 +188,7 @@ class SecurityController extends AbstractController
 
     public function recoveryPasswordMail($receiverMail, $newRecoveryKey){
         $mailerSender = $this->getParameter('app.mail_sender');
+        $url = $this->urlGenerator->generate("home", ["route"=>"password-change"],  UrlGeneratorInterface::ABS_URL);
         $message = (new \Swift_Message('Password recovery'))
             ->setFrom($mailerSender)
             ->setTo($receiverMail)
@@ -249,7 +196,9 @@ class SecurityController extends AbstractController
                 $this->renderView(
                 // templates/emails/registration.html.twig
                     'emails/login/recoverypassword.html.twig',
-                    ['recoveryKey' => $newRecoveryKey,
+                    [
+                        'recoveryKey' => $newRecoveryKey,
+                        'url' => $url,
                         'mail'=> $receiverMail]
                 ),
                 'text/html'
@@ -286,5 +235,16 @@ class SecurityController extends AbstractController
 
         }
         return ["name"=>$newName,"profileId"=> $newProfileId ];
+    }
+
+    
+
+    /**
+     * @Route("/backend/logout", name="app_logout")
+     */
+    public function logout()
+    {
+        dd("LOGOUT");
+        throw new \Exception('This method can be blank - it will be intercepted by the logout key on your firewall');
     }
 }

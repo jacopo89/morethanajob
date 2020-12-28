@@ -16,6 +16,15 @@ export function  useChangeUserRole() {
     return useCreateHook(backendClient,'/backend/administration/changerole','post',null);
 }
 
+export function  useGetStatistics() {
+
+    const {accessToken} = useSelector(state=>state);
+    const backendClient = BackendClient(accessToken);
+    return useCreateHook(backendClient,'/backend/administration/statistics','get',[]);
+}
+
+
+
 
 export function  useGetAllCollaborations() {
 

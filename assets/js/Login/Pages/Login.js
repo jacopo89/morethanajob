@@ -41,12 +41,11 @@ export default function Login(){
         postLoginHandler(finalFormData, {successCallback: successCallback});
         userInfoHandler(formData.email,{successCallback: userInfoSuccessCallback});
     };
-    const goToRegistration = () => history.push(Routes.registration);
 
 
     const loginProps = {
         registration: true,
-        registrationNavigation : goToRegistration,
+        registrationNavigation : "/registration",
         loginHandler: login
 
     }

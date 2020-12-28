@@ -44,7 +44,7 @@ export default function NewsDetail({news, updater}) {
         <TextField label="Title" name="title" />
         <TextField label="Text" name="text" componentClass="textarea"  />
         <TextField label="Type" name="type" accepter={SelectPicker} data={newsSelectData}  />
-        <DynamicList name="link" updater={linksListChanger} startingValue={formValue.links}  />
+        <TextField name="link"  label="link" />
         <Row>
             <Col xs={24}>
                 Documents

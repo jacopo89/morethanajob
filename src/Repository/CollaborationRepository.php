@@ -20,6 +20,24 @@ class CollaborationRepository extends ServiceEntityRepository
         parent::__construct($registry, Collaboration::class);
     }
 
+    public function getAllCollaborations(){
+        return $this->createQueryBuilder('n')
+            ->innerJoin('n.positions', 'ps')
+            ->where('ps.isOpen = true')
+            ->andWhere('n.isCollaboration = true')
+            ->getQuery()
+            ->getResult();
+    }
+
+    public function getAllServices(){
+        return $this->createQueryBuilder('n')
+            ->innerJoin('n.positions', 'ps')
+            ->where('ps.isOpen = false')
+            ->andWhere('n.isCollaboration = true')
+            ->getQuery()
+            ->getResult();
+    }
+
     public function getUserCollaborationsPaginated(User $user, $currentPage = 1, $limit = 5){
         $dql = $this->createQueryBuilder('n')
             ->innerJoin('n.user', 'u')

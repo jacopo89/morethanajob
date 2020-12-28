@@ -79,7 +79,7 @@ export default function Dashboard(){
 
                 </Nav>
                 <Nav pullRight>
-                    <Nav.Item onClick={()=>history.push(Routes.login)} icon={<Icon icon="cog" />}>{t('Login')}</Nav.Item>
+                    <Nav.Item href="/login" icon={<Icon icon="cog" />}>{t('Login')}</Nav.Item>
                     {false && <Nav.Item onClick={()=>history.push(Routes.registration)} icon={<Icon icon="cog" />}>{t('Register')}</Nav.Item>}
                 </Nav>
             </Navbar.Body>
