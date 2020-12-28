@@ -14,7 +14,7 @@ import {applyMiddleware, compose, createStore} from "redux";
 import thunk from 'redux-thunk';
 import {Provider, useDispatch, useSelector} from "react-redux";
 import Login from "./Login/Pages/Login";
-import {BrowserRouter, Redirect, Route, Switch, useLocation} from "react-router-dom";
+import {Router, Redirect, Route, Switch, useLocation, useHistory,BrowserRouter} from "react-router-dom";
 import reducer from "./Redux/reducer";
 import Registration from "./Login/Pages/Registration";
 import RecoverPasswordForm from "./Login/Components/RecoverPasswordForm";
@@ -23,6 +23,7 @@ import * as Routes from './routes';
 import * as ActionTypes from "./Redux/actions";
 import "firebase/auth";
 import "firebase/messaging";
+import ReactGA from 'react-ga';
 
 import './i18n';
 import Loading from "./Layout/Loading";
@@ -54,13 +55,45 @@ import ExpertiseManagement from "./MainApp/Administration/ExpertiseManagement";
 import ProfileEdit from "./MainApp/Profile/ProfileEdit";
 import NewsManagement from "./MainApp/Administration/NewsManagement";
 import AllNews from "./MainApp/News/AllNews";
+import {createBrowserHistory} from "history";
+import Statistics from "./MainApp/Administration/Statistics";
 
 function App(){
+    const dispatch = useDispatch();
     const {authenticated, language} = useSelector(state=>state);
+
+    const authenticationData = document.getElementById('js-user-rating');
+    const userData = document.getElementById('js-user-profile');
+    const location = useLocation();
+
+    useEffect(()=>{
+        //console.log("location", location);
+        ReactGA.set({ page: location.pathname }); // Update the user's current page
+        ReactGA.pageview(location.pathname); // Record a pageview for the given page
+    },[location]);
+
+
+
+
+    useEffect(()=>{
+        //console.log("userElement", authenticationData.dataset.isAuthenticated)
+        //console.log("userData", userData.dataset.userProfile);
+        const userProfile = userData.dataset.userProfile;
+        if(userProfile){
+            dispatch(ActionTypes.updateUserInfo(JSON.parse(userProfile)))
+        }
+        if(authenticated!==authenticationData.dataset.isAuthenticated){
+            dispatch(ActionTypes.switchAuthenticatedStatus())
+        }
+    },[])
+
+
+
+
     const {t,i18n} = useTranslation();
     const [services, getServicesHandler] = useGetServices();
     const [categories, getCategoriesHandler] = useGetCategories();
-    const dispatch = useDispatch();
+
 
     useEffect(()=>{
         getServicesHandler();
@@ -72,7 +105,6 @@ function App(){
         dispatch(ActionTypes.updateCategories(categories));
     },[categories, services])
 
-    let location = useLocation();
 
 
 
@@ -93,6 +125,7 @@ function App(){
     const administrationUserPage = <AdministrationLayout page={<UserManagement />} />
     const administrationNewsPage = <AdministrationLayout page={<NewsManagement />} />
     const administrationExpertisePage = <AdministrationLayout page={<ExpertiseManagement />} />
+    const statisticsPage = <AdministrationLayout page={<Statistics/>} />
 
     const allNewsPage = <MainPage page={<AllNews/>}/>;
 
@@ -121,10 +154,11 @@ function App(){
     const mainApp =
         (<>
             <Switch>
-                <Route path={Routes.login} children={loginPage}/>
+                {/*<Route path={Routes.login} children={loginPage}/>*/}
                 <Route path={Routes.changePassword} children={changePasswordPage} />
                 <Route path={Routes.routeEditCollaboration} children={editCollaborationDetailPage}/>
                 <Route path={Routes.routeEditService} children={editServiceDetailPage}/>
+                <Route path={Routes.administrationStatistics} children={statisticsPage}/>
                 <Route path={Routes.registration} children={registrationPage}/>
                 <Route path={Routes.passwordRecovery} children={recoverPage}/>
                 <Route path={Routes.routeProfile} children={profilePage}/>
@@ -157,11 +191,12 @@ function App(){
     const authRequired =
         (<>
             <Switch>
-                <Route path={Routes.login} children={loginPage}/>
+                {/*<Route path={Routes.login} children={loginPage}/>*/}
                 <Route path={Routes.routeEditCollaboration} children={editCollaborationDetailPage}/>
                 <Route path={Routes.routeEditService} children={editServiceDetailPage}/>
                 <Route path={Routes.registration} children={registrationPage}/>
                 <Route path={Routes.changePassword} children={changePasswordPage}/>
+                <Route path={Routes.administrationStatistics} children={statisticsPage}/>
                 <Route path={Routes.passwordRecovery} children={recoverPage}/>
                 <Route path={Routes.routeProfile} children={profilePage}/>
                 <Route path={Routes.routeProfileEdit} children={profileEditPage}/>
@@ -195,12 +230,22 @@ function App(){
     return <>{render}{isLoading && loading}</>;
 }
 
+
+
+
 const composeEnhancers = window.__REDUX_DEVTOOLS_EXTENSION_COMPOSE__ || compose;
 
 const store = createStore(reducer,composeEnhancers(
     applyMiddleware(thunk)
 ));
 
+ReactGA.initialize("G-CWESWE50Y8");
+// Initialize google analytics page view tracking
+/*history.listen(location => {
+
+    ReactGA.set({ page: location.pathname }); // Update the user's current page
+   // ReactGA.pageview(location.pathname); // Record a pageview for the given page
+});*/
 
 const  firebaseConfig = {
     apiKey: "AIzaSyDxbfpWNPN68Pd2arE1mVZlDPSJ_ddbLio",
@@ -221,7 +266,7 @@ const  firebaseConfig = {
 
 
 ReactDOM.render(  <Provider store={store}>
-    <BrowserRouter>
+    <BrowserRouter history={history}>
             <ScrollToTop />
             <App />
     </BrowserRouter>

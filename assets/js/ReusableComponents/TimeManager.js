@@ -1,4 +1,5 @@
 import React from "react";
+import moment from "moment";
 const dateFormat = require('dateformat');
 
 export function changeTime(time) {
@@ -15,6 +16,8 @@ export function changeTime(time) {
     }
 
 }
+
+
 export function getCalendarFormat(date) {
 
     if(date){
@@ -57,14 +60,6 @@ export function getDayAndMonth(time) {
 }
 
 
-
-
-
-export function customNormalizedDate(){
-
-
-}
-
 export function customNormalizedDateToString(item){
     return changeTime(item);
 }
@@ -104,4 +99,9 @@ export function defaultDateToStringTime(item){
     const minutes = (time.getMinutes()<10) ? "0"+time.getMinutes() : time.getMinutes();
 
     return time.toDateString() + " " + (hours + ":" +minutes);
+}
+
+
+export function getTime(timeString){
+    return moment(timeString.timestamp*1000).format("DD/MM/YYYY hh:mm");
 }

@@ -15,15 +15,15 @@ class NewsDTO
 
     private $text;
 
-    private $links;
+    private $link;
 
     private $type;
 
-    public function __construct(string $title, string $text, array $links, int $type)
+    public function __construct(string $title, string $text, string $link, int $type)
     {
         $this->title = $title;
         $this->text = $text;
-        $this->links = $links;
+        $this->link = $link;
         $this->type = $type;
     }
 
@@ -46,11 +46,11 @@ class NewsDTO
     }
 
     /**
-     * @return array
+     * @return string
      */
-    public function getLinks(): ?array
+    public function getLink(): ?string
     {
-        return $this->links;
+        return $this->link;
     }
 
     /**

@@ -20,21 +20,11 @@ class DefaultController extends AbstractController
 
 
     /**
-     * @Route("/{route}", name="home", requirements={"route"="^(?!backend).*$"})
+     * @Route("/{route}", name="home", requirements={"route"="^(?!backend|api).*$"}, priority="0")
      */
     public function index()
     {
         return $this->render('default/base.html.twig');
-    }
-
-    /**
-     * @Route("/backend/redirect")
-     */
-    public function redirectUrl(Request $request){
-        return $this->redirect("https://".$request->headers->get('host')."/login");
-        return new RedirectResponse($this->generateUrl("home", ["route"=> "/login"], UrlGeneratorInterface::ABSOLUTE_PATH));
-        return $this->redirectToRoute("home",["route" => "/login"]);
-
     }
 
 }

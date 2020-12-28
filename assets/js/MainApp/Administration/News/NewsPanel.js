@@ -4,12 +4,13 @@ import {bordeaux, FlexBetweenDiv} from "../../../styledComponents/CustomComponen
 import styled from "styled-components";
 import {List, FlexboxGrid, Icon, Grid, Row, Col} from "rsuite";
 import {newsSelectData} from "../../../selectData";
+import {customNormalizedDateToString, getCalendarFormat, getTime} from "../../../ReusableComponents/TimeManager";
 
 export default function NewsPanel({news}){
 
-    const links = news.links.map((link,index)=> <div key={index}>
-        <a target="_blank" href={manipulateWebsite(link)}> {link}</a>
-    </div> )
+    const links = <div>
+        <a target="_blank" href={manipulateWebsite(news.link)}> {news.link}</a>
+    </div> ;
 
     const typeElement = newsSelectData.find(item => {
         return item.value ===news.type
@@ -20,33 +21,37 @@ export default function NewsPanel({news}){
     return <div>
         <Grid fluid>
             <Row>
-                <Col xs={24}>
+                <Col xs={6}></Col>
+                <Col xs={12}>
+                        <a target="_blank" href={manipulateWebsite(news.link)}><Title>{news.title}</Title></a>
+                </Col>
+                <Col xs={6}></Col>
+            </Row>
+            <Row>
+                <Col xs={6}></Col>
+                <Col xs={12}>
                     <FlexBetweenDiv>
-                        <Title>{news.title}</Title><h6>{type}</h6>
+                        <h6>{type}</h6>
+                        {getTime(news.creationTime)}
                     </FlexBetweenDiv>
                 </Col>
-            </Row><Row>
-                <Col xs={2}>
-                </Col>
-                <Col xs={22}>
+                <Col xs={6}></Col>
+            </Row>
+            <Row>
+                <Col xs={6}></Col>
+                <Col xs={12}>
                     {news.text}
+
                 </Col>
+                <Col xs={6}></Col>
             </Row>
             <Row>
-                <Col xs={2}>
-                </Col>
-                <Col xs={22}>
-                    {links.length!==0 && <h5>Links</h5>}
-                    {links}
-                </Col>
-            </Row>
-            <Row>
-                <Col xs={2}>
-                </Col>
-                <Col xs={22}>
+                <Col xs={6}></Col>
+                <Col xs={12}>
                     {news.files.length!==0 && <h5>Files</h5>}
                     <FileList data={news.files}/>
                 </Col>
+                <Col xs={6}></Col>
             </Row>
         </Grid>
     </div>

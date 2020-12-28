@@ -5,10 +5,12 @@ namespace App\Entity;
 use Doctrine\Common\Collections\ArrayCollection;
 use Doctrine\Common\Collections\Collection;
 use Doctrine\ORM\Mapping as ORM;
+use Symfony\Bridge\Doctrine\Validator\Constraints\UniqueEntity;
 use Symfony\Component\Security\Core\User\UserInterface;
 
 /**
  * @ORM\Entity(repositoryClass="App\Repository\UserRepository")
+ * @UniqueEntity(fields={"email"}, message="There is already an account with this email")
  */
 class User implements UserInterface
 {
@@ -702,5 +704,15 @@ class User implements UserInterface
         $this->localLanguageDescription = $localLanguageDescription;
 
         return $this;
+    }
+
+    public function getProfileData(){
+        return [
+            "id" => $this->id,
+            "email" => $this->email,
+            "roles" => $this->getRoles(),
+            "profileName" => $this->profileName,
+            "language" => $this->language
+        ];
     }
 }

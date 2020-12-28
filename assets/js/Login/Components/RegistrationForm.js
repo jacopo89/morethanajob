@@ -54,7 +54,7 @@ export default function RegistrationForm({registrationProps}){
 
                 <ButtonToolbar>
                     <MainButton appearance="primary" onClick={()=>registrationProps.registrationHandler(formValue)}>{t('Submit')}</MainButton>
-                    <SecondaryButton onClick={()=> history.push(Routes.login)}>{t('Login')}</SecondaryButton>
+                    <SecondaryButton href="/login">{t('Login')}</SecondaryButton>
                 </ButtonToolbar>
     </Form>
         </RegistrationBox>);

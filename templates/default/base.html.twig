@@ -4,6 +4,8 @@
 
  {% block body %}
 
+     <div id="js-user-rating" data-is-authenticated="{{ app.user ? 'true' : 'false' }}"></div>
+     <div id="js-user-profile" data-user-profile="{{ app.user ? app.user.profileData|json_encode|e('html_attr') }}">
      <div id="root"></div>
 
  {% endblock %}

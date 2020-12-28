@@ -1,39 +1,24 @@
 import {useGetAllNews} from "../../Backend/hooks/useNews";
 import NewsPanel from "../Administration/News/NewsPanel";
-import React, {useEffect} from "react";
-import {Divider, List, Panel} from "rsuite";
-import {BackTitle, bordeaux, FrontTitle} from "../../styledComponents/CustomComponents";
+import React, {useState, useEffect} from "react";
+import {Pagination, Divider, List, Panel, SelectPicker} from "rsuite";
+import {BackTitle, bordeaux, FlexAroundDiv, FlexBetweenDiv, FrontTitle} from "../../styledComponents/CustomComponents";
 import {useTranslation} from "react-i18next";
+import {useList} from "../../tools/list";
+import {newsSelectData} from "../../selectData";
 
 export default function AllNews() {
 
-    const [news, getNewsHandler] = useGetAllNews();
     const {t} = useTranslation();
 
-    useEffect(()=>{getNewsHandler()}, []);
+    const {data, get} = useList("news");
+    const [page, setPage] = useState(1);
+    const [filter, setFilter] = useState("");
 
+    useEffect(()=>get(page, {type:filter}), [page, filter]);
 
-    const projectNews = news.filter(item => item.type===1).map((item, index) =>
-        <div key={index}>
-            <NewsPanel key={index} news={item} />
-            <Divider />
-        </div>);
+    const {list:news} = data;
 
-    const relevantPubs = news.filter(item => item.type===2).map((item, index) =>
-        <div key={index}>
-            <NewsPanel key={index} news={item} />
-            <Divider />
-        </div>);
-    const disseminationProj = news.filter(item => item.type===3).map((item, index) =>
-        <div key={index}>
-            <NewsPanel key={index} news={item} />
-            <Divider />
-        </div>);
-    const funding = news.filter(item => item.type===4).map((item, index) =>
-        <div key={index}>
-            <NewsPanel key={index} news={item} />
-            <Divider />
-        </div>);
     const newsPanels = news.map((item, index) =>
         <div key={index}>
             <NewsPanel key={index} news={item} />
@@ -48,18 +33,41 @@ export default function AllNews() {
             </FrontTitle>
             {t('News')}
         </BackTitle>
-        <Panel header="Project News" collapsible bordered  >
-            <List size='lg'>{projectNews}</List>
-        </Panel>
-        <Panel header="Relevant publications" collapsible bordered>
-            <List size='lg'>{relevantPubs}</List>
-        </Panel>
-        <Panel header="Project dissemination material and resources" collapsible bordered>
-            <List size='lg'>{disseminationProj}</List>
-        </Panel>
-        <Panel header="Funding opportunities" collapsible bordered>
-            <List size='lg'>{funding}</List>
-        </Panel>
+        <FlexBetweenDiv>
+            <PaginationNews/><SelectPicker onChange={setFilter} searchable={false} data={newsSelectData} />
+        </FlexBetweenDiv>
+
+        {newsPanels}
     </div>
+
+}
+
+
+function PaginationNews({activePage,setActivePage, totalItems}){
+    const [state, setState] = useState({
+        prev: true,
+        next: true,
+        first: true,
+        last: true,
+        ellipsis: true,
+        boundaryLinks: true,
+        activePage: activePage
+    });
+
+    const pageNumber = Math.ceil(totalItems/30);
+
+
+    const handleSelect = (eventKey) => {
+            setState({...state, activePage: eventKey });
+            setActivePage(eventKey);
+        }
+
+    return (pageNumber===1) ?  <Pagination
+                {...state}
+                pages={pageNumber}
+                maxButtons={5}
+                activePage={state.activePage}
+                onSelect={handleSelect}
+            /> : <div></div>
 
 }

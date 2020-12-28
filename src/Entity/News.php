@@ -2,12 +2,17 @@
 
 namespace App\Entity;
 
+use ApiPlatform\Core\Annotation\ApiFilter;
+use ApiPlatform\Core\Annotation\ApiResource;
 use App\Model\NewsDTO;
 use Doctrine\Common\Collections\ArrayCollection;
 use Doctrine\Common\Collections\Collection;
 use Doctrine\ORM\Mapping as ORM;
+use ApiPlatform\Core\Bridge\Doctrine\Orm\Filter\NumericFilter;
 
 /**
+ * @ApiResource()
+ * @ApiFilter(NumericFilter::class, properties={"type"})
  * @ORM\Entity(repositoryClass="App\Repository\NewsRepository")
  */
 class News implements \JsonSerializable
@@ -31,9 +36,9 @@ class News implements \JsonSerializable
     private $text;
 
     /**
-     * @ORM\Column(type="array", nullable=true)
+     * @ORM\Column(type="string", nullable=true)
      */
-    private $links = [];
+    private $link;
 
     /**
      * @ORM\Column(type="datetime_immutable")
@@ -72,18 +77,6 @@ class News implements \JsonSerializable
         return $this;
     }
 
-    public function getLinks(): ?array
-    {
-        return $this->links;
-    }
-
-    public function setLinks(?array $links): self
-    {
-        $this->links = $links;
-
-        return $this;
-    }
-
     /**
      * Specify data which should be serialized to JSON
      * @link https://php.net/manual/en/jsonserializable.jsonserialize.php
@@ -97,25 +90,25 @@ class News implements \JsonSerializable
             'id' => $this->id,
             'title' => $this->title,
             'text' => $this->text,
-            'links' => $this->links,
+            'link' => $this->link,
             'type' => $this->type,
             'creationTime' => $this->creationTime,
             'files' =>$this->files
         ];
     }
 
-    private function __construct(string $title, string $text, array $links, int $type)
+    private function __construct(string $title, string $text, string $link, int $type)
     {
         $this->title = $title;
         $this->text = $text;
-        $this->links = $links;
+        $this->link = $link;
         $this->creationTime = new \DateTimeImmutable();
         $this->files = new ArrayCollection();
         $this->type = $type;
     }
 
     public static function createFromDTO(NewsDTO $newsDTO){
-        return new self($newsDTO->getTitle(),$newsDTO->getText(), $newsDTO->getLinks(), $newsDTO->getType());
+        return new self($newsDTO->getTitle(),$newsDTO->getText(), $newsDTO->getLink(), $newsDTO->getType());
     }
 
     public function getCreationTime(): ?\DateTimeImmutable
@@ -184,4 +177,22 @@ class News implements \JsonSerializable
 
         return $this;
     }
+
+    /**
+     * @return string
+     */
+    public function getLink(): string
+    {
+        return $this->link;
+    }
+
+    /**
+     * @param string $link
+     */
+    public function setLink(string $link): void
+    {
+        $this->link = $link;
+    }
+
+
 }

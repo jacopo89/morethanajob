@@ -3,12 +3,26 @@
     "app": {
       "js": [
         "/build/runtime.js",
+        "/build/vendors~app~login.js",
         "/build/vendors~app.js",
+        "/build/app~login.js",
         "/build/app.js"
       ],
       "css": [
         "/build/vendors~app.css",
+        "/build/app~login.css",
         "/build/app.css"
+      ]
+    },
+    "login": {
+      "js": [
+        "/build/runtime.js",
+        "/build/vendors~app~login.js",
+        "/build/app~login.js",
+        "/build/login.js"
+      ],
+      "css": [
+        "/build/app~login.css"
       ]
     }
   }

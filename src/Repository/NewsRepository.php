@@ -49,7 +49,7 @@ class NewsRepository extends ServiceEntityRepository
 
     public function getRecent(){
         return $this->createQueryBuilder('n')
-            ->orderBy('n.creationTime', 'ASC')
+            ->orderBy('n.creationTime', 'DESC')
             ->setMaxResults(5)
             ->getQuery()
             ->getResult();

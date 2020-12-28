@@ -21,9 +21,8 @@ export default function FinalHeader(){
     };
     const signOut = () => {
         dispatch(ActionTypes.logOut());
-        history.push(Routes.login);
+        window.location.href="/login";
     }
-
 
     const LanguageDropdown = ({ ...props }) => (
         <Dropdown {...props}>
@@ -50,8 +49,8 @@ export default function FinalHeader(){
                 <Dropdown.Item onClick={()=> history.push(Routes.administrationExpertise)} eventKey="e-6">Expertise</Dropdown.Item>
                 <Dropdown.Item onClick={()=> history.push(Routes.administrationNews)} eventKey="e-7">News</Dropdown.Item>
             </Dropdown.Menu>}
-            {authenticated && <Dropdown.Item onClick={()=>signOut()} >{t('Logout')}</Dropdown.Item>}
-            {!authenticated && <Dropdown.Item onClick={()=> history.push(Routes.login)} >{t('Login')}</Dropdown.Item>}
+            {authenticated && <Dropdown.Item href="/backend/logout" >{t('Logout')}</Dropdown.Item>}
+            {!authenticated && <Dropdown.Item href="/login" >{t('Login')}</Dropdown.Item>}
         </Dropdown>
     );
 

@@ -15,6 +15,7 @@ export default function AdministrationLayout({page}) {
         <Nav.Item eventKey="4" icon={<Icon icon="info-circle" />} onClick={()=> history.push(Routes.administrationCategories)}>Categories</Nav.Item>
         <Nav.Item eventKey="5" icon={<Icon icon="info-circle" />} onClick={()=> history.push(Routes.administrationExpertise)}>Expertise</Nav.Item>
         <Nav.Item eventKey="6" icon={<Icon icon="info-circle" />} onClick={()=> history.push(Routes.administrationNews)}>News</Nav.Item>
+        <Nav.Item eventKey="7" icon={<Icon icon="info-circle" />} onClick={()=> history.push(Routes.administrationStatistics)}>Statistics</Nav.Item>
 
 
     </>

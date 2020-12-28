@@ -36,7 +36,7 @@ export default function NewsManagement() {
         const formData =  new FormData();
         formData.append('title', selectedNews.title);
         formData.append('text', selectedNews.text);
-        formData.append('links', JSON.stringify(selectedNews.links));
+        formData.append('link', selectedNews.link);
         formData.append('type', selectedNews.type);
         selectedNews.files.forEach((file, index)=>{formData.append('files[file-'+index+']', file);}) //TODO generalizzare questa
         formData.append('files', selectedNews.files);

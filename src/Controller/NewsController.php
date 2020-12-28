@@ -68,8 +68,8 @@ class NewsController extends AbstractController
         $title = $request->get('title');
         $text = $request->get('text');
         $type = intval($request->get('type'));
-        $links = json_decode($request->get('links'), true);
-        $newsDto = new NewsDTO($title, $text, $links, $type);
+        $link = $request->get('link');
+        $newsDto = new NewsDTO($title, $text, $link, $type);
         $news = News::createFromDTO($newsDto);
         $this->em->save($news);
         $basePath = $request->getBasePath();
@@ -122,10 +122,10 @@ class NewsController extends AbstractController
             $title = $request->get('title');
             $text = $request->get('text');
             $type = $request->get('type');
-            $links = json_decode($request->get('links'), true);
+            $link = $request->get('link');
             $news->setTitle($title);
             $news->setText($text);
-            $news->setLinks($links);
+            $news->setLink($link);
             $news->setType($type);
 
             $this->em->save($news);
