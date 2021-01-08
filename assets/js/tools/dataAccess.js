@@ -2,7 +2,7 @@ const MIME_TYPE = 'application/json';
 const LD_MIME_TYPE = 'application/ld+json';
 const PATCH_MIME_TYPE = 'application/merge-patch+json';
 
-const ENTRYPOINT = 'http://application.morethanajob.local/api';
+const ENTRYPOINT = 'http://joinmorethanajob.org/api';
 
 export function fetch(id, options = {}) {
     if ('undefined' === typeof options.headers) options.headers = new Headers();
