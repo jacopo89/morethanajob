@@ -715,4 +715,8 @@ class User implements UserInterface
             "language" => $this->language
         ];
     }
+
+    public function getCollaborations(){
+        $this->collaborations;
+    }
 }
