@@ -21,7 +21,8 @@ export default function Login(){
         if(userProfile){
             dispatch(ActionTypes.updateUserInfo(JSON.parse(userProfile)))
         }
-        if(authenticated!==authenticationData.dataset.isAuthenticated){
+
+        if(authenticated.toString()!==authenticationData.dataset.isAuthenticated){
             dispatch(ActionTypes.switchAuthenticatedStatus())
         }
     },[])
@@ -55,8 +56,6 @@ export default function Login(){
         loginHandler: login
 
     }
-
-    console.log("authenticated", authenticated);
   return (authenticated) ? <AlreadyLoggedIn/> : <LoginForm loginProps={loginProps}/>;
 }
 
