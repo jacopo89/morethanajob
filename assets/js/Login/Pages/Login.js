@@ -1,28 +1,36 @@
-import React from "react";
-import {Link, useHistory} from "react-router-dom";
+import React, {useEffect} from "react";
+import {Redirect, useHistory} from "react-router-dom";
 import {useLogin} from "../../Backend/useBackend";
 import {useDispatch, useSelector} from "react-redux";
 import * as ActionTypes from "../../Redux/actions";
 import LoginForm from "../Components/LoginForm";
-import Cookies from "universal-cookie";
 import * as Routes from '../../routes';
-import {useGetUserInfo, useGetUserInfoByEmail} from "../../Backend/hooks/UserInfo";
+import {useGetUserInfoByEmail} from "../../Backend/hooks/UserInfo";
 import {useTranslation} from "react-i18next";
-import {Button, ButtonToolbar, ControlLabel, Form, FormControl, FormGroup} from "rsuite";
-import {MainButton, RegistrationBox, SecondaryButton} from "../../styledComponents/CustomComponents";
+import {Button} from "rsuite";
+import {RegistrationBox} from "../../styledComponents/CustomComponents";
 
 export default function Login(){
+
+    const authenticationData = document.getElementById('js-user-rating');
+    const userData = document.getElementById('js-user-profile');
+    const dispatch = useDispatch();
+    const {authenticated} = useSelector(state=>state);
+    useEffect(()=>{
+        const userProfile = userData.dataset.userProfile;
+        if(userProfile){
+            dispatch(ActionTypes.updateUserInfo(JSON.parse(userProfile)))
+        }
+        if(authenticated!==authenticationData.dataset.isAuthenticated){
+            dispatch(ActionTypes.switchAuthenticatedStatus())
+        }
+    },[])
     const history = useHistory();
     const {t} = useTranslation();
-
     const [loginResponse, postLoginHandler] = useLogin();
     const [userInfo, userInfoHandler] = useGetUserInfoByEmail();
-    //const { t, i18n } = useTranslation();
-    const cookies = new Cookies();
 
-    const {authenticated, user} = useSelector(state=>state);
 
-    const dispatch = useDispatch();
     const successCallback = (accessToken) => {
         dispatch(ActionTypes.login(accessToken));
 
@@ -31,8 +39,6 @@ export default function Login(){
         dispatch(ActionTypes.updateUserInfo(data));
         history.push(Routes.profile(data.profileName));
     };
-
-
 
     const login = (formData) =>
     {
@@ -50,6 +56,7 @@ export default function Login(){
 
     }
 
+    console.log("authenticated", authenticated);
   return (authenticated) ? <AlreadyLoggedIn/> : <LoginForm loginProps={loginProps}/>;
 }
 
@@ -64,7 +71,8 @@ function AlreadyLoggedIn(){
         dispatch(ActionTypes.logOut());
     }
 
-    return (user) ? <Button onClick={history.push(Routes.profile(user.profileName))}/> : <RegistrationBox>
+    //<Button onClick={history.push(Routes.profile(user.profileName))}/>
+    return (user) ? window.location.replace(Routes.profile(user.profileName)) : <RegistrationBox>
         <div>
             <h3>Sign in</h3>
         </div>

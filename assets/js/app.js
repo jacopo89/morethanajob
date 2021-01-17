@@ -76,8 +76,6 @@ function App(){
 
 
     useEffect(()=>{
-        //console.log("userElement", authenticationData.dataset.isAuthenticated)
-        //console.log("userData", userData.dataset.userProfile);
         const userProfile = userData.dataset.userProfile;
         if(userProfile){
             dispatch(ActionTypes.updateUserInfo(JSON.parse(userProfile)))
@@ -87,13 +85,9 @@ function App(){
         }
     },[])
 
-
-
-
     const {t,i18n} = useTranslation();
     const [services, getServicesHandler] = useGetServices();
     const [categories, getCategoriesHandler] = useGetCategories();
-
 
     useEffect(()=>{
         getServicesHandler();
@@ -104,9 +98,6 @@ function App(){
         dispatch(ActionTypes.updateServices(services));
         dispatch(ActionTypes.updateCategories(categories));
     },[categories, services])
-
-
-
 
 
     if(i18n.language!==language){
@@ -126,9 +117,7 @@ function App(){
     const administrationNewsPage = <AdministrationLayout page={<NewsManagement />} />
     const administrationExpertisePage = <AdministrationLayout page={<ExpertiseManagement />} />
     const statisticsPage = <AdministrationLayout page={<Statistics/>} />
-
     const allNewsPage = <MainPage page={<AllNews/>}/>;
-
     const serviceSearchPage = <MainPage page={<ServiceSearch />}/>;
     const searchUserPage = <MainPage page={<SearchPartners />}/>;
     const loginPage = <DashboardLayout page={<Login/>}/>;
