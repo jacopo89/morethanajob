@@ -23,7 +23,6 @@
     <div id="js-user-rating" data-is-authenticated="{{ app.user ? 'true' : 'false' }}"></div>
     <div id="js-user-profile" data-user-profile="{{ app.user ? app.user.profileData|json_encode|e('html_attr') }}"></div>
     <div id="login-form"></div>
-    <div id="altro">JOINMORETHANAJOB</div>
     <input type="hidden" name="_csrf_token"
            value="{{ csrf_token('authenticate') }}"
     >
