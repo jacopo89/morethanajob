@@ -1,11 +1,10 @@
 {
-  "build/app.css": "/build/app.css",
-  "build/app.js": "/build/app.js",
-  "build/app~login.css": "/build/app~login.css",
-  "build/app~login.js": "/build/app~login.js",
-  "build/login.js": "/build/login.js",
-  "build/runtime.js": "/build/runtime.js",
-  "build/vendors~app.css": "/build/vendors~app.css",
-  "build/vendors~app.js": "/build/vendors~app.js",
-  "build/vendors~app~login.js": "/build/vendors~app~login.js"
+  "build/0.15b08537.js": "/build/0.15b08537.js",
+  "build/1.c4a94852.css": "/build/1.c4a94852.css",
+  "build/1.06b5d48d.js": "/build/1.06b5d48d.js",
+  "build/app.css": "/build/app.5a3a0821.css",
+  "build/app.js": "/build/app.553e1a8e.js",
+  "build/login.css": "/build/login.736e754c.css",
+  "build/login.js": "/build/login.2d5d595c.js",
+  "build/runtime.js": "/build/runtime.1103dde6.js"
 }
