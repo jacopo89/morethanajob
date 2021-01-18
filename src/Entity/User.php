@@ -717,6 +717,6 @@ class User implements UserInterface
     }
 
     public function getCollaborations(){
-        $this->collaborations;
+        return $this->collaborations;
     }
 }
