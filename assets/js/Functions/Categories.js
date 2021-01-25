@@ -1,6 +1,6 @@
 import {useSelector} from "react-redux";
 import {generateCategoriesTree} from "../MainApp/Administration/CategoriesManagement";
-import react, {useEffect, useState} from 'react';
+import react, {useEffect, useState, useMemo} from 'react';
 
 export function categoriesTreeByLanguage(){
     const {categories, language} = useSelector(state=>state);
@@ -19,8 +19,8 @@ export function categoriesTreeByLanguage(){
         setLanguageCategories(newCategories);
     },[language, categories]);
 
-    return {categories: languageCategories, categoriesTree:generateCategoriesTree(languageCategories)};
+    const categoriesTree = generateCategoriesTree(languageCategories)
 
-    r
+    return {categories: languageCategories, categoriesTree:categoriesTree};
 
 }

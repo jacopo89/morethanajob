@@ -23,9 +23,9 @@ import {iconStyle, textStyle} from "../Profile/submenus/SocietyContacts";
 
 export default function SearchPartners(){
 
+    console.log("partners page");
     const [partners, getPartnersHandler] = useSearcbPartners();
     const {t, i18n} = useTranslation();
-    const {user} = useSelector(state=>state);
 
     const [formValue, setFormValue] = useState();
 
@@ -39,7 +39,6 @@ export default function SearchPartners(){
     const history = useHistory();
 
     useEffect(()=>{
-        const formData = new FormData();
         getPartnersHandler();
         return()=>{}
     },[])
@@ -110,8 +109,6 @@ export function PartnerDetail({partner}){
     const history = useHistory();
 
     const backgroundImage = (partner && partner.profilePicture && partner.profilePicture.url) ? partner.profilePicture.url  : "/defaults/project_thumbnail.png";
-
-    console.log("partner", partner);
 
     return <Panel header={
         <PartnerTitle partner={partner} />}>
