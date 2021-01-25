@@ -5,7 +5,7 @@ import * as Routes from '../routes'
 import {
     BackTitle,
     Body,
-    bordeaux, FrontTitle,
+    bordeaux, FlexCenterDiv, FrontTitle,
     MainButton,
     noProfilePicture,
     noProjectPicture,
@@ -21,6 +21,7 @@ import {useSelector} from "react-redux";
 import {useGetCategories} from "../Backend/hooks/useCategories";
 import {useGetRecentNews} from "../Backend/hooks/useNews";
 import NewsPanel from "./Administration/News/NewsPanel";
+import ReactPlayer from "react-player";
 
 export default function Dashboard(){
     const history = useHistory();
@@ -55,7 +56,7 @@ export default function Dashboard(){
     {
         const picture = profile.profilePicture ? profile.profilePicture.url : noProfilePicture;
         return (<IconTextBox key={index}>
-            <img width={75} src={picture}/>
+            <img style={{cursor:"pointer"}} width={75} src={picture} onClick={()=>history.push(Routes.profile(profile.profileName))}/>
             <a style={{color:"black"}} href={`/profile/${profile.profileName}`} >{profile.name}</a>
         </IconTextBox>)
     } );
@@ -115,6 +116,15 @@ export default function Dashboard(){
                 <Grid fluid>
                     <Row>
                         <Col xs={24}>
+                            <BackTitle>
+                            <FrontTitle id="aboutUs">
+                                {t('projectTitle')}
+                            </FrontTitle>
+                            {t('projectTitle')}
+                        </BackTitle></Col>
+                    </Row>
+                    <Row>
+                        <Col xs={24}>
                             <div>
 
                                 {false &&
@@ -122,13 +132,7 @@ export default function Dashboard(){
                                         <img style={{float:"left", marginLeft:30, marginRight:30}}  width="50%" src="/defaults/MoreThanAJob_Cover.jpg"/>
                                         <p style={{float:"left", clear:"left", marginLeft:30, marginRight:30, fontSize:"0.6rem"}}>Photo © UN Women/Christopher Herwig </p>
                                     </>}
-
-                                <BackTitle>
-                                    <FrontTitle id="aboutUs">
-                                        {t('projectTitle')}
-                                    </FrontTitle>
-                                    {t('projectTitle')}
-                                </BackTitle>
+                                <ReactPlayer style={{float:"left", marginLeft:30, marginRight:30}} playing={false} width="50%" controls={false} url={"https://www.youtube.com/playlist?list=PLivtOKkDMT24-wZG7AUGBx-EUJG5OUuOt"} />
                                 <p>
                                     {t('projectPre')}
                                 </p>
@@ -227,6 +231,10 @@ export default function Dashboard(){
                 <List size='lg'>
                     {recentNews.map((news, index)=><List.Item><NewsPanel key={index} news={news}> </NewsPanel></List.Item>)}
                 </List>
+                <FlexCenterDiv>
+                    <MainButton onClick={()=>history.push(Routes.newsPage)}>View all</MainButton>
+                </FlexCenterDiv>
+
             </Panel>
 
            {/* <Panel shaded style={panelStyle}>
@@ -251,13 +259,14 @@ export default function Dashboard(){
 
 }
 
-function CategoryPanel({category}){
+export function CategoryPanel({category}){
     const {t, i18n} = useTranslation();
     const {language} = useSelector(state=>state);
+    const history = useHistory();
 
     const picture = (category.picture) ? category.picture : noProjectPicture;
    return <IconTextBox>
-        <img width={75} src={picture}/>
+        <img style={{cursor:"pointer"}} width={75} src={picture} onClick={()=>history.push( Routes.serviceSearchPage, { category: category.value }) }/>
         <BlackLink to={{
             pathname: Routes.serviceSearchPage,
             state: { category: category.value }

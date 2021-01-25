@@ -1,4 +1,4 @@
-import {Button, CheckTreePicker, Col, Form, Grid, HelpBlock, Panel, Row, SelectPicker} from "rsuite";
+import {Button, CheckTreePicker, Col, Form, Grid, HelpBlock, Icon, Panel, Row, SelectPicker} from "rsuite";
 import React, {useEffect, useState} from "react";
 import TextField from "../../Login/Components/TextField";
 import {useSelector} from "react-redux";
@@ -17,6 +17,8 @@ import {
 import {useTranslation} from "react-i18next";
 import {categoriesTreeByLanguage} from "../../Functions/Categories";
 import {expertisesTreeByLanguage} from "../../Functions/Expertises";
+import {manipulateMail, manipulateWebsite} from "../Profile/Profile";
+import {iconStyle, textStyle} from "../Profile/submenus/SocietyContacts";
 
 
 export default function SearchPartners(){
@@ -49,7 +51,7 @@ export default function SearchPartners(){
 
 
     let servicesTree = expertisesTreeByLanguage();
-    let categoriesTree = categoriesTreeByLanguage();
+    let {categoriesTree} = categoriesTreeByLanguage();
 
 
     return <>
@@ -109,14 +111,72 @@ export function PartnerDetail({partner}){
 
     const backgroundImage = (partner && partner.profilePicture && partner.profilePicture.url) ? partner.profilePicture.url  : "/defaults/project_thumbnail.png";
 
+    console.log("partner", partner);
 
     return <Panel header={
         <PartnerTitle partner={partner} />}>
         <Row className="show-grid">
             <Col xs={8}>
                 <div style={{display:"flex", justifyContent:"center"}}>
-                    <div style={{backgroundImage:  `url(${backgroundImage})`, backgroundSize: "contain", width:150, height:150}}/>
+                    <div onClick={()=>history.push(Routes.profile(partner.profileName))} style={{cursor:"pointer",backgroundImage:  `url(${backgroundImage})`, backgroundSize: "contain", width:150, height:150}}/>
                 </div>
+            </Col>
+            <Col xs={16}>
+                <Grid fluid>
+                    <Row>
+                        <Col md={12}>Numero progetti: {partner && partner.projects.length}</Col>
+                        <Col md={12}></Col>
+                    </Row>
+                    <Row>
+                        <Col md={12}>Numero servizi: {partner && partner.services.length}</Col>
+                        <Col md={12}>Numero collaborazioni: {partner && partner.collaborations.length}</Col>
+                    </Row>
+                </Grid>
+                <Grid fluid>
+                    <Row>
+                        <Col xs={6} md={2}><Icon style={iconStyle} icon="globe" size="3x" /></Col>
+                        <Col xs={18} md={6}>
+                            <div style={textStyle}>
+                                <a style={{wordBreak:"break-word"}} target="_blank" href={partner && manipulateWebsite(partner.website)}> {partner && partner.website}</a>
+                            </div>
+
+                        </Col>
+                        <Col xs={6} md={2}><Icon style={iconStyle} icon="envelope" size="3x" /></Col>
+                        <Col xs={18} md={6}>
+                            <div style={textStyle}>
+                                <a style={{wordBreak:"break-word"}} href={partner && manipulateMail(partner.email)}> {partner && partner.email}</a>
+                            </div>
+
+                        </Col>
+                        <Col xs={6} md={2}><Icon style={iconStyle} icon="phone-square" size="3x" /></Col>
+                        <Col xs={18} md={6}>
+                            <div style={textStyle}>
+
+                                {partner && partner.telephone}
+                            </div>
+                        </Col>
+                    </Row>
+                    <Row>
+                        <Col xs={6} md={2}><Icon style={iconStyle} icon="facebook-square" size="3x" /></Col>
+                        <Col xs={18} md={6}>
+                            <div style={textStyle}>
+                                <a style={{wordBreak:"break-word"}} target="_blank" href={partner && manipulateWebsite(partner.facebook)}> {partner && partner.facebook}</a>
+                            </div>
+                        </Col>
+                        <Col xs={6} md={2}><Icon style={iconStyle} icon="linkedin-square" size="3x" /></Col>
+                        <Col xs={18} md={6}>
+                            <div style={textStyle}>
+                                <a style={{wordBreak:"break-word"}} target="_blank" href={partner && manipulateWebsite(partner.linkedin)}> {partner && partner.linkedin}</a>
+                            </div>
+                        </Col>
+                        <Col xs={6} md={2}><Icon style={iconStyle} icon="twitter-square" size="3x" /></Col>
+                        <Col xs={18} md={6}>
+                            <div style={textStyle}>
+                                <a style={{wordBreak:"break-word"}} target="_blank" href={partner && manipulateWebsite(partner.twitter)}> {partner && partner.twitter}</a>
+                            </div>
+                        </Col>
+                    </Row>
+                </Grid>
             </Col>
         </Row>
     </Panel>

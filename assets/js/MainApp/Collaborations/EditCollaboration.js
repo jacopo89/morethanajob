@@ -26,7 +26,7 @@ export default function EditCollaboration({isService}) {
 
     const {categories} = useSelector(state=>state);
 
-    let categoriesTree = categoriesTreeByLanguage();
+    let {categoriesTree} = categoriesTreeByLanguage();
 
     const model = (isService) ? serviceModel : collaborationModel;
 

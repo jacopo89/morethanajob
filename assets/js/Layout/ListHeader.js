@@ -7,7 +7,7 @@ import * as ActionTypes from "../Redux/actions";
 import {useHistory} from "react-router-dom";
 import {headerHeight} from "../styledComponents/CustomComponents";
 
-export default function FinalHeader(){
+export default function ListHeader(){
 
     const { t, i18n } = useTranslation();
     const history = useHistory();
@@ -63,12 +63,23 @@ export default function FinalHeader(){
         </Navbar.Header>
         <Navbar.Body>
             <Nav>
+                <Nav.Item  onClick={() => history.push(Routes.dashboardPage)} eventKey="1" icon={<Icon icon="home"/>}>Home</Nav.Item>
+                <Nav.Item onClick={()=> history.push(Routes.serviceSearchPage)} eventKey="3">{t('Search projects')}</Nav.Item>
+                <Nav.Item onClick={()=> history.push(Routes.searchUserPage)} eventKey="4">{t('Search organisations')}</Nav.Item>
+                {user && <Nav.Item onClick={()=> history.push(Routes.profile(user.profileName))} >{t('Profile')}</Nav.Item>}
+                {user && user.roles.includes("ROLE_ADMIN") && <Dropdown.Menu pullLeft title={t('Administration')} >
+                    <Dropdown.Item onClick={()=> history.push(Routes.administrationProjects)} eventKey="e-2">Projects</Dropdown.Item>
+                    <Dropdown.Item onClick={()=> history.push(Routes.administrationCollaborations)} eventKey="e-3">Services and collaborations</Dropdown.Item>
+                    <Dropdown.Item onClick={()=> history.push(Routes.administrationUsers)} eventKey="e-4">Users</Dropdown.Item>
+                    <Dropdown.Item onClick={()=> history.push(Routes.administrationCategories)} eventKey="e-5">Categories</Dropdown.Item>
+                    <Dropdown.Item onClick={()=> history.push(Routes.administrationExpertise)} eventKey="e-6">Expertise</Dropdown.Item>
+                    <Dropdown.Item onClick={()=> history.push(Routes.administrationNews)} eventKey="e-7">News</Dropdown.Item>
+                </Dropdown.Menu>}
+                {authenticated && <Nav.Item href="/backend/logout" >{t('Logout')}</Nav.Item>}
+                {!authenticated && <Nav.Item href="/login" >{t('Login')}</Nav.Item>}
                 <LanguageDropdown title={t('Menu language')} />
                 {false && <Nav.Item onClick={()=>history.push(Routes.registration)} icon={<Icon icon="cog" />}>Register</Nav.Item>}
-                 <CustomDropdown icon={<Icon icon="bars" />} placement="bottomEnd" />
             </Nav>
         </Navbar.Body>
     </Navbar>
 }
-
-

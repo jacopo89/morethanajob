@@ -19,7 +19,7 @@ export function categoriesTreeByLanguage(){
         setLanguageCategories(newCategories);
     },[language, categories]);
 
-    return generateCategoriesTree(languageCategories);
+    return {categories: languageCategories, categoriesTree:generateCategoriesTree(languageCategories)};
 
     r
 
