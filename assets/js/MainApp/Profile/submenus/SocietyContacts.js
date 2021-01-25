@@ -71,11 +71,11 @@ export default function SocietyContacts({society}){
    </>
 }
 
-const iconStyle = {
+export const iconStyle = {
     color:bordeaux, justifyContent:"center", display:"flex", height:100, alignItems:"center"
 }
 
-const textStyle = {
+export const textStyle = {
     justifyContent:"start", display:"flex", height:100, alignItems:"center", wordBreak:"break-word"
 }
 

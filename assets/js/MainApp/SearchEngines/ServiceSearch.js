@@ -31,6 +31,7 @@ import {
     Title
 } from "../../styledComponents/CustomComponents";
 import {categoriesTreeByLanguage} from "../../Functions/Categories";
+import {CategoryPanel} from "../Dashboard";
 
 
 export default function ServiceSearch(){
@@ -123,7 +124,7 @@ export default function ServiceSearch(){
         getServicesHandler();
     },[]);
 
-    let categoriesTree = categoriesTreeByLanguage();
+    let {categoriesTree, categories} = categoriesTreeByLanguage();
 
 
 
@@ -138,6 +139,9 @@ export default function ServiceSearch(){
                     </FrontTitle>
                     {t('Search projects')}
                 </BackTitle>
+            </FlexAroundDiv>
+            <FlexAroundDiv>
+                {categories.slice(0,4).map((category, index)=> <CategoryPanel key={index} category={category} /> )}
             </FlexAroundDiv>
             <p>
                 In this section, you can find the services and opportunities that the organisations are

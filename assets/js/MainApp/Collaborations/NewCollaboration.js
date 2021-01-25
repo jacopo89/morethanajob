@@ -20,7 +20,7 @@ export default function NewCollaboration({isService=false}){
     const history = useHistory();
     const { t, i18n } = useTranslation();
 
-    let categoriesTree = categoriesTreeByLanguage();
+    let {categoriesTree} = categoriesTreeByLanguage();
 
     useEffect(()=>{
         getProjectsHandler(user.email, {dataManipulationFunction:(data)=>{
