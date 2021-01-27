@@ -14,7 +14,7 @@ import {applyMiddleware, compose, createStore} from "redux";
 import thunk from 'redux-thunk';
 import {Provider, useDispatch, useSelector} from "react-redux";
 import Login from "./Login/Pages/Login";
-import {Router, Redirect, Route, Switch, useLocation, useHistory,BrowserRouter} from "react-router-dom";
+import {Router, Redirect, Route, Switch, useLocation,BrowserRouter} from "react-router-dom";
 import reducer from "./Redux/reducer";
 import Registration from "./Login/Pages/Registration";
 import RecoverPasswordForm from "./Login/Components/RecoverPasswordForm";
@@ -59,20 +59,17 @@ import {createBrowserHistory} from "history";
 import Statistics from "./MainApp/Administration/Statistics";
 
 function App(){
+    const location = useLocation();
+    useEffect(()=>{
+        ReactGA.set({ page: location.pathname }); // Update the user's current page
+        ReactGA.send({ page: location.pathname })
+    },[location])
+
     const dispatch = useDispatch();
     const {authenticated, language} = useSelector(state=>state);
 
     const authenticationData = document.getElementById('js-user-rating');
     const userData = document.getElementById('js-user-profile');
-    const location = useLocation();
-
-    useEffect(()=>{
-        //console.log("location", location);
-        ReactGA.set({ page: location.pathname }); // Update the user's current page
-        ReactGA.pageview(location.pathname); // Record a pageview for the given page
-    },[location]);
-
-
 
 
     useEffect(()=>{
@@ -230,11 +227,7 @@ const store = createStore(reducer,composeEnhancers(
 
 ReactGA.initialize("G-CWESWE50Y8");
 // Initialize google analytics page view tracking
-/*history.listen(location => {
 
-    ReactGA.set({ page: location.pathname }); // Update the user's current page
-   // ReactGA.pageview(location.pathname); // Record a pageview for the given page
-});*/
 
 const  firebaseConfig = {
     apiKey: "AIzaSyDxbfpWNPN68Pd2arE1mVZlDPSJ_ddbLio",

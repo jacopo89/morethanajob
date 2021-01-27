@@ -6,8 +6,8 @@ import ListHeader from "../ListHeader";
 export function useHeader(){
     const{ isTabletOrMobile: isSmall} =  useMyCustomMediaQuery();
 
-    if(isSmall){
+
         return <FinalHeader/>
-    }
+
     return <ListHeader/>
 }

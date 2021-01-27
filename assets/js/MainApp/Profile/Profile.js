@@ -107,6 +107,13 @@ export function manipulateMail(mail){
 
 }
 
+export function manipulatePhone(phone){
+    if(phone){
+        return "tel:"+phone
+    }
+
+}
+
 
 
 
