@@ -26,10 +26,10 @@ class FileSystemService extends AbstractController
     public function createUserFolder($userIdentifier){
 
 
+
         $userFolderPath = $this->getParameter('kernel.project_dir').'/public/uploads/users';
-        $isCreated = mkdir($userFolderPath."/".$userIdentifier);
-        if(!$isCreated){
-            $this->logger->error( self::class.".createUserFolder"."/".$userIdentifier );
+        if(!is_dir($userFolderPath)){
+            $isCreated = mkdir($userFolderPath."/".$userIdentifier);
         }
     }
 

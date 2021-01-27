@@ -1,4 +1,4 @@
-import {Button, CheckTreePicker, Col, Form, Grid, HelpBlock, Icon, Panel, Row, SelectPicker} from "rsuite";
+import {Button, CheckTreePicker, Col, Form, Grid, HelpBlock, Icon, IconButton, Panel, Row, SelectPicker} from "rsuite";
 import React, {useEffect, useState} from "react";
 import TextField from "../../Login/Components/TextField";
 import {useSelector} from "react-redux";
@@ -17,13 +17,13 @@ import {
 import {useTranslation} from "react-i18next";
 import {categoriesTreeByLanguage} from "../../Functions/Categories";
 import {expertisesTreeByLanguage} from "../../Functions/Expertises";
-import {manipulateMail, manipulateWebsite} from "../Profile/Profile";
+import {manipulateMail, manipulatePhone, manipulateWebsite} from "../Profile/Profile";
 import {iconStyle, textStyle} from "../Profile/submenus/SocietyContacts";
+import {getProfileLanguageElements} from "../../Functions/Profile";
 
 
 export default function SearchPartners(){
 
-    console.log("partners page");
     const [partners, getPartnersHandler] = useSearcbPartners();
     const {t, i18n} = useTranslation();
 
@@ -35,8 +35,6 @@ export default function SearchPartners(){
         Object.keys(formValue).forEach((key)=>  { formData.append(key,JSON.stringify(formValue[key]));});
         getPartnersHandler(formData);
     }
-    //const [projects, getProjectsHandler] = useGetLastProjects();
-    const history = useHistory();
 
     useEffect(()=>{
         getPartnersHandler();
@@ -107,6 +105,7 @@ export default function SearchPartners(){
 export function PartnerDetail({partner}){
 
     const history = useHistory();
+    const {description} = getProfileLanguageElements(partner);
 
     const backgroundImage = (partner && partner.profilePicture && partner.profilePicture.url) ? partner.profilePicture.url  : "/defaults/project_thumbnail.png";
 
@@ -120,58 +119,92 @@ export function PartnerDetail({partner}){
             </Col>
             <Col xs={16}>
                 <Grid fluid>
+                    <FormRow>
+                        {description}
+                    </FormRow>
                     <Row>
-                        <Col md={12}>Numero progetti: {partner && partner.projects.length}</Col>
-                        <Col md={12}></Col>
-                    </Row>
-                    <Row>
-                        <Col md={12}>Numero servizi: {partner && partner.services.length}</Col>
-                        <Col md={12}>Numero collaborazioni: {partner && partner.collaborations.length}</Col>
+                        <Col md={8}>Numero progetti: {partner && partner.projects.length}</Col>
+                        <Col md={8}>Numero servizi: {partner && partner.services.length}</Col>
+                        <Col md={8}>Numero collaborazioni: {partner && partner.collaborations.length}</Col>
+
                     </Row>
                 </Grid>
                 <Grid fluid>
                     <Row>
-                        <Col xs={6} md={2}><Icon style={iconStyle} icon="globe" size="3x" /></Col>
-                        <Col xs={18} md={6}>
-                            <div style={textStyle}>
-                                <a style={{wordBreak:"break-word"}} target="_blank" href={partner && manipulateWebsite(partner.website)}> {partner && partner.website}</a>
-                            </div>
+                        {partner && partner.website &&
+                            <>
+                                <Col xs={4} md={4}>
+                                    <Button style={{backgroundColor: "transparent"}} target="_blank" onClick={() => window.location.href = partner && manipulateWebsite(partner.website)}><Icon style={iconStyle} icon="globe" size="3x"/></Button>
+                                </Col>
+                                {/*<Col xs={18} md={6}>
+                                    <div style={textStyle}>
+                                        <a style={{wordBreak: "break-word"}} target="_blank" href={manipulateWebsite(partner.website)}> {partner && partner.website}</a>
+                                    </div>
 
-                        </Col>
-                        <Col xs={6} md={2}><Icon style={iconStyle} icon="envelope" size="3x" /></Col>
-                        <Col xs={18} md={6}>
-                            <div style={textStyle}>
-                                <a style={{wordBreak:"break-word"}} href={partner && manipulateMail(partner.email)}> {partner && partner.email}</a>
-                            </div>
+                                </Col>*/}
+                            </>
+                        }
+                        {partner && partner.email &&
+                            <>
+                                <Col xs={4} md={4}><Button style={{backgroundColor: "transparent"}} target="_blank" onClick={() => window.location.href = manipulateMail(partner.email)}><Icon style={iconStyle} icon="envelope" size="3x"/></Button></Col>
+                               {/* <Col xs={18} md={6}>
+                                    <div style={textStyle}>
+                                        <a style={{wordBreak:"break-word"}} href={manipulateMail(partner.email)}> {partner.email}</a>
+                                    </div>
 
-                        </Col>
-                        <Col xs={6} md={2}><Icon style={iconStyle} icon="phone-square" size="3x" /></Col>
-                        <Col xs={18} md={6}>
-                            <div style={textStyle}>
+                                </Col>*/}
+                            </>
+                        }
+                        {
+                            partner && partner.telephone && <>
+                                <Col xs={4} md={4}>
+                                    <Button style={{backgroundColor: "transparent"}} target="_blank" onClick={() => window.location.href = manipulatePhone(partner.telephone)}><Icon style={iconStyle} icon="phone-square" size="3x" /></Button>
+                                    </Col>
+                                {/*<Col xs={18} md={6}>
+                                    <div style={textStyle}>
 
-                                {partner && partner.telephone}
-                            </div>
-                        </Col>
-                    </Row>
-                    <Row>
-                        <Col xs={6} md={2}><Icon style={iconStyle} icon="facebook-square" size="3x" /></Col>
-                        <Col xs={18} md={6}>
-                            <div style={textStyle}>
-                                <a style={{wordBreak:"break-word"}} target="_blank" href={partner && manipulateWebsite(partner.facebook)}> {partner && partner.facebook}</a>
-                            </div>
-                        </Col>
-                        <Col xs={6} md={2}><Icon style={iconStyle} icon="linkedin-square" size="3x" /></Col>
-                        <Col xs={18} md={6}>
-                            <div style={textStyle}>
-                                <a style={{wordBreak:"break-word"}} target="_blank" href={partner && manipulateWebsite(partner.linkedin)}> {partner && partner.linkedin}</a>
-                            </div>
-                        </Col>
-                        <Col xs={6} md={2}><Icon style={iconStyle} icon="twitter-square" size="3x" /></Col>
-                        <Col xs={18} md={6}>
-                            <div style={textStyle}>
-                                <a style={{wordBreak:"break-word"}} target="_blank" href={partner && manipulateWebsite(partner.twitter)}> {partner && partner.twitter}</a>
-                            </div>
-                        </Col>
+                                        {partner && partner.telephone}
+                                    </div>
+                                </Col>*/}
+                            </>
+                        }
+                        {
+                            partner && partner.facebook && <>
+                                <Col xs={4} md={4}>
+                                    <Button style={{backgroundColor: "transparent"}} target="_blank" onClick={() => window.location.href = manipulateWebsite(partner.facebook)}><Icon style={iconStyle} icon="facebook-square" size="3x" /></Button>
+                                </Col>
+                                {/*<Col xs={18} md={6}>
+                                    <div style={textStyle}>
+                                        <a style={{wordBreak:"break-word"}} target="_blank" href={partner && manipulateWebsite(partner.facebook)}> {partner && partner.facebook}</a>
+                                    </div>
+                                </Col>*/}
+                            </>
+                        }
+                        {
+                            partner && partner.linkedin && <>
+                                <Col xs={4} md={4}>
+                                    <Button style={{backgroundColor: "transparent"}} target="_blank" onClick={() => window.location.href = manipulateWebsite(partner.linkedin)}><Icon style={iconStyle} icon="linkedin-square" size="3x" /></Button>
+                                </Col>
+                                {/* <Col xs={18} md={6}>
+                                    <div style={textStyle}>
+                                        <a style={{wordBreak:"break-word"}} target="_blank" href={partner && manipulateWebsite(partner.linkedin)}> {partner && partner.linkedin}</a>
+                                    </div>
+                                </Col>*/}
+                            </>
+                        }
+                        {
+                            partner && partner.twitter && <>
+                                <Col xs={6} md={2}>
+                                    <Button style={{backgroundColor: "transparent"}} target="_blank" onClick={() => window.location.href = manipulateWebsite(partner.twitter)}><Icon style={iconStyle} icon="twitter-square" size="3x" /></Button></Col>
+                                {/*<Col xs={18} md={6}>
+                                    <div style={textStyle}>
+                                        <a style={{wordBreak:"break-word"}} target="_blank" href={partner && manipulateWebsite(partner.twitter)}> {partner && partner.twitter}</a>
+                                    </div>
+                                </Col>*/}
+                            </>
+                        }
+
+
                     </Row>
                 </Grid>
             </Col>

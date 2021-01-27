@@ -84,7 +84,7 @@ const Header = () => {
             </Navbar.Header>
             <Navbar.Body>
                 <Nav>
-                    <LanguageDropdown title={t('Menu language')} />
+                    <LanguageDropdown title={t('Language')} />
                     {false && <Nav.Item href={Routes.registration} icon={<Icon icon="cog" />}>Register</Nav.Item>}
                     <CustomDropdown icon={<Icon icon="bars" />} placement="bottomEnd" />
                 </Nav>
