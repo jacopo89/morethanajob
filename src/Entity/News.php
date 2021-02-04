@@ -105,7 +105,11 @@ class News implements \JsonSerializable
         $this->link = $link;
         $this->creationTime = new \DateTimeImmutable();
         $this->files = new ArrayCollection();
-        $this->type = $type;
+        if($type){
+            $this->type = $type;
+        }else{
+            $this->type = self::PROJECT_NEWS;
+        }
     }
 
     public static function createFromDTO(NewsDTO $newsDTO){

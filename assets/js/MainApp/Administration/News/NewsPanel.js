@@ -25,14 +25,19 @@ export default function NewsPanel({news}){
 
     const type = (typeElement) ? typeElement.label :"";
     let imageUrl="";
-    switch(typeElement.value){
-        case 1: imageUrl = projectNewsPicture; break;
-        case 2: imageUrl = relevantPublicationsPicture; break;
-        case 3: imageUrl = projectDisseminationPicture; break;
-        case 4: imageUrl = fundingOpportunitiesPicture; break;
-        case 5: imageUrl = videoTutorialPicture; break;
-        default: imageUrl = "";
+    if(typeElement){
+        switch(typeElement.value){
+            case 1: imageUrl = projectNewsPicture; break;
+            case 2: imageUrl = relevantPublicationsPicture; break;
+            case 3: imageUrl = projectDisseminationPicture; break;
+            case 4: imageUrl = fundingOpportunitiesPicture; break;
+            case 5: imageUrl = videoTutorialPicture; break;
+            default: imageUrl = "";
+        }
+    }else{
+        imageUrl = "";
     }
+
 
     return <div>
         <Grid fluid>
