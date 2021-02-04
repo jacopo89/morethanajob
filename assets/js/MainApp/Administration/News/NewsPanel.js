@@ -21,6 +21,8 @@ export default function NewsPanel({news}){
         return item.value ===news.type
     });
 
+    console.log(typeElement);
+
     const type = (typeElement) ? typeElement.label :"";
     let imageUrl;
     switch(typeElement.value){
