@@ -77,6 +77,12 @@ export const projectPicture = "/defaults/project_thumbnail.png";
 export const coverPicture = "/defaults/cover_thumbnail.png";
 export const noProfilePicture = "/defaults/no-image.png";
 export const noProjectPicture = "/defaults/no-image.png";
+export const fundingOpportunitiesPicture = "/defaults/news/funding_opportunities.png";
+export const projectDisseminationPicture = "/defaults/news/project_dissemination.png";
+export const projectNewsPicture = "/defaults/news/project_news.png";
+export const videoTutorialPicture = "/defaults/news/video_tutorial.png";
+export const relevantPublicationsPicture = "/defaults/news/relevant_publications.png";
+export const userPagePicture = "/defaults/head-search.png";
 
 export const FormBox = styled.div`
 padding: 10px;

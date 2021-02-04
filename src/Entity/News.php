@@ -22,6 +22,7 @@ class News implements \JsonSerializable
     const RELEVANT_PUBLICATIONS = 2;
     const PROJECT_DISSEMINATION_MATERIAL_RESOURCES = 3;
     const FUNDING_OPPORTUNITIES = 4;
+    const VIDEO_TUTORIAL = 5;
 
     /**
      * @ORM\Id()
