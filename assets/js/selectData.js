@@ -132,6 +132,10 @@ export const newsSelectData = [
     {
         "label": "Funding opportunities",
         "value": 4
+    },
+    {
+        "label": "Video tutorial",
+        "value": 5
     }
 ]
 

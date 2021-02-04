@@ -12,7 +12,7 @@ import {
     FlexAroundDiv,
     FlexCenterDiv,
     FormRow,
-    FrontTitle, MainButton
+    FrontTitle, MainButton, userPagePicture
 } from "../../styledComponents/CustomComponents";
 import {useTranslation} from "react-i18next";
 import {categoriesTreeByLanguage} from "../../Functions/Categories";
@@ -52,8 +52,9 @@ export default function SearchPartners(){
 
 
     return <>
-
+        <img width={"100%"} src={userPagePicture}/>
         <Panel bordered>
+
             <FlexAroundDiv>
                 <BackTitle >
                     <FrontTitle>

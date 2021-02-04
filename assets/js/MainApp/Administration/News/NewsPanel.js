@@ -1,6 +1,11 @@
 import React from "react";
 import {manipulateWebsite} from "../../Profile/Profile";
-import {bordeaux, FlexBetweenDiv} from "../../../styledComponents/CustomComponents";
+import {
+    bordeaux, FlexAroundDiv,
+    FlexBetweenDiv, fundingOpportunitiesPicture, projectDisseminationPicture,
+    projectNewsPicture,
+    relevantPublicationsPicture, videoTutorialPicture
+} from "../../../styledComponents/CustomComponents";
 import styled from "styled-components";
 import {List, FlexboxGrid, Icon, Grid, Row, Col} from "rsuite";
 import {newsSelectData} from "../../../selectData";
@@ -17,11 +22,23 @@ export default function NewsPanel({news}){
     });
 
     const type = (typeElement) ? typeElement.label :"";
+    let imageUrl;
+    switch(typeElement.value){
+        case 1: imageUrl = projectNewsPicture; break;
+        case 2: imageUrl = relevantPublicationsPicture; break;
+        case 3: imageUrl = projectDisseminationPicture; break;
+        case 4: imageUrl = fundingOpportunitiesPicture; break;
+        case 5: imageUrl = videoTutorialPicture; break;
+    }
 
     return <div>
         <Grid fluid>
             <Row>
-                <Col xs={6}></Col>
+                <Col xs={6}>
+                    <FlexAroundDiv>
+                        <img style={{cursor:"pointer"}} width={"100"} src={imageUrl}/>
+                    </FlexAroundDiv>
+                </Col>
                 <Col xs={12}>
                         <a target="_blank" href={manipulateWebsite(news.link)}><Title>{news.title}</Title></a>
                 </Col>
