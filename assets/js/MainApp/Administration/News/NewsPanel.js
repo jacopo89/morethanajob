@@ -24,13 +24,14 @@ export default function NewsPanel({news}){
     console.log(typeElement);
 
     const type = (typeElement) ? typeElement.label :"";
-    let imageUrl;
+    let imageUrl="";
     switch(typeElement.value){
         case 1: imageUrl = projectNewsPicture; break;
         case 2: imageUrl = relevantPublicationsPicture; break;
         case 3: imageUrl = projectDisseminationPicture; break;
         case 4: imageUrl = fundingOpportunitiesPicture; break;
         case 5: imageUrl = videoTutorialPicture; break;
+        default: imageUrl = "";
     }
 
     return <div>
