@@ -62,8 +62,9 @@ import Privacy from "./Privacy";
 function App(){
     const location = useLocation();
     useEffect(()=>{
-        ReactGA.set({ page: location.pathname }); // Update the user's current page
-        ReactGA.send({ page: location.pathname })
+        ReactGA.pageview(location.pathname);
+        //ReactGA.set({ page: location.pathname }); // Update the user's current page
+        //ReactGA.send({ page: location.pathname })
     },[location])
 
     const dispatch = useDispatch();
