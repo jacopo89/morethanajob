@@ -62,6 +62,7 @@ import Privacy from "./Privacy";
 function App(){
     const location = useLocation();
     useEffect(()=>{
+        console.log("location", location);
         ReactGA.pageview(location.pathname);
         //ReactGA.set({ page: location.pathname }); // Update the user's current page
         //ReactGA.send({ page: location.pathname })
@@ -229,7 +230,12 @@ const store = createStore(reducer,composeEnhancers(
     applyMiddleware(thunk)
 ));
 
-ReactGA.initialize("G-CWESWE50Y8");
+/*ReactGA.initialize("G-CWESWE50Y8",{
+    siteSpeedSampleRate:100
+});*/
+ReactGA.initialize("G-ZGTBFYBYBY",{
+    siteSpeedSampleRate:100
+})
 ReactGA.pageview(window.location.pathname);
 // Initialize google analytics page view tracking
 
