@@ -41,12 +41,15 @@ export const MainButton = styled(Button)`
     background-color: ${bordeaux};
     color: white;
     border-radius:999px;
+    margin-top:10px;
+    margin-bottom:10px;
     `;
 
 export const SecondaryButton = styled(Button)`
     background-color: white;
     color: ${bordeaux};
-    border: 1px solid ${bordeaux}
+    border: 1px solid ${bordeaux};
+    border-radius:999px;
 `;
 
 

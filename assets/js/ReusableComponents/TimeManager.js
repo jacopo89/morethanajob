@@ -105,3 +105,7 @@ export function defaultDateToStringTime(item){
 export function getTime(timeString){
     return moment(timeString.timestamp*1000).format("DD/MM/YYYY hh:mm");
 }
+
+export function getDate(timeString){
+    return moment(timeString.timestamp*1000).format("DD/MM/YYYY");
+}

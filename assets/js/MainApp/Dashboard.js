@@ -274,6 +274,8 @@ export function CategoryPanel({category}){
     </IconTextBox>
 }
 
+
+
 function TitleWithBack(text){
     return <BackTitle>
         <FrontTitle>{text}</FrontTitle>
@@ -286,7 +288,7 @@ const SmallTitle = styled.h6`color:${bordeaux}; margin:10px`;
 
 const DesktopDiv = styled.div`position: absolute;  width: 100vw; min-height:100%;`;
 const Box = styled.div`width: 85%; border-radius:20px; background-color:whitesmoke; margin:0 auto; padding:20; margin-top:20`;
-const IconTextBox = styled.div`display: flex;
+export const IconTextBox = styled.div`display: flex;
     flex-direction: column;
     align-items: center;
     max-width: 158px;
@@ -297,7 +299,7 @@ const Anchor = styled.div
     left: 0px;
     top: -100px;`;
 
-const BlackLink = styled(Link)`
+export const BlackLink = styled(Link)`
     color: black;
 `
 

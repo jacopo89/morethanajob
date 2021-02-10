@@ -9,7 +9,12 @@ import {
 import styled from "styled-components";
 import {List, FlexboxGrid, Icon, Grid, Row, Col} from "rsuite";
 import {newsSelectData} from "../../../selectData";
-import {customNormalizedDateToString, getCalendarFormat, getTime} from "../../../ReusableComponents/TimeManager";
+import {
+    customNormalizedDateToString,
+    getCalendarFormat,
+    getDate,
+    getTime
+} from "../../../ReusableComponents/TimeManager";
 
 export default function NewsPanel({news}){
 
@@ -20,8 +25,6 @@ export default function NewsPanel({news}){
     const typeElement = newsSelectData.find(item => {
         return item.value ===news.type
     });
-
-    console.log(typeElement);
 
     const type = (typeElement) ? typeElement.label :"";
     let imageUrl="";
@@ -57,7 +60,7 @@ export default function NewsPanel({news}){
                 <Col xs={12}>
                     <FlexBetweenDiv>
                         <h6>{type}</h6>
-                        {getTime(news.creationTime)}
+                        {getDate(news.creationTime)}
                     </FlexBetweenDiv>
                 </Col>
                 <Col xs={6}></Col>
@@ -96,6 +99,12 @@ export function FileList({data}){
         alignItems: 'center',
         height: '60px'
     };
+    const styleRight = {
+        display: 'flex',
+        justifyContent: 'flex-end',
+        alignItems: 'center',
+        height: '60px'
+    };
     const slimText = {
         fontSize: '0.666em',
         color: '#97969B',
@@ -120,7 +129,7 @@ export function FileList({data}){
                 <FlexboxGrid>
                     {/*icon*/}
                     {/*base info*/}
-                    <FlexboxGrid.Item colspan={6} style={{
+                    <FlexboxGrid.Item colspan={12} style={{
                         ...styleCenter,
                         flexDirection: 'column',
                         alignItems: 'flex-start',
@@ -129,8 +138,8 @@ export function FileList({data}){
                         <div style={titleStyle}>{item['filename']}</div>
                     </FlexboxGrid.Item>
                     {/*peak data*/}
-                    <FlexboxGrid.Item colspan={4} style={{
-                        ...styleCenter
+                    <FlexboxGrid.Item colspan={12} style={{
+                        ...styleRight
                     }}>
                         <a target="__blank"  href={item["url"]}>View</a>
                         <span style={{ padding: 5 }}>|</span>
@@ -140,4 +149,15 @@ export function FileList({data}){
             </List.Item>
         )}
     </List>
+}
+
+export function chooseNewsImage(number){
+    switch(number){
+        case 1: return projectNewsPicture;
+        case 2: return relevantPublicationsPicture;
+        case 3: return projectDisseminationPicture;
+        case 4: return fundingOpportunitiesPicture;
+        case 5: return videoTutorialPicture;
+        default: return "";
+    }
 }

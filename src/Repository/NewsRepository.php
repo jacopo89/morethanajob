@@ -57,7 +57,7 @@ class NewsRepository extends ServiceEntityRepository
 
     public function getAllOrdered(){
         return $this->createQueryBuilder('n')
-            ->orderBy('n.creationTime', 'ASC')
+            ->orderBy('n.creationTime', 'DESC')
             ->getQuery()
             ->getResult();
     }

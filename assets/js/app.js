@@ -14,7 +14,7 @@ import {applyMiddleware, compose, createStore} from "redux";
 import thunk from 'redux-thunk';
 import {Provider, useDispatch, useSelector} from "react-redux";
 import Login from "./Login/Pages/Login";
-import {Router, Redirect, Route, Switch, useLocation,BrowserRouter} from "react-router-dom";
+import {BrowserRouter, Redirect, Route, Router, Switch, useLocation} from "react-router-dom";
 import reducer from "./Redux/reducer";
 import Registration from "./Login/Pages/Registration";
 import RecoverPasswordForm from "./Login/Components/RecoverPasswordForm";
@@ -55,8 +55,9 @@ import ExpertiseManagement from "./MainApp/Administration/ExpertiseManagement";
 import ProfileEdit from "./MainApp/Profile/ProfileEdit";
 import NewsManagement from "./MainApp/Administration/NewsManagement";
 import AllNews from "./MainApp/News/AllNews";
-import {createBrowserHistory} from "history";
 import Statistics from "./MainApp/Administration/Statistics";
+import CookieAccept from "./CookieAccept";
+import Privacy from "./Privacy";
 
 function App(){
     const location = useLocation();
@@ -130,6 +131,7 @@ function App(){
     const editServiceDetailPage = <MainPage page={<EditCollaboration isService={true} />} />
     const newFurniturePage = <MainPage page={<NewFurniture  />} />
     const editFurniturePage = <MainPage page={<EditFurniture  />} />
+    const privacy = <MainPage page={<Privacy  />} />
 
     const immediateLogoutPage = <ImmediateLogout />
     const {isLoading} = useSelector(state=>state);
@@ -141,6 +143,7 @@ function App(){
         (<>
             <Switch>
                 {/*<Route path={Routes.login} children={loginPage}/>*/}
+                <Route path={Routes.privacy} children={privacy}/>
                 <Route path={Routes.changePassword} children={changePasswordPage} />
                 <Route path={Routes.routeEditCollaboration} children={editCollaborationDetailPage}/>
                 <Route path={Routes.routeEditService} children={editServiceDetailPage}/>
@@ -171,6 +174,8 @@ function App(){
                 <Route path={Routes.main} children={dashboardPage}/>
 
 
+
+
             </Switch>
         </>);
 
@@ -178,6 +183,7 @@ function App(){
         (<>
             <Switch>
                 {/*<Route path={Routes.login} children={loginPage}/>*/}
+                <Route path={Routes.privacy} children={privacy}/>
                 <Route path={Routes.routeEditCollaboration} children={editCollaborationDetailPage}/>
                 <Route path={Routes.routeEditService} children={editServiceDetailPage}/>
                 <Route path={Routes.registration} children={registrationPage}/>
@@ -216,9 +222,6 @@ function App(){
     return <>{render}{isLoading && loading}</>;
 }
 
-
-
-
 const composeEnhancers = window.__REDUX_DEVTOOLS_EXTENSION_COMPOSE__ || compose;
 
 const store = createStore(reducer,composeEnhancers(
@@ -226,30 +229,14 @@ const store = createStore(reducer,composeEnhancers(
 ));
 
 ReactGA.initialize("G-CWESWE50Y8");
+ReactGA.pageview(window.location.pathname);
 // Initialize google analytics page view tracking
-
-
-const  firebaseConfig = {
-    apiKey: "AIzaSyDxbfpWNPN68Pd2arE1mVZlDPSJ_ddbLio",
-    authDomain: "morethanajob-555ac.firebaseapp.com",
-    databaseURL: "https://morethanajob-555ac.firebaseio.com",
-    projectId: "morethanajob-555ac",
-    storageBucket: "morethanajob-555ac.appspot.com",
-    messagingSenderId: "658273758321",
-    appId: "1:658273758321:web:abbb5898193d348bac7fd0",
-    measurementId: "G-KH5GT2GVYS"
-};
-
-// Initialize Firebase
-//firebase.initializeApp(firebaseConfig);
-//const messaging = firebase.messaging();
-//messaging.usePublicVapidKey("BJ2vLwEXdwyrGarVrA8BlhuBKHIcjWNIAE4T9uNUoc2xoxEgAiTfpdVp86gVDkL9TPULDd9LkT5L4Uh9bqKTTKo");
-
 
 
 ReactDOM.render(  <Provider store={store}>
     <BrowserRouter history={history}>
             <ScrollToTop />
             <App />
+            <CookieAccept/>
     </BrowserRouter>
 </Provider>, document.getElementById('root'));

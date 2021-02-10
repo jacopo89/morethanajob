@@ -61,7 +61,7 @@ class NewsController extends AbstractController
     /**
      * @param Request $request
      * @return Response
-     * @IsGranted("ROLE_ADMIN")
+     *
      * @Route("/new", methods={"POST"})
      */
     public function createNews(Request $request){

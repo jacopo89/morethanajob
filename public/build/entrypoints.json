@@ -3,20 +3,20 @@
     "app": {
       "js": [
         "/build/runtime.1103dde6.js",
-        "/build/0.997e5eab.js",
-        "/build/1.44471965.js",
-        "/build/app.d1a77a70.js"
+        "/build/0.a5c05731.js",
+        "/build/1.aa0910e8.js",
+        "/build/app.ea306c73.js"
       ],
       "css": [
         "/build/1.c4a94852.css",
-        "/build/app.3e4ad1a6.css"
+        "/build/app.0a6888dc.css"
       ]
     },
     "login": {
       "js": [
         "/build/runtime.1103dde6.js",
-        "/build/0.997e5eab.js",
-        "/build/login.07fc5bd7.js"
+        "/build/0.a5c05731.js",
+        "/build/login.35e16285.js"
       ],
       "css": [
         "/build/login.736e754c.css"

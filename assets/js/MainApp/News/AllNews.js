@@ -1,8 +1,15 @@
 import {useGetAllNews} from "../../Backend/hooks/useNews";
-import NewsPanel from "../Administration/News/NewsPanel";
+import NewsPanel, {chooseNewsImage} from "../Administration/News/NewsPanel";
 import React, {useState, useEffect} from "react";
 import {Pagination, Divider, List, Panel, SelectPicker} from "rsuite";
-import {BackTitle, bordeaux, FlexAroundDiv, FlexBetweenDiv, FrontTitle} from "../../styledComponents/CustomComponents";
+import {
+    BackTitle,
+    bordeaux,
+    FlexAroundDiv,
+    FlexBetweenDiv,
+    FlexCenterDiv,
+    FrontTitle
+} from "../../styledComponents/CustomComponents";
 import {useTranslation} from "react-i18next";
 import {useList} from "../../tools/list";
 import {newsSelectData} from "../../selectData";
@@ -13,7 +20,7 @@ export default function AllNews() {
 
     const {data, get} = useList("news");
     const [page, setPage] = useState(1);
-    const [filter, setFilter] = useState("");
+    const [filter, setFilter] = useState();
 
     useEffect(()=>get(page, {type:filter}), [page, filter]);
 
@@ -26,18 +33,23 @@ export default function AllNews() {
         </div>);
 
     return <div style={{padding:20}}>
-
         <BackTitle >
             <FrontTitle>
                 {t('News')}
             </FrontTitle>
             {t('News')}
         </BackTitle>
+        <FlexBetweenDiv style={{marginBottom:50}}>
+            {newsSelectData.map(({value, label} )=> <FlexCenterDiv style={{flexDirection:"column"}}>
+                <img onClick={()=>setFilter(value)} style={{cursor:"pointer"}} width={"100"} src={chooseNewsImage(value)}/>
+                <div>{label}</div>
+            </FlexCenterDiv>)}
+        </FlexBetweenDiv>
         <FlexBetweenDiv>
-            <PaginationNews/><SelectPicker onChange={setFilter} searchable={false} data={newsSelectData} />
+            <PaginationNews/>
         </FlexBetweenDiv>
 
-        {newsPanels}
+        {newsPanels.length!==0 ? newsPanels : <FlexCenterDiv style={{height:"100%"}}> No news found </FlexCenterDiv>}
     </div>
 
 }
