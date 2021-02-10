@@ -233,9 +233,7 @@ const store = createStore(reducer,composeEnhancers(
 /*ReactGA.initialize("G-CWESWE50Y8",{
     siteSpeedSampleRate:100
 });*/
-ReactGA.initialize("G-ZGTBFYBYBY",{
-    siteSpeedSampleRate:100
-})
+ReactGA.initialize("G-ZGTBFYBYBY")
 ReactGA.pageview(window.location.pathname);
 // Initialize google analytics page view tracking
 
