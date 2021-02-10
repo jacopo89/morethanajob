@@ -126,7 +126,7 @@ export const newsSelectData = [
         "value": 2
     },
     {
-        "label": "Project dissemination material and resources",
+        "label": "Resources",
         "value": 3
     },
     {

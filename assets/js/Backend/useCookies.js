@@ -7,12 +7,14 @@ export default function useCookies(){
     const authenticated = cookies.get('authenticated');
     const user = cookies.get('user');
     const language = cookies.get('language');
+    const acceptCookie = cookies.get('acceptCookie');
 
     return {
         accessToken: accessToken,
         authenticated: authenticated,
         user: user,
-        language: language
+        language: language,
+        cookie: acceptCookie
     }
 }
 

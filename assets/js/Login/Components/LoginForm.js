@@ -19,7 +19,7 @@ export default function LoginForm({loginProps}){
     });
 
     const history = useHistory();
-    const registrationButton = (loginProps.registration) ? <SecondaryButton href={loginProps.registrationNavigation} appearance="default"  >{t('Register')}</SecondaryButton> : <></>;
+    const registrationButton = (loginProps.registration) ? <SecondaryButton href={loginProps.registrationNavigation}>{t('Register')}</SecondaryButton> : <></>;
 
 
     return (
@@ -39,10 +39,10 @@ export default function LoginForm({loginProps}){
                 </FormRow>
                 <Row>
                     <Col xs={24}>
-                        <FlexAroundDiv>
+                        <ButtonToolbar>
                             <MainButton appearance="primary" type="submit">{t('Login')}</MainButton>
                             {registrationButton}
-                        </FlexAroundDiv>
+                        </ButtonToolbar>
                     </Col>
 
                 </Row>

@@ -12,7 +12,7 @@ import {
     Row,
     SelectPicker
 } from "rsuite";
-import React, {useEffect, useState} from "react";
+import React, {useEffect, useState, useMemo} from "react";
 import TextField from "../../Login/Components/TextField";
 import {useGetServices} from "../../Backend/hooks/useServices";
 import {useSearchProjects} from "../../Backend/hooks/useProjects";
@@ -27,11 +27,12 @@ import {
     FlexAroundDiv,
     FlexBetweenDiv, FlexCenterDiv,
     FormBox,
-    FrontTitle, MainButton,
+    FrontTitle, MainButton, noProjectPicture,
     Title
 } from "../../styledComponents/CustomComponents";
 import {categoriesTreeByLanguage} from "../../Functions/Categories";
-import {CategoryPanel} from "../Dashboard";
+import {BlackLink, CategoryPanel, IconTextBox} from "../Dashboard";
+import * as Routes from "../../routes";
 
 
 export default function ServiceSearch(){
@@ -44,6 +45,8 @@ export default function ServiceSearch(){
     const [pagination, setPagination] = useState(1);
     const [limitPerPage, setLimitPerPage] = useState(5);
     const pages = Math.ceil(servicesNumber/limitPerPage);
+
+
 
     const paginationSettings =
         {
@@ -124,10 +127,23 @@ export default function ServiceSearch(){
         getServicesHandler();
     },[]);
 
-    let {categoriesTree, categories} = categoriesTreeByLanguage();
+    let {categoriesTree, categories} =  categoriesTreeByLanguage();
 
 
+    function SamePageCategoryPanel({category}){
+        const {t, i18n} = useTranslation();
+        const {language} = useSelector(state=>state);
+        const history = useHistory();
 
+        const picture = (category.picture) ? category.picture : noProjectPicture;
+        return <IconTextBox>
+            <img style={{cursor:"pointer"}} width={75} src={picture} onClick={()=> setFormValue( {...formValue,  category: [category.id]}) }/>
+            <BlackLink to={{
+                pathname: Routes.serviceSearchPage,
+                state: { category: category.value }
+            }} >{t(category[language])}</BlackLink>
+        </IconTextBox>
+    }
 
     const finalPanels = [...projectPanels, ...servicePanels];
     return <>
@@ -141,7 +157,7 @@ export default function ServiceSearch(){
                 </BackTitle>
             </FlexAroundDiv>
             <FlexAroundDiv>
-                {categories.slice(0,4).map((category, index)=> <CategoryPanel key={index} category={category} /> )}
+                {categories.slice(0,5).map((category, index)=> <SamePageCategoryPanel key={index} category={category} /> )}
             </FlexAroundDiv>
             <p>
                 In this section, you can find the services and opportunities that the organisations are
@@ -195,6 +211,8 @@ export default function ServiceSearch(){
         </FormBox>
         </>
 }
+
+
 
 
 

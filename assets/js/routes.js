@@ -30,7 +30,7 @@ export const routeEditProject = "/edit-project/:id";
 export const routeEditCollaboration = "/edit-collaboration/:id";
 export const routeEditService = "/edit-service/:id";
 export const immediateLogout = "/immediatelogout";
-
+export const privacy = "/privacy";
 export var newsPage = "/news";
 
 export function profile(name){
