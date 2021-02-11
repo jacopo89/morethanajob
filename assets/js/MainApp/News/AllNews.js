@@ -1,15 +1,7 @@
-import {useGetAllNews} from "../../Backend/hooks/useNews";
 import NewsPanel, {chooseNewsImage} from "../Administration/News/NewsPanel";
-import React, {useState, useEffect} from "react";
-import {Pagination, Divider, List, Panel, SelectPicker} from "rsuite";
-import {
-    BackTitle,
-    bordeaux,
-    FlexAroundDiv,
-    FlexBetweenDiv,
-    FlexCenterDiv,
-    FrontTitle
-} from "../../styledComponents/CustomComponents";
+import React, {useEffect, useState} from "react";
+import {Divider, Pagination} from "rsuite";
+import {BackTitle, FlexBetweenDiv, FlexCenterDiv, FrontTitle} from "../../styledComponents/CustomComponents";
 import {useTranslation} from "react-i18next";
 import {useList} from "../../tools/list";
 import {newsSelectData} from "../../selectData";
