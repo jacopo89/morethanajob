@@ -1,15 +1,17 @@
-import {Button, ButtonToolbar} from "rsuite";
+import {ButtonToolbar, Notification} from "rsuite";
 import useCookies from "./Backend/useCookies";
 import React from 'react';
-import { Notification } from 'rsuite';
 import {MainButton, SecondaryButton} from "./styledComponents/CustomComponents";
 import {cookiesOptions} from "./Redux/actions";
 import Cookies from "universal-cookie";
+import {useHistory} from "react-router-dom";
+import * as Routes from "./routes";
 
 
 export default function CookieAccept(){
     const cookies = new Cookies();
     const {cookie} = useCookies();
+    const history = useHistory();
     if(cookie){
         return <div/>
     }else{
@@ -39,6 +41,7 @@ export default function CookieAccept(){
                         <SecondaryButton
                             onClick={() => {
                                 Notification.close();
+                                history.push(Routes.privacy);
                             }}
                         >
                             More info
