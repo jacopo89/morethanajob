@@ -157,6 +157,8 @@ class User implements UserInterface
      */
     private $localLanguageDescription;
 
+    private $activeCollaborations;
+
 
 
     public function __construct()
@@ -168,6 +170,7 @@ class User implements UserInterface
         $this->interests = new ArrayCollection();
         $this->positionUserInterests = new ArrayCollection();
         $this->collaborations = new ArrayCollection();
+        $this->activeCollaborations = new ArrayCollection();
 
     }
 

@@ -18,6 +18,7 @@ use ApiPlatform\Core\Bridge\Doctrine\Orm\Filter\NumericFilter;
 class News implements \JsonSerializable
 {
 
+
     const PROJECT_NEWS = 1;
     const RELEVANT_PUBLICATIONS = 2;
     const PROJECT_DISSEMINATION_MATERIAL_RESOURCES = 3;

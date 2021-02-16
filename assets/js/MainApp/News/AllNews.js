@@ -1,7 +1,13 @@
 import NewsPanel, {chooseNewsImage} from "../Administration/News/NewsPanel";
 import React, {useEffect, useState} from "react";
 import {Divider, Pagination} from "rsuite";
-import {BackTitle, FlexBetweenDiv, FlexCenterDiv, FrontTitle} from "../../styledComponents/CustomComponents";
+import {
+    BackTitle,
+    FlexBetweenDiv,
+    FlexCenterDiv,
+    FrontTitle, newsPagePicture,
+    servicePagePicture
+} from "../../styledComponents/CustomComponents";
 import {useTranslation} from "react-i18next";
 import {useList} from "../../tools/list";
 import {newsSelectData} from "../../selectData";
@@ -24,7 +30,10 @@ export default function AllNews() {
             <Divider />
         </div>);
 
-    return <div style={{padding:20}}>
+    return<>
+        <img width={"100%"} src={newsPagePicture}/>
+        <div style={{padding:20}}>
+
         <BackTitle >
             <FrontTitle>
                 {t('News')}
@@ -43,6 +52,7 @@ export default function AllNews() {
 
         {newsPanels.length!==0 ? newsPanels : <FlexCenterDiv style={{height:"100%"}}> No news found </FlexCenterDiv>}
     </div>
+        </>
 
 }
 

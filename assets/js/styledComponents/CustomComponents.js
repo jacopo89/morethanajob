@@ -85,7 +85,9 @@ export const projectDisseminationPicture = "/defaults/news/project_dissemination
 export const projectNewsPicture = "/defaults/news/project_news.png";
 export const videoTutorialPicture = "/defaults/news/video_tutorial.png";
 export const relevantPublicationsPicture = "/defaults/news/relevant_publications.png";
-export const userPagePicture = "/defaults/head-search.png";
+export const userPagePicture = "/defaults/organisations-header.png";
+export const servicePagePicture = "/defaults/services-header.png";
+export const newsPagePicture = "/defaults/news-header.png";
 
 export const FormBox = styled.div`
 padding: 10px;
