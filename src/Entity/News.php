@@ -11,7 +11,7 @@ use Doctrine\ORM\Mapping as ORM;
 use ApiPlatform\Core\Bridge\Doctrine\Orm\Filter\NumericFilter;
 
 /**
- * @ApiResource(attributes={"order"={"creationTime": "DESC"}})
+ * @ApiResource(attributes={"order"={"creationTime": "ASC"}})
  * @ApiFilter(NumericFilter::class, properties={"type"})
  * @ORM\Entity(repositoryClass="App\Repository\NewsRepository")
  */

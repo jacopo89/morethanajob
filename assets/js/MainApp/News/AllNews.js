@@ -5,8 +5,8 @@ import {
     BackTitle,
     FlexBetweenDiv,
     FlexCenterDiv,
-    FrontTitle, newsPagePicture,
-    servicePagePicture
+    FrontTitle,
+    newsPagePicture
 } from "../../styledComponents/CustomComponents";
 import {useTranslation} from "react-i18next";
 import {useList} from "../../tools/list";
@@ -24,7 +24,11 @@ export default function AllNews() {
 
     const {list:news} = data;
 
-    const newsPanels = news.map((item, index) =>
+    const sortedNews =news.sort((a,b)=> {
+        return (a.creationTime.timestamp > b.creationTime.timestamp) ? -1 :1
+    } )
+
+    const newsPanels = sortedNews.map((item, index) =>
         <div key={index}>
             <NewsPanel key={index} news={item} />
             <Divider />
