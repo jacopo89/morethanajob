@@ -27,12 +27,13 @@ import {
     FlexAroundDiv,
     FlexBetweenDiv, FlexCenterDiv,
     FormBox,
-    FrontTitle, MainButton, noProjectPicture,
-    Title
+    FrontTitle, MainButton, noProjectPicture, servicePagePicture,
+    Title, userPagePicture
 } from "../../styledComponents/CustomComponents";
 import {categoriesTreeByLanguage} from "../../Functions/Categories";
 import {BlackLink, CategoryPanel, IconTextBox} from "../Dashboard";
 import * as Routes from "../../routes";
+import {serviceSearchPage} from "../../routes";
 
 
 export default function ServiceSearch(){
@@ -147,6 +148,7 @@ export default function ServiceSearch(){
 
     const finalPanels = [...projectPanels, ...servicePanels];
     return <>
+        <img width={"100%"} src={servicePagePicture}/>
         <FormBox>
             <FlexAroundDiv>
                 <BackTitle >

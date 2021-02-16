@@ -124,9 +124,9 @@ export function PartnerDetail({partner}){
                         {description}
                     </FormRow>
                     <Row>
-                        <Col md={8}>Numero progetti: {partner && partner.projects.length}</Col>
+                        <Col md={8}>Numero progetti: {partner && partner.allProjects.length}</Col>
                         <Col md={8}>Numero servizi: {partner && partner.services.length}</Col>
-                        <Col md={8}>Numero collaborazioni: {partner && partner.collaborations.length}</Col>
+                        <Col md={8}>Numero collaborazioni: {partner && partner.activeCollaborations.length}</Col>
 
                     </Row>
                 </Grid>
