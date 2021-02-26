@@ -76,7 +76,20 @@ export function CollaborationPanelTitle({collaboration, title}){
 
     const positionMessage = (collaborationOpen) ? t('Open positions') + ": " + openPositions : t('Closed');
 
-    const timeMessage = (collaboration.startDate && collaboration.endDate) ? t('From')+ " " + getCalendarFormat(collaboration.startDate) + " " + t('To') + " " + getCalendarFormat(collaboration.endDate)  : "";
+    const startDate = collaboration.startDate;
+    const endDate = collaboration.endDate;
+    const bothDates = startDate && endDate;
+
+    const showTime = bothDates || startDate || endDate;
+
+    let timeMessage = "";
+    if(bothDates){
+        timeMessage = t('From')+ " " + getCalendarFormat(startDate) + " " + t('To') + " " + getCalendarFormat(endDate)
+    }else if(startDate){
+        timeMessage = t('From')+ " " + getCalendarFormat(startDate)
+    }else{
+        timeMessage = t('To') + " " + getCalendarFormat(endDate)
+    }
 
 
     return <div style={{color:bordeaux, padding:5, minHeight:40, backgroundColor:"whitesmoke", display: "flex", justifyContent: "space-evenly",alignItems: "center"}}>
@@ -84,7 +97,7 @@ export function CollaborationPanelTitle({collaboration, title}){
             {title}
         </div>
         <div style={{flexGrow:1, fontSize:12, flexBasis: "20%"}}>
-            {collaboration.startDate&& collaboration.endDate && (<Icon icon="calendar-o"/>  && timeMessage)}
+            {showTime && (<Icon icon="calendar-o"/>  && timeMessage)}
         </div>
         <div style={{flexGrow:1, fontSize:12, flexBasis: "20%"}}>
             <Icon icon="suitcase" /> {positionMessage}

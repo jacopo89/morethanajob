@@ -138,7 +138,10 @@ export default function ServiceSearch(){
 
         const picture = (category.picture) ? category.picture : noProjectPicture;
         return <IconTextBox>
-            <img style={{cursor:"pointer"}} width={75} src={picture} onClick={()=> setFormValue( {...formValue,  category: [category.id]}) }/>
+            <img style={{cursor:"pointer"}} width={75} src={picture} onClick={()=> {
+                setFormValue( {...formValue,  category: [category.id]})
+                onSubmitHandler();
+            } }/>
             <BlackLink to={{
                 pathname: Routes.serviceSearchPage,
                 state: { category: category.value }
