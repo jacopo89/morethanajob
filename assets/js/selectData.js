@@ -62,8 +62,8 @@ export const modalityData = [
         "value": "Face-to-face",
     },
     {
-        "label": "Both",
-        "value": "Both",
+        "label": "Blended",
+        "value": "Blended",
     }]
 
 

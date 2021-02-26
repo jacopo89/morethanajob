@@ -44,10 +44,10 @@ class ExpertiseController
     public function add(Request $request){
         $id = $request->get('parentId');
         $value = $request->get('value');
-        $en = $request->get('en');
-        $it = $request->get('it');
-        $ar = $request->get('ar');
-        $gr = $request->get('gr');
+        $en = $request->get('en') ?? $value;
+        $it = $request->get('it') ?? $value;
+        $ar = $request->get('ar') ?? $value;
+        $gr = $request->get('gr') ?? $value;
         $categoryParent = $this->em->getRepository(Service::class)->find($id);
 
 
