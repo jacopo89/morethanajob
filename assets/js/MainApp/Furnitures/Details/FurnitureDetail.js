@@ -19,7 +19,7 @@ export default function FurnitureDetail({furniture, isOwner}){
                 </div>
             </Col>
             <Col xs={16}>
-                <div style={{height:150, maxHeight:150}}>{furniture.description}</div>
+                <div style={{minHeight:150}}>{furniture.description}</div>
             </Col>
         </Row>
     </Panel>
