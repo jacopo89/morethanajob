@@ -1,40 +1,31 @@
-import {useState} from "react";
-import {
-    Button,
-    SelectPicker,
-    ButtonToolbar,
-    ControlLabel,
-    Form,
-    FormControl,
-    FormGroup,
-    HelpBlock,
-    Schema, Grid, Col
-} from "rsuite";
-import React from "react";
+import React, {useState, useRef} from "react";
+import {ButtonToolbar, Col, Form, Grid, Schema, SelectPicker} from "rsuite";
 import {FormRow, MainButton, RegistrationBox, SecondaryButton} from "../../styledComponents/CustomComponents";
 import TextField from "./TextField";
 import {dataLanguage} from "../../selectData";
 import {useHistory} from "react-router-dom";
-import * as Routes from '../../routes';
 import {useTranslation} from "react-i18next";
 
 export default function RegistrationForm({registrationProps}){
-    const { StringType } = Schema.Types;
+    const { StringType, NumberType } = Schema.Types;
 
     const history = useHistory();
     const { t, i18n } = useTranslation();
+    const formRef = useRef();
 
 
     const model = Schema.Model({
         email: StringType().isRequired('This field is required.'),
         name: StringType().isRequired('This field is required.'),
         password: StringType().isRequired('This field is required.'),
+        language: StringType().isRequired('This field is required.'),
     });
     const [formValue, setFormValue] = useState();
     const submitHandler = (formValue) =>
     {
-
-        registrationProps.registrationHandler();
+        if(formRef.current.check()){
+            registrationProps.registrationHandler(formValue);
+        }
     }
 
 
@@ -44,10 +35,14 @@ export default function RegistrationForm({registrationProps}){
         <RegistrationBox>
 
             <Form
+                ref={formRef}
                 model={model}
                 formValue={formValue}
                 onChange={setFormValue}
-                onSubmit={()=>submitHandler(formValue)}>
+                onSubmit={()=>{
+                    console.log("OOOOOOOOOOOOOOH");
+                    submitHandler(formValue)
+                }}>
 
                 <Grid style={{width: "100%"}} fluid>
                     <FormRow>
@@ -72,7 +67,7 @@ export default function RegistrationForm({registrationProps}){
                     </FormRow>
                 </Grid>
                 <ButtonToolbar>
-                    <MainButton appearance="primary" onClick={()=>registrationProps.registrationHandler(formValue)}>{t('Submit')}</MainButton>
+                    <MainButton appearance="primary" onClick={()=>submitHandler(formValue)}>{t('Submit')}</MainButton>
                     <SecondaryButton href="/login">{t('Login')}</SecondaryButton>
                 </ButtonToolbar>
     </Form>
