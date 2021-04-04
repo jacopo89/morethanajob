@@ -4,8 +4,8 @@ import React from "react";
 import {useTranslation} from "react-i18next";
 import {useDispatch, useSelector} from "react-redux";
 import * as ActionTypes from "../Redux/actions";
-import {useHistory} from "react-router-dom";
-import {headerHeight} from "../styledComponents/CustomComponents";
+import {Link, useHistory} from "react-router-dom";
+import {guide, headerHeight} from "../styledComponents/CustomComponents";
 
 export default function FinalHeader(){
 
@@ -55,6 +55,14 @@ export default function FinalHeader(){
         </Dropdown>
     );
 
+    const HelpDropdown = ({ ...props }) => (
+        <Dropdown {...props}>
+            <Dropdown.Item onClick={() => changeLanguage('it')} >
+                <Link to={guide} target="_blank">Download guide</Link>
+            </Dropdown.Item>
+        </Dropdown>
+    );
+
 
 
     return <Navbar appearance="subtle" style={{position:"fixed", zIndex:100, width:"100%", height:headerHeight, display:"flex", alignItems:"center", justifyContent:"space-between"}}>
@@ -64,6 +72,9 @@ export default function FinalHeader(){
         </Navbar.Header>
         <Navbar.Body>
             <Nav>
+                <HelpDropdown title={"Need help?"}>
+
+                </HelpDropdown>
                 <LanguageDropdown title={t('Menu language')} />
                 {false && <Nav.Item onClick={()=>history.push(Routes.registration)} icon={<Icon icon="cog" />}>Register</Nav.Item>}
                  <CustomDropdown icon={<Icon icon="bars" />} placement="bottomEnd" />

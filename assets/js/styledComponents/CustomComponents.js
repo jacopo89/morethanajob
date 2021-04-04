@@ -88,6 +88,7 @@ export const relevantPublicationsPicture = "/defaults/news/relevant_publications
 export const userPagePicture = "/defaults/organisations-header.png";
 export const servicePagePicture = "/defaults/services-header.png";
 export const newsPagePicture = "/defaults/news-header.png";
+export const guide = "/defaults/guide/MoreThanAJob_Portal description_v04_DEF.pdf";
 
 export const FormBox = styled.div`
 padding: 10px;
