@@ -72,8 +72,10 @@ export default function FinalHeader(){
         </Navbar.Header>
         <Navbar.Body>
             <Nav>
-                <HelpDropdown title={"Need help?"}>
+                <Nav.Item onClick={()=> history.push(Routes.serviceSearchPage)} >{t('Search projects')}</Nav.Item>
+                <Nav.Item onClick={()=> history.push(Routes.searchUserPage)} >{t('Search organisations')}</Nav.Item>
 
+                <HelpDropdown title={"Need help?"}>
                 </HelpDropdown>
                 <LanguageDropdown title={t('Menu language')} />
                 {false && <Nav.Item onClick={()=>history.push(Routes.registration)} icon={<Icon icon="cog" />}>Register</Nav.Item>}
