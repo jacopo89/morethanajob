@@ -60,7 +60,10 @@ export default function ServiceSearch(){
             activePage:pagination
         };
 
-    const onPaginationSelect = (item) => setPagination(item);
+    const onPaginationSelect = (item) => {
+        setPagination(item);
+        onSubmitHandler();
+    }
 
 
 
