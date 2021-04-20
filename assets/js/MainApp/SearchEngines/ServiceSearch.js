@@ -62,7 +62,12 @@ export default function ServiceSearch(){
 
     const onPaginationSelect = (item) => {
         setPagination(item);
-        onSubmitHandler();
+        const formData = new FormData();
+        Object.keys(formValue).forEach((key)=>  { formData.append(key,JSON.stringify(formValue[key]));});
+        formData.append('language', language);
+        formData.append('page', item);
+        formData.append('limit', limitPerPage);
+        getProjectsHandler(formData);
     }
 
 
