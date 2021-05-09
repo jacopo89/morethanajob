@@ -98,7 +98,7 @@ export default function Project(){
                             </Row>
                             <Row>
                                 <Col xs={8} style={{display:"flex",justifyContent:"center", marginBottom:5}}><Icon style={{color:bordeaux}} icon="envelope" size="3x" /></Col>
-                                <Col xs={16}>{project && project.contacts.map(contact => <div>
+                                <Col xs={16}>{project && project.contacts.map(contact => <div style={{"word-break":"break-all"}}>
                                     <a target="_blank" href={`mailto:${contact}`}>{contact}</a>
                                 </div>)}</Col>
                             </Row>
