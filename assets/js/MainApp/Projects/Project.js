@@ -94,7 +94,7 @@ export default function Project(){
                         <Grid fluid>
                             <Row>
                                 <Col xs={8} style={{display:"flex",justifyContent:"center", marginBottom:5}}><Icon style={{color:bordeaux}} icon="external-link-square" size="3x" /></Col>
-                                <Col xs={16}>{project && project.links.map(link => <div><a target="_blank" href={manipulateWebsite(link)}>{link}</a></div>)}</Col>
+                                <Col xs={16}>{project && project.links.map(link => <div style={{"word-break":"break-all"}}><a target="_blank" href={manipulateWebsite(link)}>{link}</a></div>)}</Col>
                             </Row>
                             <Row>
                                 <Col xs={8} style={{display:"flex",justifyContent:"center", marginBottom:5}}><Icon style={{color:bordeaux}} icon="envelope" size="3x" /></Col>
