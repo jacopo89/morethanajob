@@ -24,7 +24,7 @@ export default function UserManagement(){
 
        return (
             <span>
-                <a onClick={()=>removeUserHandler(rowData.email, {successCallback:()=>getUsersHandler()})}> Remove </a>
+                <a onClick={()=>removeUserHandler(rowData.id, {successCallback:()=>getUsersHandler()})}> Remove </a>
             </span>
         );
     }
