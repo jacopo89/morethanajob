@@ -135,7 +135,7 @@ class UserController extends AbstractController
     }
 
     /**
-     * @Route("/remove/{email}")
+     * @Route("/remove/{id}")
      * @param User $user
      * @return Response
      */

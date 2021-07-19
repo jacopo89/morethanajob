@@ -1,7 +1,7 @@
 import {useHistory} from "react-router-dom";
 import {useTranslation} from "react-i18next";
 import {Button, Col, HelpBlock, Icon, Panel, Row} from "rsuite";
-import {bordeaux, MainButton} from "../../../styledComponents/CustomComponents";
+import {bordeaux, MainButton, ProfileImage} from "../../../styledComponents/CustomComponents";
 import * as Routes from "../../../routes";
 import {getCalendarFormat} from "../../../ReusableComponents/TimeManager";
 import React from "react";
@@ -19,7 +19,8 @@ export default function CollaborationDetail({collaboration}){
         (collaboration.localLanguageShortDescription !==null && collaboration.localLanguageShortDescription.length===0)
     );
 
-
+    const partner = collaboration?.user;
+    const backgroundImage = (partner && partner.profilePicture && partner.profilePicture.url) ? partner.profilePicture.url  : "/defaults/project_thumbnail.png";
 
     const categoryImage = (collaboration && collaboration.category && collaboration.category.picture) ? collaboration.category.picture  : "/defaults/project_thumbnail.png";
 
@@ -51,6 +52,7 @@ export default function CollaborationDetail({collaboration}){
 
             </Col>
             <Col xs={16}>
+                <ProfileImage onClick={() => history.push(Routes.profile(partner.profileName))} style={{cursor: "pointer"}} src={backgroundImage} width={50} />
                 <MainButton style={{float:"right"}} onClick={()=> history.push(Routes.collaboration(collaboration.id))}>{t('Details')}</MainButton>
             </Col>
         </Row>

@@ -76,6 +76,7 @@ export default function EditCollaboration({isService}) {
     const onSubmitHandler = () =>{
         const formData = new FormData();
         formData.append('email', user.email);
+        console.log("editing service");
 
         if(formRef.current.check()){
             Object.keys(formValue).forEach((key)=>  { formData.append(key,JSON.stringify(formValue[key]));});

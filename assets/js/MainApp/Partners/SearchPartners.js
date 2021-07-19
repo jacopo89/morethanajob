@@ -12,7 +12,7 @@ import {
     FlexAroundDiv,
     FlexCenterDiv,
     FormRow,
-    FrontTitle, MainButton, userPagePicture
+    FrontTitle, MainButton, ProfileImage, userPagePicture
 } from "../../styledComponents/CustomComponents";
 import {useTranslation} from "react-i18next";
 import {categoriesTreeByLanguage} from "../../Functions/Categories";
@@ -115,7 +115,7 @@ export function PartnerDetail({partner}){
         <Row className="show-grid">
             <Col xs={8}>
                 <div style={{display:"flex", justifyContent:"center"}}>
-                    <div onClick={()=>history.push(Routes.profile(partner.profileName))} style={{cursor:"pointer",backgroundImage:  `url(${backgroundImage})`, backgroundSize: "contain", width:150, height:150}}/>
+                    <ProfileImage onClick={()=>history.push(Routes.profile(partner.profileName))} style={{cursor:"pointer"}} src={backgroundImage} width={150} height={150}></ProfileImage>
                 </div>
             </Col>
             <Col xs={16}>

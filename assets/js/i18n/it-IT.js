@@ -224,7 +224,7 @@ export const translation = {
         "Cost":"Costo",
         "Currency":"Valuta",
         "Additional info": "Ulteriori informazioni",
-        "Apply": "Applica!",
+        "Apply": "Contattaci!",
         "Firstname": "Nome",
         "Lastname":"Cognome",
         "Message":"Testo",

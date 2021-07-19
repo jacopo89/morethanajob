@@ -92,7 +92,7 @@ export default function Collaboration(){
 
                     </Row>
                     {
-                        collaboration && collaboration.rateType==="paid" &&
+                        collaboration &&
                         <Row className="show-grid" style={{padding: 5}}>
                             <Col xs={24}>
                                 <IconWithText icon="info" label={t('Additional info')} value={collaboration && collaboration.ratesText}/>

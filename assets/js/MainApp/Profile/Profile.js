@@ -114,18 +114,6 @@ export function manipulatePhone(phone){
 
 }
 
-
-
-
 const InfoBox =  styled.div`
     padding: 10px;`
 ;
-
-
-
-const textFieldStyle = {
-    width:"100%",
-    marginLeft:5,
-    marginRight:5
-}
-
