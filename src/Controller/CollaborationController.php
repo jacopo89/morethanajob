@@ -11,12 +11,14 @@ namespace App\Controller;
 
 use App\Entity\Category;
 use App\Entity\Collaboration;
+use App\Entity\File;
 use App\Entity\OfferedService;
 use App\Entity\Position;
 use App\Entity\Project;
 use App\Entity\Service;
 use App\Entity\User;
 use App\Repository\CollaborationRepository;
+use App\Service\FileSystemService;
 use App\Service\Serializer;
 use Doctrine\Common\Collections\ArrayCollection;
 use Doctrine\ORM\EntityManagerInterface;
@@ -38,9 +40,11 @@ class CollaborationController extends AbstractController
     private $em;
     private $mailer;
     private $repository;
+    private $fileSystemService;
 
-    public function __construct(EntityManagerInterface $em,Serializer $serializer, \Swift_Mailer $mailer, CollaborationRepository $collaborationRepository)
+    public function __construct(EntityManagerInterface $em,Serializer $serializer, \Swift_Mailer $mailer, CollaborationRepository $collaborationRepository, FileSystemService $fileSystemService)
     {
+        $this->fileSystemService = $fileSystemService;
         $this->serializer = $serializer;
         $this->em = $em;
         $this->mailer = $mailer;
@@ -594,6 +598,56 @@ class CollaborationController extends AbstractController
         $results["servicesNumber"] = sizeOf($sentRecords);
         $results["projects"] = array_slice($sentRecords, $limit * ($page -1), $limit * $page);
         return new Response($this->serializer->serialize($results, 'json'));
+    }
+
+    /**
+     * @Route("/logo")
+     * @param Request $request
+     * @return Response
+     */
+    public function updateLogo(Request $request){
+        $id = json_decode($request->get('id'),true);
+        $collaboration = $this->getDoctrine()->getManager()->getRepository(Collaboration::class)->find($id);
+        $status = Response::HTTP_INTERNAL_SERVER_ERROR;
+        $message = "Error";
+        if($collaboration instanceof Collaboration){
+            $collaborationId = $collaboration->getId();
+            $uploadedFile = $request->files->get('file');
+            $basePath = $request->getBasePath();
+
+            $collaborationPath = $this->fileSystemService->getCollaborationFolderPath($collaborationId);
+            $originalFilename = pathinfo($uploadedFile->getClientOriginalName(), PATHINFO_FILENAME);
+            $newFilename = $originalFilename.'-'.uniqid().'.'.$uploadedFile->guessExtension();
+            $path = $this->fileSystemService->getCollaborationFolderWebPath($basePath, $collaborationId)."/".$newFilename;
+
+            $uploadedFile->move(
+                $collaborationPath,
+                $newFilename
+            );
+
+            $file = new File();
+            $file->setFilename($newFilename);
+            $file->setOriginalFilename($originalFilename);
+            $file->setExtension("png");
+            $file->setIsDoc(false);
+            $file->setUrl($path);
+            $collaboration->setLogo($file);
+
+            $this->getDoctrine()->getManager()->persist($file);
+            $this->getDoctrine()->getManager()->persist($collaboration);
+            $this->getDoctrine()->getManager()->flush();
+            $status = Response::HTTP_OK;
+            $message = null;
+
+        }else{
+            $status = Response::HTTP_BAD_REQUEST;
+            $message = "Project Not found";
+
+        }
+
+
+        return new Response($message, $status);
+
     }
 
 

@@ -139,7 +139,19 @@ class FileSystemService extends AbstractController
         return $servicesFolderPath;
     }
 
+    public function getCollaborationFolderPath(?int $collaborationId)
+    {
+        $collaborationPath = $this->getParameter('kernel.project_dir').'/public/uploads/collaborations/'.$collaborationId;
 
+        return $collaborationPath;
+    }
+
+    public function getCollaborationFolderWebPath(string $basePath, ?int $collaborationId)
+    {
+        $collaborationFolderPath = $basePath.'/uploads/collaborations/'.$collaborationId;
+
+        return $collaborationFolderPath;
+    }
 
 
 }

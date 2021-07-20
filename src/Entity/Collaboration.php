@@ -141,6 +141,11 @@ class Collaboration
      */
     private $localBeneficiaries;
 
+    /**
+     * @ORM\OneToOne(targetEntity="App\Entity\File", cascade={"persist", "remove"})
+     */
+    private $logo;
+
 
     public function __construct()
     {
@@ -466,7 +471,14 @@ class Collaboration
         return $this;
     }
 
+    public function getLogo()
+    {
+        return $this->logo;
+    }
 
-
+    public function setLogo($logo): void
+    {
+        $this->logo = $logo;
+    }
     
 }

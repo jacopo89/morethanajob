@@ -1,5 +1,6 @@
 import {BackendClient} from "../axios-client";
 import {useCreateHook} from "../useHook";
+import {useSelector} from "react-redux";
 
 export function  useGetCollaborations() {
 
@@ -55,4 +56,11 @@ export function  useSendMessage() {
 
     const backendClient = BackendClient();
     return useCreateHook(backendClient,'/backend/collaborations/sendmessage','post',null);
+}
+
+export function  useUploadCollaborationLogo() {
+
+    const {accessToken} = useSelector(state=>state);
+    const backendClient = BackendClient(accessToken);
+    return useCreateHook(backendClient,'/backend/collaborations/logo','post',null);
 }

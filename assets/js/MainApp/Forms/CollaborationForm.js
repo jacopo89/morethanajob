@@ -1,5 +1,12 @@
-import {ButtonGroup, Col, DatePicker, Divider, Form, Grid, SelectPicker, TreePicker} from "rsuite";
-import {bordeaux, FormButtonGroup, FormRow, MainButton, SaveButton} from "../../styledComponents/CustomComponents";
+import {ButtonGroup, Col, DatePicker, Divider, Form, Grid, SelectPicker, TreePicker, Uploader} from "rsuite";
+import {
+    bordeaux,
+    FormButtonGroup,
+    FormRow,
+    InverseButton,
+    MainButton,
+    SaveButton
+} from "../../styledComponents/CustomComponents";
 import TextField from "../../Login/Components/TextField";
 import {currencies, dataCountry, dataLanguage, modalityData, rateData} from "../../selectData";
 import React from "react";
@@ -8,19 +15,27 @@ import {useTranslation} from "react-i18next";
 import styled from "styled-components";
 import DeleteButton from "../../ReusableComponents/DeleteButton";
 import HelpBlock from "rsuite/es/HelpBlock/HelpBlock";
+import {useUploadProjectLogo} from "../../Backend/hooks/useProjects";
 
-export default function CollaborationForm({formValue, setFormValue, projects, categoriesTree, isService, isEdit=false, getCollaborationFunction = ()=>{}, remover}){
+export default function CollaborationForm({formValue, setFormValue, projects, categoriesTree, collaborationLogoChange, isService, isEdit=false, getCollaborationFunction = ()=>{}, remover}){
 
     const {t} = useTranslation();
 
     const titleLabel = (isService) ? t('Service Title') : t('Collaboration Title')
     const localTitleLabel = (isService) ? t('Local Service Title') : t('Local Collaboration Title')
     const categoryLabel = (isService) ? t('Service Category') : t('Collaboration Category')
+    const uploadLogoButton = <InverseButton>{t('Upload Logo Button')}</InverseButton>;
+
 
     return <Grid fluid>
         <FormRow>
             <Col xs={24}>
                 <TextField label={titleLabel} name="title" type="text" />
+            </Col>
+        </FormRow>
+        <FormRow>
+            <Col xs={24}>
+                <Uploader fileListVisible={false} onChange={collaborationLogoChange}>{uploadLogoButton}</Uploader>
             </Col>
         </FormRow>
         <FormRow>
