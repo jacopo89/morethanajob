@@ -30,6 +30,7 @@ export default function Collaboration(){
 
     const positionPanels = collaboration && collaboration.positions.map((position, index)=><PositionShowDescription key={index} isOwnerOfProject={isOwner} position={position} /> );
     const categoryImage = collaboration && collaboration.category && collaboration.category.picture;
+    console.log("category image", categoryImage);
 
     const isCollaborationClosed =  collaboration && collaboration.positions.filter((position)=>!position.isOpen).length === collaboration.positions.length;
 
@@ -37,6 +38,8 @@ export default function Collaboration(){
 
 
     const serviceBox = <ServiceFormBox collaboration={collaboration}/>;
+
+    const image = (collaboration && collaboration.logo) ? collaboration.logo.url : categoryImage;
 
     const editButtonClickHandler = (isCollaborationClosed) ? () => history.push(Routes.editService(id)) : ()=>history.push(Routes.editCollaboration(id));
 
@@ -53,7 +56,8 @@ export default function Collaboration(){
     return (<>
         <div style={{width:"100%", backgroundColor:bordeaux, position:"relative"}}>
             <CollaborationBox>
-                <div style={{height: 150, width: 150, backgroundImage: `url(${categoryImage})`, backgroundColor: "white", backgroundSize: "contain", flex:"none", margin:10}}/>
+                <img width={150} height={150} src={image} style={{backgroundColor:"white", margin:10}}/>
+                {/*<div style={{height: 150, width: 150, backgroundImage: `${image}`, backgroundColor: "white", backgroundSize: "contain", flex:"none", margin:10}}/>*/}
                 {title}
             </CollaborationBox>
             {isOwner && editButton}

@@ -1,6 +1,11 @@
 import React, {useEffect, useRef, useState} from "react";
 import {useSelector} from "react-redux";
-import {useDeleteCollaboration, useEditCollaboration, useGetCollaboration} from "../../Backend/hooks/useCollaborations";
+import {
+    useDeleteCollaboration,
+    useEditCollaboration,
+    useGetCollaboration,
+    useUploadCollaborationLogo
+} from "../../Backend/hooks/useCollaborations";
 import {useGetCollaborationProjects, useGetUserProjects} from "../../Backend/hooks/useProjects";
 import * as Routes from "../../routes";
 import {bordeaux, CollaborationBox, FormBox} from "../../styledComponents/CustomComponents";
@@ -23,6 +28,7 @@ export default function EditCollaboration({isService}) {
     const history = useHistory();
     const {id} = useParams();
     const formRef = useRef();
+    const[responseLogo, uploadCollaborationLogoHandler] = useUploadCollaborationLogo();
 
     const {categories} = useSelector(state=>state);
 
@@ -86,6 +92,19 @@ export default function EditCollaboration({isService}) {
 
     }
 
+    const collaborationLogoChange = (file) =>{
+        let data = {};
+        if(file.length!==0){
+            const formData = new FormData();
+            formData.append('file', file[0].blobFile);
+            data.id = id;
+            Object.keys(data).forEach((key)=>  { formData.append(key,JSON.stringify(data[key]));});
+            uploadCollaborationLogoHandler(formData, {successCallback: ()=>{
+                    getCollaborationHandler(id)
+                }});
+        }
+    };
+
     const categoryLabel = (isService) ? "Macro category of the service" : "Macro category of the collaboration" ;
 
 
@@ -102,7 +121,7 @@ export default function EditCollaboration({isService}) {
             <FormBox >
                 <TitleBox>Info </TitleBox>
                 <Form ref={formRef} model={model} fluid formValue={formValue} onChange={setFormValue} onSubmit={onSubmitHandler}>
-                    <CollaborationForm isEdit={true} formValue={formValue} setFormValue={setFormValue} categoriesTree={categoriesTree} projects={projects} isService={isService} getCollaborationFunction={getCollaborationFunction} remover={deleteHandler}/>
+                    <CollaborationForm collaborationLogoChange={collaborationLogoChange}  isEdit={true} formValue={formValue} setFormValue={setFormValue} categoriesTree={categoriesTree} projects={projects} isService={isService} getCollaborationFunction={getCollaborationFunction} remover={deleteHandler}/>
                 </Form>
             </FormBox>
 

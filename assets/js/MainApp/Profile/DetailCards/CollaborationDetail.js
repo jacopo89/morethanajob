@@ -28,6 +28,7 @@ export default function CollaborationDetail({collaboration}){
     const trueDescription  = (collaboration.localLanguage === language && collaboration.localLanguageShortDescription && collaboration.localLanguageShortDescription.length!==0) ? collaboration.localLanguageShortDescription : collaboration.shortDescription;
     const message= (isDescriptionInEnglish) ? "This content is available only in English" : "";
 
+    const image = (collaboration && collaboration.logo) ? collaboration.logo.url : categoryImage;
 
     const collaborationPositions = collaboration.positions.map((position, index)=> <div key={index} style={{width: 50, height: 50, backgroundImage: `url(${position.service.picture})`, backgroundSize:"contain"}} /> );
 
@@ -36,7 +37,7 @@ export default function CollaborationDetail({collaboration}){
         <Row className="show-grid">
             <Col xs={8}>
                 <div style={{display:"flex", justifyContent:"center"}}>
-                    <img src={categoryImage} width={150} height={150} alt={categoryImage}/>
+                    <img src={image} width={150} height={150} alt={categoryImage}/>
                 </div>
             </Col>
             <Col xs={16}>
