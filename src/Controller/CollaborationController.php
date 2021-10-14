@@ -135,7 +135,7 @@ class CollaborationController extends AbstractController
             $rates = json_decode($request->get('rates'));
             $rateType = json_decode($request->get('rateType'));
             $currency = json_decode($request->get('currency'));
-            $ratesText = json_decode($request->get('rateText'));
+            $ratesText = json_decode($request->get('ratesText'));
             $modality = json_decode($request->get('modality'));
             $mainBeneficiaries = json_decode($request->get('mainBeneficiaries'));
             $localBeneficiaries = json_decode($request->get('localBeneficiaries'));
@@ -146,7 +146,6 @@ class CollaborationController extends AbstractController
             $isService = json_decode($request->get('isService'));
             $localLanguageTitle = json_decode($request->get('localTitle'));
             $localLanguage = json_decode($request->get('language'));
-
 
             $localLanguageDescription = json_decode($request->get('localLanguageDescription'));
             $localLanguageShortDescription = json_decode($request->get('localLanguageShortDescription'));
@@ -213,6 +212,7 @@ class CollaborationController extends AbstractController
             }
 
             $this->em->persist($collaboration);
+
             $this->em->flush();
 
         }
