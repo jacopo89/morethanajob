@@ -18,7 +18,7 @@
     "dependencies": {
         "@babel/preset-env": "^7.10.4",
         "@rsuite/responsive-nav": "^0.0.10",
-        "axios": "^0.19.2",
+        "axios": "^0.21.2",
         "dataurl-to-blob": "0.0.1",
         "dateformat": "^3.0.3",
         "dotenv-flow": "^3.2.0",
