@@ -1,5 +1,5 @@
 var Encore = require('@symfony/webpack-encore');
-var dotenv = require('dotenv');
+var dotenv = require('dotenv-flow');
 
 // Manually configure the runtime environment if not already configured yet by the "encore" command.
 // It's useful when you use tools that rely on webpack.config.js file.
@@ -59,12 +59,14 @@ Encore
         config.corejs = 3;
     })
     .configureDefinePlugin(options => {
-        const env = dotenv.config();
-        if (env.error) {
-            throw env.error;
-        }
+        const node_env =options["process.env"].NODE_ENV
+        const node_env_name = (node_env).substring(1, node_env.length-1);
+        const env = dotenv.config({node_env: node_env_name })
+
 
         options['process.env'].ENDPOINT = JSON.stringify(env.parsed.REACT_APP_API_ENDPOINT);
+        options['process.env'].VALUE = JSON.stringify(env.parsed.VALUE);
+        console.log(options)
     })
 
     // enables Sass/SCSS support

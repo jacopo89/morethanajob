@@ -75,49 +75,49 @@ export default function Collaboration(){
                         <IconWithText icon="calendar-o" label={t('End date')} value={collaboration && getCalendarFormat(collaboration.endDate)}/>
                         </Col>
                 </Row>
-                {isCollaborationClosed && <>
-                    <Row className="show-grid" style={{padding: 5}}>
-                        <Col xs={24}>
-                            <IconWithText icon="people-group" label={t('Main beneficiaries Show')}
-                                          value={beneficiaries}/>
-                        </Col>
 
-                    </Row>
-                    <Row className="show-grid" style={{padding: 5}}>
-                        <Col xs={12}>
-                            <IconWithText icon="usd" label={t('Paid or free')} value={collaboration && collaboration.rateType}/>
-                        </Col>
-                        {
-                            collaboration && collaboration.rateType==="paid" &&
-                            <Col xs={12}>
-                                <IconWithText icon="calculator" label={t('Cost')} value={collaboration && collaboration.rates && digestAmounts(collaboration.rates, collaboration.currency)}/>
-                            </Col>
-                        }
+            </Grid>{isCollaborationClosed && <>
+            <Row className="show-grid" style={{padding: 5}}>
+                <Col xs={24}>
+                    <IconWithText icon="people-group" label={t('Main beneficiaries Show')}
+                                  value={beneficiaries}/>
+                </Col>
 
-                    </Row>
-                    {
-                        collaboration &&
-                        <Row className="show-grid" style={{padding: 5}}>
-                            <Col xs={24}>
-                                <IconWithText icon="info" label={t('Additional info')} value={collaboration && collaboration.ratesText}/>
-                            </Col>
-                        </Row>
-                    }
-                </>
-                }
-                <Row className="show-grid" style={{padding:5}}>
-                    <Col xs={24}>
-                        <IconWithText icon="envelope" label={t('Contacts')} value={collaboration && collaboration.contacts}/>
-                    </Col>
-
-                </Row>
-                <Row className="show-grid" style={{padding:5}}>
+            </Row>
+            <Row className="show-grid" style={{padding: 5}}>
+                <Col xs={12}>
+                    <IconWithText icon="usd" label={t('Paid or free')} value={collaboration && collaboration.rateType}/>
+                </Col>
+                {
+                    collaboration && collaboration.rateType==="paid" &&
                     <Col xs={12}>
-                        <IconWithText icon="eye" label={t('Modality')} value={collaboration && collaboration.modality}/>
+                        <IconWithText icon="calculator" label={t('Cost')} value={collaboration && collaboration.rates && digestAmounts(collaboration.rates, collaboration.currency)}/>
+                    </Col>
+                }
+
+            </Row>
+            {
+                collaboration &&
+                <Row className="show-grid" style={{padding: 5}}>
+                    <Col xs={24}>
+                        <IconWithText icon="info" label={t('Additional info')} value={collaboration && collaboration.ratesText}/>
                     </Col>
                 </Row>
+            }
+        </>
+        }
+            <Row className="show-grid" style={{padding:5}}>
+                <Col xs={24}>
+                    <IconWithText icon="envelope" label={t('Contacts')} value={collaboration && collaboration.contacts}/>
+                </Col>
 
-            </Grid>
+            </Row>
+            <Row className="show-grid" style={{padding:5}}>
+                <Col xs={12}>
+                    <IconWithText icon="eye" label={t('Modality')} value={collaboration && collaboration.modality}/>
+                </Col>
+            </Row>
+
         </InfoBox>
 
         <div style={{display:"flex", justifyContent:"center", alignItems:"center"}}>

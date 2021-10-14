@@ -3,9 +3,9 @@
     "app": {
       "js": [
         "/build/runtime.1103dde6.js",
-        "/build/0.a5c05731.js",
+        "/build/0.58e04aa4.js",
         "/build/1.aa0910e8.js",
-        "/build/app.0169916f.js"
+        "/build/app.a51c4cbd.js"
       ],
       "css": [
         "/build/1.c4a94852.css",
@@ -15,8 +15,8 @@
     "login": {
       "js": [
         "/build/runtime.1103dde6.js",
-        "/build/0.a5c05731.js",
-        "/build/login.6ea4f854.js"
+        "/build/0.58e04aa4.js",
+        "/build/login.76b9e341.js"
       ],
       "css": [
         "/build/login.736e754c.css"
