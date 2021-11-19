@@ -17,10 +17,10 @@ use App\Entity\User;
 use App\Service\FileSystemService;
 use App\Service\Serializer;
 use Doctrine\ORM\EntityManagerInterface;
-use Sensio\Bundle\FrameworkExtraBundle\Configuration\Route;
 use Symfony\Bundle\FrameworkBundle\Controller\AbstractController;
 use Symfony\Component\HttpFoundation\Request;
 use Symfony\Component\HttpFoundation\Response;
+use Symfony\Component\Routing\Annotation\Route;
 
 /**
  * Class PartnerController
@@ -51,14 +51,14 @@ class PartnerController extends AbstractController
         $country = json_decode($request->get('country'));
         $services = json_decode($request->get('expertise'));
         $categories = json_decode($request->get('category'));
-
-
+        $page = intval($request->get('page'));
+        $limit = intval($request->get('limit'));
 
         $trueServices = $this->em->getRepository(Service::class)->findBy(['id'=>$services]);
         $trueCategories = $this->em->getRepository(Category::class)->findBy(['id'=>$categories]);
 
-
         $filters = [];
+        $filters["isAssociation"]=true;
         if($country){
             $filters['country'] = $country;
         }
@@ -98,10 +98,13 @@ class PartnerController extends AbstractController
 
         $users = $this->em->getRepository(User::class)->findBy($filters);
 
-        $results = [];
+        $sentRecords = [];
         foreach ($users as $user){
-            $results[] = $user;
+            $sentRecords[] = $user;
         }
+
+        $results["servicesNumber"] = sizeOf($sentRecords);
+        $results["partners"] = array_slice($sentRecords, $limit * ($page -1), $limit * $page);
 
         return new Response($this->serializer->serialize($results, 'json'));
     }

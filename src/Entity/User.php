@@ -157,6 +157,13 @@ class User implements UserInterface
      */
     private $localLanguageDescription;
 
+
+    /**
+     * @ORM\Column(type="boolean", length=255)
+     */
+    private $isAssociation = true;
+
+
     private $activeCollaborations;
 
 
@@ -722,4 +729,15 @@ class User implements UserInterface
     public function getCollaborations(){
         return $this->collaborations;
     }
+
+    public function isAssociation(): bool
+    {
+        return $this->isAssociation;
+    }
+
+    public function setIsAssociation(bool $isAssociation): void
+    {
+        $this->isAssociation = $isAssociation;
+    }
+
 }

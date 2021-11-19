@@ -10,6 +10,7 @@ namespace App\Controller;
 
 
 use App\Entity\User;
+use App\Repository\UserRepository;
 use App\Service\Serializer;
 use Doctrine\ORM\EntityManagerInterface;
 use Symfony\Component\HttpFoundation\Response;
@@ -25,11 +26,12 @@ use Symfony\Bundle\FrameworkBundle\Controller\AbstractController;
 class UserController extends AbstractController
 {
     private $serializer;
+    private $userRepository;
     private $em;
-    public function __construct(Serializer $serializer, EntityManagerInterface $em)
+    public function __construct(Serializer $serializer, EntityManagerInterface $em, UserRepository $userRepository)
     {
         $this->serializer = $serializer;
-        $this->em = $em;
+        $this->userRepository = $userRepository;
     }
 
     /**
@@ -103,7 +105,7 @@ class UserController extends AbstractController
      */
     public function getRandom(){
 
-        $users = $this->em->getRepository(User::class)->findAll();
+        $users = $this->userRepository->findBy(['isAssociation'=>true]);
         shuffle($users);
 
         $totalNumberUsers = sizeof($users);
