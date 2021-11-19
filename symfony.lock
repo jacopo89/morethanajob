@@ -1,5 +1,17 @@
 {
+    "api-platform/api-pack": {
+        "version": "v1.3.0"
+    },
     "php": {
         "version": "7.3"
+    },
+    "symfony/orm-pack": {
+        "version": "v2.1.0"
+    },
+    "symfony/proxy-manager-bridge": {
+        "version": "v5.3.4"
+    },
+    "symfony/serializer-pack": {
+        "version": "v1.0.4"
     }
 }

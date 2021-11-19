@@ -1,43 +1,67 @@
-import {Button, CheckTreePicker, Col, Form, Grid, HelpBlock, Icon, IconButton, Panel, Row, SelectPicker} from "rsuite";
+import {Button, CheckTreePicker, Col, Form, Grid, Icon, Pagination, Panel, Row, SelectPicker} from "rsuite";
 import React, {useEffect, useState} from "react";
 import TextField from "../../Login/Components/TextField";
-import {useSelector} from "react-redux";
 import * as Routes from '../../routes';
 import {useHistory} from "react-router-dom";
-import {dataCountry} from "../../selectData";
+import {dataCountry, PaginationLimit} from "../../selectData";
 import {useSearcbPartners} from "../../Backend/hooks/usePartners";
-import {
-    BackTitle,
-    bordeaux,
-    FlexAroundDiv,
-    FlexCenterDiv,
-    FormRow,
-    FrontTitle, MainButton, ProfileImage, userPagePicture
-} from "../../styledComponents/CustomComponents";
+import {BackTitle, bordeaux, FlexAroundDiv, FlexBetweenDiv, FlexCenterDiv, FormRow, FrontTitle, MainButton, ProfileImage, userPagePicture} from "../../styledComponents/CustomComponents";
 import {useTranslation} from "react-i18next";
 import {categoriesTreeByLanguage} from "../../Functions/Categories";
 import {expertisesTreeByLanguage} from "../../Functions/Expertises";
 import {manipulateMail, manipulatePhone, manipulateWebsite} from "../Profile/Profile";
-import {iconStyle, textStyle} from "../Profile/submenus/SocietyContacts";
+import {iconStyle} from "../Profile/submenus/SocietyContacts";
 import {getProfileLanguageElements} from "../../Functions/Profile";
 
 
 export default function SearchPartners(){
 
-    const [partners, getPartnersHandler] = useSearcbPartners();
+    const [response, getPartnersHandler] = useSearcbPartners();
     const {t, i18n} = useTranslation();
 
-    const [formValue, setFormValue] = useState();
+    const {partnersNumber, partners} = response;
+    const [pagination, setPagination] = useState(1);
+    const [limitPerPage, setLimitPerPage] = useState(5);
+    const pages = Math.ceil(partnersNumber/limitPerPage);
+
+    const paginationSettings =
+        {
+            prev: true,
+            next: true,
+            first: true,
+            last: true,
+            ellipsis: true,
+            boundaryLinks: true,
+            activePage:pagination
+        };
+
+    const onPaginationSelect = (item) => {
+        setPagination(item);
+        console.log(item);
+        const formData = new FormData();
+        console.log(formValue);
+        Object.keys(formValue).forEach((key)=>  { formData.append(key,JSON.stringify(formValue[key]));});
+        formData.append('page', item);
+        formData.append('limit', limitPerPage);
+        getPartnersHandler(formData);
+    }
+
+
+    const [formValue, setFormValue] = useState({});
 
     const onSubmitHandler = () => {
         const formData = new FormData();
-        // formData.append('isPortfolio', isPortFolioCheckboxChecked);
+        formData.append('page', pagination);
+        formData.append('limit', limitPerPage);
         Object.keys(formValue).forEach((key)=>  { formData.append(key,JSON.stringify(formValue[key]));});
         getPartnersHandler(formData);
     }
 
     useEffect(()=>{
-        getPartnersHandler();
+        const formData = new FormData();
+        formData.append('page', pagination);
+        formData.append('limit', limitPerPage);
+        getPartnersHandler(formData);
         return()=>{}
     },[])
 
@@ -95,7 +119,10 @@ export default function SearchPartners(){
 
             </Form>
         </Panel>
-
+        <FlexBetweenDiv>
+            <Pagination pages={pages} {...paginationSettings} onSelect={onPaginationSelect} />
+            <Form><TextField accepter={SelectPicker} data={PaginationLimit} value={limitPerPage} onChange={setLimitPerPage} searchable={false} cleanable={false} /></Form>
+        </FlexBetweenDiv>
         {partnersPanels}
     </>
 
