@@ -33,6 +33,9 @@ export default function FinalHeader(){
         </Dropdown>
     );
 
+    const seeAdminMenu = user && (user.roles.includes("ROLE_ADMIN") || user.roles.includes("ROLE_ARABIC_ADMIN") || user.roles.includes("ROLE_GREEK_ADMIN") || user.roles.includes("ROLE_ITALIAN_ADMIN") || user.roles.includes("ROLE_ENGLISH_ADMIN"));
+    const seeTotalAdmin = user && user.roles.includes("ROLE_ADMIN");
+
     const CustomDropdown = ({ ...props }) => (
         <Dropdown placement="leftStart" {...props}>
             <Dropdown.Item onClick={()=> history.push(Routes.dashboardPage)} eventKey="1" icon={<Icon icon="home" />}>
@@ -42,13 +45,13 @@ export default function FinalHeader(){
             <Dropdown.Item onClick={()=> history.push(Routes.searchUserPage)} eventKey="4">{t('Search organisations')}</Dropdown.Item>
             <Dropdown.Item onClick={()=> history.push(Routes.newsPage)} eventKey="4">{t('News')}</Dropdown.Item>
             {user && <Dropdown.Item onClick={()=> history.push(Routes.profile(user.profileName))} >{t('Profile')}</Dropdown.Item>}
-            {user && user.roles.includes("ROLE_ADMIN") && <Dropdown.Menu pullLeft title={t('Administration')} >
+            {seeAdminMenu && <Dropdown.Menu pullLeft title={t('Administration')} >
                 <Dropdown.Item onClick={()=> history.push(Routes.administrationProjects)} eventKey="e-2">Projects</Dropdown.Item>
                 <Dropdown.Item onClick={()=> history.push(Routes.administrationCollaborations)} eventKey="e-3">Services and collaborations</Dropdown.Item>
-                <Dropdown.Item onClick={()=> history.push(Routes.administrationUsers)} eventKey="e-4">Users</Dropdown.Item>
-                <Dropdown.Item onClick={()=> history.push(Routes.administrationCategories)} eventKey="e-5">Categories</Dropdown.Item>
-                <Dropdown.Item onClick={()=> history.push(Routes.administrationExpertise)} eventKey="e-6">Expertise</Dropdown.Item>
-                <Dropdown.Item onClick={()=> history.push(Routes.administrationNews)} eventKey="e-7">News</Dropdown.Item>
+                {seeTotalAdmin && <Dropdown.Item onClick={()=> history.push(Routes.administrationUsers)} eventKey="e-4">Users</Dropdown.Item>}
+                {seeTotalAdmin && <Dropdown.Item onClick={()=> history.push(Routes.administrationCategories)} eventKey="e-5">Categories</Dropdown.Item>}
+                {seeTotalAdmin && <Dropdown.Item onClick={()=> history.push(Routes.administrationExpertise)} eventKey="e-6">Expertise</Dropdown.Item>}
+                {seeTotalAdmin && <Dropdown.Item onClick={()=> history.push(Routes.administrationNews)} eventKey="e-7">News</Dropdown.Item>}
             </Dropdown.Menu>}
             {authenticated && <Dropdown.Item href="/backend/logout" >{t('Logout')}</Dropdown.Item>}
             {!authenticated && <Dropdown.Item href="/login" >{t('Login')}</Dropdown.Item>}
