@@ -234,6 +234,15 @@ class User implements UserInterface
         $this->roles = $roles;
     }
 
+    public function removeRole($role)
+    {
+        $index = array_search($role, $this->roles);
+        if ($index !== false)
+        {
+            unset($this->roles[$index]);
+        }
+    }
+
     /**
      * @see UserInterface
      */

@@ -27,6 +27,7 @@ use Symfony\Bundle\FrameworkBundle\Controller\AbstractController;
 use Symfony\Component\HttpFoundation\Request;
 use Symfony\Component\HttpFoundation\Response;
 use Symfony\Component\Mailer\Exception\TransportExceptionInterface;
+use Symfony\Component\Security\Core\Security;
 
 
 /**
@@ -414,8 +415,43 @@ class CollaborationController extends AbstractController
     /**
      * @Route("/getall")
      */
-    public function getAll(){
-        $projects = $this->em->getRepository(Collaboration::class)->findAll();
+    public function getAll(Security $security){
+        /**
+         * @var User $user
+         */
+        $user = $security->getUser();
+
+        $isAdmin = in_array("ROLE_ADMIN",$user->getRoles());
+        if($isAdmin){
+            $projects = $this->em->getRepository(Collaboration::class)->findAll();
+            return new Response($this->serializer->serialize($projects,'json'));
+        }
+        $isArabicAdmin = in_array("ROLE_ARABIC_ADMIN",$user->getRoles());
+        if($isArabicAdmin){
+            $projects = $this->em->getRepository(Collaboration::class)->findBy(["language"=>"ar"]);
+            return new Response($this->serializer->serialize($projects,'json'));
+        }
+
+        $isGreekAdmin = in_array("ROLE_GREEK_ADMIN",$user->getRoles());
+        if($isGreekAdmin){
+            $projects = $this->em->getRepository(Collaboration::class)->findBy(["language"=>"gr"]);
+            return new Response($this->serializer->serialize($projects,'json'));
+        }
+
+        $isItaAdmin = in_array("ROLE_ITALIAN_ADMIN",$user->getRoles());
+        if($isItaAdmin){
+            $projects = $this->em->getRepository(Collaboration::class)->findBy(["language"=>"it"]);
+            return new Response($this->serializer->serialize($projects,'json'));
+        }
+
+        $isEnglishAdmin = in_array("ROLE_ENGLISH_ADMIN",$user->getRoles());
+        if($isEnglishAdmin){
+            $projects = $this->em->getRepository(Collaboration::class)->findBy(["language"=>"en"]);
+            return new Response($this->serializer->serialize($projects,'json'));
+        }
+
+        $projects =[];
+
 
         return new Response($this->serializer->serialize($projects,'json'));
 
