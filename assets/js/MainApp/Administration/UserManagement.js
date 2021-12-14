@@ -1,13 +1,7 @@
-import React, {useEffect, useState} from 'react'
-import {useChangeUserRole, useGetAllProjects, useGetUsers} from "../../Backend/hooks/useAdministration";
-import {TablePanelDetail} from "../../ReusableComponents/TablePanelDetail";
-import HorizontalStepForm from "../../ReusableComponents/HorizontalStepForm";
-import UserDetail from "./UserDetail";
-import * as Routes from "../../routes";
-import {Form, CheckPicker, SelectPicker, Container} from "rsuite";
-import TextField from "../../Login/Components/TextField";
+import React, {useEffect} from 'react'
+import {useGetUsers} from "../../Backend/hooks/useAdministration";
+import {Container} from "rsuite";
 import {GenericTable} from "../../ReusableComponents/GenericTable";
-import DeleteButton from "../../ReusableComponents/DeleteButton";
 import {useHistory} from "react-router-dom";
 import {useRemoveUser} from "../../Backend/hooks/useProfile";
 
@@ -25,6 +19,10 @@ export default function UserManagement(){
        return (
             <span>
                 <a onClick={()=>removeUserHandler(rowData.id, {successCallback:()=>getUsersHandler()})}> Remove </a>
+                <a onClick={()=>{
+                    console.log(rowData.profileName)
+                    history.push(`/edit-profile/${rowData.profileName}`)
+                }}>Edit</a>
             </span>
         );
     }
