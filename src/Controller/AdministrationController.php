@@ -20,6 +20,7 @@ use Symfony\Bundle\FrameworkBundle\Controller\AbstractController;
 use Symfony\Component\HttpFoundation\Request;
 use Symfony\Component\HttpFoundation\Response;
 use Symfony\Component\Routing\Annotation\Route;
+use Symfony\Component\Security\Core\Security;
 
 /**
  * Class AdministrationController
@@ -40,9 +41,44 @@ class AdministrationController extends AbstractController
     /**
      * @Route("/getusers", methods={"GET"})
      */
-    public function getUsers(){
-        $users = $this->em->getRepository(User::class)->findAll();
-        return new Response($this->serializer->serialize($users, 'json'), Response::HTTP_OK);
+    public function getUsers(Security $security){
+
+        $user = $security->getUser();
+
+        $isAdmin = in_array("ROLE_ADMIN",$user->getRoles());
+        if($isAdmin){
+            $users = $this->em->getRepository(User::class)->findAll();
+            return new Response($this->serializer->serialize($users,'json'));
+        }
+        $isArabicAdmin = in_array("ROLE_ARABIC_ADMIN",$user->getRoles());
+        if($isArabicAdmin){
+            $users = $this->em->getRepository(User::class)->findBy(["language"=>"ar"]);
+            return new Response($this->serializer->serialize($users,'json'));
+        }
+
+        $isGreekAdmin = in_array("ROLE_GREEK_ADMIN",$user->getRoles());
+        if($isGreekAdmin){
+            $users = $this->em->getRepository(User::class)->findBy(["language"=>"gr"]);
+            return new Response($this->serializer->serialize($users,'json'));
+        }
+
+        $isItaAdmin = in_array("ROLE_ITALIAN_ADMIN",$user->getRoles());
+        if($isItaAdmin){
+            $users = $this->em->getRepository(User::class)->findBy(["language"=>"it"]);
+            return new Response($this->serializer->serialize($users,'json'));
+        }
+
+        $isEnglishAdmin = in_array("ROLE_ENGLISH_ADMIN",$user->getRoles());
+        if($isEnglishAdmin){
+            $users = $this->em->getRepository(User::class)->findBy(["language"=>"en"]);
+            return new Response($this->serializer->serialize($users,'json'));
+        }
+
+        $users =[];
+
+
+        return new Response($this->serializer->serialize($users,'json'));
+
     }
 
     /**

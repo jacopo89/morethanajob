@@ -48,7 +48,7 @@ export default function FinalHeader(){
             {seeAdminMenu && <Dropdown.Menu pullLeft title={t('Administration')} >
                 <Dropdown.Item onClick={()=> history.push(Routes.administrationProjects)} eventKey="e-2">Projects</Dropdown.Item>
                 <Dropdown.Item onClick={()=> history.push(Routes.administrationCollaborations)} eventKey="e-3">Services and collaborations</Dropdown.Item>
-                {seeTotalAdmin && <Dropdown.Item onClick={()=> history.push(Routes.administrationUsers)} eventKey="e-4">Users</Dropdown.Item>}
+                <Dropdown.Item onClick={()=> history.push(Routes.administrationUsers)} eventKey="e-4">Users</Dropdown.Item>
                 {seeTotalAdmin && <Dropdown.Item onClick={()=> history.push(Routes.administrationCategories)} eventKey="e-5">Categories</Dropdown.Item>}
                 {seeTotalAdmin && <Dropdown.Item onClick={()=> history.push(Routes.administrationExpertise)} eventKey="e-6">Expertise</Dropdown.Item>}
                 {seeTotalAdmin && <Dropdown.Item onClick={()=> history.push(Routes.administrationNews)} eventKey="e-7">News</Dropdown.Item>}
