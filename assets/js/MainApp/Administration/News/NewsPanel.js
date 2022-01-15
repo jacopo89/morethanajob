@@ -1,45 +1,47 @@
 import React from "react";
 import {manipulateWebsite} from "../../Profile/Profile";
 import {
-    bordeaux, FlexAroundDiv,
-    FlexBetweenDiv, fundingOpportunitiesPicture, projectDisseminationPicture,
+    bordeaux,
+    FlexAroundDiv,
+    FlexBetweenDiv,
+    fundingOpportunitiesPicture,
+    projectDisseminationPicture,
     projectNewsPicture,
-    relevantPublicationsPicture, videoTutorialPicture
+    relevantPublicationsPicture,
+    videoTutorialPicture
 } from "../../../styledComponents/CustomComponents";
 import styled from "styled-components";
-import {List, FlexboxGrid, Icon, Grid, Row, Col} from "rsuite";
+import {Col, FlexboxGrid, Grid, List, Row} from "rsuite";
 import {newsSelectData} from "../../../selectData";
-import {
-    customNormalizedDateToString,
-    getCalendarFormat,
-    getDate,
-    getTime
-} from "../../../ReusableComponents/TimeManager";
+import {getDate} from "../../../ReusableComponents/TimeManager";
 
 export default function NewsPanel({news}){
-
-    const links = <div>
-        <a target="_blank" href={manipulateWebsite(news.link)}> {news.link}</a>
-    </div> ;
 
     const typeElement = newsSelectData.find(item => {
         return item.value ===news.type
     });
-
     const type = (typeElement) ? typeElement.label :"";
+
+
     let imageUrl="";
-    if(typeElement){
-        switch(typeElement.value){
-            case 1: imageUrl = projectNewsPicture; break;
-            case 2: imageUrl = relevantPublicationsPicture; break;
-            case 3: imageUrl = projectDisseminationPicture; break;
-            case 4: imageUrl = fundingOpportunitiesPicture; break;
-            case 5: imageUrl = videoTutorialPicture; break;
-            default: imageUrl = "";
-        }
+    if(news.image){
+        imageUrl = news.image.url;
     }else{
-        imageUrl = "";
+        if(typeElement){
+            switch(typeElement.value){
+                case 1: imageUrl = projectNewsPicture; break;
+                case 2: imageUrl = relevantPublicationsPicture; break;
+                case 3: imageUrl = projectDisseminationPicture; break;
+                case 4: imageUrl = fundingOpportunitiesPicture; break;
+                case 5: imageUrl = videoTutorialPicture; break;
+                default: imageUrl = "";
+            }
+        }else{
+            imageUrl = "";
+        }
     }
+
+
 
 
     return <div>

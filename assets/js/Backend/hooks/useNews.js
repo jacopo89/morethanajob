@@ -30,3 +30,7 @@ export function useNewsLoadFile() {
     const backendClient = BackendClient();
     return useCreateHook(backendClient,'/backend/news/load-file','post',null);
 }
+export function useNewsLoadImage() {
+    const backendClient = BackendClient();
+    return useCreateHook(backendClient,'/backend/news/load-image','post',null);
+}

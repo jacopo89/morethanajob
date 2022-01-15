@@ -4,19 +4,19 @@
       "js": [
         "/build/runtime.1103dde6.js",
         "/build/0.58e04aa4.js",
-        "/build/1.72f65e8d.js",
-        "/build/app.360a1fe3.js"
+        "/build/1.db3a86c9.js",
+        "/build/app.c8a913b8.js"
       ],
       "css": [
         "/build/1.c4a94852.css",
-        "/build/app.0a6888dc.css"
+        "/build/app.b9c22f52.css"
       ]
     },
     "login": {
       "js": [
         "/build/runtime.1103dde6.js",
         "/build/0.58e04aa4.js",
-        "/build/login.76b9e341.js"
+        "/build/login.aadb64b3.js"
       ],
       "css": [
         "/build/login.736e754c.css"

@@ -58,6 +58,7 @@ import AllNews from "./MainApp/News/AllNews";
 import Statistics from "./MainApp/Administration/Statistics";
 import CookieAccept from "./CookieAccept";
 import Privacy from "./Privacy";
+import SubGrantedProjects from "./MainApp/News/SubGrantedProjects";
 
 function App(){
     const location = useLocation();
@@ -118,6 +119,7 @@ function App(){
     const administrationExpertisePage = <AdministrationLayout page={<ExpertiseManagement />} />
     const statisticsPage = <AdministrationLayout page={<Statistics/>} />
     const allNewsPage = <MainPage page={<AllNews/>}/>;
+    const subGrantedProjectsPage = <MainPage page={<SubGrantedProjects/>}/>;
     const serviceSearchPage = <MainPage page={<ServiceSearch />}/>;
     const searchUserPage = <MainPage page={<SearchPartners />}/>;
     const loginPage = <DashboardLayout page={<Login/>}/>;
@@ -172,7 +174,8 @@ function App(){
                 <Route path={Routes.administrationNews} children={administrationNewsPage}/>
                 <Route path={Routes.routeProject} children={projectDetailPage}/>
                 <Route path={Routes.immediateLogout} children={immediateLogoutPage}/>
-                <Route path={Routes.newsPage} children={allNewsPage}/>
+                <Route path={"/news/:news_type"} children={allNewsPage}/>
+                <Route path={Routes.subGrantedProjectsPage} children={subGrantedProjectsPage}/>
                 <Route path={Routes.main} children={dashboardPage}/>
 
 
@@ -210,7 +213,8 @@ function App(){
                 <Route path={Routes.administrationCollaborations} children={administrationCollaborationsPage}/>
                 <Route path={Routes.administrationProjects} children={administrationProjectPage}/>
                 <Route path={Routes.administrationNews} children={administrationNewsPage}/>
-                <Route path={Routes.newsPage} children={allNewsPage}/>
+                <Route path={"/news/:news_type"} children={allNewsPage}/>
+                <Route path={Routes.subGrantedProjectsPage} children={subGrantedProjectsPage}/>
                 <Route path={Routes.immediateLogout} children={immediateLogoutPage}/>
                 <Route path={Routes.main} children={dashboardPage}/>
                 <Route path="/">

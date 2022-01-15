@@ -1,4 +1,5 @@
 
+
 export const main = "/";
 export const registration = "/registration";
 export const login = "/login";
@@ -32,6 +33,7 @@ export const routeEditService = "/edit-service/:id";
 export const immediateLogout = "/immediatelogout";
 export const privacy = "/privacy";
 export var newsPage = "/news";
+export const subGrantedProjectsPage = "/sub-granted-projects";
 
 export function profile(name){
     return "/profile/"+name;
