@@ -1,15 +1,18 @@
 import React, {useEffect, useState} from "react";
-import {Col, Dropdown, FlexboxGrid, Grid, Icon, List, Nav, Navbar, Panel, Row} from "rsuite";
+import {Carousel, Col, Dropdown, Grid, Icon, List, Nav, Navbar, Panel, Row} from "rsuite";
 import {Link, useHistory} from "react-router-dom";
 import * as Routes from '../routes'
 import {
     BackTitle,
     Body,
-    bordeaux, FlexCenterDiv, FrontTitle, guide,
+    bordeaux,
+    FlexCenterDiv,
+    FrontTitle,
+    guide,
     MainButton,
-    noProfilePicture,
-    noProjectPicture, servicePagePicture,
-    Title, userPagePicture,
+    noProjectPicture,
+    servicePagePicture,
+    userPagePicture,
 } from "../styledComponents/CustomComponents";
 import styled from "styled-components";
 import "./dashboard.css";
@@ -122,6 +125,56 @@ export default function Dashboard(){
             <Panel shaded style={panelStyle} >
                 <Anchor id="home"/>
                 <Grid fluid>
+                    <Row>
+                        <Col xs={24}>
+                            <BackTitle>
+                                <FrontTitle id="aboutUs">
+                                    {t('MoreThanAJob Portal')}
+                                </FrontTitle>
+                                {t('MoreThanAJob Portal')}
+                            </BackTitle>
+                        </Col>
+                    </Row>
+                    <Row>
+                        <Col xs={24}>
+                            <Carousel style={{height:600}} autoplayInterval={8000} autoplay={true}>
+                                {
+                                    [
+                                        <div style={{backgroundImage:"url(/defaults/homepage/img_1.jpg)",backgroundSize:"cover", position:"relative"}}>
+                                            <div style={{height:"100%", backgroundImage: "linear-gradient(to top,black,white)", opacity:"33%"}}></div>
+                                            <div style={{position:"absolute", flexDirection:"column", top:0,left:0, margin:"0 100px", height:"100%", display:"flex", justifyContent:"center", alignItems:"center",zIndex:1000}}>
+                                                <h5 style={{color:"white"}}>Are you an organisation or an institution involved in the social economy? Would you like to promote your
+                                                    welfare services addressed to vulnerable people? Do you want to increase your network?</h5>
+                                                <h5 style={{color:"white"}}>
+                                                    Improve your opportunities to collaborate with other private and public actors for the development of new
+                                                    services, projects and initiatives at local and international level!
+                                                </h5>
+                                                <MainButton style={{float:"right", margin:10}} onClick={()=>history.push(Routes.login)}>  {t('Join our Euro-Mediterranean network')}</MainButton>
+                                            </div>
+                                        </div>,
+                                        <div style={{backgroundImage:"url(/defaults/homepage/img2.jpg)",backgroundSize:"cover", position:"relative"}}>
+                                            <div style={{height:"100%", backgroundImage: "linear-gradient(to top,black,white)", opacity:"33%"}}></div>
+                                            <div style={{position:"absolute", flexDirection:"column", top:0,left:0, margin:"0 100px", height:"100%", display:"flex", justifyContent:"center", alignItems:"center",zIndex:1000}}>
+                                                <h5 style={{color:"white"}}>Would you like to know more about the services and opportunities available in your territory? Are you
+                                                    looking for new opportunities of collaboration in the field of social economy?</h5>
+                                                <MainButton style={{float:"right", margin:10}} onClick={()=>history.push(Routes.serviceSearchPage)}>  {t('Check our services and opportunities')}</MainButton>
+                                            </div>
+                                        </div>,
+                                        <div style={{backgroundImage:"url(/defaults/homepage/img3.PNG)",backgroundSize:"cover", position:"relative"}}>
+                                            <div style={{height:"100%", backgroundImage: "linear-gradient(to top,black,white)", opacity:"33%"}}></div>
+                                            <div style={{position:"absolute", flexDirection:"column", top:0,left:0, margin:"0 100px", height:"100%", display:"flex", justifyContent:"center", alignItems:"center",zIndex:1000}}>
+                                                <h5 style={{color:"white"}}>Discover more about our portal’s features and functionalities to get the most out of it and enhance your
+                                                    opportunities of cooperation for the development of welfare services in your territory.</h5>
+                                                <MainButton style={{float:"right", margin:10}} onClick={()=>history.push(Routes.serviceSearchPage)}> <Link style={{color:"white"}} to={guide} target="_blank">Check the user guide!</Link></MainButton>
+                                            </div>
+                                        </div>,
+                                    ]
+                                }
+                            </Carousel>
+                        </Col>
+                    </Row>
+                </Grid>
+                {/*<Grid fluid>
                     <Row className="show-grid">
                         <Col xs={24}  md={12}>
                             <BackTitle>
@@ -142,7 +195,9 @@ export default function Dashboard(){
                             </div>
                         </Col>
                     </Row>
-                </Grid>
+                </Grid>*/}
+
+
             </Panel>
             <Panel shaded style={panelStyle}>
                 <Anchor id="aboutUs">Abus</Anchor>
