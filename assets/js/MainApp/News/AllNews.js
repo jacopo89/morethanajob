@@ -1,8 +1,8 @@
-import NewsPanel, {chooseNewsImage} from "../Administration/News/NewsPanel";
+import NewsPanel from "../Administration/News/NewsPanel";
 import React, {useEffect, useState} from "react";
-import {Divider, Pagination} from "rsuite";
+import {Carousel,Col, Divider, Pagination, Row, TreePicker} from "rsuite";
 import {
-    BackTitle,
+    BackTitle, bordeaux,
     FlexBetweenDiv,
     FlexCenterDiv,
     FrontTitle,
@@ -10,15 +10,56 @@ import {
 } from "../../styledComponents/CustomComponents";
 import {useTranslation} from "react-i18next";
 import {useList} from "../../tools/list";
-import {newsSelectData} from "../../selectData";
+import {useLocation} from 'react-router-dom';
+import NewsCarousel from "./NewsCarousel";
 
 export default function AllNews() {
 
     const {t} = useTranslation();
+    const params = useLocation();
+    const initialFilter = (params.state) ? params.state.filter : undefined
 
     const {data, get} = useList("news");
     const [page, setPage] = useState(1);
-    const [filter, setFilter] = useState();
+    const [filter, setFilter] = useState(initialFilter);
+
+    const newsTree = [
+        {
+            "label": "Project News",
+            "value": 1,
+        },
+        {
+            "label": "Relevant publications",
+            "value": 2,
+        },
+        {
+            "label": "Library",
+            "value": 3,
+            "children": [
+                {
+                    "label": "Video Tutorials",
+                    "value": 5
+                },
+                {
+                    "label": "Communication Tools",
+                    "value": 6
+                },
+                {
+                    "label": "Training material",
+                    "value": 7
+                },
+                {
+                    "label": "Policy briefs",
+                    "value": 8
+                }
+            ]
+        },
+        {
+            "label": "Funding opportunities",
+            "value": 4,
+
+        },
+    ]
 
     useEffect(()=>get(page, {type:filter}), [page, filter]);
 
@@ -37,22 +78,25 @@ export default function AllNews() {
     return<>
         <img width={"100%"} src={newsPagePicture}/>
         <div style={{padding:20}}>
-
         <BackTitle >
             <FrontTitle>
                 {t('News')}
             </FrontTitle>
             {t('News')}
         </BackTitle>
-        <FlexBetweenDiv style={{marginBottom:50}}>
-            {newsSelectData.map(({value, label} )=> <FlexCenterDiv style={{flexDirection:"column"}}>
-                <img onClick={()=>setFilter(value)} style={{cursor:"pointer"}} width={"100"} src={chooseNewsImage(value)}/>
-                <div>{label}</div>
-            </FlexCenterDiv>)}
-        </FlexBetweenDiv>
+            <NewsCarousel news={sortedNews}/>
+            <Row>
+                <Col xs={12}>
+
+                </Col>
+                <Col xs={12} style={{display:"flex", justifyContent:"end"}}>
+                    <TreePicker value={filter} onChange={(value)=>setFilter(value)} label={"News type"} searchable={false} defaultExpandAll data={newsTree} style={{ width: 246 }} />
+                </Col>
+            </Row>
         <FlexBetweenDiv>
             <PaginationNews/>
         </FlexBetweenDiv>
+
 
         {newsPanels.length!==0 ? newsPanels : <FlexCenterDiv style={{height:"100%"}}> No news found </FlexCenterDiv>}
     </div>

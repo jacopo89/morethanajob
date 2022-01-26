@@ -1,15 +1,18 @@
 import React, {useEffect, useState} from "react";
-import {Col, FlexboxGrid, Grid, Icon, List, Nav, Navbar, Panel, Row} from "rsuite";
+import {Carousel, Col, Dropdown, Grid, Icon, List, Nav, Navbar, Panel, Row} from "rsuite";
 import {Link, useHistory} from "react-router-dom";
 import * as Routes from '../routes'
 import {
     BackTitle,
     Body,
-    bordeaux, FlexCenterDiv, FrontTitle,
+    bordeaux,
+    FlexCenterDiv,
+    FrontTitle,
+    guide,
     MainButton,
-    noProfilePicture,
     noProjectPicture,
-    Title,
+    servicePagePicture,
+    userPagePicture,
 } from "../styledComponents/CustomComponents";
 import styled from "styled-components";
 import "./dashboard.css";
@@ -22,6 +25,7 @@ import {useGetCategories} from "../Backend/hooks/useCategories";
 import {useGetRecentNews} from "../Backend/hooks/useNews";
 import NewsPanel from "./Administration/News/NewsPanel";
 import ReactPlayer from "react-player";
+import NewsCarousel from "./News/NewsCarousel";
 
 export default function Dashboard(){
     const history = useHistory();
@@ -33,13 +37,15 @@ export default function Dashboard(){
     const {language} = useSelector(state=>state);
 
     const panelStyle = {width: "85%", borderRadius:"20px", backgroundColor:"white", margin:"0 auto", padding:20, marginTop:20}
+    const embeddedPanelStyle = {borderRadius:"20px", backgroundColor:"white", height:"100%"}
+    const rowStyle = {width: "85%", margin:"0 auto", marginTop:20}
     const [profiles, getRandomProfilesHandler] = useGetRandomProfiles();
     const [collaborations, getRandomCollaborationsHandler] = useGetRandomCollaborations();
     const [recentNews, getRecentNews] = useGetRecentNews();
 
 
     useEffect(()=>{
-        getRandomProfilesHandler();
+        //getRandomProfilesHandler();
         getCategories();
         getRecentNews();
     },[]);
@@ -49,20 +55,47 @@ export default function Dashboard(){
     useEffect(()=>{
         const formData = new FormData();
         formData.append('language', language);
-        getRandomCollaborationsHandler(formData);
+        //getRandomCollaborationsHandler(formData);
     },[language]);
 
-    const profilePics = profiles.map((profile, index)=>
+    /*const profilePics = profiles.map((profile, index)=>
     {
         const picture = profile.profilePicture ? profile.profilePicture.url : noProfilePicture;
         return (<IconTextBox key={index}>
             <img style={{cursor:"pointer"}} width={75} src={picture} onClick={()=>history.push(Routes.profile(profile.profileName))}/>
             <a style={{color:"black"}} href={`/profile/${profile.profileName}`} >{profile.name}</a>
         </IconTextBox>)
-    } );
+    } );*/
 
     const collaborationBlocks = collaborations.map((collaboration, index)=><CollaborationDetail key={index} collaboration={collaboration} />)
 
+
+    const HelpDropdown = ({ ...props }) => (
+        <Dropdown {...props}>
+            <Dropdown.Item >
+                <Link to={guide} target="_blank">Download guide</Link>
+            </Dropdown.Item>
+        </Dropdown>
+    );
+
+    const NewsDropdown = ({ ...props }) => (
+        <Dropdown {...props}>
+            <Dropdown.Item >
+                <Link to={Routes.newsPage} target="_blank">All news</Link>
+            </Dropdown.Item>
+            <Dropdown.Item >
+                <Link to={()=>{
+                    return {
+                        pathname: "/news/projects",
+                        state: { filter: 1 }
+                    }
+                }}>Projects</Link>
+            </Dropdown.Item>
+            <Dropdown.Item >
+                <Link to={Routes.newsPage} target="_blank">News2</Link>
+            </Dropdown.Item>
+        </Dropdown>
+    );
 
     return <>
         <Navbar id="dashboard" appearance="inverse" style={{backgroundColor:"transparent", color:"white"}} >
@@ -75,7 +108,10 @@ export default function Dashboard(){
                     <Nav.Item href="#categories" eventKey="3">{t('Categories')}</Nav.Item>
                     <Nav.Item onClick={()=>history.push(Routes.serviceSearchPage)}  eventKey="3">{t('Services and opportunities')}</Nav.Item>
                     <Nav.Item onClick={()=>history.push(Routes.searchUserPage)}  eventKey="4">{t('Organisations')}</Nav.Item>
-                    <Nav.Item eventKey="4" onClick={()=>history.push(Routes.newsPage)}>{t('News')}</Nav.Item>
+                    <Nav.Item onClick={()=>history.push(Routes.subGrantedProjectsPage)}  eventKey="5">{t('Sub-granted Projects')}</Nav.Item>
+                    <HelpDropdown style={{fontSize:16}} title={"Need help?"}/>
+
+                    <NewsDropdown style={{fontSize:16}} trigger={['click', 'hover']} title={t('News')}></NewsDropdown>
                     {/*<Nav.Item href="#FAQ"  eventKey="5">FAQ</Nav.Item>*/}
 
                 </Nav>
@@ -89,6 +125,56 @@ export default function Dashboard(){
             <Panel shaded style={panelStyle} >
                 <Anchor id="home"/>
                 <Grid fluid>
+                    <Row>
+                        <Col xs={24}>
+                            <BackTitle>
+                                <FrontTitle id="aboutUs">
+                                    {t('MoreThanAJob Portal')}
+                                </FrontTitle>
+                                {t('MoreThanAJob Portal')}
+                            </BackTitle>
+                        </Col>
+                    </Row>
+                    <Row>
+                        <Col xs={24}>
+                            <Carousel style={{height:600}} autoplayInterval={8000} autoplay={true}>
+                                {
+                                    [
+                                        <div style={{backgroundImage:"url(/defaults/homepage/img_1.jpg)",backgroundSize:"cover", position:"relative"}}>
+                                            <div style={{height:"100%", backgroundImage: "linear-gradient(to top,black,white)", opacity:"33%"}}></div>
+                                            <div style={{position:"absolute", flexDirection:"column", top:0,left:0, margin:"0 100px", height:"100%", display:"flex", justifyContent:"center", alignItems:"center",zIndex:1000}}>
+                                                <h5 style={{color:"white"}}>Are you an organisation or an institution involved in the social economy? Would you like to promote your
+                                                    welfare services addressed to vulnerable people? Do you want to increase your network?</h5>
+                                                <h5 style={{color:"white"}}>
+                                                    Improve your opportunities to collaborate with other private and public actors for the development of new
+                                                    services, projects and initiatives at local and international level!
+                                                </h5>
+                                                <MainButton style={{float:"right", margin:10}} onClick={()=>history.push(Routes.login)}>  {t('Join our Euro-Mediterranean network')}</MainButton>
+                                            </div>
+                                        </div>,
+                                        <div style={{backgroundImage:"url(/defaults/homepage/img2.jpg)",backgroundSize:"cover", position:"relative"}}>
+                                            <div style={{height:"100%", backgroundImage: "linear-gradient(to top,black,white)", opacity:"33%"}}></div>
+                                            <div style={{position:"absolute", flexDirection:"column", top:0,left:0, margin:"0 100px", height:"100%", display:"flex", justifyContent:"center", alignItems:"center",zIndex:1000}}>
+                                                <h5 style={{color:"white"}}>Would you like to know more about the services and opportunities available in your territory? Are you
+                                                    looking for new opportunities of collaboration in the field of social economy?</h5>
+                                                <MainButton style={{float:"right", margin:10}} onClick={()=>history.push(Routes.serviceSearchPage)}>  {t('Check our services and opportunities')}</MainButton>
+                                            </div>
+                                        </div>,
+                                        <div style={{backgroundImage:"url(/defaults/homepage/img3.PNG)",backgroundSize:"cover", position:"relative"}}>
+                                            <div style={{height:"100%", backgroundImage: "linear-gradient(to top,black,white)", opacity:"33%"}}></div>
+                                            <div style={{position:"absolute", flexDirection:"column", top:0,left:0, margin:"0 100px", height:"100%", display:"flex", justifyContent:"center", alignItems:"center",zIndex:1000}}>
+                                                <h5 style={{color:"white"}}>Discover more about our portal’s features and functionalities to get the most out of it and enhance your
+                                                    opportunities of cooperation for the development of welfare services in your territory.</h5>
+                                                <MainButton style={{float:"right", margin:10}} onClick={()=>history.push(Routes.serviceSearchPage)}> <Link style={{color:"white"}} to={guide} target="_blank">Check the user guide!</Link></MainButton>
+                                            </div>
+                                        </div>,
+                                    ]
+                                }
+                            </Carousel>
+                        </Col>
+                    </Row>
+                </Grid>
+                {/*<Grid fluid>
                     <Row className="show-grid">
                         <Col xs={24}  md={12}>
                             <BackTitle>
@@ -109,7 +195,9 @@ export default function Dashboard(){
                             </div>
                         </Col>
                     </Row>
-                </Grid>
+                </Grid>*/}
+
+
             </Panel>
             <Panel shaded style={panelStyle}>
                 <Anchor id="aboutUs">Abus</Anchor>
@@ -178,6 +266,7 @@ export default function Dashboard(){
 
             </Panel>
 
+            {/*Categories*/}
             <Panel shaded style={panelStyle}>
                 <BackTitle>
                     <Anchor style={{ marginBottom:50 }} id="categories"/>
@@ -195,31 +284,7 @@ export default function Dashboard(){
 
                 </div>
             </Panel>
-            <Panel shaded style={panelStyle}>
-                <BackTitle >
-                    <FrontTitle >
-                        {t('Organisations')}
-                    </FrontTitle>
-                    {t('Organisations')}
-                </BackTitle>
-                <Anchor id="organisations"/>
-                <div style={{display:"flex", justifyContent:"space-around"}}>
-                    {profilePics}
-
-                </div>
-
-            </Panel>
-
-            <Panel shaded style={panelStyle}>
-                <BackTitle>
-                    <FrontTitle>
-                        {t('Services and opportunities')}
-                    </FrontTitle>
-                    {t('Services and opportunities')}
-                </BackTitle>
-                {collaborationBlocks}
-
-            </Panel>
+            {/*News*/}
             <Panel shaded style={panelStyle}>
                 <Anchor id="news"/>
                 <BackTitle >
@@ -228,6 +293,7 @@ export default function Dashboard(){
                     </FrontTitle>
                     {t('News')}
                 </BackTitle>
+                <NewsCarousel news={recentNews}/>
                 <List size='lg'>
                     {recentNews.map((news, index)=><List.Item><NewsPanel key={index} news={news}> </NewsPanel></List.Item>)}
                 </List>
@@ -236,23 +302,57 @@ export default function Dashboard(){
                 </FlexCenterDiv>
 
             </Panel>
+            {/*Organisations*/}
+            <Row style={rowStyle}>
+                <Col style={{height:500}} xs={24} sm={12}>
+                    <Panel style={embeddedPanelStyle} shaded >
+                        <BackTitle >
+                            <FrontTitle >
+                                {t('Organisations')}
+                            </FrontTitle>
+                            {t('Organisations')}
+                        </BackTitle>
+                        <Anchor id="organisations"/>
+                        <img width={"100%"} src={userPagePicture}/>
+                        <p style={{padding:"20px 0"}}>
+                            Discover the organisations that are part of the MoreThanAJob community!
+                        </p>
+                        <div style={{display:"flex", justifyContent:"center", alignItems:"center"}}>
+                            <MainButton style={{margin:15, borderRadius:999}} onClick={()=>history.push(Routes.searchUserPage)}>{t('View more')}</MainButton>
+                        </div>
 
-           {/* <Panel shaded style={panelStyle}>
-                <Title>FAQ</Title>
-                <Anchor id="FAQ"/>
-                <PanelGroup accordion bordered>
-                    <Panel header="Does this course need special requirements?" defaultExpanded>
-                        No. It is a standard course.
-                    </Panel>
-                    <Panel header="Panel 2">
-                        Domanda2
-                    </Panel>
-                    <Panel header="Panel 3">
-                        Domanda 3
-                    </Panel>
-                </PanelGroup>
-            </Panel>*/}
 
+                        {/*<div style={{display:"flex", justifyContent:"space-around"}}>
+                            {profilePics}
+
+                        </div>*/}
+
+                    </Panel>
+                </Col>
+                <Col style={{height:500}} xs={24} sm={12}>
+                    <Panel style={embeddedPanelStyle} shaded >
+                        <BackTitle>
+                            <FrontTitle>
+                                {t('Services and opportunities')}
+                            </FrontTitle>
+                            {t('Services and opportunities')}
+                        </BackTitle>
+                        <img width={"100%"} src={servicePagePicture}/>
+                        <p style={{padding:"20px 0"}}>
+                            Find the services and opportunities that the organisations are
+                            delivering to support the social and employment inclusion of vulnerable groups as well as the
+                            collaboration opportunities to renovate or develop new ones.
+                        </p>
+                        <div style={{display:"flex", justifyContent:"center", alignItems:"center"}}>
+                            <MainButton style={{margin:15, borderRadius:999}} onClick={()=>history.push(Routes.serviceSearchPage)}>{t('View more')}</MainButton>
+                        </div>
+                        {/*{collaborationBlocks}*/}
+
+                    </Panel>
+                </Col>
+            </Row>
+
+            {/*Services*/}
 
         </Body>
     </>
@@ -275,19 +375,9 @@ export function CategoryPanel({category}){
 }
 
 
-
-function TitleWithBack(text){
-    return <BackTitle>
-        <FrontTitle>{text}</FrontTitle>
-        {text}
-    </BackTitle>
-}
-
 const SmallTitle = styled.h6`color:${bordeaux}; margin:10px`;
 
 
-const DesktopDiv = styled.div`position: absolute;  width: 100vw; min-height:100%;`;
-const Box = styled.div`width: 85%; border-radius:20px; background-color:whitesmoke; margin:0 auto; padding:20; margin-top:20`;
 export const IconTextBox = styled.div`display: flex;
     flex-direction: column;
     align-items: center;

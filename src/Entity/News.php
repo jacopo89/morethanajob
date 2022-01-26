@@ -24,6 +24,10 @@ class News
     const PROJECT_DISSEMINATION_MATERIAL_RESOURCES = 3;
     const FUNDING_OPPORTUNITIES = 4;
     const VIDEO_TUTORIAL = 5;
+    const COMMUNICATION_TOOLS = 6;
+    const TRAINING_MATERIALS = 7;
+    const POLICY_BRIEFS = 8;
+    const SUBGRANTED_PROJECTS = 9;
 
     /**
      * @ORM\Id()
@@ -43,6 +47,11 @@ class News
     private $link;
 
     /**
+     * @ORM\Column(type="string", nullable=true)
+     */
+    private $videoLink;
+
+    /**
      * @ORM\Column(type="datetime_immutable")
      */
     private $creationTime;
@@ -57,10 +66,17 @@ class News
      */
     private $files;
 
+
+
     /**
      * @ORM\Column(type="integer")
      */
     private $type;
+
+    /**
+     * @ORM\OneToOne(targetEntity=File::class, cascade={"persist", "remove"})
+     */
+    private $image;
 
     public function getId(): ?int
     {
@@ -93,17 +109,20 @@ class News
             'title' => $this->title,
             'text' => $this->text,
             'link' => $this->link,
+            'videoLink' => $this->videoLink,
             'type' => $this->type,
             'creationTime' => $this->creationTime,
-            'files' =>$this->files
+            'files' =>$this->files,
+            'image' =>$this->image
         ];
     }
 
-    private function __construct(string $title, string $text, string $link, int $type)
+    private function __construct(string $title, string $text, string $link, int $type, string $videoLink)
     {
         $this->title = $title;
         $this->text = $text;
         $this->link = $link;
+        $this->videoLink = $videoLink;
         $this->creationTime = new \DateTimeImmutable();
         $this->files = new ArrayCollection();
         if($type){
@@ -114,7 +133,7 @@ class News
     }
 
     public static function createFromDTO(NewsDTO $newsDTO){
-        return new self($newsDTO->getTitle(),$newsDTO->getText(), $newsDTO->getLink(), $newsDTO->getType());
+        return new self($newsDTO->getTitle(),$newsDTO->getText(), $newsDTO->getLink(), $newsDTO->getType(), $newsDTO->getVideoLink());
     }
 
     public function getCreationTime(): ?\DateTimeImmutable
@@ -197,4 +216,31 @@ class News
     }
 
 
+    /**
+     * @return string
+     */
+    public function getVideoLink(): ?string
+    {
+        return $this->videoLink;
+    }
+
+    /**
+     * @param string $videoLink
+     */
+    public function setVideoLink(?string $videoLink): void
+    {
+        $this->videoLink = $videoLink;
+    }
+
+    public function getImage(): ?File
+    {
+        return $this->image;
+    }
+
+    public function setImage(?File $image): self
+    {
+        $this->image = $image;
+
+        return $this;
+    }
 }

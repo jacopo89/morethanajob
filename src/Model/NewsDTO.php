@@ -17,14 +17,17 @@ class NewsDTO
 
     private $link;
 
+    private $videoLink;
+
     private $type;
 
-    public function __construct(string $title, string $text, string $link, int $type)
+    public function __construct(string $title, string $text, string $link, int $type, string $videoLink)
     {
         $this->title = $title;
         $this->text = $text;
         $this->link = $link;
         $this->type = $type;
+        $this->videoLink= $videoLink;
     }
 
     /**
@@ -59,6 +62,14 @@ class NewsDTO
     public function getType(): int
     {
         return $this->type;
+    }
+
+    /**
+     * @return string
+     */
+    public function getVideoLink(): string
+    {
+        return $this->videoLink;
     }
 
 

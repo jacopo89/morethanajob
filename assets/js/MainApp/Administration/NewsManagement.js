@@ -37,6 +37,7 @@ export default function NewsManagement() {
         formData.append('title', selectedNews.title);
         formData.append('text', selectedNews.text);
         formData.append('link', selectedNews.link);
+        formData.append('videoLink', selectedNews.videoLink);
         formData.append('type', selectedNews.type);
         selectedNews.files.forEach((file, index)=>{formData.append('files[file-'+index+']', file);}) //TODO generalizzare questa
         formData.append('files', selectedNews.files);

@@ -69,7 +69,8 @@ class NewsController extends AbstractController
         $text = $request->get('text');
         $type = intval($request->get('type'));
         $link = $request->get('link');
-        $newsDto = new NewsDTO($title, $text, $link, $type);
+        $videoLink = $request->get('videoLink');
+        $newsDto = new NewsDTO($title, $text, $link, $type, $videoLink);
         $news = News::createFromDTO($newsDto);
         $this->em->save($news);
         $basePath = $request->getBasePath();
@@ -123,11 +124,12 @@ class NewsController extends AbstractController
             $text = $request->get('text');
             $type = $request->get('type');
             $link = $request->get('link');
+            $videoLink = $request->get('videoLink');
             $news->setTitle($title);
             $news->setText($text);
             $news->setLink($link);
             $news->setType($type);
-
+            $news->setVideoLink($videoLink);
             $this->em->save($news);
             $status = Response::HTTP_OK;
         }else{
@@ -204,6 +206,65 @@ class NewsController extends AbstractController
                 $file->setIsDoc(true);
                 $file->setUser(null);
                 $file->setNews($news);
+
+                $this->getDoctrine()->getManager()->persist($file);
+
+            }
+
+            $this->getDoctrine()->getManager()->flush();
+
+            $status = Response::HTTP_OK;
+            $message = null;
+        }else{
+            $status = Response::HTTP_BAD_REQUEST;
+            $message = "News Not found";
+
+        }
+
+
+        return new Response($message, $status);
+
+    }
+
+    /**
+     * @Route("/load-image", methods={"POST"})
+     * @param Request $request
+     * @return Response
+     */
+    public function loadImage(Request $request){
+        $id = $request->get('id');
+        $news = $this->getDoctrine()->getManager()->getRepository(News::class)->find($id);
+        $status = Response::HTTP_INTERNAL_SERVER_ERROR;
+        $message = "Error";
+        if($news){
+            $newsId = $news->getId();
+            $basePath = $request->getBasePath();
+
+            $uploadedFiles = $request->files;
+            foreach ($uploadedFiles as $uploadedFile){
+                $newsFolderPath = $this->fileSystemService->getNewsFolderPath($newsId);
+                $originalFilename = pathinfo($uploadedFile->getClientOriginalName(), PATHINFO_FILENAME);
+                $newFilename = $originalFilename.'-'.uniqid().'.'.$uploadedFile->guessExtension();
+                $path = $this->fileSystemService->getNewsFolderWebPath($basePath, $newsId)."/".$newFilename;
+
+                $uploadedFile->move(
+                    $newsFolderPath,
+                    $newFilename
+                );
+
+                $file = new File();
+                $file->setFilename($newFilename);
+                $file->setOriginalFilename($originalFilename);
+                $file->setExtension("png");
+                $file->setUrl($path);
+                $file->setIsDoc(false);
+                $file->setUser(null);
+
+                /**
+                 * @var News $news
+                 */
+
+                $news->setImage($file);
 
                 $this->getDoctrine()->getManager()->persist($file);
 

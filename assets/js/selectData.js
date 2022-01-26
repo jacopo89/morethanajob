@@ -115,32 +115,51 @@ export const currencies = [
     }
 ]
 
-
 export const newsSelectData = [
     {
-        "label": "Project news",
-        "value": 1
+        "label": "Project News",
+        "value": 1,
     },
     {
         "label": "Relevant publications",
-        "value": 2
+        "value": 2,
     },
     {
-        "label": "Resources",
-        "value": 3
+        "label": "Library",
+        "value": 3,
+        "children": [
+            {
+                "label": "Video Tutorials",
+                "value": 5
+            },
+            {
+                "label": "Communication Tools",
+                "value": 6
+            },
+            {
+                "label": "Training material",
+                "value": 7
+            },
+            {
+                "label": "Policy briefs",
+                "value": 8
+            }
+        ]
     },
     {
         "label": "Funding opportunities",
-        "value": 4
+        "value": 4,
+
     },
     {
-        "label": "Video tutorial",
-        "value": 5
-    }
+        "label": "Sub-granted Projects",
+        "value": 9,
+
+    },
 ]
 
 export function digestAmounts(amount, currency){
-    
+
     const currencySymbol = currencies.find((cur)=> cur.value === currency);
 
     if(currencySymbol!==undefined){
