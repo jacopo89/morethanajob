@@ -137,12 +137,12 @@ export default function Dashboard(){
                     </Row>
                     <Row>
                         <Col xs={24}>
-                            <Carousel style={{height:600}} autoplayInterval={8000} autoplay={true}>
+                            <Carousel style={{height:600}} autoplayInterval={8000} autoplay={false}>
                                 {
                                     [
                                         <div style={{backgroundImage:"url(/defaults/homepage/img_1.jpg)",backgroundSize:"cover", position:"relative"}}>
                                             <div style={{height:"100%", backgroundImage: "linear-gradient(to top,black,white)", opacity:"33%"}}></div>
-                                            <div style={{position:"absolute", flexDirection:"column", top:0,left:0, margin:"0 100px", height:"100%", display:"flex", justifyContent:"center", alignItems:"center",zIndex:1000}}>
+                                            <div style={{position:"absolute", flexDirection:"column", top:0,left:0, margin:"0 100px", height:"100%", display:"flex", justifyContent:"center", alignItems:"center"}}>
                                                 <h5 style={{color:"white"}}>Are you an organisation or an institution involved in the social economy? Would you like to promote your
                                                     welfare services addressed to vulnerable people? Do you want to increase your network?</h5>
                                                 <h5 style={{color:"white"}}>
@@ -154,7 +154,7 @@ export default function Dashboard(){
                                         </div>,
                                         <div style={{backgroundImage:"url(/defaults/homepage/img2.jpg)",backgroundSize:"cover", position:"relative"}}>
                                             <div style={{height:"100%", backgroundImage: "linear-gradient(to top,black,white)", opacity:"33%"}}></div>
-                                            <div style={{position:"absolute", flexDirection:"column", top:0,left:0, margin:"0 100px", height:"100%", display:"flex", justifyContent:"center", alignItems:"center",zIndex:1000}}>
+                                            <div style={{position:"absolute", flexDirection:"column", top:0,left:0, margin:"0 100px", height:"100%", display:"flex", justifyContent:"center", alignItems:"center"}}>
                                                 <h5 style={{color:"white"}}>Would you like to know more about the services and opportunities available in your territory? Are you
                                                     looking for new opportunities of collaboration in the field of social economy?</h5>
                                                 <MainButton style={{float:"right", margin:10}} onClick={()=>history.push(Routes.serviceSearchPage)}>  {t('Check our services and opportunities')}</MainButton>
@@ -162,7 +162,7 @@ export default function Dashboard(){
                                         </div>,
                                         <div style={{backgroundImage:"url(/defaults/homepage/img3.PNG)",backgroundSize:"cover", position:"relative"}}>
                                             <div style={{height:"100%", backgroundImage: "linear-gradient(to top,black,white)", opacity:"33%"}}></div>
-                                            <div style={{position:"absolute", flexDirection:"column", top:0,left:0, margin:"0 100px", height:"100%", display:"flex", justifyContent:"center", alignItems:"center",zIndex:1000}}>
+                                            <div style={{position:"absolute", flexDirection:"column", top:0,left:0, margin:"0 100px", height:"100%", display:"flex", justifyContent:"center", alignItems:"center"}}>
                                                 <h5 style={{color:"white"}}>Discover more about our portal’s features and functionalities to get the most out of it and enhance your
                                                     opportunities of cooperation for the development of welfare services in your territory.</h5>
                                                 <MainButton style={{float:"right", margin:10}} onClick={()=>history.push(Routes.serviceSearchPage)}> <Link style={{color:"white"}} to={guide} target="_blank">Check the user guide!</Link></MainButton>

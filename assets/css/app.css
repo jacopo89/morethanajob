@@ -9,3 +9,7 @@ body {
 form{
     margin-block-end: 0;
 }
+
+.rs-carousel-slider-after{
+    z-index: -100;
+}
