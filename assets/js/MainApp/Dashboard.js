@@ -91,9 +91,6 @@ export default function Dashboard(){
                     }
                 }}>Projects</Link>
             </Dropdown.Item>
-            <Dropdown.Item >
-                <Link to={Routes.newsPage} target="_blank">News2</Link>
-            </Dropdown.Item>
         </Dropdown>
     );
 
@@ -137,7 +134,7 @@ export default function Dashboard(){
                     </Row>
                     <Row>
                         <Col xs={24}>
-                            <Carousel style={{height:600}} autoplayInterval={8000} autoplay={false}>
+                            <Carousel style={{height:600}} autoplayInterval={6000} autoplay={true}>
                                 {
                                     [
                                         <div style={{backgroundImage:"url(/defaults/homepage/img_1.jpg)",backgroundSize:"cover", position:"relative"}}>
@@ -149,7 +146,7 @@ export default function Dashboard(){
                                                     Improve your opportunities to collaborate with other private and public actors for the development of new
                                                     services, projects and initiatives at local and international level!
                                                 </h5>
-                                                <MainButton style={{float:"right", margin:10}} onClick={()=>history.push(Routes.login)}>  {t('Join our Euro-Mediterranean network')}</MainButton>
+                                                <MainButton style={{float:"right", margin:10}} onClick={()=>window.location.href="/login"}>  {t('Join our Euro-Mediterranean network')}</MainButton>
                                             </div>
                                         </div>,
                                         <div style={{backgroundImage:"url(/defaults/homepage/img2.jpg)",backgroundSize:"cover", position:"relative"}}>
@@ -212,54 +209,47 @@ export default function Dashboard(){
                         </BackTitle></Col>
                     </Row>
                     <Row>
-                        <Col xs={24}>
-                            <div>
+                        <Col xs={12}>
+                                <img width="100%" src="/defaults/bg-dashboard.jpg"/>
+                        </Col>
+                        <Col xs={12}>
 
-                                {false &&
-                                    <>
-                                        <img style={{float:"left", marginLeft:30, marginRight:30}}  width="50%" src="/defaults/MoreThanAJob_Cover.jpg"/>
-                                        <p style={{float:"left", clear:"left", marginLeft:30, marginRight:30, fontSize:"0.6rem"}}>Photo © UN Women/Christopher Herwig </p>
-                                    </>}
-                                <ReactPlayer style={{float:"left", marginLeft:30, marginRight:30}} playing={false} width="50%" controls={false} url={"https://www.youtube.com/playlist?list=PLivtOKkDMT24-wZG7AUGBx-EUJG5OUuOt"} />
-                                <p>
-                                    {t('projectPre')}
-                                </p>
-                                {! readMore &&
-                                <div style={{display:"flex", justifyContent:"center", alignItems:"center"}}>
-                                    <MainButton style={{margin:15, borderRadius:999}} onClick={()=>setReadMore(!readMore)}>{t('Read more')}</MainButton>
-                                </div>}
-                                {readMore &&
-                                <>
-                                    <p>
-                                        {t('projectMore')}.
-                                    </p>
-                                    <SmallTitle>{t('projectSSE')}</SmallTitle>
-                                    <p>
-                                        {t('projectSSEText')}
-                                    </p>
-                                    <SmallTitle>{t('projectPartners')}</SmallTitle>
-                                    <ul>
-                                        <li>
-                                            {t('partner1')} <a target="_blank" href={t('linkpartner1')}>{t('linkpartner1')}</a>
-                                        </li>
-                                        <li>
-                                            {t('partner2')} <a target="_blank" href={t('linkpartner2')}>{t('linkpartner2')}</a>
-                                        </li>
-                                        <li>
-                                            {t('partner3')} <a target="_blank" href={t('linkpartner3')}>{t('linkpartner3')}</a>
-                                        </li>
-                                        <li>
-                                            {t('partner4')} <a target="_blank" href={t('linkpartner4')}>{t('linkpartner4')}</a>
-                                        </li>
-                                        <li>
-                                            {t('partner5')} <a target="_blank" href={t('linkpartner5')}>{t('linkpartner5')}</a>
-                                        </li>
-                                        <li>
-                                            {t('partner6')} <a target="_blank" href={t('linkpartner6')}>{t('linkpartner6')}</a>
-                                        </li>
-                                    </ul>
-                                </>}
-                            </div>
+                                {/*<ReactPlayer style={{float:"left", marginLeft:30, marginRight:30}} playing={false} width="50%" controls={false} url={"https://www.youtube.com/playlist?list=PLivtOKkDMT24-wZG7AUGBx-EUJG5OUuOt"} />*/}
+
+                        <p>
+                            {t('projectPre')}
+                        </p>
+                        {/*<div style={{display:"flex", justifyContent:"center", alignItems:"center"}}>
+                            <MainButton style={{margin:15, borderRadius:999}} onClick={()=>setReadMore(!readMore)}>{t('Read more')}</MainButton>
+                        </div>*/}
+                        <p>
+                            {t('projectMore')}.
+                        </p>
+                        <SmallTitle>{t('projectSSE')}</SmallTitle>
+                        <p>
+                            {t('projectSSEText')}
+                        </p>
+                        <SmallTitle>{t('projectPartners')}</SmallTitle>
+                        <ul>
+                            <li>
+                                {t('partner1')} <a target="_blank" href={t('linkpartner1')}>{t('linkpartner1')}</a>
+                            </li>
+                            <li>
+                                {t('partner2')} <a target="_blank" href={t('linkpartner2')}>{t('linkpartner2')}</a>
+                            </li>
+                            <li>
+                                {t('partner3')} <a target="_blank" href={t('linkpartner3')}>{t('linkpartner3')}</a>
+                            </li>
+                            <li>
+                                {t('partner4')} <a target="_blank" href={t('linkpartner4')}>{t('linkpartner4')}</a>
+                            </li>
+                            <li>
+                                {t('partner5')} <a target="_blank" href={t('linkpartner5')}>{t('linkpartner5')}</a>
+                            </li>
+                            <li>
+                                {t('partner6')} <a target="_blank" href={t('linkpartner6')}>{t('linkpartner6')}</a>
+                            </li>
+                        </ul>
                         </Col>
                     </Row>
                 </Grid>
@@ -289,9 +279,9 @@ export default function Dashboard(){
                 <Anchor id="news"/>
                 <BackTitle >
                     <FrontTitle>
-                        {t('News')}
+                        {t('News and Resources')}
                     </FrontTitle>
-                    {t('News')}
+                    {t('News and Resources')}
                 </BackTitle>
                 <NewsCarousel news={recentNews}/>
                 <List size='lg'>
@@ -304,7 +294,7 @@ export default function Dashboard(){
             </Panel>
             {/*Organisations*/}
             <Row style={rowStyle}>
-                <Col style={{height:500}} xs={24} sm={12}>
+                <Col style={{height:"100%"}} xs={24} sm={12}>
                     <Panel style={embeddedPanelStyle} shaded >
                         <BackTitle >
                             <FrontTitle >
@@ -329,7 +319,7 @@ export default function Dashboard(){
 
                     </Panel>
                 </Col>
-                <Col style={{height:500}} xs={24} sm={12}>
+                <Col style={{height:"100%"}} xs={24} sm={12}>
                     <Panel style={embeddedPanelStyle} shaded >
                         <BackTitle>
                             <FrontTitle>

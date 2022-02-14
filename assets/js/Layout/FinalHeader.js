@@ -44,6 +44,7 @@ export default function FinalHeader(){
             <Dropdown.Item onClick={()=> history.push(Routes.serviceSearchPage)} eventKey="3">{t('Search projects')}</Dropdown.Item>
             <Dropdown.Item onClick={()=> history.push(Routes.searchUserPage)} eventKey="4">{t('Search organisations')}</Dropdown.Item>
             <Dropdown.Item onClick={()=> history.push(Routes.newsPage)} eventKey="4">{t('News')}</Dropdown.Item>
+            <Dropdown.Item ><Link to={guide} target="_blank">Portal user guide</Link></Dropdown.Item>
             {user && <Dropdown.Item onClick={()=> history.push(Routes.profile(user.profileName))} >{t('Profile')}</Dropdown.Item>}
             {seeAdminMenu && <Dropdown.Menu pullLeft title={t('Administration')} >
                 <Dropdown.Item onClick={()=> history.push(Routes.administrationProjects)} eventKey="e-2">Projects</Dropdown.Item>
@@ -60,7 +61,7 @@ export default function FinalHeader(){
 
     const HelpDropdown = ({ ...props }) => (
         <Dropdown {...props}>
-            <Dropdown.Item onClick={() => changeLanguage('it')} >
+            <Dropdown.Item >
                 <Link to={guide} target="_blank">Download guide</Link>
             </Dropdown.Item>
         </Dropdown>
@@ -75,11 +76,10 @@ export default function FinalHeader(){
         </Navbar.Header>
         <Navbar.Body>
             <Nav>
-                <Nav.Item onClick={()=> history.push(Routes.serviceSearchPage)} >{t('Search projects')}</Nav.Item>
+                {/*<Nav.Item onClick={()=> history.push(Routes.serviceSearchPage)} >{t('Search projects')}</Nav.Item>
                 <Nav.Item onClick={()=> history.push(Routes.searchUserPage)} >{t('Search organisations')}</Nav.Item>
-
-                <HelpDropdown title={"Need help?"}>
-                </HelpDropdown>
+*/}
+                {/*<HelpDropdown title={"Need help?"}></HelpDropdown>*/}
                 <LanguageDropdown title={t('Menu language')} />
                 {false && <Nav.Item onClick={()=>history.push(Routes.registration)} icon={<Icon icon="cog" />}>Register</Nav.Item>}
                  <CustomDropdown icon={<Icon icon="bars" />} placement="bottomEnd" />
