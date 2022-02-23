@@ -59,6 +59,7 @@ import Statistics from "./MainApp/Administration/Statistics";
 import CookieAccept from "./CookieAccept";
 import Privacy from "./Privacy";
 import SubGrantedProjects from "./MainApp/News/SubGrantedProjects";
+import NeedHelp from "./MainApp/NeedHelp/NeedHelp";
 
 function App(){
     const location = useLocation();
@@ -135,6 +136,7 @@ function App(){
     const editServiceDetailPage = <MainPage page={<EditCollaboration isService={true} />} />
     const newFurniturePage = <MainPage page={<NewFurniture  />} />
     const editFurniturePage = <MainPage page={<EditFurniture  />} />
+    const needHelpPage = <MainPage page={<NeedHelp  />} />
     const privacy = <MainPage page={<Privacy  />} />
 
     const immediateLogoutPage = <ImmediateLogout />
@@ -176,6 +178,7 @@ function App(){
                 <Route path={Routes.immediateLogout} children={immediateLogoutPage}/>
                 <Route path={"/news/:news_type"} children={allNewsPage}/>
                 <Route path={Routes.subGrantedProjectsPage} children={subGrantedProjectsPage}/>
+                <Route path={Routes.needHelpPage} children={needHelpPage}/>
                 <Route path={Routes.main} children={dashboardPage}/>
 
 
@@ -215,6 +218,7 @@ function App(){
                 <Route path={Routes.administrationNews} children={administrationNewsPage}/>
                 <Route path={"/news/:news_type"} children={allNewsPage}/>
                 <Route path={Routes.subGrantedProjectsPage} children={subGrantedProjectsPage}/>
+                <Route path={Routes.needHelpPage} children={needHelpPage}/>
                 <Route path={Routes.immediateLogout} children={immediateLogoutPage}/>
                 <Route path={Routes.main} children={dashboardPage}/>
                 <Route path="/">
