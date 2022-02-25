@@ -91,6 +91,62 @@ export default function Dashboard(){
                     }
                 }}>Projects</Link>
             </Dropdown.Item>
+            <Dropdown.Item >
+                <Link to={()=>{
+                    return {
+                        pathname: "/news/relevant_publications",
+                        state: { filter: 2 }
+                    }
+                }}>Relevant publications</Link>
+            </Dropdown.Item>
+            <Dropdown.Item >
+                <Link to={()=>{
+                    return {
+                        pathname: "/news/library",
+                        state: { filter: 3 }
+                    }
+                }}>Library</Link>
+            </Dropdown.Item>
+            <Dropdown.Item >
+                <Link to={()=>{
+                    return {
+                        pathname: "/news/video_tutorials",
+                        state: { filter: 5 }
+                    }
+                }}>Video Tutorials</Link>
+            </Dropdown.Item>
+            <Dropdown.Item >
+                <Link to={()=>{
+                    return {
+                        pathname: "/news/communication_tools",
+                        state: { filter: 6 }
+                    }
+                }}>Communication tools</Link>
+            </Dropdown.Item>
+            <Dropdown.Item >
+                <Link to={()=>{
+                    return {
+                        pathname: "/news/training_material",
+                        state: { filter: 7 }
+                    }
+                }}>Training Material</Link>
+            </Dropdown.Item>
+            <Dropdown.Item >
+                <Link to={()=>{
+                    return {
+                        pathname: "/news/policy_briefs",
+                        state: { filter: 8 }
+                    }
+                }}>Policy briefs</Link>
+            </Dropdown.Item>
+            <Dropdown.Item >
+                <Link to={()=>{
+                    return {
+                        pathname: "/news/funding_opportunities",
+                        state: { filter: 4 }
+                    }
+                }}>Funding opportunities</Link>
+            </Dropdown.Item>
         </Dropdown>
     );
 
@@ -106,7 +162,8 @@ export default function Dashboard(){
                     <Nav.Item onClick={()=>history.push(Routes.serviceSearchPage)}  eventKey="3">{t('Services and opportunities')}</Nav.Item>
                     <Nav.Item onClick={()=>history.push(Routes.searchUserPage)}  eventKey="4">{t('Organisations')}</Nav.Item>
                     <Nav.Item onClick={()=>history.push(Routes.subGrantedProjectsPage)}  eventKey="5">{t('Sub-granted Projects')}</Nav.Item>
-                    <HelpDropdown style={{fontSize:16}} title={"Need help?"}/>
+                    <Nav.Item onClick={()=>history.push(Routes.needHelpPage)}  eventKey="5">{t('Need help?')}</Nav.Item>
+                    {/*<HelpDropdown style={{fontSize:16}} title={"Need help?"}/>*/}
 
                     <NewsDropdown style={{fontSize:16}} trigger={['click', 'hover']} title={t('News')}></NewsDropdown>
                     {/*<Nav.Item href="#FAQ"  eventKey="5">FAQ</Nav.Item>*/}

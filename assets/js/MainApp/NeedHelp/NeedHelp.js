@@ -5,7 +5,7 @@ import {
     BackTitle,
     FlexBetweenDiv,
     FlexCenterDiv,
-    FrontTitle,
+    FrontTitle, guide, MainButton,
     newsPagePicture
 } from "../../styledComponents/CustomComponents";
 import {useTranslation} from "react-i18next";
@@ -47,7 +47,9 @@ export default function NeedHelp() {
             <FlexBetweenDiv>
                 <PaginationNews/>
             </FlexBetweenDiv>
-
+            <FlexCenterDiv style={{margin:"60px 0"}}>
+                <a href={guide} download><MainButton>Download our portal guide!</MainButton></a>
+            </FlexCenterDiv>
             {newsPanels.length!==0 ? newsPanels : <FlexCenterDiv style={{height:"100%"}}> No projects found </FlexCenterDiv>}
         </div>
     </>

@@ -49,7 +49,7 @@ export default function NewsPanel({news}){
             <Row>
                 <Col xs={6}>
                     <FlexAroundDiv>
-                        <img style={{cursor:"pointer"}} width={"100"} src={imageUrl}/>
+                        <img style={{cursor:"pointer"}} width={"85%"} src={imageUrl}/>
                     </FlexAroundDiv>
                 </Col>
                 <Col xs={12}>

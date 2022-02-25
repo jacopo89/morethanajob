@@ -89,8 +89,8 @@ export default function AllNews() {
                 <Col xs={12}>
 
                 </Col>
-                <Col xs={12} style={{display:"flex", justifyContent:"end"}}>
-                    <TreePicker value={filter} onChange={(value)=>setFilter(value)} label={"News type"} searchable={false} defaultExpandAll data={newsTree} style={{ width: 246 }} />
+                <Col xs={12} style={{display:"flex", justifyContent:"end",height:150, "align-items":"center"}}>
+                    <TreePicker placeholder={"Type of news"} value={filter} onChange={(value)=>setFilter(value)} label={"News type"} searchable={false} defaultExpandAll data={newsTree} style={{ width: 246 }} />
                 </Col>
             </Row>
         <FlexBetweenDiv>
