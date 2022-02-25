@@ -21,7 +21,7 @@ export default function SubGrantedProjects() {
     const {data, get} = useList("news");
     const [page, setPage] = useState(1);
 
-    const SUBGRANTED_PROJECTS = 5;
+    const SUBGRANTED_PROJECTS = 9;
 
     useEffect(()=>get(page, {type:SUBGRANTED_PROJECTS}), [page]);
 
