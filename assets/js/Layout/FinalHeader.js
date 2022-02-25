@@ -44,7 +44,8 @@ export default function FinalHeader(){
             <Dropdown.Item onClick={()=> history.push(Routes.serviceSearchPage)} eventKey="3">{t('Search projects')}</Dropdown.Item>
             <Dropdown.Item onClick={()=> history.push(Routes.searchUserPage)} eventKey="4">{t('Search organisations')}</Dropdown.Item>
             <Dropdown.Item onClick={()=> history.push(Routes.newsPage)} eventKey="4">{t('News')}</Dropdown.Item>
-            <Dropdown.Item ><Link to={guide} target="_blank">Portal user guide</Link></Dropdown.Item>
+            <Dropdown.Item onClick={()=> history.push(Routes.needHelpPage)} eventKey="6">{t('Need help?')}</Dropdown.Item>
+            {/*<Dropdown.Item ><Link to={guide} target="_blank">Portal user guide</Link></Dropdown.Item>*/}
             {user && <Dropdown.Item onClick={()=> history.push(Routes.profile(user.profileName))} >{t('Profile')}</Dropdown.Item>}
             {seeAdminMenu && <Dropdown.Menu pullLeft title={t('Administration')} >
                 <Dropdown.Item onClick={()=> history.push(Routes.administrationProjects)} eventKey="e-2">Projects</Dropdown.Item>
