@@ -43,9 +43,9 @@ export default function SubGrantedProjects() {
 
             <BackTitle >
                 <FrontTitle>
-                    {t('Need Help?')}
+                    {t('Sub-granted projects')}
                 </FrontTitle>
-                {t('Need Help?')}
+                {t('Sub-granted projects')}
             </BackTitle>
             <FlexBetweenDiv>
                 <PaginationNews/>
