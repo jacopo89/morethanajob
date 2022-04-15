@@ -14,7 +14,7 @@ import styled from "styled-components";
 import {Col, FlexboxGrid, Grid, List, Row} from "rsuite";
 import {newsSelectData} from "../../../selectData";
 import {getDate} from "../../../ReusableComponents/TimeManager";
-
+import ReactPlayer from 'react-player'
 export default function NewsPanel({news}){
 
     const typeElement = newsSelectData.find(item => {
@@ -49,7 +49,9 @@ export default function NewsPanel({news}){
             <Row>
                 <Col xs={6}>
                     <FlexAroundDiv>
-                        <img style={{cursor:"pointer"}} width={"85%"} src={imageUrl}/>
+                        {typeElement.value === 5 ?<div style={{width:"85%"}}>
+                            <ReactPlayer url={manipulateWebsite(news.link)}/>
+                        </div> :<img style={{cursor:"pointer"}} width={"85%"} src={imageUrl}/>}
                     </FlexAroundDiv>
                 </Col>
                 <Col xs={12}>

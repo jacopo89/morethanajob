@@ -1,6 +1,6 @@
 import NewsPanel from "../Administration/News/NewsPanel";
 import React, {useEffect, useState} from "react";
-import {Col, Divider, HelpBlock, Pagination, Panel, Row, TreePicker} from "rsuite";
+import {Col, Divider, HelpBlock, Nav, Pagination, Panel, Row, TreePicker} from "rsuite";
 import {
     BackTitle, bordeaux,
     FlexBetweenDiv,
@@ -20,6 +20,7 @@ export default function SubGrantedProjects() {
 
     const {data, get} = useList("news");
     const [page, setPage] = useState(1);
+    const [newsSelected, setNewsSelected] = useState(true)
 
     const SUBGRANTED_PROJECTS = 9;
 
@@ -51,8 +52,14 @@ export default function SubGrantedProjects() {
                 <PaginationNews/>
             </FlexBetweenDiv>
 
-            <StaticProjects></StaticProjects>
-            {newsPanels}
+            <Nav justified appearance={"tabs"}>
+                <Nav.Item active={!newsSelected} onClick={()=>setNewsSelected(false)}>
+                    Projects
+                </Nav.Item>
+                <Nav.Item active={newsSelected} onClick={()=>setNewsSelected(true)}>News</Nav.Item>
+            </Nav>
+            {!newsSelected && <StaticProjects></StaticProjects>}
+            {newsSelected && newsPanels}
         </div>
     </>
 
