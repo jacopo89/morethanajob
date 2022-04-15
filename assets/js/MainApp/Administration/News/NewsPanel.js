@@ -49,8 +49,8 @@ export default function NewsPanel({news}){
             <Row>
                 <Col xs={6}>
                     <FlexAroundDiv>
-                        {typeElement.value === 5 ?<div style={{width:"85%"}}>
-                            <ReactPlayer url={manipulateWebsite(news.link)}/>
+                        {(news.type===5) ?<div style={{width:"85%"}}>
+                            <ReactPlayer width={"100%"} height={180} url={manipulateWebsite(news.link)}/>
                         </div> :<img style={{cursor:"pointer"}} width={"85%"} src={imageUrl}/>}
                     </FlexAroundDiv>
                 </Col>
