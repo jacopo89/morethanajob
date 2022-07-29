@@ -87,6 +87,7 @@ export function useCreateHook(Client, url, method, defaultDataValue){
                 dispatch({type:SWITCH_LOADING_STATUS, isLoading:true});
                 Client.post(url, formData)
                     .then(response => {
+                        console.log("response", response, callbacks)
                         //Data Manipulation
                         //console.log(callbacks);
                         if(callbacks.dataManipulationFunction){
@@ -99,8 +100,10 @@ export function useCreateHook(Client, url, method, defaultDataValue){
                         }
                         //Success Callback
                         if(callbacks.successCallback!==undefined){
+                            console.log("launching success callback with", response.data)
                             //  console.log("Success callback");
                             callbacks.successCallback(response.data);
+                            console.log("ok!")
                         }else{
                             //console.log("Default success callback");
                             defaultCallbacks.successCallback();

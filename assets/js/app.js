@@ -60,6 +60,7 @@ import CookieAccept from "./CookieAccept";
 import Privacy from "./Privacy";
 import SubGrantedProjects from "./MainApp/News/SubGrantedProjects";
 import NeedHelp from "./MainApp/NeedHelp/NeedHelp";
+import Questionario from "./MainApp/Questionario";
 
 function App(){
     const location = useLocation();
@@ -138,6 +139,7 @@ function App(){
     const editFurniturePage = <MainPage page={<EditFurniture  />} />
     const needHelpPage = <MainPage page={<NeedHelp  />} />
     const privacy = <MainPage page={<Privacy  />} />
+    const questionarioPage = <MainPage page={<Questionario/>}/>
 
     const immediateLogoutPage = <ImmediateLogout />
     const {isLoading} = useSelector(state=>state);
@@ -179,6 +181,7 @@ function App(){
                 <Route path={"/news/:news_type"} children={allNewsPage}/>
                 <Route path={Routes.subGrantedProjectsPage} children={subGrantedProjectsPage}/>
                 <Route path={Routes.needHelpPage} children={needHelpPage}/>
+                <Route path={Routes.questionarioPage} children={questionarioPage}/>
                 <Route path={Routes.main} children={dashboardPage}/>
 
 
@@ -219,6 +222,7 @@ function App(){
                 <Route path={"/news/:news_type"} children={allNewsPage}/>
                 <Route path={Routes.subGrantedProjectsPage} children={subGrantedProjectsPage}/>
                 <Route path={Routes.needHelpPage} children={needHelpPage}/>
+                <Route path={Routes.questionarioPage} children={questionarioPage}/>
                 <Route path={Routes.immediateLogout} children={immediateLogoutPage}/>
                 <Route path={Routes.main} children={dashboardPage}/>
                 <Route path="/">

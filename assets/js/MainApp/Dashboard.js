@@ -162,6 +162,7 @@ export default function Dashboard(){
                     <Nav.Item onClick={()=>history.push(Routes.serviceSearchPage)}  eventKey="3">{t('Services and opportunities')}</Nav.Item>
                     <Nav.Item onClick={()=>history.push(Routes.searchUserPage)}  eventKey="4">{t('Organisations')}</Nav.Item>
                     <Nav.Item onClick={()=>history.push(Routes.subGrantedProjectsPage)}  eventKey="5">{t('Sub-granted Projects')}</Nav.Item>
+                    <Nav.Item onClick={()=>history.push(Routes.questionarioPage)}  eventKey="5">{t('Survey')}</Nav.Item>
                     <Nav.Item onClick={()=>history.push(Routes.needHelpPage)}  eventKey="5">{t('Need help?')}</Nav.Item>
                     {/*<HelpDropdown style={{fontSize:16}} title={"Need help?"}/>*/}
 

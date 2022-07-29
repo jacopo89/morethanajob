@@ -39,6 +39,11 @@ export function  useEditCollaboration() {
     return useCreateHook(backendClient,'/backend/collaborations/edit','post',null);
 }
 
+export function  usePostQuestionario() {
+
+    const backendClient = BackendClient();
+    return useCreateHook(backendClient,'/backend/questionario','post',null);
+}
 
 export function  useGetRandomCollaborations() {
 

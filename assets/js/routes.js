@@ -34,6 +34,7 @@ export const immediateLogout = "/immediatelogout";
 export const privacy = "/privacy";
 export var newsPage = "/news/all-news";
 export var needHelpPage = "/help";
+export var questionarioPage = "/survey";
 export const subGrantedProjectsPage = "/sub-granted-projects";
 
 export function profile(name){

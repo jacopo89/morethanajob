@@ -1,0 +1,26 @@
+{% extends "emails/login/base_email.html.twig" %}
+
+{% block title %}Questionario{% endblock %}
+{% block body %}
+    <h3>Name: {{ name }}</h3>
+    <h3>Surname: {{ surname }}</h3>
+    <h3>Country: {{ country }}</h3>
+    <h3>Type: {{ type }}</h3>
+    <ul>
+        <li>The portal is easy to navigate: {{ q1 }}</li>
+        <li>The portal is easily accessible from mobile devices: {{ q2 }}</li>
+        <li>The portal layout is appealing: {{ q3 }}</li>
+        <li>The categories on the portal are clearly identifiable: {{ q4 }}</li>
+        <li>The different sections of the portal are clearly defined: {{ q5 }}</li>
+        <li>It is easy to search for services and opportunities that I am looking for: {{ q6 }}</li>
+        <li>It is easy to find other organisations I am looking for: {{ q7 }}</li>
+        <li>The content uploaded in the portal is clear and complete: {{ q8 }}</li>
+        <li>The content uploaded is relevant to my needs: {{ q9 }}</li>
+        <li>The portal facilitates the communication with other registered actors: {{ q10 }}</li>
+        <li>I am overall satisfied in the use of the portal: {{ q11 }}</li>
+    </ul>
+    <div>Comments</div>
+    <p>{{ comments }}</p>
+{% endblock %}
+
+
