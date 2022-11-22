@@ -234,7 +234,31 @@ export const translation = {
         "societyPortfolioText":"In questa sezione, potrete trovare i servizi e le opportunità attivi sul territorio per sostenere l'inclusione sociale e lavorativa dei gruppi vulnerabili, nonché le opportunità di collaborazione per rinnovare o sviluppare nuovi servizi.",
         "societyFurnitureText":"Qui è possibile specificare il vostro expertise in relazione a una o più delle macro categorie identificate. Si consiglia di fornire una descrizione il più puntuale possibile in base al settore selezionato per supportare la creazione di nuove sinergie e collaborazioni a livello locale e internazionale.",
         "societyServicesText":"Caricate qui le informazioni sui servizi e le opportunità che la vostra organizzazione sta offrendo per sostenere l'inclusione sociale e lavorativa dei gruppi vulnerabili.",
-        "societyCollaborationsText":"Questa sezione è pensata per sostenere la condivisione di mezzi e risorse tra le organizzazioni per lo sviluppo o il rinnovamento dei servizi a sostegno dell'inclusione sociale e lavorativa dei gruppi vulnerabili. Qui potete descrivere ciò che cercate per attivare nuovi servizi o rinnovare quelli esistenti nella vostra organizzazione."
+        "societyCollaborationsText":"Questa sezione è pensata per sostenere la condivisione di mezzi e risorse tra le organizzazioni per lo sviluppo o il rinnovamento dei servizi a sostegno dell'inclusione sociale e lavorativa dei gruppi vulnerabili. Qui potete descrivere ciò che cercate per attivare nuovi servizi o rinnovare quelli esistenti nella vostra organizzazione.",
 
+        "Portal Evaluation":"Valutazione del portale online",
+        "The portal is easy to navigate":"Il portale è intuitivo da usare",
+        "The portal is easily accessible from mobile devices":"Il portale è facilmente accessibile da dispositivi mobili",
+        "The portal layout is appealing":"La grafica del portale è accattivante",
+        "The categories on the portal are clearly identifiable":"Le categorie del portale sono facilmente identificabili",
+        "The different sections of the portal are clearly defined":"Le diverse sezioni del portale sono comprensibili",
+        "It is easy to search for services and opportunities that I am looking for":"É semplice cercare servizi e opportunità per me rilevanti",
+        "It is easy to find other organisations I am looking for":"É semplice trovare le organizzazioni per me rilevanti",
+        "The content uploaded in the portal is clear and complete":"Il contenuto caricato sul portale è chiaro e completo ",
+        "The content uploaded is relevant to my needs":"Il contenuto caricato è per me rilevante",
+        "The portal facilitates the communication with other registered actors":"Il portale semplifica la comunicazione con gli altri enti registrati ",
+        "I am overall satisfied in the use of the portal":"Sono complessivamente soddisfattə nell’uso del portale ",
+        "Please, add here any further comment you might have":"Per favore, inserire qui eventuali ulteriori commenti",
+        "SSE Actor":"Ente del privato sociale ",
+        "Public Administration":"Pubblica amministrazione",
+        "Citizen":"Cittadinə",
+        "Name":"Nome",
+        "Surname":"Cognome",
+        "Who are you?":"Tipologia di utente",
+        "(Very poor)":"(In completo disaccordo)",
+        "(Poor)":"(in disaccordo)",
+        "(Fair)":"(incerto)",
+        "(Good)":"(d'accordo)",
+        "(Very good)":"(Completamente d'accordo)"
     }
 }

@@ -157,7 +157,32 @@ export const translation = {
         //
         "Filters":"مرشحات",
         "Search":"بحث",
-        "Open positions": "وظائف شاغرة"
+        "Open positions": "وظائف شاغرة",
 
+
+        "Portal Evaluation":"تقييم المنصة الالكترونية",
+        "The portal is easy to navigate":"يسهل التنقل من خلال المنصة الالكترونية",
+        "The portal is easily accessible from mobile devices":"يمكن الوصول إلى البوابة بسهولة من الأجهزة المحمولة",
+        "The portal layout is appealing":"تصميم المدخل جذاب",
+        "The categories on the portal are clearly identifiable":"يمكن تحديد الفئات الموجودة على البوابة بوضوح ",
+        "The different sections of the portal are clearly defined":"تم تحديد الأقسام المختلفة للبوابة بشكل واضح",
+        "It is easy to search for services and opportunities that I am looking for":"من السهل البحث عن الخدمات والفرص التي أبحث عنها",
+        "It is easy to find other organisations I am looking for":"من السهل العثور على المؤسسات الأخرى التي أبحث عنها ",
+        "The content uploaded in the portal is clear and complete":"المحتوى الذي تم تحميله في البوابة واضح وكامل",
+        "The content uploaded is relevant to my needs":"المحتوى الذي تم تحميله مناسب لاحتياجاتي",
+        "The portal facilitates the communication with other registered actors":"البوابة تسهل التواصل بين الجهات المسجلة على البوابة",
+        "I am overall satisfied in the use of the portal":"أنا راضٍ بشكل عام عن استخدام البوابة",
+        "Please, add here any further comment you might have":"من فضلك، أضف هنا أي تعليق آخر قد يكون لديك",
+        "SSE Actor":"مؤسسة اقتصاد تضامني اجتماعي",
+        "Public Administration":"ادارة عامة/وزارة",
+        "Citizen":"مواطن",
+        "Name":"الاسم الأول",
+        "Surname":"واسم العائلة",
+        "Who are you?":"من انت?",
+        "(Very poor)":"(ضعيف جدا)",
+        "(Poor)":"(ضعيف)",
+        "(Fair)":"(مقبول)",
+        "(Good)":"(جيد)",
+        "(Very good)":"(جيد جد)"
     }
 }
